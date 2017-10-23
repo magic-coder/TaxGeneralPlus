@@ -1,10 +1,12 @@
-//
-//  PrefixHeader.pch
-//  TaxGeneralPlus
-//
-//  Created by Apple on 2017/10/13.
-//  Copyright © 2017年 prient. All rights reserved.
-//
+/************************************************************
+ Class    : PrefixHeader.pch
+ Describe : 前缀头文件，用于引入全局头文件
+ Company  : Prient
+ Author   : Yanzheng 严正
+ Date     : 2017-10-10
+ Version  : 1.0
+ Declare  : Copyright © 2017 Yanzheng. All rights reserved.
+ ************************************************************/
 
 #ifndef PrefixHeader_pch
 #define PrefixHeader_pch
@@ -13,5 +15,14 @@
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
 #import "Marcos.h"
+
+#pragma mark - 自定义扩展类
+#import "UIDevice+YZ.h"
+#import "UIImage+YZ.h"
+
+#pragma mark - 第三方库
+#import "AFNetworking.h"
+#import "MBProgressHUD+YZ.h"
+#import "UIImageView+WebCache.h"
 
 #endif /* PrefixHeader_pch */

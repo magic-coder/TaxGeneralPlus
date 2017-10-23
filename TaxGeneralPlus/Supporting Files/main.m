@@ -1,10 +1,12 @@
-//
-//  main.m
-//  TaxGeneralPlus
-//
-//  Created by Apple on 2017/10/13.
-//  Copyright © 2017年 prient. All rights reserved.
-//
+/************************************************************
+ Class    : main.m
+ Describe : 程序入口main
+ Company  : Prient
+ Author   : Yanzheng 严正
+ Date     : 2017-10-09
+ Version  : 1.0
+ Declare  : Copyright © 2017 Yanzheng. All rights reserved.
+ ************************************************************/
 
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
