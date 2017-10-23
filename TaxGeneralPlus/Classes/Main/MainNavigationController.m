@@ -1,10 +1,12 @@
-//
-//  MainNavigationController.m
-//  TaxGeneralPlus
-//
-//  Created by Apple on 2017/10/19.
-//  Copyright © 2017年 prient. All rights reserved.
-//
+/************************************************************
+ Class    : MainNavigationController.m
+ Describe : 主界面Navigation顶部导航栏
+ Company  : Prient
+ Author   : Yanzheng 严正
+ Date     : 2017-10-13
+ Version  : 1.0
+ Declare  : Copyright © 2017 Yanzheng. All rights reserved.
+ ************************************************************/
 
 #import "MainNavigationController.h"
 
@@ -17,11 +19,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.navigationBar.translucent = NO;// 设置导航栏不透明
+    self.navigationBar.barTintColor = [UIColor clearColor];// 设置导航栏背景颜色
+    [self.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigation_bg" scaleToSize:CGSizeMake(WIDTH_SCREEN, HEIGHT_STATUS + HEIGHT_NAVBAR)] forBarMetrics:UIBarMetricsDefault];// 设置导航栏背景图
+    self.navigationBar.tintColor = [UIColor whiteColor];// 设置导航栏itemBar字体颜色
+    self.navigationBar.titleTextAttributes = @{ NSForegroundColorAttributeName : [UIColor whiteColor] };// 设置导航栏title标题字体颜色
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - 重写pushViewController:方法
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    if(self.viewControllers.count > 0) {
+        [viewController setHidesBottomBarWhenPushed:YES];// 隐藏底部tabBar
+    }
+    [super pushViewController:viewController animated:animated];
 }
 
 /*
