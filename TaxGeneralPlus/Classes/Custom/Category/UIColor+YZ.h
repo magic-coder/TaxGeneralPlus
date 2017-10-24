@@ -10,4 +10,7 @@
 
 @interface UIColor (YZ)
 
+// 根据16进制颜色代码生成颜色
++ (UIColor *)colorWithHexString:(NSString *)color alpha:(CGFloat)alpha;
+
 @end

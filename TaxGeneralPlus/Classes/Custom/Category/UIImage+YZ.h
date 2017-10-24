@@ -18,4 +18,7 @@
 // 根据指定大小裁剪图片
 + (UIImage *)clipImage:(UIImage *)image rect:(CGRect)rect;
 
+// 根据颜色创建图片
++ (UIImage *)imageWithColor:(UIColor *)color;
+
 @end

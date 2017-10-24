@@ -29,7 +29,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         _isShowSeparator = YES;
-        _separatorColor = [UIColor lightGrayColor];
+        _separatorColor = DEFAULT_LINE_GRAY_COLOR;
         [self setNeedsDisplay];
     }
     return self;
@@ -50,7 +50,7 @@
 - (void)drawRect:(CGRect)rect
 {
     if (!_isShowSeparator) return;
-    UIBezierPath *bezierPath = [UIBezierPath bezierPathWithRect:CGRectMake(0, rect.size.height - 0.5, rect.size.width, 0.5)];
+    UIBezierPath *bezierPath = [UIBezierPath bezierPathWithRect:CGRectMake(10.0f, rect.size.height - 0.5f, rect.size.width-20.0f, 0.5f)];
     [_separatorColor setFill];
     [bezierPath fillWithBlendMode:kCGBlendModeNormal alpha:1];
     [bezierPath closePath];
