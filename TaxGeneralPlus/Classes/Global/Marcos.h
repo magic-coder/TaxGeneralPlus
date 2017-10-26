@@ -14,16 +14,9 @@
 
 #define APPDELEGETE             ((AppDelegate*)[[UIApplication sharedApplication] delegate])
 #define WINDOW                  [[UIApplication sharedApplication] keyWindow]
+#define PLACEHOLDER_IMAGE       [UIImage imageNamed:@"common_placeholder"]
 #define RgbColor(r, g, b, a)    [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:a]
 #define HexColor(hex, a)        [UIColor colorWithHexString:hex alpha:a]
-
-#pragma mark - 设置调试日志输出Log
-#ifdef  DEBUG
-// 在控制台输出Log日志
-#define DLog(FORMAT, ...) NSLog((@"Yan输出[Debug Log] -> %s [Line %d] " FORMAT), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
-#else
-#define DLog(...)
-#endif
 
 #pragma mark - 框架Frame所需基本宏
 #define FRAME_SCREEN    [[UIScreen mainScreen] bounds]                                      // 主屏幕Frame

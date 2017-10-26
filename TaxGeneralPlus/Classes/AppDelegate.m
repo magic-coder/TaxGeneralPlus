@@ -23,6 +23,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    DLog(@"屏幕尺寸大小宽: %lf, 高: %lf", WIDTH_SCREEN, HEIGHT_SCREEN);
+    
     // 隐藏顶部状态栏设为NO
     [UIApplication sharedApplication].statusBarHidden = NO;
     // 设置顶部状态栏字体为白色

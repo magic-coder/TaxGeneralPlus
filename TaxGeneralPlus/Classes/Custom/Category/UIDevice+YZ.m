@@ -96,4 +96,23 @@
     
 }
 
+#pragma mark - 获取设备屏幕尺寸
+- (DeviceScreenInch)deviceScreenInch {
+    
+    if(WIDTH_SCREEN == 320 && HEIGHT_SCREEN == 480){
+        return DeviceScreenInch_3_5;
+    }else if (WIDTH_SCREEN == 320 && HEIGHT_SCREEN == 568){
+        return DeviceScreenInch_4_0;
+    }else if (WIDTH_SCREEN == 375 && HEIGHT_SCREEN == 667) {
+        return DeviceScreenInch_4_7;
+    }else if (WIDTH_SCREEN == 414 && HEIGHT_SCREEN == 736){
+        return DeviceScreenInch_5_5;
+    }else if (WIDTH_SCREEN == 375 && HEIGHT_SCREEN == 812){
+        return DeviceScreenInch_5_8;
+    }
+    
+    return DeviceScreenInch_iPad;
+    
+}
+
 @end

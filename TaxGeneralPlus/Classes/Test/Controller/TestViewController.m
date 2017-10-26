@@ -7,8 +7,10 @@
 //
 
 #import "TestViewController.h"
+#import "TestModel.h"
+#import "NewsModel.h"
 
-@interface TestViewController () <YBPopupMenuDelegate>
+@interface TestViewController () <YBPopupMenuDelegate, YZCycleScrollViewDelegate>
 
 @end
 
@@ -59,6 +61,15 @@
     btn3.tag = 3;
     [self.view addSubview:btn3];
     
+    // 添加轮播图
+    NSArray *titles = @[@"腾讯", @"京东", @"阿里巴巴", @"小米"];
+    NSArray *images = @[@"http://i1.douguo.net//upload/banner/0/6/a/06e051d7378040e13af03db6d93ffbfa.jpg", @"http://i1.douguo.net//upload/banner/9/3/4/93f959b4e84ecc362c52276e96104b74.jpg", @"http://i1.douguo.net//upload/banner/5/e/3/5e228cacf18dada577269273971a86c3.jpg", @"http://i1.douguo.net//upload/banner/d/8/2/d89f438789ee1b381966c1361928cb32.jpg"];
+    NSArray *urls = @[@"http://www.qq.com", @"http://www.jd.com", @"http://www.taobao.com", @"http://www.xiaomi.com"];
+    
+    YZCycleScrollView *cycleScrollView = [[YZCycleScrollView alloc] initWithFrame:CGRectMake(0, HEIGHT_SCREEN/2, WIDTH_SCREEN, HEIGHT_SCREEN/4) titles:titles images:images urls:urls autoPlay:YES delay:2.0f];
+    cycleScrollView.delegate = self;
+    [self.view addSubview:cycleScrollView];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -68,11 +79,35 @@
 
 - (void)saveBtnClick:sender {
     [YBPopupMenu showPopupMenuWithTitles:@[@"内容搜索", @"扫一扫", @"设置"] icons:@[@"popupMenu_search", @"popupMenu_scan", @"popupMenu_setting"] delegate:self];
+    
 }
 
 // 菜单点击代理
 - (void)ybPopupMenuDidSelectedAtIndex:(NSInteger)index ybPopupMenu:(YBPopupMenu *)ybPopupMenu {
     DLog(@"点击了菜单的序列为：index = %ld", index);
+    NSString *jsonStr = @"{\"uid\":123456,\"name\":\"Harry\",\"created\":\"1965-07-31T00:00:00+0000\"}";
+    
+    TestModel *testModel = [TestModel yy_modelWithJSON:jsonStr];
+    DLog(@"%llu,%@,%@",testModel.uid,testModel.name,testModel.created);
+    
+    DLog(@"%@",[[BaseHandleUtil sharedBaseHandleUtil] readWithFile:@"News.json"]);
+    
+    
+}
+
+// 轮播图点击代理
+- (void)cycleScrollViewDidSelectedImage:(YZCycleScrollView *)cycleScrollView index:(int)index {
+    DLog(@"点击的轮播图序号为：%d", index);
+    
+    //JSON文件的路径
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"News" ofType:@"json"];
+    //加载JSON文件
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    //将JSON数据转为NSArray或NSDictionary
+    NSDictionary *dictArray = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+    DLog(@"%@",dictArray);
+
+    
 }
 
 - (void)onClick:(UIButton *)btn{

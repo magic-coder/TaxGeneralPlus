@@ -1,10 +1,12 @@
-//
-//  UIColor+YZ.h
-//  TaxGeneralPlus
-//
-//  Created by Apple on 2017/10/24.
-//  Copyright © 2017年 prient. All rights reserved.
-//
+/************************************************************
+ Class    : UIColor+YZ.h
+ Describe : 自定义UIColor的扩展类
+ Company  : Prient
+ Author   : Yanzheng 严正
+ Date     : 2017-10-24
+ Version  : 1.0
+ Declare  : Copyright © 2017 Yanzheng. All rights reserved.
+ ************************************************************/
 
 #import <UIKit/UIKit.h>
 

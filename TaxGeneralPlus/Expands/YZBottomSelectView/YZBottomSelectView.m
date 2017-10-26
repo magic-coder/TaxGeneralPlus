@@ -10,6 +10,8 @@
 
 #import "YZBottomSelectView.h"
 
+#define DEVICE_SCREEN_INCH  [[UIDevice currentDevice] deviceScreenInch]
+
 static const CGFloat kRowHeight = 46.0f;
 static const CGFloat kRowLineHeight = 0.5f;
 static const CGFloat kSeparatorHeight = 6.0f;
@@ -35,7 +37,7 @@ static const NSTimeInterval kAnimateDuration = 0.5f;
     
     self = [super initWithFrame:CGRectZero];
     if (self) {
-        self.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
+        self.frame = CGRectMake(0, 0, WIDTH_SCREEN, HEIGHT_SCREEN);
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         
         _bottomSelectViewBlock = bottomSelectViewBlock;
@@ -60,8 +62,13 @@ static const NSTimeInterval kAnimateDuration = 0.5f;
             bootomSelectViewHeight += kRowLineHeight;
             
             CGFloat titleHeight = ceil([title boundingRectWithSize:CGSizeMake(self.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:kTitleFontSize]} context:nil].size.height) + 15*2;
-            
-            UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, bootomSelectViewHeight, self.frame.size.width, titleHeight)];
+            UILabel *titleLabel = [[UILabel alloc] init];
+            if(DeviceScreenInch_5_8 == DEVICE_SCREEN_INCH) {
+                // 设置 iPhoneX 中安全区域
+                titleLabel.frame = CGRectMake(0, bootomSelectViewHeight-34.0f, self.frame.size.width, titleHeight);
+            } else {
+                titleLabel.frame = CGRectMake(0, bootomSelectViewHeight, self.frame.size.width, titleHeight);
+            }
             titleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
             titleLabel.text = title;
             titleLabel.backgroundColor = RgbColor(255.0f, 255.0f, 255.0f, 1.0f);
@@ -78,7 +85,12 @@ static const NSTimeInterval kAnimateDuration = 0.5f;
             bootomSelectViewHeight += kRowLineHeight;
             
             UIButton *destructiveButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            destructiveButton.frame = CGRectMake(0, bootomSelectViewHeight, self.frame.size.width, kRowHeight);
+            if(DeviceScreenInch_5_8 == DEVICE_SCREEN_INCH) {
+                // 设置 iPhoneX 中安全区域
+                destructiveButton.frame = CGRectMake(0, bootomSelectViewHeight-34.0f, self.frame.size.width, kRowHeight);
+            } else {
+                destructiveButton.frame = CGRectMake(0, bootomSelectViewHeight, self.frame.size.width, kRowHeight);
+            }
             destructiveButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;
             destructiveButton.tag = 1;
             destructiveButton.titleLabel.font = [UIFont systemFontOfSize:kButtonTitleFontSize];
@@ -97,7 +109,12 @@ static const NSTimeInterval kAnimateDuration = 0.5f;
                 bootomSelectViewHeight += kRowLineHeight;
                 
                 UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-                button.frame = CGRectMake(0, bootomSelectViewHeight, self.frame.size.width, kRowHeight);
+                if(DeviceScreenInch_5_8 == DEVICE_SCREEN_INCH) {
+                    // 设置 iPhoneX 中安全区域
+                    button.frame = CGRectMake(0, bootomSelectViewHeight-34.0f, self.frame.size.width, kRowHeight);
+                } else {
+                    button.frame = CGRectMake(0, bootomSelectViewHeight, self.frame.size.width, kRowHeight);
+                }
                 button.autoresizingMask = UIViewAutoresizingFlexibleWidth;
                 button.tag = i+2;
                 button.titleLabel.font = [UIFont systemFontOfSize:kButtonTitleFontSize];
@@ -116,7 +133,12 @@ static const NSTimeInterval kAnimateDuration = 0.5f;
             bootomSelectViewHeight += kSeparatorHeight;
             
             UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            cancelButton.frame = CGRectMake(0, bootomSelectViewHeight, self.frame.size.width, kRowHeight);
+            if(DeviceScreenInch_5_8 == DEVICE_SCREEN_INCH) {
+                // 设置 iPhoneX 中安全区域
+                cancelButton.frame = CGRectMake(0, bootomSelectViewHeight-34.0f, self.frame.size.width, kRowHeight);
+            } else {
+                cancelButton.frame = CGRectMake(0, bootomSelectViewHeight, self.frame.size.width, kRowHeight);
+            }
             cancelButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;
             cancelButton.tag = 0;
             cancelButton.titleLabel.font = [UIFont systemFontOfSize:kButtonTitleFontSize];

@@ -1,0 +1,53 @@
+{
+"loopDic":{"titles":["稻城，春天来了，花都开了","秋叶蓝天美景如画","红枫树的林荫路"],"images":["cycle_image_1","cycle_image_2","cycle_image_3"]},
+"newsArray":[
+{
+"title":"党的新一届中央领导机构产生纪实",
+"source":"新浪网",
+"datetime":"2017-10-26 15:42",
+"url":"http://www.sina.com"
+},
+{
+"title":"新华社通稿的这份高难度名单 人名排序有何玄机？",
+"images":[
+"news_1"
+],
+"source":"凤凰网",
+"datetime":"2017-10-25 10:50",
+"url":"http://www.fenghuang.com"
+},
+{
+"title":"国防部回应中国军队在南海进行军事部署",
+"images":[
+"news_2_1",
+"news_2_2"
+],
+"source":"大秦网",
+"datetime":"2017-10-24 12:10",
+"url":"http://www.daqin.com"
+},
+{
+"title":"特朗普公开肯尼迪遇刺档案 或没你想知道的惊天秘密",
+"images":[
+"news_3_1",
+"news_3_2",
+"news_3_3"
+],
+"source":"网易新闻",
+"datetime":"2017-10-23 16:27",
+"url":"http://www.wangyi.com"
+},
+{
+"title":"朝鲜发贺电说明中朝关系好转？中方回应",
+"images":[
+"news_4_1",
+"news_4_2",
+"news_4_3",
+"news_4_4"
+],
+"source":"今日头条",
+"datetime":"2017-10-23 09:18",
+"url":"http://www.jinritoutiao.com"
+}
+]
+}
