@@ -1,18 +1,23 @@
-//
-//  NewsViewController.m
-//  TaxGeneralPlus
-//
-//  Created by Apple on 2017/10/26.
-//  Copyright © 2017年 prient. All rights reserved.
-//
+/************************************************************
+ Class    : NewsViewController.h
+ Describe : 首页新闻展示视图控制器
+ Company  : Prient
+ Author   : Yanzheng 严正
+ Date     : 2017-10-27
+ Version  : 1.0
+ Declare  : Copyright © 2017 Yanzheng. All rights reserved.
+ ************************************************************/
 
 #import "NewsViewController.h"
 #import "NewsTableViewCell.h"
 #import "NewsModel.h"
 
-@interface NewsViewController ()
+#define NAVBAR_CHANGE_POINT 50
 
-@property (nonatomic, strong) NSMutableArray *data;     // 数据列表
+@interface NewsViewController () <YZCycleScrollViewDelegate>
+
+@property (nonatomic, strong) NSMutableArray *data;// 数据列表
+@property (nonatomic, strong) YZCycleScrollView *cycleScrollView;// 顶部轮播焦点图
 
 @end
 
@@ -23,31 +28,21 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tableView.rowHeight = 80;// 设置基本行高
+    //self.tableView.rowHeight = 80;// 设置基本行高
     
     self.view.backgroundColor = DEFAULT_BACKGROUND_COLOR;
     self.tableView.backgroundColor = [UIColor whiteColor];
+    self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;//
     //self.tableView.showsVerticalScrollIndicator = NO;// 隐藏纵向滚动条
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;// 自定义cell样式
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];// 去除底部多余分割线
-    [self.tableView registerClass:[NewsTableViewCell class] forCellReuseIdentifier:reuseIdentifier];
+    [self.navigationController.navigationBar yz_setBackgroundColor:[UIColor clearColor]];
     
+    // 设置下拉刷新
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
     
-    _data = [[NSMutableArray alloc] init];
-    //JSON文件的路径
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"News" ofType:@"json"];
-    //加载JSON文件
-    NSData *data = [NSData dataWithContentsOfFile:path];
-    //将JSON数据转为NSArray或NSDictionary
-    NSDictionary *dataDict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-    NSArray *dataArray = [dataDict objectForKey:@"newsArray"];
-    for(NSDictionary *dic in dataArray){
-        NewsModel *model = [NewsModel yy_modelWithDictionary:dic];
-        [_data addObject:model];
-    }
-    
-    
-     
+    // 初始化数据
+    [self initializeData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -55,8 +50,81 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table view data source
+#pragma mark - 滚动屏幕渐进渐出顶部导航栏
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    //UIColor * color = RgbColor(0, 175, 240, 1.0f);
+    UIColor * color = DEFAULT_BLUE_COLOR;
+    CGFloat offsetY = scrollView.contentOffset.y;
+    if (offsetY > NAVBAR_CHANGE_POINT) {
+        CGFloat alpha = MIN(1, 1 - ((NAVBAR_CHANGE_POINT + HEIGHT_STATUS + HEIGHT_NAVBAR - offsetY) / (HEIGHT_STATUS + HEIGHT_NAVBAR)));
+        [self.navigationController.navigationBar yz_setBackgroundColor:[color colorWithAlphaComponent:alpha]];
+        if(alpha > 0.6){
+            self.navigationItem.title = @"首页";
+        }
+    } else {
+        [self.navigationController.navigationBar yz_setBackgroundColor:[color colorWithAlphaComponent:0]];
+        CGFloat alpha = MIN(1, 1 - ((NAVBAR_CHANGE_POINT + HEIGHT_STATUS + HEIGHT_NAVBAR - offsetY) / (HEIGHT_STATUS + HEIGHT_NAVBAR)));
+        if(alpha < 0.6){
+            self.navigationItem.title = nil;
+        }
+    }
+}
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self scrollViewDidScroll:self.tableView];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [self.navigationController.navigationBar yz_reset];
+}
+
+#pragma mark - 下拉刷新数据
+- (void)refreshData {
+    DLog(@"触发下拉刷新事件");
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        sleep(2.0);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // 结束刷新
+            [self.tableView.mj_header endRefreshing];
+        });
+    });
+}
+
+#pragma mark - 初始化数据
+- (void)initializeData {
+    // 创建数据对象（初始化）
+    _data = [[NSMutableArray alloc] init];
+    
+    NSDictionary *dataDic = [[BaseHandleUtil sharedBaseHandleUtil] readWithJSONFile:@"News.json"];
+    // 顶部轮播焦点图数据
+    NSDictionary *loopDic = [dataDic objectForKey:@"cycleDict"];
+    NSArray *titles = [loopDic objectForKey:@"titles"];
+    NSArray *images = [loopDic objectForKey:@"images"];
+    NSArray *urls = [loopDic objectForKey:@"urls"];
+    _cycleScrollView = [[YZCycleScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frameWidth, floorf(self.view.frameWidth/1.8)) titles:titles images:images urls:urls autoPlay:YES delay:2.0f];
+    _cycleScrollView.delegate = self;
+    self.tableView.tableHeaderView = _cycleScrollView;
+    // 新闻列表数据
+    NSArray *dataArray = [dataDic objectForKey:@"dataArray"];
+    for(NSDictionary *dic in dataArray){
+        NewsModel *model = [NewsModel yy_modelWithDictionary:dic];
+        [_data addObject:model];
+    }
+    //[self.tableView reloadData];
+}
+
+#pragma mark - <YZCycleScrollViewDelegate>顶部轮播图点击代理方法
+- (void)cycleScrollViewDidSelectedImage:(YZCycleScrollView *)cycleScrollView index:(int)index {
+    DLog(@"点击了顶部轮播图的第%d个，标题为：%@", index, cycleScrollView.titles[index]);
+}
+
+#pragma mark - Table view data source
+#pragma mark 数据源方法
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
@@ -84,9 +152,10 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     // 点击后将颜色变回来
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    DLog(@"Yan -> 点击了第%ld个", indexPath.row);
     NewsTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    DLog(@"Yan -> 标题为：%@", cell.model.title);
+    DLog(@"点击了第%ld个，标题为：%@", indexPath.row, cell.model.title);
+    
+    [self.navigationController pushViewController:[NSClassFromString(@"TestViewController") new] animated:YES];
 
 }
 

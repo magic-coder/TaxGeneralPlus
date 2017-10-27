@@ -15,12 +15,7 @@
 SingletonM(NewsUtil)
 
 - (NSDictionary *)loadData {
-    // JSON文件的路径
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"News" ofType:@"json"];
-    // 读取JSON文件
-    NSData *data = [NSData dataWithContentsOfFile:path];
-    // 将JSON数据转为NSArray或NSDictionary
-    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+    NSDictionary *dic = [[BaseHandleUtil sharedBaseHandleUtil] readWithJSONFile:@"News.json"];
     return dic;
 }
 

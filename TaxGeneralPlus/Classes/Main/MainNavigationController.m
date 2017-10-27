@@ -22,10 +22,10 @@
     
     self.delegate = self;
     
-    self.navigationBar.translucent = NO;// 设置导航栏不透明
-    self.navigationBar.barStyle = UIBaselineAdjustmentNone;// 去除 navigationBar 下面的黑线
-    self.navigationBar.barTintColor = [UIColor clearColor];// 设置导航栏背景颜色
-    [self.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigation_bg" scaleToSize:CGSizeMake(WIDTH_SCREEN, HEIGHT_STATUS + HEIGHT_NAVBAR)] forBarMetrics:UIBarMetricsDefault];// 设置导航栏背景图
+    //self.navigationBar.translucent = NO;// 设置导航栏不透明
+    //self.navigationBar.barStyle = UIBaselineAdjustmentNone;// 去除 navigationBar 下面的黑线
+    self.navigationBar.barTintColor = DEFAULT_BLUE_COLOR;// 设置导航栏背景颜色
+    //[self.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigation_bg" scaleToSize:CGSizeMake(WIDTH_SCREEN, HEIGHT_STATUS + HEIGHT_NAVBAR)] forBarMetrics:UIBarMetricsDefault];// 设置导航栏背景图
     self.navigationBar.tintColor = [UIColor whiteColor];// 设置导航栏itemBar字体颜色
     self.navigationBar.titleTextAttributes = @{ NSForegroundColorAttributeName : [UIColor whiteColor] };// 设置导航栏title标题字体颜色
     
@@ -50,7 +50,7 @@
     // 判断要显示的控制器是否是否进行隐藏
     //BOOL isHidden = [viewController isKindOfClass:[NSClassFromString(@"NewsViewController") class]];
     BOOL isNavigationBarHidden = NO;
-    NSArray *hidenControllers = @[@"NewsViewController_bak", @"AppViewController"];
+    NSArray *hidenControllers = @[@"NewsViewController_BAK", @"AppViewController"];
     for(NSString *hidenControllerName in hidenControllers){
         isNavigationBarHidden = isNavigationBarHidden || [viewController isKindOfClass:[NSClassFromString(hidenControllerName) class]];
     }

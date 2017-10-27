@@ -40,7 +40,7 @@ SingletonM(BaseHandleUtil)
 
 #pragma mark - 将JSONData解析为对象，返回NSArray或NSDictionary
 - (id)objectWithJSONData:(id)data {
-    //将JSON数据转为NSArray或NSDictionary
+    // 将JSON数据转为NSArray或NSDictionary
     id object = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
     return object;
 }
@@ -60,16 +60,19 @@ SingletonM(BaseHandleUtil)
     return jsonString;
 }
 
-#pragma mark - 读取指定路径下文件的内容
-- (NSString *)readWithFile:(NSString *)path {
-    NSString *fileName = [path stringByDeletingPathExtension];
-    NSString *typeName = [path pathExtension];
-    // 文件的路径
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:typeName];
-    // 读取对应文件中的数据
-    NSData *data = [NSData dataWithContentsOfFile:filePath];
-    NSString *content = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    return content;
+#pragma mark - 读取JSON文件内容（返回NSArray或NSDictionary）
+- (id)readWithJSONFile:(NSString *)file {
+    
+    NSString *fileName = [file stringByDeletingPathExtension];
+    NSString *fileType = [file pathExtension];
+    
+    // JSON文件的路径
+    NSString *path = [[NSBundle mainBundle] pathForResource:fileName ofType:fileType];
+    // 读取JSON文件
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    // 将JSON数据转为NSArray或NSDictionary（调用本类中已经写好的方法）
+    id object = [self objectWithJSONData:data];
+    return object;
 }
 
 #pragma mark - 计算文本所需的宽高

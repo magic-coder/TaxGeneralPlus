@@ -38,6 +38,7 @@
     
     // 设置高度
     self.mj_h = MJRefreshHeaderHeight;
+    
 }
 
 - (void)placeSubviews
@@ -72,6 +73,8 @@
     CGFloat offsetY = self.scrollView.mj_offsetY;
     // 头部控件刚好出现的offsetY
     CGFloat happenOffsetY = - self.scrollViewOriginalInset.top;
+    if(DeviceScreenInch_5_8 == DEVICE_SCREEN_INCH)
+        happenOffsetY += -HEIGHT_STATUS;
     
     // 如果是向上滚动到看不见头部控件，直接返回
     // >= -> >
@@ -127,6 +130,9 @@
          dispatch_async(dispatch_get_main_queue(), ^{
             [UIView animateWithDuration:MJRefreshFastAnimationDuration animations:^{
                 CGFloat top = self.scrollViewOriginalInset.top + self.mj_h;
+                if(DeviceScreenInch_5_8 == DEVICE_SCREEN_INCH)
+                    top = self.scrollViewOriginalInset.top + self.mj_h + HEIGHT_STATUS;
+                    
                 // 增加滚动区域top
                 self.scrollView.mj_insetT = top;
                 // 设置滚动位置

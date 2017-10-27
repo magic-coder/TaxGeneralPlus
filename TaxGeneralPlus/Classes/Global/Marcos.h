@@ -17,6 +17,7 @@
 #define PLACEHOLDER_IMAGE       [UIImage imageNamed:@"common_placeholder"]
 #define RgbColor(r, g, b, a)    [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:a]
 #define HexColor(hex, a)        [UIColor colorWithHexString:hex alpha:a]
+#define DEVICE_SCREEN_INCH      [[UIDevice currentDevice] deviceScreenInch]
 
 #pragma mark - 框架Frame所需基本宏
 #define FRAME_SCREEN    [[UIScreen mainScreen] bounds]                                      // 主屏幕Frame

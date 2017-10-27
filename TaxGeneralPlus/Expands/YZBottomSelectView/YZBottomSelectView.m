@@ -10,8 +10,6 @@
 
 #import "YZBottomSelectView.h"
 
-#define DEVICE_SCREEN_INCH  [[UIDevice currentDevice] deviceScreenInch]
-
 static const CGFloat kRowHeight = 46.0f;
 static const CGFloat kRowLineHeight = 0.5f;
 static const CGFloat kSeparatorHeight = 6.0f;

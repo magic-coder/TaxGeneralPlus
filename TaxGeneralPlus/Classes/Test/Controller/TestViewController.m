@@ -25,6 +25,10 @@
     self.title = @"Test";
     self.view.backgroundColor = DEFAULT_BACKGROUND_COLOR;
     
+    // 延展视图包含部包含不透明的NavigationBar
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.extendedLayoutIncludesOpaqueBars = NO;
+    
     // 添加导航栏右侧按钮
     UIBarButtonItem *saveButtonItem  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:(UIBarButtonSystemItemAdd) target:self action:@selector(saveBtnClick:)];
     self.navigationItem.rightBarButtonItem = saveButtonItem;
@@ -90,7 +94,7 @@
     TestModel *testModel = [TestModel yy_modelWithJSON:jsonStr];
     DLog(@"%llu,%@,%@",testModel.uid,testModel.name,testModel.created);
     
-    DLog(@"%@",[[BaseHandleUtil sharedBaseHandleUtil] readWithFile:@"News.json"]);
+    DLog(@"%@",[[BaseHandleUtil sharedBaseHandleUtil] readWithJSONFile:@"News.json"]);
     
     
 }

@@ -28,8 +28,8 @@
     
     DLog(@"初始化tabBar");
     
-    //self.tabBar.translucent= NO;// 设置tabBar不透明
-    //self.tabBar.barTintColor = [UIColor whiteColor];// 设置tabBar背景颜色
+    self.tabBar.translucent= NO;// 设置tabBar不透明
+    self.tabBar.barTintColor = [UIColor whiteColor];// 设置tabBar背景颜色
     
     NSArray *items = @[
                        @{

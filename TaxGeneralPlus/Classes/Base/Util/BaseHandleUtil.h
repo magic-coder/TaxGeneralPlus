@@ -24,8 +24,8 @@ SingletonH(BaseHandleUtil)
 // 将对象解析为NSString
 - (NSString *)JSONStringWithObject:(id)object;
 
-// 读取文件内容
-- (NSString *)readWithFile:(NSString *)path;
+// 读取JSON文件内容（返回NSArray或NSDictionary）
+- (id)readWithJSONFile:(NSString *)file;
 
 /**
  *  计算文本所需的宽高

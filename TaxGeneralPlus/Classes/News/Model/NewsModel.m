@@ -20,7 +20,7 @@
             model.style = NewsModelStyleText;
             break;
         case 1:
-            model.style = NewsModelStyleFewImage;
+            model.style = NewsModelStyleOneImage;
             break;
         case 2:
             model.style = NewsModelStyleFewImage;

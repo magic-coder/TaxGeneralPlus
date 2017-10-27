@@ -12,9 +12,9 @@
 
 @interface UINavigationBar (YZ)
 
-- (void)lt_setBackgroundColor:(UIColor *)backgroundColor;
-- (void)lt_setElementsAlpha:(CGFloat)alpha;
-- (void)lt_setTranslationY:(CGFloat)translationY;
-- (void)lt_reset;
+- (void)yz_setBackgroundColor:(UIColor *)backgroundColor;
+- (void)yz_setElementsAlpha:(CGFloat)alpha;
+- (void)yz_setTranslationY:(CGFloat)translationY;
+- (void)yz_reset;
 
 @end
