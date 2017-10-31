@@ -70,21 +70,35 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;// 设置顶部状态栏字体为白色
+}
+
 #pragma mark - 初始化数据
 - (void)initializeData {
     NSDictionary *appData = [[AppUtil sharedAppUtil] loadData];
     
     _mineAppData = [appData objectForKey:@"mineData"];
-    //[self initAppViewData:_mineAppData type:AppViewTypeMine];
-    [self initAppBorderView];
-    
     _allAppData = [appData objectForKey:@"allData"];
+    _otherAppData = [NSMutableArray array];
     
-    for(NSDictionary *dict in _allAppData){
-        DLog(@"%@",dict);
+    for(NSDictionary *allDict in _allAppData){
+        DLog(@"%@",allDict);
+        int i=0;
+        for(NSDictionary *mineDict in _mineAppData){
+            NSString *allNo = [allDict objectForKey:@"no"];
+            NSString *mineNo = [mineDict objectForKey:@"no"];
+            if([mineNo isEqualToString:allNo]){
+                i++;
+            }
+        }
+        if(0==i ){
+            [_otherAppData addObject:allDict];
+        }
     }
     
-    _otherAppData = [appData objectForKey:@"allData"];
+    //[self initAppViewData:_mineAppData type:AppViewTypeMine];
+    [self initAppBorderView];
     [self initAppViewData:_otherAppData type:AppViewTypeOther];
     
 }

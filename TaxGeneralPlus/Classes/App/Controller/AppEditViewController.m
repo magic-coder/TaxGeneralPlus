@@ -39,7 +39,7 @@ static NSString * const reusableView = @"reusableView";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"应用管理器";
+    self.title = @"我的应用管理";
     
     self.collectionView.backgroundColor = [UIColor whiteColor];
     self.collectionView.alwaysBounceVertical = YES;// 总是可垂直滑动
@@ -59,6 +59,8 @@ static NSString * const reusableView = @"reusableView";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;// 设置顶部状态栏字体为黑色
     self.navigationController.navigationBar.tintColor = DEFAULT_BLUE_COLOR;// 设置导航栏itemBar字体颜色
     self.navigationController.navigationBar.titleTextAttributes = @{ NSForegroundColorAttributeName : [UIColor blackColor] };// 设置导航栏title标题字体颜色
     [self.navigationController.navigationBar yz_setBackgroundColor:[UIColor whiteColor]];
