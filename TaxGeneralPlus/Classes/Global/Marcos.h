@@ -38,7 +38,8 @@
 #define DEFAULT_SELECTED_GRAY_COLOR     RgbColor(217.0, 217.0, 217.0, 1.0f)
 
 #pragma mark - 设置服务器地址Service Url
-#define SERVER_URL  @"https://10.100.16.133:8443/mobiletax/"     // 生产https VPN服务器地址
+#define SERVER_URL  @"https://192.168.14.235:8444/mobiletax/"   // 测试 https服务器地址
+//#define SERVER_URL  @"https://10.100.16.133:8443/mobiletax/"    // 生产 https VPN 服务器地址
 
 
 #endif /* Marcos_h */

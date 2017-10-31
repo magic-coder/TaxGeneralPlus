@@ -1457,7 +1457,7 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
     [super layoutSubviews];
     // Fully rounded corners
     CGFloat height = CGRectGetHeight(self.bounds);
-    self.layer.cornerRadius = ceil(height / 2.f);
+    self.layer.cornerRadius = ceilf((CGFloat)height / 2.f);
 }
 
 - (CGSize)intrinsicContentSize {

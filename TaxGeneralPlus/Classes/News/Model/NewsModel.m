@@ -12,7 +12,7 @@
 
 @implementation NewsModel
 
-+ (instancetype)yy_modelWithJSON:(id)json {
++ (NewsModel *)createWithJSON:(id)json {
     NewsModel *model = [super yy_modelWithJSON:json];
     
     switch (model.images.count) {
@@ -33,7 +33,7 @@
     return model;
 }
 
-+ (instancetype)yy_modelWithDictionary:(NSDictionary *)dictionary {
++ (NewsModel *)createWithDictionary:(NSDictionary *)dictionary {
     NewsModel *model = [super yy_modelWithDictionary:dictionary];
     
     switch (model.images.count) {

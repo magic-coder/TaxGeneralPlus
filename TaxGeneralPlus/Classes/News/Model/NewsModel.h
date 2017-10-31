@@ -31,7 +31,7 @@ typedef NS_ENUM(NSInteger, NewsModelStyle) {
 @property (nonatomic, assign) NewsModelStyle style;     // 样式
 
 /************************ 类方法 ************************/
-+ (instancetype)yy_modelWithJSON:(id)json;
-+ (instancetype)yy_modelWithDictionary:(NSDictionary *)dictionary;
++ (NewsModel *)createWithJSON:(id)json;
++ (NewsModel *)createWithDictionary:(NSDictionary *)dictionary;
 
 @end

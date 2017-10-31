@@ -59,7 +59,7 @@ static const NSTimeInterval kAnimateDuration = 0.5f;
         if (title && title.length > 0) {
             bootomSelectViewHeight += kRowLineHeight;
             
-            CGFloat titleHeight = ceil([title boundingRectWithSize:CGSizeMake(self.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:kTitleFontSize]} context:nil].size.height) + 15*2;
+            CGFloat titleHeight = ceilf((CGFloat)[title boundingRectWithSize:CGSizeMake(self.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:kTitleFontSize]} context:nil].size.height) + 15*2;
             UILabel *titleLabel = [[UILabel alloc] init];
             if(DeviceScreenInch_5_8 == DEVICE_SCREEN_INCH) {
                 // 设置 iPhoneX 中安全区域

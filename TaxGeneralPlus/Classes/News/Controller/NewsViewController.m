@@ -11,6 +11,7 @@
 #import "NewsViewController.h"
 #import "NewsTableViewCell.h"
 #import "NewsModel.h"
+#import "NewsUtil.h"
 
 #define NAVBAR_CHANGE_POINT 50
 
@@ -52,21 +53,22 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
 
 #pragma mark - 滚动屏幕渐进渐出顶部导航栏
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
     //UIColor * color = RgbColor(0, 175, 240, 1.0f);
     UIColor * color = DEFAULT_BLUE_COLOR;
     CGFloat offsetY = scrollView.contentOffset.y;
     if (offsetY > NAVBAR_CHANGE_POINT) {
         CGFloat alpha = MIN(1, 1 - ((NAVBAR_CHANGE_POINT + HEIGHT_STATUS + HEIGHT_NAVBAR - offsetY) / (HEIGHT_STATUS + HEIGHT_NAVBAR)));
+        if(alpha > 0.95)
+            alpha = 0.95;
         [self.navigationController.navigationBar yz_setBackgroundColor:[color colorWithAlphaComponent:alpha]];
-        if(alpha > 0.6){
+        if(alpha > 0.6)
             self.navigationItem.title = @"首页";
-        }
     } else {
         [self.navigationController.navigationBar yz_setBackgroundColor:[color colorWithAlphaComponent:0]];
         CGFloat alpha = MIN(1, 1 - ((NAVBAR_CHANGE_POINT + HEIGHT_STATUS + HEIGHT_NAVBAR - offsetY) / (HEIGHT_STATUS + HEIGHT_NAVBAR)));
-        if(alpha < 0.6){
+        if(alpha < 0.6)
             self.navigationItem.title = nil;
-        }
     }
 }
 
@@ -85,7 +87,9 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
 
 #pragma mark - 下拉刷新数据
 - (void)refreshData {
+    
     DLog(@"触发下拉刷新事件");
+    
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
         sleep(2.0);
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -100,19 +104,19 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     // 创建数据对象（初始化）
     _data = [[NSMutableArray alloc] init];
     
-    NSDictionary *dataDic = [[BaseHandleUtil sharedBaseHandleUtil] readWithJSONFile:@"News.json"];
+    NSDictionary *dataDic = [[NewsUtil sharedNewsUtil] loadData];
     // 顶部轮播焦点图数据
     NSDictionary *loopDic = [dataDic objectForKey:@"cycleDict"];
     NSArray *titles = [loopDic objectForKey:@"titles"];
     NSArray *images = [loopDic objectForKey:@"images"];
     NSArray *urls = [loopDic objectForKey:@"urls"];
-    _cycleScrollView = [[YZCycleScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frameWidth, floorf(self.view.frameWidth/1.8)) titles:titles images:images urls:urls autoPlay:YES delay:2.0f];
+    _cycleScrollView = [[YZCycleScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frameWidth, floorf((CGFloat)self.view.frameWidth/1.8)) titles:titles images:images urls:urls autoPlay:YES delay:2.0f];
     _cycleScrollView.delegate = self;
     self.tableView.tableHeaderView = _cycleScrollView;
     // 新闻列表数据
     NSArray *dataArray = [dataDic objectForKey:@"dataArray"];
     for(NSDictionary *dic in dataArray){
-        NewsModel *model = [NewsModel yy_modelWithDictionary:dic];
+        NewsModel *model = [NewsModel createWithDictionary:dic];
         [_data addObject:model];
     }
     //[self.tableView reloadData];

@@ -57,9 +57,9 @@
     if (self.state == MJRefreshStateRefreshing) {
         if (self.window == nil) return;
         
-        // sectionheader停留解决
-        CGFloat insetT = - self.scrollView.mj_offsetY > _scrollViewOriginalInset.top ? - self.scrollView.mj_offsetY : _scrollViewOriginalInset.top;
-        insetT = insetT > self.mj_h + _scrollViewOriginalInset.top ? self.mj_h + _scrollViewOriginalInset.top : insetT;
+        // sectionheader停留解决（Yanzheng修改代码适配iPhoneX）
+        CGFloat insetT = - self.scrollView.mj_offsetY > _scrollViewOriginalInset.top ? - self.scrollView.mj_offsetY : _scrollViewOriginalInset.top + HEIGHT_STATUS;
+        insetT = insetT > self.mj_h + _scrollViewOriginalInset.top ? self.mj_h + _scrollViewOriginalInset.top +  + HEIGHT_STATUS : insetT;
         self.scrollView.mj_insetT = insetT;
         
         self.insetTDelta = _scrollViewOriginalInset.top - insetT;
@@ -71,10 +71,8 @@
     
     // 当前的contentOffset
     CGFloat offsetY = self.scrollView.mj_offsetY;
-    // 头部控件刚好出现的offsetY
-    CGFloat happenOffsetY = - self.scrollViewOriginalInset.top;
-    if(DeviceScreenInch_5_8 == DEVICE_SCREEN_INCH)
-        happenOffsetY += -HEIGHT_STATUS;
+    // 头部控件刚好出现的offsetY（Yanzheng修改代码适配iPhoneX）
+    CGFloat happenOffsetY = - self.scrollViewOriginalInset.top - HEIGHT_STATUS;
     
     // 如果是向上滚动到看不见头部控件，直接返回
     // >= -> >
@@ -129,10 +127,8 @@
     } else if (state == MJRefreshStateRefreshing) {
          dispatch_async(dispatch_get_main_queue(), ^{
             [UIView animateWithDuration:MJRefreshFastAnimationDuration animations:^{
-                CGFloat top = self.scrollViewOriginalInset.top + self.mj_h;
-                if(DeviceScreenInch_5_8 == DEVICE_SCREEN_INCH)
-                    top = self.scrollViewOriginalInset.top + self.mj_h + HEIGHT_STATUS;
-                    
+                // Yanzheng修改代码适配iPhoneX
+                CGFloat top = self.scrollViewOriginalInset.top + self.mj_h + HEIGHT_STATUS;
                 // 增加滚动区域top
                 self.scrollView.mj_insetT = top;
                 // 设置滚动位置

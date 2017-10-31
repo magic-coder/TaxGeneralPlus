@@ -57,7 +57,7 @@
     [super layoutSubviews];
     
     _baseSpace = 10;
-    float imageWidth = floorf((self.frameWidth - _baseSpace * 3)/3);
+    float imageWidth = floorf((CGFloat)(self.frameWidth - _baseSpace * 3)/3);
     float imageHeight = 75;// iPhone上小图片的高度
     float describeWidth = 120;// 底部描述标签的宽度
     float describeHeight = 10;// 底部描述标签的高度
