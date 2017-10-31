@@ -12,7 +12,7 @@
 #import "AppModel.h"
 #import "AppUtil.h"
 
-@interface AppEditViewController ()
+@interface AppEditViewController () <AppEditViewCellDelegate>
 
 @property (nonatomic, strong) NSMutableArray *data;
 @property (nonatomic, strong) UICollectionViewFlowLayout *flowLayout;
@@ -68,18 +68,19 @@ static NSString * const reusableView = @"reusableView";
     self.data = [NSMutableArray array];
     NSDictionary *appData = [[AppUtil sharedAppUtil] loadData];
     NSArray *mineAppData = [appData objectForKey:@"mineData"];
-    NSArray *otherAppData = [appData objectForKey:@"otherData"];
+    NSArray *otherAppData = [appData objectForKey:@"allData"];
     
     NSMutableArray *mineArray = [NSMutableArray array];
     for(NSDictionary *dict in mineAppData){
-        AppModelItem *ii = [AppModelItem createWithDictionary:dict];
-        [mineArray addObject:ii];
+        AppModelItem *item = [AppModelItem createWithDictionary:dict];
+        [mineArray addObject:item];
     }
     NSMutableArray *otherArray = [NSMutableArray array];
     for(NSDictionary *dict in otherAppData){
-        AppModelItem *ii = [AppModelItem createWithDictionary:dict];
-        [otherArray addObject:ii];
+        AppModelItem *item = [AppModelItem createWithDictionary:dict];
+        [otherArray addObject:item];
     }
+    
     AppModelGroup *mineGroup = [[AppModelGroup alloc] init];
     mineGroup.items = mineArray;
     mineGroup.groupTitle = @"我的应用";
@@ -130,7 +131,7 @@ static NSString * const reusableView = @"reusableView";
         }];
     }
     
-    //cell.delegate = self;
+    cell.delegate = self;
     
     [cell setItem:item];
     
@@ -198,6 +199,31 @@ static NSString * const reusableView = @"reusableView";
  */
 
 #pragma mark - 代理编辑按钮点击方法
+- (void)appEditViewCellEditBtnClick:(UIButton *)sender {
+    UIView *view = [sender superview];//获取父类view
+    AppEditViewCell *cell = (AppEditViewCell *)[view superview];//获取cell
+    NSIndexPath *indexpath = [self.collectionView indexPathForCell:cell];//获取cell对应的indexpath;
+    
+    if(sender.tag == 0){    // 移除方法
+        //DLog(@"进入移除方法 -> senction = %ld, row = %ld",(long)indexpath.section,(long)indexpath.row);
+        
+        AppModelGroup *mineGroup = [self.data objectAtIndex:0];
+        AppModelItem *delItem = [mineGroup.items objectAtIndex:indexpath.row];
+        [mineGroup.items removeObject:delItem];
+        [self.collectionView reloadData];
+    }
+    if(sender.tag == 1){    // 添加方法
+        //DLog(@"进入添加方法 -> senction = %ld, row = %ld",(long)indexpath.section,(long)indexpath.row);
+        
+        AppModelGroup *mineGroup = [self.data objectAtIndex:0];
+        AppModelGroup *allGroup = [self.data objectAtIndex:1];
+        AppModelGroup *addItem = [allGroup.items objectAtIndex:indexpath.row];
+        [mineGroup.items addObject:addItem];
+        [self.collectionView reloadData];
+    }
+    
+    [self.collectionView reloadData];
+}
 
 
 @end

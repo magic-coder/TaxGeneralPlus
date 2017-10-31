@@ -87,12 +87,12 @@
     
     [_editBtn setFrame:CGRectMake(self.frameWidth - 35, 5, 30, 30)];
     [_editBtn setImageEdgeInsets:UIEdgeInsetsMake(8, 8, 8, 8)];// 设置按钮图片大小
-    if(self.editBtnStyle == AppCellEditBtnStyleAdd){
-        [_editBtn setImage:[UIImage imageNamed:@"app_common_add"] forState:UIControlStateNormal];
-        [_editBtn setTag:0];
-    }
     if(self.editBtnStyle == AppCellEditBtnStyleDelete){
         [_editBtn setImage:[UIImage imageNamed:@"app_common_remove"] forState:UIControlStateNormal];
+        [_editBtn setTag:0];
+    }
+    if(self.editBtnStyle == AppCellEditBtnStyleAdd){
+        [_editBtn setImage:[UIImage imageNamed:@"app_common_add"] forState:UIControlStateNormal];
         [_editBtn setTag:1];
     }
     if(self.editBtnStyle == AppCellEditBtnStyleSelected){

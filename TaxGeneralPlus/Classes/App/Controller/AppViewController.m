@@ -40,8 +40,10 @@ typedef NS_ENUM(NSInteger, AppViewType) {
 @property (nonatomic, strong) AppGroupView *mineGroupView;
 @property (nonatomic, strong) AppGroupView *otherGroupView;
 
-@property (nonatomic, strong) NSArray *mineAppData;
-@property (nonatomic, strong) NSArray *otherAppData;
+@property (nonatomic, strong) NSMutableArray *mineAppData;
+@property (nonatomic, strong) NSArray *allAppData;
+@property (nonatomic, strong) NSMutableArray *otherAppData;
+
 @property (nonatomic, strong) NSMutableArray *viewArray;
 
 @end
@@ -76,8 +78,15 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     //[self initAppViewData:_mineAppData type:AppViewTypeMine];
     [self initAppBorderView];
     
-    _otherAppData = [appData objectForKey:@"otherData"];
+    _allAppData = [appData objectForKey:@"allData"];
+    
+    for(NSDictionary *dict in _allAppData){
+        DLog(@"%@",dict);
+    }
+    
+    _otherAppData = [appData objectForKey:@"allData"];
     [self initAppViewData:_otherAppData type:AppViewTypeOther];
+    
 }
 
 #pragma mark - 添加应用图标底层虚线边框
