@@ -15,17 +15,39 @@
 // 单例模式方法
 SingletonH(BaseHandleUtil)
 
-// 获取当前展示的视图控制器ViewController
+/**
+ *  获取当前最顶端展示的视图控制器
+ *
+ *  @return 正在显示的视图控制器ViewController
+ */
 - (UIViewController *)topViewController;
 
-// 将JSONData解析为对象，返回NSArray或NSDictionary
-- (id)objectWithJSONData:(id)data;
-
-// 将对象解析为NSString
-- (NSString *)JSONStringWithObject:(id)object;
-
-// 读取JSON文件内容（返回NSArray或NSDictionary）
+/**
+ *  读取程序中的JSON文件数据转换为OC对象
+ *
+ *  @param  file    程序中JSON文件名称
+ *
+ *  @return OC对象（NSArray、NSDictionary）
+ */
 - (id)readWithJSONFile:(NSString *)file;
+
+/**
+ *  将JSON转换为OC对象
+ *
+ *  @param  data    需要转换的JSONData数据
+ *
+ *  @return OC对象（NSArray、NSDictionary）
+ */
+- (id)objectWithJSONData:(NSData *)data;
+
+/**
+ *  将OC对象转换为JSON
+ *
+ *  @param  object  需要转换的对象（NSArray、NSDictionary）
+ *
+ *  @return NSString类型的JSON字符串
+ */
+- (NSString *)JSONStringWithObject:(id)object;
 
 /**
  *  计算文本所需的宽高

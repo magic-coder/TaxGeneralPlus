@@ -1,14 +1,16 @@
-//
-//  AppEditViewController.m
-//  TaxGeneralPlus
-//
-//  Created by Apple on 2017/10/31.
-//  Copyright © 2017年 prient. All rights reserved.
-//
+/************************************************************
+ Class    : AppEditViewController.m
+ Describe : 应用管理编辑模块视图控制器
+ Company  : Prient
+ Author   : Yanzheng 严正
+ Date     : 2017-10-31
+ Version  : 1.0
+ Declare  : Copyright © 2017 Yanzheng. All rights reserved.
+ ************************************************************/
 
 #import "AppEditViewController.h"
 #import "AppEditViewCell.h"
-#import "AppEditReusableView.h"
+#import "AppEditHeaderView.h"
 #import "AppModel.h"
 #import "AppUtil.h"
 
@@ -21,9 +23,8 @@
 
 @implementation AppEditViewController
 
-static NSString * const reuseTopIdentifier = @"baseTopCell";
-static NSString * const reuseBaseIdentifier = @"baseCell";
-static NSString * const reusableView = @"reusableView";
+static NSString * const reuseCellIdentifier = @"reuseCellIdentifier";
+static NSString * const reuseHeaderIdentifier = @"reuseHeaderIdentifier";
 
 
 - (instancetype)init {
@@ -43,11 +44,11 @@ static NSString * const reusableView = @"reusableView";
     
     self.collectionView.backgroundColor = [UIColor whiteColor];
     self.collectionView.alwaysBounceVertical = YES;// 总是可垂直滑动
-    //self.collectionView.showsVerticalScrollIndicator = NO; // 隐藏垂直滚动条
+    self.collectionView.showsVerticalScrollIndicator = NO; // 隐藏垂直滚动条
     
     // Register cell classes
-    [self.collectionView registerClass:[AppEditViewCell class] forCellWithReuseIdentifier:reuseBaseIdentifier];
-    [self.collectionView registerClass:[AppEditReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reusableView];
+    [self.collectionView registerClass:[AppEditViewCell class] forCellWithReuseIdentifier:reuseCellIdentifier];
+    [self.collectionView registerClass:[AppEditHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseHeaderIdentifier];
     
     [self initializeData];
 }
@@ -113,7 +114,7 @@ static NSString * const reusableView = @"reusableView";
     AppModelGroup *group = [_data objectAtIndex:indexPath.section];
     AppModelItem *item = [group itemAtIndex:indexPath.row];
     
-    AppEditViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseBaseIdentifier forIndexPath:indexPath];
+    AppEditViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseCellIdentifier forIndexPath:indexPath];
     
     //第一组为我的应用
     if(indexPath.section == 0){
@@ -142,30 +143,26 @@ static NSString * const reusableView = @"reusableView";
 
 #pragma mark 设置cell的大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat width = (collectionView.frameWidth-25)/4;
+    CGFloat width = floor((CGFloat)(collectionView.frameWidth)/4);
     return CGSizeMake(width, width);
 }
 
+#pragma mark 设置cell上下间隙
 -(CGFloat )collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return 10;
+    return 0;
 }
 
 #pragma mark - <UICollectionViewDelegate> 代理方法
 #pragma mark 设置每组的顶部视图
 -(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
-    AppEditReusableView *reusable = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:reusableView forIndexPath:indexPath];
+    AppEditHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:reuseHeaderIdentifier forIndexPath:indexPath];
     
     if([kind isEqualToString:UICollectionElementKindSectionHeader]) {
         AppModelGroup *group = [_data objectAtIndex:indexPath.section];
-        reusable.title = group.groupTitle;
-    }
-    if(indexPath.section == 0){
-        reusable.top = YES;
-    }else{
-        reusable.top = NO;
+        headerView.title = group.groupTitle;
     }
     
-    return reusable;
+    return headerView;
 }
 
 #pragma mark 设置顶部视图的大小

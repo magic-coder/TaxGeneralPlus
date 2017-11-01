@@ -12,7 +12,7 @@
 
 @interface AppGroupView : UIView
 
-@property (nonatomic, strong) NSString *title;
 @property (nonatomic, assign) BOOL top;// 是否第一个组，如果是顶部部生成线
+@property (nonatomic, strong) NSString *title;
 
 @end

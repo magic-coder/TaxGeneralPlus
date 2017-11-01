@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1804C9E41FA082D400FCC6F1 /* Common.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1804C9E31FA082D400FCC6F1 /* Common.xcassets */; };
 		1806B1F31F9DF52500F000EB /* UIAlertController+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 1806B1F11F9DF52400F000EB /* UIAlertController+Blocks.m */; };
+		18146AB91FA9699D000A3654 /* AppEditHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18146AB81FA9699D000A3654 /* AppEditHeaderView.m */; };
 		181608491F99A69900EC0FC3 /* TabBar.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 181608481F99A69900EC0FC3 /* TabBar.xcassets */; };
 		1816084B1F99DBDE00EC0FC3 /* Navigation.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1816084A1F99DBDE00EC0FC3 /* Navigation.xcassets */; };
 		181608501F99DD5B00EC0FC3 /* UIImage+YZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 1816084F1F99DD5B00EC0FC3 /* UIImage+YZ.m */; };
@@ -42,7 +43,6 @@
 		18AC774C1FA8595100EB630B /* root-cert.der in Resources */ = {isa = PBXBuildFile; fileRef = 18AC774B1FA8595100EB630B /* root-cert.der */; };
 		18AC774F1FA864A800EB630B /* AppEditViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AC774E1FA864A800EB630B /* AppEditViewCell.m */; };
 		18AC77521FA86B9800EB630B /* AppEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AC77511FA86B9800EB630B /* AppEditViewController.m */; };
-		18AC77551FA86D3A00EB630B /* AppEditReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AC77541FA86D3A00EB630B /* AppEditReusableView.m */; };
 		18AE73ED1F98547D00E357D1 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AE73E41F98547D00E357D1 /* AFURLResponseSerialization.m */; };
 		18AE73EE1F98547D00E357D1 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AE73E51F98547D00E357D1 /* AFHTTPSessionManager.m */; };
 		18AE73EF1F98547D00E357D1 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AE73E71F98547D00E357D1 /* AFURLSessionManager.m */; };
@@ -133,6 +133,8 @@
 		1804C9E31FA082D400FCC6F1 /* Common.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Common.xcassets; sourceTree = "<group>"; };
 		1806B1F11F9DF52400F000EB /* UIAlertController+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+Blocks.m"; sourceTree = "<group>"; };
 		1806B1F21F9DF52400F000EB /* UIAlertController+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Blocks.h"; sourceTree = "<group>"; };
+		18146AB71FA9699D000A3654 /* AppEditHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppEditHeaderView.h; sourceTree = "<group>"; };
+		18146AB81FA9699D000A3654 /* AppEditHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppEditHeaderView.m; sourceTree = "<group>"; };
 		181608481F99A69900EC0FC3 /* TabBar.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = TabBar.xcassets; sourceTree = "<group>"; };
 		1816084A1F99DBDE00EC0FC3 /* Navigation.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Navigation.xcassets; sourceTree = "<group>"; };
 		1816084E1F99DD5B00EC0FC3 /* UIImage+YZ.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+YZ.h"; sourceTree = "<group>"; };
@@ -197,8 +199,6 @@
 		18AC774E1FA864A800EB630B /* AppEditViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppEditViewCell.m; sourceTree = "<group>"; };
 		18AC77501FA86B9800EB630B /* AppEditViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppEditViewController.h; sourceTree = "<group>"; };
 		18AC77511FA86B9800EB630B /* AppEditViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppEditViewController.m; sourceTree = "<group>"; };
-		18AC77531FA86D3A00EB630B /* AppEditReusableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppEditReusableView.h; sourceTree = "<group>"; };
-		18AC77541FA86D3A00EB630B /* AppEditReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppEditReusableView.m; sourceTree = "<group>"; };
 		18AE73E01F98547D00E357D1 /* AFSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSecurityPolicy.h; sourceTree = "<group>"; };
 		18AE73E11F98547D00E357D1 /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
 		18AE73E21F98547D00E357D1 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
@@ -847,10 +847,10 @@
 				18AC77421FA84B5300EB630B /* AppBorderView.m */,
 				18C02E4D1FA71549009EBD36 /* AppView.h */,
 				18C02E4E1FA71549009EBD36 /* AppView.m */,
+				18146AB71FA9699D000A3654 /* AppEditHeaderView.h */,
+				18146AB81FA9699D000A3654 /* AppEditHeaderView.m */,
 				18AC774D1FA864A800EB630B /* AppEditViewCell.h */,
 				18AC774E1FA864A800EB630B /* AppEditViewCell.m */,
-				18AC77531FA86D3A00EB630B /* AppEditReusableView.h */,
-				18AC77541FA86D3A00EB630B /* AppEditReusableView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1248,7 +1248,6 @@
 				18A9A0751FA1A8770059C7BB /* UINavigationBar+YZ.m in Sources */,
 				18AE743D1F9854C700E357D1 /* UIView+WebCache.m in Sources */,
 				18AE73ED1F98547D00E357D1 /* AFURLResponseSerialization.m in Sources */,
-				18AC77551FA86D3A00EB630B /* AppEditReusableView.m in Sources */,
 				18B358B41F9F542400F9CF73 /* MJRefreshNormalHeader.m in Sources */,
 				18E4ED981F9EE02200CAB201 /* UIColor+YZ.m in Sources */,
 				188AE5731FA054E0008F7D60 /* YZCycleScrollView.m in Sources */,
@@ -1315,6 +1314,7 @@
 				18AE74771F988EFB00E357D1 /* FLAnimatedImageView.m in Sources */,
 				18B358B21F9F542400F9CF73 /* MJRefreshAutoGifFooter.m in Sources */,
 				18B358AF1F9F542400F9CF73 /* MJRefreshBackStateFooter.m in Sources */,
+				18146AB91FA9699D000A3654 /* AppEditHeaderView.m in Sources */,
 				183826F11F90B08C0076C8A5 /* AppDelegate.m in Sources */,
 				18C02E4F1FA71549009EBD36 /* AppView.m in Sources */,
 				18AE74701F98839C00E357D1 /* MineViewController.m in Sources */,

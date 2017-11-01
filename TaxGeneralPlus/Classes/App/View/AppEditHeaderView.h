@@ -1,6 +1,6 @@
 /************************************************************
- Class    : AppEditViewController.h
- Describe : 应用管理编辑模块视图控制器
+ Class    : AppEditHeaderView.h
+ Describe : 自定义应用管理编辑模块组视图栏
  Company  : Prient
  Author   : Yanzheng 严正
  Date     : 2017-10-31
@@ -10,6 +10,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppEditViewController : UICollectionViewController
+@interface AppEditHeaderView : UICollectionReusableView
+
+@property (nonatomic, strong) NSString *title;
 
 @end

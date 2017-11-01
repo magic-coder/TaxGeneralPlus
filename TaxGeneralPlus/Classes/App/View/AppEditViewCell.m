@@ -1,10 +1,12 @@
-//
-//  AppEditViewCell.m
-//  TaxGeneralPlus
-//
-//  Created by Apple on 2017/10/31.
-//  Copyright © 2017年 prient. All rights reserved.
-//
+/************************************************************
+ Class    : AppEditViewCell.m
+ Describe : 自定义应用管理编辑模块视图
+ Company  : Prient
+ Author   : Yanzheng 严正
+ Date     : 2017-10-31
+ Version  : 1.0
+ Declare  : Copyright © 2017 Yanzheng. All rights reserved.
+ ************************************************************/
 
 #import "AppEditViewCell.h"
 #import "AppModel.h"

@@ -314,7 +314,7 @@ typedef NS_ENUM(NSInteger, AppViewType) {
         DLog(@"搜索方法");
     }
     if(sender.tag == 2){
-        [self.navigationController pushViewController:[NSClassFromString(@"AppEditViewController") new] animated:YES];
+        [self.navigationController pushViewController:[[NSClassFromString(@"AppEditViewController") alloc] init] animated:YES];
     }
 }
 
