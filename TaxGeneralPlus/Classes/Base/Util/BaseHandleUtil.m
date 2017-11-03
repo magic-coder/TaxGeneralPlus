@@ -19,7 +19,7 @@ SingletonM(BaseHandleUtil)
 #pragma mark 获取当前显示的视图（主方法）
 - (UIViewController *)topViewController {
     UIViewController *resultVC;
-    resultVC = [self _topViewController:[[UIApplication sharedApplication].keyWindow rootViewController]];
+    resultVC = [self _topViewController:[WINDOW rootViewController]];
     while (resultVC.presentedViewController) {
         resultVC = [self _topViewController:resultVC.presentedViewController];
     }

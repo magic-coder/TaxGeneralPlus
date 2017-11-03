@@ -28,6 +28,7 @@ static NSString * const reuseHeaderIdentifier = @"reuseHeaderIdentifier";
 
 
 - (instancetype)init {
+    
     _flowLayout = [[UICollectionViewFlowLayout alloc] init];
     _flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;// 确定是水平滚动，还是垂直滚动
     _flowLayout.minimumLineSpacing = 0;
@@ -199,6 +200,7 @@ static NSString * const reuseHeaderIdentifier = @"reuseHeaderIdentifier";
 
 #pragma mark - 代理编辑按钮点击方法
 - (void)appEditViewCellEditBtnClick:(UIButton *)sender {
+    
     UIView *view = [sender superview];//获取父类view
     AppEditViewCell *cell = (AppEditViewCell *)[view superview];//获取cell
     NSIndexPath *indexpath = [self.collectionView indexPathForCell:cell];//获取cell对应的indexpath;
@@ -222,6 +224,7 @@ static NSString * const reuseHeaderIdentifier = @"reuseHeaderIdentifier";
     }
     
     [self.collectionView reloadData];
+    
 }
 
 

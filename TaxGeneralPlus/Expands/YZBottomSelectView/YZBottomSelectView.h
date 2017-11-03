@@ -1,6 +1,6 @@
 /************************************************************
  Class    : YZBottomSelectView.h
- Describe : 自己扩展封装的底部选择框
+ Describe : 自己封装的底部选择框视图
  Company  : Prient
  Author   : Yanzheng 严正
  Date     : 2017-10-24
@@ -12,7 +12,7 @@
 @class YZBottomSelectView;
 
 /**
- * block回调
+ * block回调方法
  *
  * @param   bootomSelectView    YZBottomSelectView对象本身
  * @param   index               被点击按钮序列号，取消：0，删除：-1，其他：1.2.3...

@@ -11,6 +11,7 @@
 #import <UIKit/UIKit.h>
 
 // 定义屏幕尺寸枚举类型
+/*
 typedef NS_ENUM(NSInteger, DeviceScreenInch){
     // iPhone 尺寸
     DeviceScreenInch_3_5,   // 3.5英寸    320*480 (4、4s)
@@ -22,6 +23,7 @@ typedef NS_ENUM(NSInteger, DeviceScreenInch){
     // iPad 尺寸
     DeviceScreenInch_iPad,   // 7.9英寸/9.7英寸（768*1024）、10.5英寸（834*1112）、12.9英寸（1024*1366）
 };
+*/
 
 @interface UIDevice (YZ)
 
@@ -29,6 +31,6 @@ typedef NS_ENUM(NSInteger, DeviceScreenInch){
 - (NSString *)deviceModelName;
 
 // 获取设备屏幕尺寸
-- (DeviceScreenInch)deviceScreenInch;
+//- (DeviceScreenInch)deviceScreenInch;
 
 @end

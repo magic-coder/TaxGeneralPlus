@@ -12,20 +12,28 @@
 #define Marcos_h
 
 
-#define APPDELEGETE             ((AppDelegate*)[[UIApplication sharedApplication] delegate])
+#pragma mark - 框架Frame所需基本宏
+#define FRAME_SCREEN    [[UIScreen mainScreen] bounds]                                  // 主屏幕Frame
+#define WIDTH_SCREEN    [[UIScreen mainScreen] bounds].size.width                       // 主屏幕Width
+#define HEIGHT_SCREEN   [[UIScreen mainScreen] bounds].size.height                      // 主屏幕Height
+#define HEIGHT_STATUS   [[UIApplication sharedApplication] statusBarFrame].size.height  // 状态栏高度(20/44)
+#define HEIGHT_NAVBAR   44                                                              // NavBar高度(44)
+#define HEIGHT_TABBAR   49                                                              // TabBar高度(49)[iPhoneX底部安全高度34]
+
+#pragma mark - 判断设备屏幕尺寸，返回 YES/NO
+#define DEVICE_SCREEN_INCH_3_5  WIDTH_SCREEN == 320 && HEIGHT_SCREEN == 480 // 3.5英寸    320*480 (4、4s)
+#define DEVICE_SCREEN_INCH_4_0  WIDTH_SCREEN == 320 && HEIGHT_SCREEN == 568 // 4.0英寸    320*568 (5、5s、5se)
+#define DEVICE_SCREEN_INCH_4_7  WIDTH_SCREEN == 375 && HEIGHT_SCREEN == 667 // 4.7英寸    375*667 (6、6s、7、8)
+#define DEVICE_SCREEN_INCH_5_5  WIDTH_SCREEN == 414 && HEIGHT_SCREEN == 736 // 5.5英寸    414*736 (6 plus、6s plus、7 plus、8 plus)
+#define DEVICE_SCREEN_INCH_5_8  WIDTH_SCREEN == 375 && HEIGHT_SCREEN == 812 // 5.8英寸    375*812 (X)
+#define DEVICE_SCREEN_INCH_IPAD WIDTH_SCREEN > 414 && HEIGHT_SCREEN > 812   // iPad 尺寸  7.9英寸/9.7英寸（768*1024）、10.5英寸（834*1112）、12.9英寸（1024*1366）
+
+#pragma mark - 常用方法宏定义
+#define APPDELEGETE             [[UIApplication sharedApplication] delegate]
 #define WINDOW                  [[UIApplication sharedApplication] keyWindow]
 #define PLACEHOLDER_IMAGE       [UIImage imageNamed:@"common_placeholder"]
 #define RgbColor(r, g, b, a)    [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:a]
 #define HexColor(hex, a)        [UIColor colorWithHexString:hex alpha:a]
-#define DEVICE_SCREEN_INCH      [[UIDevice currentDevice] deviceScreenInch]
-
-#pragma mark - 框架Frame所需基本宏
-#define FRAME_SCREEN    [[UIScreen mainScreen] bounds]                                      // 主屏幕Frame
-#define WIDTH_SCREEN    [[UIScreen mainScreen] bounds].size.width                           // 主屏幕Width
-#define HEIGHT_SCREEN   [[UIScreen mainScreen] bounds].size.height                          // 主屏幕Height
-#define HEIGHT_STATUS   [[UIApplication sharedApplication] statusBarFrame].size.height      // 状态栏高度(20/44)
-#define HEIGHT_NAVBAR   44                                                                  // NavBar高度(44)
-#define HEIGHT_TABBAR   49                                                                  // TabBar高度(49)[34]
 
 #pragma mark - 自定义系统颜色Color
 #define DEFAULT_NAVBAR_COLOR            RgbColor(36.0, 105.0, 211.0, 0.9f)

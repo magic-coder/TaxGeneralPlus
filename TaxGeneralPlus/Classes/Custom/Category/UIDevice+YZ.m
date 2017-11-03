@@ -97,6 +97,7 @@
 }
 
 #pragma mark - 获取设备屏幕尺寸
+/*
 - (DeviceScreenInch)deviceScreenInch {
     
     if(WIDTH_SCREEN == 320 && HEIGHT_SCREEN == 480){
@@ -114,5 +115,6 @@
     return DeviceScreenInch_iPad;
     
 }
+*/
 
 @end

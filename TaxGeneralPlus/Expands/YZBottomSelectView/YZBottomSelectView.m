@@ -1,6 +1,6 @@
 /************************************************************
  Class    : YZBottomSelectView.m
- Describe : 自己扩展封装的底部选择框
+ Describe : 自己封装的底部选择框视图
  Company  : Prient
  Author   : Yanzheng 严正
  Date     : 2017-10-24
@@ -9,6 +9,8 @@
  ************************************************************/
 
 #import "YZBottomSelectView.h"
+
+#define IS_IPHONE_X (812 == [UIScreen mainScreen].bounds.size.height && 375 == [UIScreen mainScreen].bounds.size.width)
 
 static const CGFloat kRowHeight = 46.0f;
 static const CGFloat kRowLineHeight = 0.5f;
@@ -35,7 +37,7 @@ static const NSTimeInterval kAnimateDuration = 0.5f;
     
     self = [super initWithFrame:CGRectZero];
     if (self) {
-        self.frame = CGRectMake(0, 0, WIDTH_SCREEN, HEIGHT_SCREEN);
+        self.frame = [UIScreen mainScreen].bounds;
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         
         _bottomSelectViewBlock = bottomSelectViewBlock;
@@ -44,33 +46,34 @@ static const NSTimeInterval kAnimateDuration = 0.5f;
         
         _backgroundView = [[UIView alloc] initWithFrame:self.frame];
         _backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        _backgroundView.backgroundColor = RgbColor(0, 0, 0, 0.4f);
+        _backgroundView.backgroundColor = [UIColor colorWithRed:0/255.0f green:0/255.0f blue:0/255.0f alpha:0.4f];
         _backgroundView.alpha = 0;
         [self addSubview:_backgroundView];
         
         _bottomSelectView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.height, self.frame.size.width, 0)];
         _bottomSelectView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
-        _bottomSelectView.backgroundColor = RgbColor(238.0f, 238.0f, 238.0f, 1.0f);
+        _bottomSelectView.backgroundColor = [UIColor colorWithRed:238/255.0f green:238/255.0f blue:238/255.0f alpha:1];
         [self addSubview:_bottomSelectView];
         
-        UIImage *normalImage = [UIImage imageWithColor:RgbColor(255.0f, 255.0f, 255.0f, 1.0f)];
-        UIImage *highlightedImage = [UIImage imageWithColor:RgbColor(242.0f, 242.0f, 242.0f, 1.0f)];
+        UIImage *normalImage = [self imageWithColor:[UIColor colorWithRed:255/255.0f green:255/255.0f blue:255/255.0f alpha:1]];
+        UIImage *highlightedImage = [self imageWithColor:[UIColor colorWithRed:242/255.0f green:242/255.0f blue:242/255.0f alpha:1]];
         
         if (title && title.length > 0) {
             bootomSelectViewHeight += kRowLineHeight;
             
             CGFloat titleHeight = ceilf((CGFloat)[title boundingRectWithSize:CGSizeMake(self.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:kTitleFontSize]} context:nil].size.height) + 15*2;
             UILabel *titleLabel = [[UILabel alloc] init];
-            if(DeviceScreenInch_5_8 == DEVICE_SCREEN_INCH) {
-                // 设置 iPhoneX 中安全区域
+            // 此处进行判断设备是否为iPhoneX
+            if(IS_IPHONE_X) {
+                // 设置 iPhoneX 中安全区域（底部危险区域高为：34）
                 titleLabel.frame = CGRectMake(0, bootomSelectViewHeight-34.0f, self.frame.size.width, titleHeight);
             } else {
                 titleLabel.frame = CGRectMake(0, bootomSelectViewHeight, self.frame.size.width, titleHeight);
             }
             titleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
             titleLabel.text = title;
-            titleLabel.backgroundColor = RgbColor(255.0f, 255.0f, 255.0f, 1.0f);
-            titleLabel.textColor = RgbColor(135.0f, 135.0f, 135.0f, 1.0f);
+            titleLabel.backgroundColor = [UIColor colorWithRed:255/255.0f green:255/255.0f blue:255/255.0f alpha:1];
+            titleLabel.textColor = [UIColor colorWithRed:135/255.0f green:135/255.0f blue:135/255.0f alpha:1];
             titleLabel.textAlignment = NSTextAlignmentCenter;
             titleLabel.font = [UIFont systemFontOfSize:kTitleFontSize];
             titleLabel.numberOfLines = 0;
@@ -83,17 +86,18 @@ static const NSTimeInterval kAnimateDuration = 0.5f;
             bootomSelectViewHeight += kRowLineHeight;
             
             UIButton *destructiveButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            if(DeviceScreenInch_5_8 == DEVICE_SCREEN_INCH) {
-                // 设置 iPhoneX 中安全区域
+            // 此处进行判断设备是否为iPhoneX
+            if(IS_IPHONE_X) {
+                // 设置 iPhoneX 中安全区域（底部危险区域高为：34）
                 destructiveButton.frame = CGRectMake(0, bootomSelectViewHeight-34.0f, self.frame.size.width, kRowHeight);
             } else {
                 destructiveButton.frame = CGRectMake(0, bootomSelectViewHeight, self.frame.size.width, kRowHeight);
             }
             destructiveButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-            destructiveButton.tag = 1;
+            destructiveButton.tag = -1;
             destructiveButton.titleLabel.font = [UIFont systemFontOfSize:kButtonTitleFontSize];
             [destructiveButton setTitle:destructiveButtonTitle forState:UIControlStateNormal];
-            [destructiveButton setTitleColor:RgbColor(230.0f, 66.0f, 66.0f, 1.0f) forState:UIControlStateNormal];
+            [destructiveButton setTitleColor:[UIColor colorWithRed:230/255.0f green:66/255.0f blue:66/255.0f alpha:1] forState:UIControlStateNormal];
             [destructiveButton setBackgroundImage:normalImage forState:UIControlStateNormal];
             [destructiveButton setBackgroundImage:highlightedImage forState:UIControlStateHighlighted];
             [destructiveButton addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -107,17 +111,18 @@ static const NSTimeInterval kAnimateDuration = 0.5f;
                 bootomSelectViewHeight += kRowLineHeight;
                 
                 UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-                if(DeviceScreenInch_5_8 == DEVICE_SCREEN_INCH) {
-                    // 设置 iPhoneX 中安全区域
+                // 此处进行判断设备是否为iPhoneX
+                if(IS_IPHONE_X) {
+                    // 设置 iPhoneX 中安全区域（底部危险区域高为：34）
                     button.frame = CGRectMake(0, bootomSelectViewHeight-34.0f, self.frame.size.width, kRowHeight);
                 } else {
                     button.frame = CGRectMake(0, bootomSelectViewHeight, self.frame.size.width, kRowHeight);
                 }
                 button.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-                button.tag = i+2;
+                button.tag = i+1;
                 button.titleLabel.font = [UIFont systemFontOfSize:kButtonTitleFontSize];
                 [button setTitle:otherButtonTitles[i] forState:UIControlStateNormal];
-                [button setTitleColor:RgbColor(64.0f, 64.0f, 64.0f, 1.0f) forState:UIControlStateNormal];
+                [button setTitleColor:[UIColor colorWithRed:64/255.0f green:64/255.0f blue:64/255.0f alpha:1] forState:UIControlStateNormal];
                 [button setBackgroundImage:normalImage forState:UIControlStateNormal];
                 [button setBackgroundImage:highlightedImage forState:UIControlStateHighlighted];
                 [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -131,8 +136,9 @@ static const NSTimeInterval kAnimateDuration = 0.5f;
             bootomSelectViewHeight += kSeparatorHeight;
             
             UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            if(DeviceScreenInch_5_8 == DEVICE_SCREEN_INCH) {
-                // 设置 iPhoneX 中安全区域
+            // 此处进行判断设备是否为iPhoneX
+            if(IS_IPHONE_X) {
+                // 设置 iPhoneX 中安全区域（底部危险区域高为：34）
                 cancelButton.frame = CGRectMake(0, bootomSelectViewHeight-34.0f, self.frame.size.width, kRowHeight);
             } else {
                 cancelButton.frame = CGRectMake(0, bootomSelectViewHeight, self.frame.size.width, kRowHeight);
@@ -141,7 +147,7 @@ static const NSTimeInterval kAnimateDuration = 0.5f;
             cancelButton.tag = 0;
             cancelButton.titleLabel.font = [UIFont systemFontOfSize:kButtonTitleFontSize];
             [cancelButton setTitle:cancelButtonTitle ?: @"取消" forState:UIControlStateNormal];
-            [cancelButton setTitleColor:RgbColor(64.0f, 64.0f, 64.0f, 1.0f) forState:UIControlStateNormal];
+            [cancelButton setTitleColor:[UIColor colorWithRed:64/255.0f green:64/255.0f blue:64/255.0f alpha:1] forState:UIControlStateNormal];
             [cancelButton setBackgroundImage:normalImage forState:UIControlStateNormal];
             [cancelButton setBackgroundImage:highlightedImage forState:UIControlStateHighlighted];
             [cancelButton addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -217,6 +223,23 @@ static const NSTimeInterval kAnimateDuration = 0.5f;
     [self dismiss];
 }
 
+#pragma mark - 根据颜色创建图片
+- (UIImage *)imageWithColor:(UIColor *)color {
+    
+    CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+    
+}
+
 /*
  // Only override drawRect: if you perform custom drawing.
  // An empty implementation adversely affects performance during animation.
@@ -226,4 +249,3 @@ static const NSTimeInterval kAnimateDuration = 0.5f;
  */
 
 @end
-
