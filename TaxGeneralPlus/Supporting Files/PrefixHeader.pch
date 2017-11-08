@@ -28,8 +28,10 @@
 #import "UINavigationBar+YZ.h"
 
 #pragma mark - 自己封装的处理方法类
-#import "BaseHandleUtil.h"
 #import "BaseScrollView.h"
+#import "BaseHandleUtil.h"
+#import "BaseSandBoxUtil.h"
+#import "BaseSettingUtil.h"
 
 #pragma mark - 自己封装的组件、处理类
 #import "YZCycleScrollView.h"

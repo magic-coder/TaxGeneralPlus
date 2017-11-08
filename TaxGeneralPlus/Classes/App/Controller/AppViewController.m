@@ -11,7 +11,8 @@
 #import "AppViewController.h"
 #import "AppTopView.h"
 #import "AppPullHidenView.h"
-#import "AppGroupView.h"
+#import "AppHeaderView.h"
+#import "AppFooterView.h"
 #import "AppBorderView.h"
 #import "AppView.h"
 #import "AppModel.h"
@@ -37,8 +38,10 @@ typedef NS_ENUM(NSInteger, AppViewType) {
 @property (nonatomic, strong) AppPullHidenView *pullHidenView;
 @property (nonatomic, strong) BaseScrollView *baseScrollView;
 
-@property (nonatomic, strong) AppGroupView *mineGroupView;
-@property (nonatomic, strong) AppGroupView *otherGroupView;
+@property (nonatomic, strong) AppHeaderView *mineHeaderView;
+@property (nonatomic, strong) AppHeaderView *otherHeaderView;
+@property (nonatomic, strong) UIView *mineFooterView;
+@property (nonatomic, strong) AppFooterView *otherFooterView;
 
 @property (nonatomic, strong) NSMutableArray *mineAppData;
 @property (nonatomic, strong) NSArray *allAppData;
@@ -59,10 +62,10 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     [self.view addSubview:self.topView];
     [self.view addSubview:self.baseScrollView];
     [self.baseScrollView addSubview:self.pullHidenView];
-    [self.baseScrollView addSubview:self.mineGroupView];
+    [self.baseScrollView addSubview:self.mineHeaderView];
     
     [self initializeData];
-    [self.baseScrollView setContentSize:CGSizeMake(WIDTH_SCREEN, _otherViewHeight+35)];
+    [self.baseScrollView setContentSize:CGSizeMake(WIDTH_SCREEN, _otherViewHeight+55)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -108,7 +111,7 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     int itemWidth = ((WIDTH_SCREEN - 25) / 4);
     
     for (int i = 0; i < _mineAppData.count; i++) {
-        CGRect frame = CGRectMake((i%4)*(itemWidth+5)+10,(i/4)*(itemWidth+5)+self.mineGroupView.frameBottom+10,itemWidth-10,itemWidth-10);
+        CGRect frame = CGRectMake((i%4)*(itemWidth+5)+10,(i/4)*(itemWidth+5)+self.mineHeaderView.frameBottom+10,itemWidth-10,itemWidth-10);
         frame = CGRectInset(frame, 1, 1);
         AppBorderView *appBorderView = [[AppBorderView alloc] initWithFrame:frame];
         [self.baseScrollView addSubview:appBorderView];
@@ -128,10 +131,12 @@ typedef NS_ENUM(NSInteger, AppViewType) {
         
         if(type == AppViewTypeMine){
             appView.tag = i;
-            appView.frame = CGRectMake((i%4)*(viewWidth+5)+5,(i/4)*(viewWidth+5)+self.mineGroupView.frameBottom,viewWidth,viewWidth);
+            appView.frame = CGRectMake((i%4)*(viewWidth+5)+5,(i/4)*(viewWidth+5)+self.mineHeaderView.frameBottom,viewWidth,viewWidth);
             
-            if(i == data.count-1)
+            if(i == data.count-1){
                 _mineViewHeight = appView.frameBottom;
+                [self.baseScrollView addSubview:self.mineFooterView];// 添加底部视图
+            }
                 
             // 添加长按手势
             UILongPressGestureRecognizer *longGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureRecognizerAction:)];
@@ -142,11 +147,13 @@ typedef NS_ENUM(NSInteger, AppViewType) {
         }
         
         if(type == AppViewTypeOther){
-            [self.baseScrollView addSubview:self.otherGroupView];
-            appView.frame = CGRectMake((i%4)*(viewWidth+5)+5,(i/4)*(viewWidth+5)+self.otherGroupView.frameBottom,viewWidth,viewWidth);
+            [self.baseScrollView addSubview:self.otherHeaderView];// 添加分组头部视图
+            appView.frame = CGRectMake((i%4)*(viewWidth+5)+5,(i/4)*(viewWidth+5)+self.otherHeaderView.frameBottom,viewWidth,viewWidth);
             
-            if(i == data.count-1)
+            if(i == data.count-1){
                 _otherViewHeight = appView.frameBottom;
+                [self.baseScrollView addSubview:self.otherFooterView];// 添加底部视图
+            }
             
             [self.baseScrollView addSubview:appView];
         }
@@ -279,23 +286,39 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     return _baseScrollView;
 }
 
-#pragma mark 初始化我的应用分组条
-- (AppGroupView *)mineGroupView {
-    if(!_mineGroupView){
-        _mineGroupView = [[AppGroupView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, 30)];
-        _mineGroupView.top = YES;
-        _mineGroupView.title = @"我的应用";
+#pragma mark 初始化我的应用头部视图
+- (AppHeaderView *)mineHeaderView {
+    if(!_mineHeaderView){
+        _mineHeaderView = [[AppHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, 30)];
+        _mineHeaderView.title = @"我的应用";
     }
-    return _mineGroupView;
+    return _mineHeaderView;
 }
 
-#pragma mark 初始化其他应用分组条
-- (AppGroupView *)otherGroupView {
-    if(!_otherGroupView){
-        _otherGroupView = [[AppGroupView alloc] initWithFrame:CGRectMake(0, _mineViewHeight, WIDTH_SCREEN, 30)];
-        _otherGroupView.title = @"更多应用";
+#pragma mark 初始化我的应用底部视图
+- (UIView *)mineFooterView {
+    if(!_mineFooterView){
+        _mineFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, _mineViewHeight, WIDTH_SCREEN, 1)];
+        _mineFooterView.backgroundColor = DEFAULT_BACKGROUND_COLOR;
     }
-    return _otherGroupView;
+    return _mineFooterView;
+}
+
+#pragma mark 初始化其他应用头部视图
+- (AppHeaderView *)otherHeaderView {
+    if(!_otherHeaderView){
+        _otherHeaderView = [[AppHeaderView alloc] initWithFrame:CGRectMake(0, self.mineFooterView.frameBottom, WIDTH_SCREEN, 30)];
+        _otherHeaderView.title = @"更多应用";
+    }
+    return _otherHeaderView;
+}
+
+#pragma mark 初始化其他应用底部视图
+- (AppFooterView *)otherFooterView {
+    if(!_otherFooterView){
+        _otherFooterView = [[AppFooterView alloc] initWithFrame:CGRectMake(0, _otherViewHeight, WIDTH_SCREEN, 1)];
+    }
+    return _otherFooterView;
 }
 
 #pragma mark - <AppTopViewDelegate>应用顶部视图点击代理方法

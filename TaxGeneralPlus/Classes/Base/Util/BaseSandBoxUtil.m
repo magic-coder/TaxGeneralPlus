@@ -2,7 +2,7 @@
  Class    : BaseSandBoxUtil.m
  Describe : 基本的沙盒SandBox操作(读、写、删)
  Company  : Prient
- Author   : Yanzheng
+ Author   : Yanzheng 严正
  Date     : 2017-10-26
  Version  : 1.0
  Declare  : Copyright © 2017 Yanzheng. All rights reserved.

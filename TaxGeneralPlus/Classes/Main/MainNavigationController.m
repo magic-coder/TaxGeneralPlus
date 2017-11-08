@@ -50,7 +50,7 @@
     // 判断要显示的控制器是否是否进行隐藏
     //BOOL isHidden = [viewController isKindOfClass:[NSClassFromString(@"NewsViewController") class]];
     BOOL isNavigationBarHidden = NO;
-    NSArray *hidenControllers = @[@"NewsViewController_BAK", @"AppViewController"];
+    NSArray *hidenControllers = @[@"AppViewController", @"MineViewController"];
     for(NSString *hidenControllerName in hidenControllers){
         isNavigationBarHidden = isNavigationBarHidden || [viewController isKindOfClass:[NSClassFromString(hidenControllerName) class]];
     }

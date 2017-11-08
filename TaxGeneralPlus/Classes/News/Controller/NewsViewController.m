@@ -90,12 +90,9 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     
     DLog(@"触发下拉刷新事件");
     
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-        sleep(2.0);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            // 结束刷新
-            [self.tableView.mj_header endRefreshing];
-        });
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        // 结束刷新
+        [self.tableView.mj_header endRefreshing];
     });
 }
 
