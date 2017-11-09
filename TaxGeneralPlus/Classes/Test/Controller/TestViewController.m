@@ -65,6 +65,20 @@
     btn3.tag = 3;
     [self.view addSubview:btn3];
     
+    UIButton *btn4 = [UIButton buttonWithType:UIButtonTypeSystem];
+    btn4.frame = CGRectMake(10, 220, 300, 30);
+    [btn4 setTitle:@"AFNetworking不认证" forState:UIControlStateNormal];
+    [btn4 addTarget:self action:@selector(onClick:) forControlEvents:(UIControlEventTouchUpInside)];
+    btn4.tag = 4;
+    [self.view addSubview:btn4];
+    
+    UIButton *btn5 = [UIButton buttonWithType:UIButtonTypeSystem];
+    btn5.frame = CGRectMake(10, 260, 300, 30);
+    [btn5 setTitle:@"AFNetworking单项认证" forState:UIControlStateNormal];
+    [btn5 addTarget:self action:@selector(onClick:) forControlEvents:(UIControlEventTouchUpInside)];
+    btn5.tag = 5;
+    [self.view addSubview:btn5];
+    
     // 添加轮播图
     NSArray *titles = @[@"腾讯", @"京东", @"阿里巴巴", @"小米"];
     NSArray *images = @[@"http://i1.douguo.net//upload/banner/0/6/a/06e051d7378040e13af03db6d93ffbfa.jpg", @"http://i1.douguo.net//upload/banner/9/3/4/93f959b4e84ecc362c52276e96104b74.jpg", @"http://i1.douguo.net//upload/banner/5/e/3/5e228cacf18dada577269273971a86c3.jpg", @"http://i1.douguo.net//upload/banner/d/8/2/d89f438789ee1b381966c1361928cb32.jpg"];
@@ -89,29 +103,11 @@
 // 菜单点击代理
 - (void)ybPopupMenuDidSelectedAtIndex:(NSInteger)index ybPopupMenu:(YBPopupMenu *)ybPopupMenu {
     DLog(@"点击了菜单的序列为：index = %ld", index);
-    NSString *jsonStr = @"{\"uid\":123456,\"name\":\"Harry\",\"created\":\"1965-07-31T00:00:00+0000\"}";
-    
-    TestModel *testModel = [TestModel yy_modelWithJSON:jsonStr];
-    DLog(@"%llu,%@,%@",testModel.uid,testModel.name,testModel.created);
-    
-    DLog(@"%@",[[BaseHandleUtil sharedBaseHandleUtil] readWithJSONFile:@"News.json"]);
-    
-    
 }
 
 // 轮播图点击代理
 - (void)cycleScrollViewDidSelectedImage:(YZCycleScrollView *)cycleScrollView index:(int)index {
     DLog(@"点击的轮播图序号为：%d", index);
-    
-    //JSON文件的路径
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"News" ofType:@"json"];
-    //加载JSON文件
-    NSData *data = [NSData dataWithContentsOfFile:path];
-    //将JSON数据转为NSArray或NSDictionary
-    NSDictionary *dictArray = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-    DLog(@"%@",dictArray);
-
-    
 }
 
 - (void)onClick:(UIButton *)btn{
@@ -156,6 +152,52 @@
     if(3 == btn.tag){
         [YZBottomSelectView showBottomSelectViewWithTitle:@"顶部标题" cancelButtonTitle:@"取消按钮" destructiveButtonTitle:@"红色按钮" otherButtonTitles:@[@"自定义按钮1", @"自定义按钮2"] handler:^(YZBottomSelectView *bootomSelectView, NSInteger index) {
             DLog(@"点击按钮的序列号：%ld", index);
+        }];
+    }
+    
+    if(4 == btn.tag){
+        
+        AFHTTPSessionManager *manager =[AFHTTPSessionManager manager];
+
+        [manager POST:SERVER_URL parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+            // 进度
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            // 请求成功
+            DLog(@"responseObject = %@", responseObject);
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            // 请求失败
+            DLog(@"error = %@", error);
+        }];
+    }
+    
+    
+    if(5 == btn.tag){
+        
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+        [dict setObject:@"26100010001" forKey:@"userCode"];
+        [dict setObject:@"Aa111111" forKey:@"password"];
+        [dict setObject:@"876635" forKey:@"verificationCode"];
+        [dict setObject:@"app" forKey:@"loginType"];
+        [dict setObject:@"iPhoneX" forKey:@"phonemodel"];
+        [dict setObject:[UIDevice currentDevice].systemVersion forKey:@"osversion"];
+        [dict setObject:@"4" forKey:@"phonetype"];
+        [dict setObject:[[[UIDevice currentDevice] identifierForVendor] UUIDString] forKey:@"deviceid"];
+        
+        NSString *jsonString = [[BaseHandleUtil sharedBaseHandleUtil] JSONStringWithObject:dict];
+        
+        /*
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+        [dict setObject:[NSNumber numberWithInt:10] forKey:@"pageSize"];
+        [dict setObject:@"26101000000" forKey:@"orgCode"];
+        
+        NSString *jsonString = [[BaseHandleUtil sharedBaseHandleUtil] JSONStringWithObject:dict];
+        */
+        NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:jsonString, @"msg", nil];
+        
+        [YZNetworkingManager POST:[NSString stringWithFormat:@"%@public/photonews/index", SERVER_URL] parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        DLog(@"responseObject = %@", responseObject);
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        DLog(@"error = %@", error);
         }];
     }
     

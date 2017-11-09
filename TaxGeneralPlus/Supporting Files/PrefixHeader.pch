@@ -18,7 +18,7 @@
 #import "Marcos.h"
 #import "Singleton.h"
 
-#pragma mark - 自定义扩展类
+#pragma mark - 自己扩展的类
 #import "UIView+YZ.h"
 #import "UIColor+YZ.h"
 #import "UIImage+YZ.h"
@@ -27,7 +27,7 @@
 #import "MBProgressHUD+YZ.h"
 #import "UINavigationBar+YZ.h"
 
-#pragma mark - 自己封装的处理方法类
+#pragma mark - 自己封装的方法类
 #import "BaseScrollView.h"
 #import "BaseHandleUtil.h"
 #import "BaseSandBoxUtil.h"

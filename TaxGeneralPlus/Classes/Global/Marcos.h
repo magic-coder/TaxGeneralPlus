@@ -49,11 +49,11 @@
 #define SERVER_URL  @"https://192.168.14.235:8444/mobiletax/"   // 测试 https服务器地址
 //#define SERVER_URL  @"https://10.100.16.133:8443/mobiletax/"    // 生产 https VPN 服务器地址
 
-#pragma mark - 定义设置文件名称
-#define SETTING_FILE    @"settingData.plist"
-
 #pragma mark - 定义全局常用key值
 #define LOGIN_SUCCESS   @"loginSuccess"
+
+#pragma mark - 定义设置文件名称
+#define SETTING_FILE    @"settingData.plist"
 
 
 #endif /* Marcos_h */

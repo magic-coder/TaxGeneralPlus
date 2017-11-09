@@ -116,4 +116,29 @@
     }];
 }
 
+/**
+ * @brief 把错误信息转换成文字描述
+ * @param error 错误信息
+ * @return 返回字符串
+ */
+- (NSString *)stringWithError:(NSError *)error{
+    switch (error.code) {
+        case NSURLErrorTimedOut:
+            return @"访问服务器超时，请检查网络！";
+            break;
+        case NSURLErrorUnsupportedURL:
+            return @"无效的访问地址，请联系管理员！";
+            break;
+        case NSURLErrorNotConnectedToInternet:
+            return @"网络连接失败，请检查网络！";
+            break;
+        case NSURLErrorBadServerResponse:
+            return @"404错误，请稍后再试！";
+            break;
+        default:
+            return @"未知错误异常，请稍后再试！";
+            break;
+    }
+}
+
 @end

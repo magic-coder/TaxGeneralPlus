@@ -54,7 +54,7 @@
         _msgLabel.textColor = DEFAULT_LINE_GRAY_COLOR;
         _msgLabel.textAlignment = NSTextAlignmentCenter;
         _msgLabel.font = [UIFont systemFontOfSize:12.0f];
-        _msgLabel.text = @"这是我的底线";
+        _msgLabel.text = @"这是我的底线了";
     }
     return _msgLabel;
 }

@@ -25,10 +25,23 @@
 @property (nonatomic, strong) UIButton *nightBtn;               // 夜间模式按钮
 @property (nonatomic, strong) UIButton *accountBtn;             // 用户信息按钮
 @property (nonatomic, strong) UILabel *levelLabel;              // 用户等级
-@property (nonatomic, strong) UILabel *nameLabel;             // 用户名称
+@property (nonatomic, strong) UILabel *nameLabel;               // 用户名称
 @property (nonatomic, strong) UILabel *orgNameLabel;            // 机构名称
 
-@property (nonatomic, strong) NSString *nameText;
+@property (nonatomic, strong) UIView *bottomView;               // 底部操作视图
+
+@property (nonatomic, strong) UIImageView *leftImageView;       // 左边图标视图
+@property (nonatomic, strong) UIImageView *middleImageView;     // 中间图标视图
+@property (nonatomic, strong) UIImageView *rightImageView;      // 右边图标视图
+
+@property (nonatomic, strong) UILabel *leftTitleLabel;           // 左侧标签
+@property (nonatomic, strong) UILabel *middleTitleLabel;         // 中间标签
+@property (nonatomic, strong) UILabel *rightTitleLabel;          // 右侧标签
+
+@property (nonatomic, strong) UIView *firstLineView;            // 第一条竖线
+@property (nonatomic, strong) UIView *secondLineView;           // 第二条竖线
+
+@property (nonatomic, strong) NSString *nameText;               // 名字
 
 @property (nonatomic, weak) id<MineHeaderViewDelegate> delegate;
 

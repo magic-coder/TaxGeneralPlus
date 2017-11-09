@@ -27,7 +27,7 @@
     self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     
     // 设置头部视图
-    _headerView = [[MineHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, HEIGHT_STATUS+HEIGHT_NAVBAR+100)];
+    _headerView = [[MineHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, HEIGHT_STATUS+HEIGHT_NAVBAR+170)];
     _headerView.delegate = self;
     _headerView.nameText = @"未登录";
     

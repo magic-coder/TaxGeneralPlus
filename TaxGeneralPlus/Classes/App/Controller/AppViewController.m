@@ -64,8 +64,11 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     [self.baseScrollView addSubview:self.pullHidenView];
     [self.baseScrollView addSubview:self.mineHeaderView];
     
+    [self.view bringSubviewToFront:self.topView];// 设置视图层级为最上层
+    [self.view sendSubviewToBack:self.baseScrollView];// 设置视图层级为最底下
+    
     [self initializeData];
-    [self.baseScrollView setContentSize:CGSizeMake(WIDTH_SCREEN, _otherViewHeight+55)];
+    [self.baseScrollView setContentSize:CGSizeMake(WIDTH_SCREEN, _otherViewHeight+HEIGHT_STATUS+15)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -108,10 +111,10 @@ typedef NS_ENUM(NSInteger, AppViewType) {
 
 #pragma mark - 添加应用图标底层虚线边框
 - (void)initAppBorderView {
-    int itemWidth = ((WIDTH_SCREEN - 25) / 4);
+    int itemWidth = ((WIDTH_SCREEN - 50) / 4);
     
     for (int i = 0; i < _mineAppData.count; i++) {
-        CGRect frame = CGRectMake((i%4)*(itemWidth+5)+10,(i/4)*(itemWidth+5)+self.mineHeaderView.frameBottom+10,itemWidth-10,itemWidth-10);
+        CGRect frame = CGRectMake((i%4)*(itemWidth+10)+10,(i/4)*(itemWidth+10)+self.mineHeaderView.frameBottom+10,itemWidth-10,itemWidth-10);
         frame = CGRectInset(frame, 1, 1);
         AppBorderView *appBorderView = [[AppBorderView alloc] initWithFrame:frame];
         [self.baseScrollView addSubview:appBorderView];
