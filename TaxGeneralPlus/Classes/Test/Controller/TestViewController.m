@@ -20,7 +20,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    DLog(@"%f", HEIGHT_STATUS);
+    DLog(@"%d", HEIGHT_STATUS);
     
     self.title = @"Test";
     self.view.backgroundColor = DEFAULT_BACKGROUND_COLOR;
@@ -66,18 +66,25 @@
     [self.view addSubview:btn3];
     
     UIButton *btn4 = [UIButton buttonWithType:UIButtonTypeSystem];
-    btn4.frame = CGRectMake(10, 220, 300, 30);
-    [btn4 setTitle:@"AFNetworking不认证" forState:UIControlStateNormal];
+    btn4.frame = CGRectMake(10, 260, 300, 30);
+    [btn4 setTitle:@"AFNetworking单项认证登录" forState:UIControlStateNormal];
     [btn4 addTarget:self action:@selector(onClick:) forControlEvents:(UIControlEventTouchUpInside)];
     btn4.tag = 4;
     [self.view addSubview:btn4];
     
     UIButton *btn5 = [UIButton buttonWithType:UIButtonTypeSystem];
-    btn5.frame = CGRectMake(10, 260, 300, 30);
-    [btn5 setTitle:@"AFNetworking单项认证" forState:UIControlStateNormal];
+    btn5.frame = CGRectMake(10, 300, 300, 30);
+    [btn5 setTitle:@"AFNetworking请求首页税闻" forState:UIControlStateNormal];
     [btn5 addTarget:self action:@selector(onClick:) forControlEvents:(UIControlEventTouchUpInside)];
     btn5.tag = 5;
     [self.view addSubview:btn5];
+    
+    UIButton *btn6 = [UIButton buttonWithType:UIButtonTypeSystem];
+    btn6.frame = CGRectMake(10, 340, 300, 30);
+    [btn6 setTitle:@"登录界面" forState:UIControlStateNormal];
+    [btn6 addTarget:self action:@selector(onClick:) forControlEvents:(UIControlEventTouchUpInside)];
+    btn6.tag = 6;
+    [self.view addSubview:btn6];
     
     // 添加轮播图
     NSArray *titles = @[@"腾讯", @"京东", @"阿里巴巴", @"小米"];
@@ -157,22 +164,7 @@
     
     if(4 == btn.tag){
         
-        AFHTTPSessionManager *manager =[AFHTTPSessionManager manager];
-
-        [manager POST:SERVER_URL parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
-            // 进度
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            // 请求成功
-            DLog(@"responseObject = %@", responseObject);
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            // 请求失败
-            DLog(@"error = %@", error);
-        }];
-    }
-    
-    
-    if(5 == btn.tag){
-        
+        // 拼接报文参数
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         [dict setObject:@"26100010001" forKey:@"userCode"];
         [dict setObject:@"Aa111111" forKey:@"password"];
@@ -194,11 +186,32 @@
         */
         NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:jsonString, @"msg", nil];
         
-        [YZNetworkingManager POST:[NSString stringWithFormat:@"%@public/photonews/index", SERVER_URL] parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        [YZNetworkingManager POST:[NSString stringWithFormat:@"%@account/login", SERVER_URL] parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
         DLog(@"responseObject = %@", responseObject);
-        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        } failure:^(NSURLSessionDataTask *task, NSString *error) {
         DLog(@"error = %@", error);
         }];
+    }
+    
+    if(5 == btn.tag){
+        
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+        [dict setObject:@"10" forKey:@"pageSize"];
+        [dict setObject:@"26101007900" forKey:@"orgCode"];
+        
+        NSString *jsonString = [[BaseHandleUtil sharedBaseHandleUtil] JSONStringWithObject:dict];
+        NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:jsonString, @"msg", nil];
+        
+        [YZNetworkingManager POST:[NSString stringWithFormat:@"%@public/photonews/index", SERVER_URL] parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+            DLog(@"responseObject = %@", responseObject);
+        } failure:^(NSURLSessionDataTask *task, NSString *error) {
+            DLog(@"error = %@", error);
+        }];
+    }
+    
+    if(6 == btn.tag){
+        LoginViewController *loginVC = [[LoginViewController alloc] init];
+        [self presentViewController:loginVC animated:YES completion:nil];
     }
     
 }
