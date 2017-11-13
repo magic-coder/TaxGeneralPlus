@@ -16,6 +16,11 @@
 SingletonH(BaseHandleUtil)
 
 /**
+ *  获取当前设备的基本信息
+ */
+- (void)currentDeviceInfo;
+
+/**
  *  获取当前最顶端展示的视图控制器
  *
  *  @return 正在显示的视图控制器ViewController

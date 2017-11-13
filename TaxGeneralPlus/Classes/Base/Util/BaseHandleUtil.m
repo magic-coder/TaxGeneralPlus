@@ -15,6 +15,29 @@
 #pragma mark - 单例模式方法
 SingletonM(BaseHandleUtil)
 
+#pragma mark - 获取当前设备基本信（存放本地对象中）
+- (void)currentDeviceInfo {
+    
+    NSString *deviceIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];                                                       // 设备主键（唯一）
+    NSString *deviceName = [[UIDevice currentDevice] name];                                                                                         // 设备名称
+    NSString *deviceModel = [[UIDevice currentDevice] deviceModelName];                                                                             // 设备型号
+    NSString *deviceInch = [NSString stringWithFormat:@"%d*%d", (int)WIDTH_SCREEN, (int)HEIGHT_SCREEN ];                                            // 设备尺寸
+    NSString *systemVersion = [NSString stringWithFormat:@"%@ %@",[[UIDevice currentDevice] systemName], [[UIDevice currentDevice] systemVersion]]; // 系统版本
+
+    NSDictionary *deviceDict = [NSDictionary dictionaryWithObjectsAndKeys:deviceIdentifier, @"deviceIdentifier", deviceName, @"deviceName", deviceModel, @"deviceModel", deviceInch, @"deviceInch", systemVersion, @"systemVersion", nil];
+    
+    DLog(@"设备基本信息：");
+    DLog(@"设备主键：%@", deviceIdentifier);
+    DLog(@"设备名称：%@", deviceName);
+    DLog(@"设备型号：%@", deviceModel);
+    DLog(@"设备尺寸：%@", deviceInch);
+    DLog(@"系统版本：%@", systemVersion);
+    
+    [[NSUserDefaults standardUserDefaults] setObject:deviceDict forKey:DEVICE_INFO];
+    [[NSUserDefaults standardUserDefaults] synchronize]; // 强制写入
+    
+}
+
 #pragma mark - 获取当前最顶端展示的视图控制器
 #pragma mark 获取当前显示的视图（主方法）
 - (UIViewController *)topViewController {

@@ -15,11 +15,11 @@
 + (void)POST:(NSString *)URLString
   parameters:(id)parameters
      success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
-     failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure;
+     failure:(void (^)(NSURLSessionDataTask *task, NSString *error))failure;
 
 + (void)GET:(NSString *)URLString
  parameters:(id)parameters
     success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
-    failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure;
+    failure:(void (^)(NSURLSessionDataTask *task, NSString *error))failure;
 
 @end

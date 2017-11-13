@@ -116,6 +116,10 @@
 		18C02E4F1FA71549009EBD36 /* AppView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C02E4E1FA71549009EBD36 /* AppView.m */; };
 		18C02E521FA71582009EBD36 /* AppModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C02E511FA71582009EBD36 /* AppModel.m */; };
 		18C02E551FA72609009EBD36 /* App.json in Resources */ = {isa = PBXBuildFile; fileRef = 18C02E541FA72609009EBD36 /* App.json */; };
+		18DE15BD1FB9399A00434F91 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE15BC1FB9399A00434F91 /* BaseViewController.m */; };
+		18DE15C01FB93E7A00434F91 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE15BF1FB93E7A00434F91 /* LoginViewController.m */; };
+		18DE15C31FB9458900434F91 /* Login.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18DE15C21FB9458900434F91 /* Login.xcassets */; };
+		18DE15CE1FB9A21B00434F91 /* LoginUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE15CD1FB9A21B00434F91 /* LoginUtil.m */; };
 		18E4ED951F9ED39600CAB201 /* YZBottomSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E4ED941F9ED39600CAB201 /* YZBottomSelectView.m */; };
 		18E4ED981F9EE02200CAB201 /* UIColor+YZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E4ED971F9EE02200CAB201 /* UIColor+YZ.m */; };
 		18E4EDA51F9F1D9600CAB201 /* YBPopupMenu+YZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E4EDA41F9F1D9600CAB201 /* YBPopupMenu+YZ.m */; };
@@ -355,6 +359,13 @@
 		18C02E501FA71582009EBD36 /* AppModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppModel.h; sourceTree = "<group>"; };
 		18C02E511FA71582009EBD36 /* AppModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppModel.m; sourceTree = "<group>"; };
 		18C02E541FA72609009EBD36 /* App.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = App.json; sourceTree = "<group>"; };
+		18DE15BB1FB9399A00434F91 /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		18DE15BC1FB9399A00434F91 /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		18DE15BE1FB93E7A00434F91 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		18DE15BF1FB93E7A00434F91 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		18DE15C21FB9458900434F91 /* Login.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Login.xcassets; sourceTree = "<group>"; };
+		18DE15CC1FB9A21B00434F91 /* LoginUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginUtil.h; sourceTree = "<group>"; };
+		18DE15CD1FB9A21B00434F91 /* LoginUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginUtil.m; sourceTree = "<group>"; };
 		18E4ED931F9ED39600CAB201 /* YZBottomSelectView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YZBottomSelectView.h; sourceTree = "<group>"; };
 		18E4ED941F9ED39600CAB201 /* YZBottomSelectView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YZBottomSelectView.m; sourceTree = "<group>"; };
 		18E4ED961F9EE02200CAB201 /* UIColor+YZ.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+YZ.h"; sourceTree = "<group>"; };
@@ -441,6 +452,7 @@
 				186E5AEA1FA1CA9600228258 /* Test.xcassets */,
 				18FCCD741FA6CBE300424A0C /* App.xcassets */,
 				180A90C31FB2EDEA00F7D213 /* Mine.xcassets */,
+				18DE15C21FB9458900434F91 /* Login.xcassets */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -613,6 +625,8 @@
 		188AE5661FA02FA5008F7D60 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				18DE15BB1FB9399A00434F91 /* BaseViewController.h */,
+				18DE15BC1FB9399A00434F91 /* BaseViewController.m */,
 				180A90BD1FB2E2B800F7D213 /* BaseTableViewController.h */,
 				180A90BE1FB2E2B800F7D213 /* BaseTableViewController.m */,
 			);
@@ -846,6 +860,7 @@
 				18AE74641F9882F300E357D1 /* Controller */,
 				18AE74631F9882ED00E357D1 /* View */,
 				18AE74621F9882E900E357D1 /* Model */,
+				18DE15CB1FB9A20100434F91 /* Util */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -989,6 +1004,8 @@
 		18AE74641F9882F300E357D1 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				18DE15BE1FB93E7A00434F91 /* LoginViewController.h */,
+				18DE15BF1FB93E7A00434F91 /* LoginViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1114,6 +1131,15 @@
 				18B358A71F9F542400F9CF73 /* MJRefreshBackFooter.h */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		18DE15CB1FB9A20100434F91 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				18DE15CC1FB9A21B00434F91 /* LoginUtil.h */,
+				18DE15CD1FB9A21B00434F91 /* LoginUtil.m */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 		18E4ED921F9ED33000CAB201 /* YZBottomSelectView */ = {
@@ -1243,6 +1269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1816084B1F99DBDE00EC0FC3 /* Navigation.xcassets in Resources */,
+				18DE15C31FB9458900434F91 /* Login.xcassets in Resources */,
 				186E5AEB1FA1CA9600228258 /* Test.xcassets in Resources */,
 				183826FC1F90B08C0076C8A5 /* LaunchScreen.storyboard in Resources */,
 				1804C9E41FA082D400FCC6F1 /* Common.xcassets in Resources */,
@@ -1322,6 +1349,7 @@
 				18B358B41F9F542400F9CF73 /* MJRefreshNormalHeader.m in Sources */,
 				18E4ED981F9EE02200CAB201 /* UIColor+YZ.m in Sources */,
 				188AE5731FA054E0008F7D60 /* YZCycleScrollView.m in Sources */,
+				18DE15CE1FB9A21B00434F91 /* LoginUtil.m in Sources */,
 				18B358AD1F9F542400F9CF73 /* UIView+MJExtension.m in Sources */,
 				18B358B51F9F542400F9CF73 /* MJRefreshStateHeader.m in Sources */,
 				18FCCD731FA6C47400424A0C /* AppTopView.m in Sources */,
@@ -1359,6 +1387,7 @@
 				18AE74331F9854C700E357D1 /* SDWebImagePrefetcher.m in Sources */,
 				18AE74361F9854C700E357D1 /* SDWebImageDownloaderOperation.m in Sources */,
 				186E5AE81FA1C2FF00228258 /* NewsModel.m in Sources */,
+				18DE15C01FB93E7A00434F91 /* LoginViewController.m in Sources */,
 				18FCCDA21FA703D000424A0C /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				186E5AE11FA1C0CF00228258 /* NSObject+YYModel.m in Sources */,
 				18AE743C1F9854C700E357D1 /* UIView+WebCacheOperation.m in Sources */,
@@ -1383,6 +1412,7 @@
 				18AE74371F9854C700E357D1 /* NSData+ImageContentType.m in Sources */,
 				18AE73F11F98547D00E357D1 /* AFNetworkReachabilityManager.m in Sources */,
 				18FCCD861FA6F6E400424A0C /* BaseScrollView.m in Sources */,
+				18DE15BD1FB9399A00434F91 /* BaseViewController.m in Sources */,
 				180A90BF1FB2E2B800F7D213 /* BaseTableViewController.m in Sources */,
 				18AC77431FA84B5300EB630B /* AppBorderView.m in Sources */,
 				18AE74321F9854C700E357D1 /* SDWebImageCompat.m in Sources */,

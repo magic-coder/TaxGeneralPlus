@@ -87,7 +87,7 @@
 + (void)POST:(NSString *)URLString
   parameters:(id)parameters
      success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
-     failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure {
+     failure:(void (^)(NSURLSessionDataTask *task, NSString *error))failure {
     
     [[[self class] sessionManager] POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (success) {
@@ -95,7 +95,7 @@
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if (failure) {
-            failure(task, error);
+            failure(task, [self stringWithError:error]);
         }
     }];
 }
@@ -103,7 +103,7 @@
 + (void)GET:(NSString *)URLString
  parameters:(id)parameters
     success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
-    failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure {
+    failure:(void (^)(NSURLSessionDataTask *task, NSString *error))failure {
     
     [[[self class] sessionManager] GET:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (success) {
@@ -111,7 +111,7 @@
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if (failure) {
-            failure(task, error);
+            failure(task, [self stringWithError:error]);
         }
     }];
 }
@@ -121,7 +121,10 @@
  * @param error 错误信息
  * @return 返回字符串
  */
-- (NSString *)stringWithError:(NSError *)error{
++ (NSString *)stringWithError:(NSError *)error{
+    
+    DLog("错误提示信息：%@", error.description);
+    
     switch (error.code) {
         case NSURLErrorTimedOut:
             return @"访问服务器超时，请检查网络！";

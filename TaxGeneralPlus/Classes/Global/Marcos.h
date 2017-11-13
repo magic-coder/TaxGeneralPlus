@@ -11,14 +11,13 @@
 #ifndef Marcos_h
 #define Marcos_h
 
-
 #pragma mark - 框架Frame所需基本宏
-#define FRAME_SCREEN    [[UIScreen mainScreen] bounds]                                  // 主屏幕Frame
-#define WIDTH_SCREEN    [[UIScreen mainScreen] bounds].size.width                       // 主屏幕Width
-#define HEIGHT_SCREEN   [[UIScreen mainScreen] bounds].size.height                      // 主屏幕Height
-#define HEIGHT_STATUS   [[UIApplication sharedApplication] statusBarFrame].size.height  // 状态栏高度(20/44)
-#define HEIGHT_NAVBAR   44                                                              // NavBar高度(44)
-#define HEIGHT_TABBAR   49                                                              // TabBar高度(49)[iPhoneX底部安全高度34]
+#define FRAME_SCREEN    [[UIScreen mainScreen] bounds]              // 主屏幕Frame
+#define WIDTH_SCREEN    [[UIScreen mainScreen] bounds].size.width   // 主屏幕Width
+#define HEIGHT_SCREEN   [[UIScreen mainScreen] bounds].size.height  // 主屏幕Height
+#define HEIGHT_STATUS   (DEVICE_SCREEN_INCH_5_8 ? 44 : 20)          // 状态栏高度(20/44)
+#define HEIGHT_NAVBAR   44                                          // NavBar高度(44)
+#define HEIGHT_TABBAR   49                                          // TabBar高度(49)[iPhoneX底部安全高度34]
 
 #pragma mark - 判断设备屏幕尺寸，返回 YES/NO
 #define DEVICE_SCREEN_INCH_3_5  WIDTH_SCREEN == 320 && HEIGHT_SCREEN == 480 // 3.5英寸    320*480 (4、4s)
@@ -32,6 +31,7 @@
 #define APPDELEGETE             [[UIApplication sharedApplication] delegate]
 #define WINDOW                  [[UIApplication sharedApplication] keyWindow]
 #define PLACEHOLDER_IMAGE       [UIImage imageNamed:@"common_placeholder"]
+#define IS_LOGIN                (nil != [[NSUserDefaults standardUserDefaults] objectForKey:LOGIN_SUCCESS])
 #define RgbColor(r, g, b, a)    [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:a]
 #define HexColor(hex, a)        [UIColor colorWithHexString:hex alpha:a]
 
@@ -50,6 +50,7 @@
 //#define SERVER_URL  @"https://10.100.16.133:8443/mobiletax/"    // 生产 https VPN 服务器地址
 
 #pragma mark - 定义全局常用key值
+#define DEVICE_INFO     @"deviceInfo"
 #define LOGIN_SUCCESS   @"loginSuccess"
 
 #pragma mark - 定义设置文件名称

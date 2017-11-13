@@ -9,11 +9,8 @@
  ************************************************************/
 
 #import "AppDelegate.h"
-#import "MainTabBarController.h"
 
 @interface AppDelegate ()
-
-@property (nonatomic, strong) MainTabBarController *mainTabBarController;
 
 @end
 
@@ -23,7 +20,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    DLog(@"当前设备屏幕尺寸->宽: %d, 高: %d", (int)WIDTH_SCREEN, (int)HEIGHT_SCREEN);
+    [[BaseHandleUtil sharedBaseHandleUtil] currentDeviceInfo]; // 获取设备基本信息
     
     // 隐藏顶部状态栏设为NO
     [UIApplication sharedApplication].statusBarHidden = NO;
@@ -34,11 +31,8 @@
     _window = [[UIWindow alloc] initWithFrame:FRAME_SCREEN];
     _window.backgroundColor = [UIColor clearColor];
     
-    _mainTabBarController = [[MainTabBarController alloc] init];
-    //_mainTabBarController.view.userInteractionEnabled = NO;// 欢迎动画加载期间不允许永不与视图交互，加载完毕后设置为YES即可
-    
     // 设置root视图控制器
-    _window.rootViewController = _mainTabBarController;
+    _window.rootViewController = [[NSClassFromString(@"MainTabBarController") class] new];
     [_window makeKeyAndVisible];
     
     return YES;

@@ -39,16 +39,14 @@
 #pragma mark - 重写pushViewController:方法
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
     if(self.viewControllers.count > 0) {
-        [viewController setHidesBottomBarWhenPushed:YES];// 隐藏底部tabBar
+        [viewController setHidesBottomBarWhenPushed:YES];   // 隐藏底部tabBar
     }
     [super pushViewController:viewController animated:animated];
 }
 
 #pragma mark - <UINavigationControllerDelegate>代理方法（控制隐藏、显示顶部导航栏）
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    
     // 判断要显示的控制器是否是否进行隐藏
-    //BOOL isHidden = [viewController isKindOfClass:[NSClassFromString(@"NewsViewController") class]];
     BOOL isNavigationBarHidden = NO;
     NSArray *hidenControllers = @[@"AppViewController", @"MineViewController"];
     for(NSString *hidenControllerName in hidenControllers){
@@ -57,15 +55,5 @@
     // 控制隐藏、显示顶部导航栏
     [viewController.navigationController setNavigationBarHidden:isNavigationBarHidden animated:animated];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

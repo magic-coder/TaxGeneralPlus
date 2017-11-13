@@ -16,7 +16,6 @@
 + (void)showHUDView:(UIView *)view text:(NSString *)text progressHUDMode:(YZProgressHUDMode)progressHUDMode {
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
-    
     hud.animationType = MBProgressHUDAnimationZoom;
     hud.bezelView.backgroundColor = [UIColor blackColor];   // 设置背景颜色
     hud.contentColor = [UIColor whiteColor];    // 设置字体颜色

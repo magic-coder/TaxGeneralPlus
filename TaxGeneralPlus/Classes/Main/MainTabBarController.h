@@ -12,4 +12,6 @@
 
 @interface MainTabBarController : UITabBarController
 
+SingletonH(MainTabBarController)
+
 @end
