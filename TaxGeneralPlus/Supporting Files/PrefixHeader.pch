@@ -32,6 +32,7 @@
 #import "BaseHandleUtil.h"
 #import "BaseSandBoxUtil.h"
 #import "BaseSettingUtil.h"
+#import "LoginViewController.h"
 
 #pragma mark - 自己封装的组件、处理类
 #import "YZCycleScrollView.h"
