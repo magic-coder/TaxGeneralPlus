@@ -41,9 +41,7 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     
     // 设置下拉刷新
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
-    
-    // 初始化数据
-    [self initializeData];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -51,10 +49,32 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - 视图即将显示
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self scrollViewDidScroll:self.tableView];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+    
+    // 判断是否登录
+    if(IS_LOGIN){
+        // 初始化数据
+        [self initializeData];
+    }else{
+        [self presentViewController:[[NSClassFromString(@"LoginViewController") class] new] animated:YES completion:nil];
+    }
+    
+}
+
+#pragma mark - 视图即将销毁方法
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [self.navigationController.navigationBar yz_reset];
+}
+
 #pragma mark - 滚动屏幕渐进渐出顶部导航栏
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
-    //UIColor * color = RgbColor(0, 175, 240, 1.0f);
     UIColor * color = DEFAULT_BLUE_COLOR;
     CGFloat offsetY = scrollView.contentOffset.y;
     if (offsetY > NAVBAR_CHANGE_POINT) {
@@ -72,26 +92,12 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    [self scrollViewDidScroll:self.tableView];
-    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    
-    [self.navigationController.navigationBar yz_reset];
-}
-
 #pragma mark - 下拉刷新数据
 - (void)refreshData {
     
     DLog(@"触发下拉刷新事件");
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        // 结束刷新
         [self.tableView.mj_header endRefreshing];
     });
 }
