@@ -43,6 +43,7 @@
 		186E5AE81FA1C2FF00228258 /* NewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 186E5AE71FA1C2FF00228258 /* NewsModel.m */; };
 		186E5AEB1FA1CA9600228258 /* Test.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 186E5AEA1FA1CA9600228258 /* Test.xcassets */; };
 		187241181F99F8C70089EC02 /* MBProgressHUD+YZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 187241171F99F8C70089EC02 /* MBProgressHUD+YZ.m */; };
+		1874B7C01FBBE6B5001E94F0 /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1874B7BF1FBBE6B5001E94F0 /* AccountViewController.m */; };
 		188AE5731FA054E0008F7D60 /* YZCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 188AE5721FA054DF008F7D60 /* YZCycleScrollView.m */; };
 		1895A8251FB4387200DB9AFC /* AppSubViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1895A8241FB4387200DB9AFC /* AppSubViewCell.m */; };
 		1895A8281FB43E8700DB9AFC /* AppSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1895A8271FB43E8700DB9AFC /* AppSubViewController.m */; };
@@ -211,6 +212,8 @@
 		186E5AEA1FA1CA9600228258 /* Test.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Test.xcassets; sourceTree = "<group>"; };
 		187241161F99F8C70089EC02 /* MBProgressHUD+YZ.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+YZ.h"; sourceTree = "<group>"; };
 		187241171F99F8C70089EC02 /* MBProgressHUD+YZ.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+YZ.m"; sourceTree = "<group>"; };
+		1874B7BE1FBBE6B5001E94F0 /* AccountViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountViewController.h; sourceTree = "<group>"; };
+		1874B7BF1FBBE6B5001E94F0 /* AccountViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccountViewController.m; sourceTree = "<group>"; };
 		188AE56C1FA03763008F7D60 /* Singleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
 		188AE56D1FA0387F008F7D60 /* Log.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Log.h; sourceTree = "<group>"; };
 		188AE5711FA054DF008F7D60 /* YZCycleScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YZCycleScrollView.h; sourceTree = "<group>"; };
@@ -622,6 +625,15 @@
 			path = Json;
 			sourceTree = "<group>";
 		};
+		1874B7BC1FBBE620001E94F0 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				1874B7BE1FBBE6B5001E94F0 /* AccountViewController.h */,
+				1874B7BF1FBBE6B5001E94F0 /* AccountViewController.m */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
 		188AE5661FA02FA5008F7D60 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -848,7 +860,6 @@
 			children = (
 				18AE74611F9882E100E357D1 /* Controller */,
 				18AE74601F9882DD00E357D1 /* View */,
-				18AE745F1F9882D900E357D1 /* Model */,
 				186E06AE1FB1B9BB0054DA49 /* Util */,
 			);
 			path = Mine;
@@ -858,8 +869,6 @@
 			isa = PBXGroup;
 			children = (
 				18AE74641F9882F300E357D1 /* Controller */,
-				18AE74631F9882ED00E357D1 /* View */,
-				18AE74621F9882E900E357D1 /* Model */,
 				18DE15CB1FB9A20100434F91 /* Util */,
 			);
 			path = Login;
@@ -962,13 +971,6 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		18AE745F1F9882D900E357D1 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		18AE74601F9882DD00E357D1 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -981,24 +983,11 @@
 		18AE74611F9882E100E357D1 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				1874B7BC1FBBE620001E94F0 /* Account */,
 				180A90C01FB2E3C900F7D213 /* MineViewController.h */,
 				180A90C11FB2E3C900F7D213 /* MineViewController.m */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		18AE74621F9882E900E357D1 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		18AE74631F9882ED00E357D1 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		18AE74641F9882F300E357D1 /* Controller */ = {
@@ -1404,6 +1393,7 @@
 				18AE74441F9854FC00E357D1 /* MBProgressHUD.m in Sources */,
 				1836FCBB1FA1E3D900ABDA10 /* NewsTableViewCell.m in Sources */,
 				18AC774F1FA864A800EB630B /* AppEditViewCell.m in Sources */,
+				1874B7C01FBBE6B5001E94F0 /* AccountViewController.m in Sources */,
 				181608541F99E3BD00EC0FC3 /* UIDevice+YZ.m in Sources */,
 				18E4EDA51F9F1D9600CAB201 /* YBPopupMenu+YZ.m in Sources */,
 				18B358AC1F9F542400F9CF73 /* NSBundle+MJRefresh.m in Sources */,

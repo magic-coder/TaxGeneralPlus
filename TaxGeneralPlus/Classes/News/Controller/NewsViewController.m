@@ -61,7 +61,7 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
         // 初始化数据
         [self initializeData];
     }else{
-        [self presentViewController:[[NSClassFromString(@"LoginViewController") class] new] animated:YES completion:nil];
+        LOGIN_VIEW
     }
     
 }
@@ -122,7 +122,8 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
         NewsModel *model = [NewsModel createWithDictionary:dic];
         [_data addObject:model];
     }
-    //[self.tableView reloadData];
+    
+    [self.tableView reloadData];
 }
 
 #pragma mark - <YZCycleScrollViewDelegate>顶部轮播图点击代理方法

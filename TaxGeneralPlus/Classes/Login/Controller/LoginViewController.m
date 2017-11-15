@@ -10,6 +10,7 @@
 
 #import "LoginViewController.h"
 #import "MainTabBarController.h"
+#import "LoginUtil.h"
 
 #define LABELSIZE CGSizeMake(70, 20)
 #define TEXTFIELDSIZE CGSizeMake(180, 30)
@@ -121,6 +122,7 @@ typedef NS_ENUM(NSInteger, LoginShowType) {
     imgUser.image = [UIImage imageNamed:@"login_username"];
     [self.usernameTextField.leftView addSubview:imgUser];
     self.usernameTextField.keyboardType = UIKeyboardTypeASCIICapable;   // 设置键盘类型
+    self.usernameTextField.text = @"26100010001";
     [_smallView.contentView addSubview:self.usernameTextField];
     
     self.passwordTextField = [[UITextField alloc]initWithFrame:CGRectMake(CGRectGetMinX(self.usernameTextField.frame), CGRectGetMaxY(self.usernameTextField.frame)+10, CGRectGetWidth(self.usernameTextField.frame), CGRectGetHeight(self.usernameTextField.frame))];
@@ -137,6 +139,7 @@ typedef NS_ENUM(NSInteger, LoginShowType) {
     imgPwd.image = [UIImage imageNamed:@"login_password"];
     [self.passwordTextField.leftView addSubview:imgPwd];
     self.passwordTextField.keyboardType = UIKeyboardTypeASCIICapable;   // 设置键盘类型
+    self.passwordTextField.text = @"Aa111111";
     [_smallView.contentView addSubview:self.passwordTextField];
     
     
@@ -153,6 +156,7 @@ typedef NS_ENUM(NSInteger, LoginShowType) {
     imgAuth.image = [UIImage imageNamed:@"login_authcode"];
     [self.authCodeTextField.leftView addSubview:imgAuth];
     self.authCodeTextField.keyboardType = UIKeyboardTypeNumberPad;   // 设置键盘类型
+    self.authCodeTextField.text = @"876635";
     [_smallView.contentView addSubview:self.authCodeTextField];
     
     self.sendBtn = [[UIButton alloc]initWithFrame:CGRectMake(_smallView.frameWidth-120, CGRectGetMaxY(self.passwordTextField.frame)+10, 100, 40)];
@@ -254,12 +258,12 @@ typedef NS_ENUM(NSInteger, LoginShowType) {
     
 }
 
-//点击空白处隐藏键盘
+#pragma mark - 点击空白处隐藏键盘
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
 
-// 发送验证码方法
+#pragma mark - 发送验证码方法
 -(void)sendAction:(UIButton *)sender{
     
     NSString *userCode = _usernameTextField.text;
@@ -293,7 +297,8 @@ typedef NS_ENUM(NSInteger, LoginShowType) {
         [MBProgressHUD showHUDView:self.view text:@"请输入用户名，再获取验证码！" progressHUDMode:(YZProgressHUDModeShow)];
     }
 }
-//登录方法
+
+#pragma mark - 登录方法
 -(void)loginAction:(UIButton *)sender{
     
     NSString *userCode = _usernameTextField.text;
@@ -309,26 +314,13 @@ typedef NS_ENUM(NSInteger, LoginShowType) {
         [dict setObject:password forKey:@"password"];
         [dict setObject:authCode forKey:@"verificationCode"];
         
-        /*
-        [[LoginUtil shareInstance] loginWithAppDict:dict success:^{
-            [YZProgressHUD hiddenHUDForView:self.view];
-            
-            CATransition *animation = [CATransition animation];
-            animation.duration = 1.0f;
-            //animation.timingFunction = UIViewAnimationCurveEaseInOut;
-            animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-            animation.type = @"rippleEffect";
-            //animation.type = kCATransitionMoveIn;
-            animation.subtype = kCATransitionFromBottom;
-            [self.view.window.layer addAnimation:animation forKey:nil];
-            
+        [[LoginUtil sharedLoginUtil] loginWithAppDict:dict success:^{
+            [MBProgressHUD hiddenHUDView:self.view];
             [self dismissViewControllerAnimated:YES completion:nil];
-            
         } failed:^(NSString *error) {
-            [YZProgressHUD hiddenHUDForView:self.view];
-            [YZProgressHUD showHUDView:SELF_VIEW Mode:SHOWMODE Text:error];
+            [MBProgressHUD hiddenHUDView:self.view];
+            [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow];
         }];
-        */
         
     }else{
         if(userCode.length <= 0){
@@ -345,7 +337,7 @@ typedef NS_ENUM(NSInteger, LoginShowType) {
     [self.view endEditing:YES];
 }
 
-// 取消方法
+#pragma mark - 取消方法
 - (void)cancelAction:(UIButton *)sender{
     MainTabBarController *mainTabBarController = [MainTabBarController sharedMainTabBarController];
     mainTabBarController.selectedIndex = 3;
@@ -384,6 +376,7 @@ typedef NS_ENUM(NSInteger, LoginShowType) {
     });
     dispatch_resume(_timer);
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
