@@ -11,7 +11,6 @@
 #import "BaseTableViewController.h"
 #import "BaseTableViewCell.h"
 #import "BaseTableViewHeaderFooterView.h"
-#import "BaseTableModel.h"
 
 @interface BaseTableViewController ()<BaseTableViewCellDelegate>
 
