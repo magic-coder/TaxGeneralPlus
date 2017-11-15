@@ -25,13 +25,9 @@
     
     // 不进行自动调整（否则顶部会自动留出安全距离[空白]）
     self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    
     // 设置头部视图
     _headerView = [[MineHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, HEIGHT_STATUS+HEIGHT_NAVBAR+170)];
-    DLog(@"%d", HEIGHT_STATUS+HEIGHT_NAVBAR+170);
     _headerView.delegate = self;
-    _headerView.nameText = @"未登录";
-    
     self.tableView.tableHeaderView = _headerView;
     
     // 初始化数据
@@ -41,6 +37,16 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - 视图即将显示
+- (void)viewWillAppear:(BOOL)animated {
+    // 设置头视图数据
+    if(IS_LOGIN){
+        _headerView.nameText = [[[NSUserDefaults standardUserDefaults] objectForKey:LOGIN_SUCCESS] objectForKey:@"userName"];
+    }else{
+        _headerView.nameText = @"未登录";
+    }
 }
 
 #pragma mark - UIScrollViewDelegate（ 下滑顶部视图放大效果）
@@ -58,7 +64,11 @@
 
 #pragma mark - 头部视图点击方法
 - (void)mineHeaderViewDidSelected {
-    DLog(@"进入账户信息");
+    if(IS_LOGIN){
+        [self.navigationController pushViewController:[[NSClassFromString(@"AccountViewController") class] new] animated:YES];
+    }else{
+        LOGIN_VIEW
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -1,12 +1,15 @@
-//
-//  AccountViewController.m
-//  TaxGeneralPlus
-//
-//  Created by Apple on 2017/11/15.
-//  Copyright © 2017年 prient. All rights reserved.
-//
+/************************************************************
+ Class    : AccountViewController.m
+ Describe : 我的信息界面
+ Company  : Prient
+ Author   : Yanzheng 严正
+ Date     : 2017-11-15
+ Version  : 1.0
+ Declare  : Copyright © 2017 Yanzheng. All rights reserved.
+ ************************************************************/
 
 #import "AccountViewController.h"
+#import "MineUtil.h"
 
 @interface AccountViewController ()
 
@@ -17,6 +20,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = @"个人信息";
+    
+    self.data = [[MineUtil sharedMineUtil] accountData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -24,14 +30,34 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    BaseTableModelGroup *group = [self.data objectAtIndex:indexPath.section];
+    BaseTableModelItem *item = [group itemAtIndex:indexPath.row];
+    
+    if([item.title isEqualToString:@"退出登录"]){
+        [YZBottomSelectView showBottomSelectViewWithTitle:@"退出登录后下次使用时需重新登录，您确定要退出吗？" cancelButtonTitle:@"取消" destructiveButtonTitle:@"退出" otherButtonTitles:nil handler:^(YZBottomSelectView *bootomSelectView, NSInteger index) {
+            
+            if(-1 == index){
+                [MBProgressHUD showHUDView:self.view text:@"注销中..." progressHUDMode:YZProgressHUDModeLock];
+                [[MineUtil sharedMineUtil] accountLogout:^{
+                    
+                    [MBProgressHUD hiddenHUDView:self.view];
+                    [self.navigationController popViewControllerAnimated:YES];
+                    
+                } failed:^(NSString *error) {
+                    
+                    [MBProgressHUD hiddenHUDView:self.view];
+                    [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow];
+                    
+                }];
+                
+            }
+            
+        }];
+    }
+    
 }
-*/
 
 @end
