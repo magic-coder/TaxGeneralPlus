@@ -13,11 +13,17 @@
 
 #import <UserNotifications/UserNotifications.h>
 
+@interface MineUtil()
+
+@property (nonatomic, strong) NSString *noticeSubTitle;
+
+@end
+
 @implementation MineUtil
 
 SingletonM(MineUtil)
 
-#pragma mark - 获取我的模块信息列表
+#pragma mark - 我的数据（第一级）
 - (NSMutableArray *)mineData {
     
     NSMutableArray *items = [NSMutableArray array];
@@ -29,9 +35,10 @@ SingletonM(MineUtil)
     BaseTableModelGroup *group1 = [[BaseTableModelGroup alloc] initWithHeaderTitle:nil footerTitle:nil settingItems:safe, schedule, service, nil];
     [items addObject:group1];
     
+    BaseTableModelItem *opinion = [BaseTableModelItem createWithImageName:@"mine_opinion" title:@"意见与反馈"];
     BaseTableModelItem *setting = [BaseTableModelItem createWithImageName:@"mine_setting" title:@"设置"];
     
-    BaseTableModelGroup *group2 = [[BaseTableModelGroup alloc] initWithHeaderTitle:nil footerTitle:nil settingItems:setting, nil];
+    BaseTableModelGroup *group2 = [[BaseTableModelGroup alloc] initWithHeaderTitle:nil footerTitle:nil settingItems:opinion, setting, nil];
     [items addObject:group2];
     
     BaseTableModelItem *about = [BaseTableModelItem createWithImageName:@"mine_about" title:@"关于"];
@@ -42,7 +49,7 @@ SingletonM(MineUtil)
     
 }
 
-#pragma mark - 获取我的用户基本信息
+#pragma mark - 我的用户信息（第二级）
 - (NSMutableArray *)accountData {
     
     NSDictionary *loginDict = [[NSUserDefaults standardUserDefaults] objectForKey:LOGIN_SUCCESS];
@@ -82,7 +89,7 @@ SingletonM(MineUtil)
     
 }
 
-#pragma mark - 安全中心数据
+#pragma mark - 安全中心数据（第二级）
 - (NSMutableArray *)safeData {
     NSMutableArray *items = [[NSMutableArray alloc] init];
     
@@ -111,6 +118,7 @@ SingletonM(MineUtil)
     return items;
 }
 
+#pragma mark - 我的日程数据（第二级）
 - (NSMutableArray *)scheduleData {
     NSMutableArray *items = [[NSMutableArray alloc] init];
     
@@ -122,6 +130,7 @@ SingletonM(MineUtil)
     return items;
 }
 
+#pragma mark - 我的客服数据（第二级）
 - (NSMutableArray *)serviceData {
     NSMutableArray *items = [[NSMutableArray alloc] init];
     BaseTableModelItem *item1 = [BaseTableModelItem createWithTitle:@"客服电话" subTitle:@"029-87663504"];
@@ -138,12 +147,14 @@ SingletonM(MineUtil)
     return items;
 }
 
+#pragma mark - 设置数据（第二级）
 - (NSMutableArray *)settingData {
     NSMutableArray *items = [[NSMutableArray alloc] init];
     
     // 判断用户是否打开消息通知
-    NSString *subTitle;
+    _noticeSubTitle = @"未开启";
     [[UNUserNotificationCenter currentNotificationCenter] getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
+        /*
         if(settings.authorizationStatus == UNAuthorizationStatusNotDetermined){
             // 未选择，没有选择允许或者不允许，按不允许处理
         }
@@ -153,12 +164,15 @@ SingletonM(MineUtil)
         if(settings.authorizationStatus == UNAuthorizationStatusAuthorized){
             // 已授权，允许推送
         }
+         */
+        if(settings.authorizationStatus == UNAuthorizationStatusAuthorized)
+            _noticeSubTitle = @"已开启";
         
     }];
     
     NSString *appName = [[Variable sharedVariable] appName];
     
-    BaseTableModelItem *recNoti = [BaseTableModelItem createWithTitle:@"接收新消息通知" subTitle:subTitle];
+    BaseTableModelItem *recNoti = [BaseTableModelItem createWithTitle:@"接收新消息通知" subTitle:_noticeSubTitle];
     recNoti.accessoryType = UITableViewCellAccessoryNone;
     BaseTableModelGroup *group1 = [[BaseTableModelGroup alloc] initWithHeaderTitle:nil footerTitle:[NSString stringWithFormat:@"如果你要关闭或开启\"%@\"的新消息通知，请在iPhone的\"设置\"-\"通知\"功能中，找到应用程序\"%@\"更改。", appName, appName] settingItems:recNoti, nil];
     [items addObject:group1];
@@ -197,7 +211,7 @@ SingletonM(MineUtil)
     return items;
 }
 
-#pragma mark - 用户注销方法
+#pragma mark - 用户注销（退出登录）方法
 - (void)accountLogout:(void (^)(void))success failed:(void (^)(NSString *))failed {
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     [dict setObject:@"app" forKey:@"loginType"];

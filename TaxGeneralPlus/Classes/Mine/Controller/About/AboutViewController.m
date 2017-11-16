@@ -30,7 +30,7 @@ static NSString * const reuseIdentifier = @"aboutTableViewCell";
     
     self.title = @"关于";
     
-    _data = @[@"功能介绍", @"去App Store评分"];
+    _data = @[@"功能介绍", @"版权信息", @"去App Store评分"];
     
     [self.view setBackgroundColor:DEFAULT_BACKGROUND_COLOR];
     [self.tableView setBackgroundColor:[UIColor whiteColor]];
@@ -40,7 +40,10 @@ static NSString * const reuseIdentifier = @"aboutTableViewCell";
     _headerView = [[AboutHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, 240)];
     self.tableView.tableHeaderView = _headerView;
     
-    _footerView = [[AboutFooterView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, HEIGHT_SCREEN-HEIGHT_STATUS-HEIGHT_NAVBAR-240-43*3-20)];
+    float footerH = HEIGHT_SCREEN-HEIGHT_STATUS-HEIGHT_NAVBAR-240-43*3-20;
+    if(DEVICE_SCREEN_INCH_5_8)
+        footerH = HEIGHT_SCREEN-HEIGHT_STATUS-HEIGHT_NAVBAR-240-43*3-20-34;
+    _footerView = [[AboutFooterView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, footerH)];
     self.tableView.tableFooterView = _footerView;
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reuseIdentifier];
