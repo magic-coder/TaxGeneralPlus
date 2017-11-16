@@ -21,6 +21,7 @@
     // Override point for customization after application launch.
     
     [[BaseHandleUtil sharedBaseHandleUtil] currentDeviceInfo]; // 获取设备基本信息
+    [[BaseSettingUtil sharedBaseSettingUtil] initSettingData]; // 初始化基本设置信息
     
     // 隐藏顶部状态栏设为NO
     [UIApplication sharedApplication].statusBarHidden = NO;

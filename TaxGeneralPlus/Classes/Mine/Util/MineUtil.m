@@ -11,12 +11,14 @@
 #import "MineUtil.h"
 #import "BaseTableModel.h"
 
+#import <UserNotifications/UserNotifications.h>
+
 @implementation MineUtil
 
 SingletonM(MineUtil)
 
 #pragma mark - 获取我的模块信息列表
-- (NSMutableArray *)loadMineData {
+- (NSMutableArray *)mineData {
     
     NSMutableArray *items = [NSMutableArray array];
     
@@ -46,6 +48,7 @@ SingletonM(MineUtil)
     NSDictionary *loginDict = [[NSUserDefaults standardUserDefaults] objectForKey:LOGIN_SUCCESS];
     
     NSMutableArray *items = [[NSMutableArray alloc] init];
+    
     BaseTableModelItem *userID = [BaseTableModelItem createWithTitle:@"姓名" subTitle:[loginDict objectForKey:@"userName"]];
     userID.accessoryType = UITableViewCellAccessoryNone;
     BaseTableModelGroup *group1 = [[BaseTableModelGroup alloc] initWithHeaderTitle:nil footerTitle:nil settingItems:userID, nil];
@@ -77,6 +80,121 @@ SingletonM(MineUtil)
     
     return items;
     
+}
+
+#pragma mark - 安全中心数据
+- (NSMutableArray *)safeData {
+    NSMutableArray *items = [[NSMutableArray alloc] init];
+    
+    NSString *gesturePwd = [[NSUserDefaults standardUserDefaults] objectForKey:GESTURES_PASSWORD];
+    BaseTableModelItem *item2 = nil;
+    if(gesturePwd.length > 0){
+        item2 = [BaseTableModelItem createWithTitle:@"手势密码" subTitle:@"已开启"];
+    }else{
+        item2 = [BaseTableModelItem createWithTitle:@"手势密码" subTitle:@"未开启"];
+    }
+    
+    //BaseTableModelGroup *group1 = [[BaseTableModelGroup alloc] initWithHeaderTitle:nil footerTitle:nil settingItems:item1, item2, nil];
+    BaseTableModelGroup *group1 = [[BaseTableModelGroup alloc] initWithHeaderTitle:nil footerTitle:nil settingItems:item2, nil];
+    [items addObject:group1];
+    
+    NSDictionary *settingDict = [[BaseSettingUtil sharedBaseSettingUtil] loadSettingData];
+    BOOL touchIDOn = [[settingDict objectForKey:@"touchID"] boolValue];
+    
+    BaseTableModelItem *item3 = [BaseTableModelItem createWithTitle:@"指纹解锁"];
+    item3.type = BaseTableModelItemTypeSwitch;
+    item3.tag = 423;
+    item3.isOn = touchIDOn;
+    BaseTableModelGroup *group2 = [[BaseTableModelGroup alloc] initWithHeaderTitle:nil footerTitle:@"若要开启指纹解锁功能，请先在\"设置\"-\"Touch ID 与密码\"中添加指纹。" settingItems:item3, nil];
+    [items addObject:group2];
+    
+    return items;
+}
+
+- (NSMutableArray *)scheduleData {
+    NSMutableArray *items = [[NSMutableArray alloc] init];
+    
+    BaseTableModelItem *item1 = [BaseTableModelItem createWithTitle:@"日程提醒管理"];
+    BaseTableModelItem *item2= [BaseTableModelItem createWithTitle:@"税务日历"];
+    BaseTableModelGroup *group1 = [[BaseTableModelGroup alloc] initWithHeaderTitle:nil footerTitle:nil settingItems:item1, item2, nil];
+    [items addObject:group1];
+    
+    return items;
+}
+
+- (NSMutableArray *)serviceData {
+    NSMutableArray *items = [[NSMutableArray alloc] init];
+    BaseTableModelItem *item1 = [BaseTableModelItem createWithTitle:@"客服电话" subTitle:@"029-87663504"];
+    item1.accessoryType = UITableViewCellAccessoryNone;
+    BaseTableModelItem *item2 = [BaseTableModelItem createWithTitle:@"客服邮箱" subTitle:@"yanzheng@prient.com"];
+    item2.accessoryType = UITableViewCellAccessoryNone;
+    BaseTableModelGroup *group1 = [[BaseTableModelGroup alloc] initWithHeaderTitle:nil footerTitle:nil settingItems:item1, item2, nil];
+    [items addObject:group1];
+    
+    BaseTableModelItem *item3= [BaseTableModelItem createWithTitle:@"常见问题"];
+    BaseTableModelGroup *group2 = [[BaseTableModelGroup alloc] initWithHeaderTitle:nil footerTitle:nil settingItems:item3, nil];
+    [items addObject:group2];
+    
+    return items;
+}
+
+- (NSMutableArray *)settingData {
+    NSMutableArray *items = [[NSMutableArray alloc] init];
+    
+    // 判断用户是否打开消息通知
+    NSString *subTitle;
+    [[UNUserNotificationCenter currentNotificationCenter] getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
+        if(settings.authorizationStatus == UNAuthorizationStatusNotDetermined){
+            // 未选择，没有选择允许或者不允许，按不允许处理
+        }
+        if(settings.authorizationStatus == UNAuthorizationStatusDenied){
+            // 未授权，不允许推送
+        }
+        if(settings.authorizationStatus == UNAuthorizationStatusAuthorized){
+            // 已授权，允许推送
+        }
+        
+    }];
+    
+    NSString *appName = [[Variable sharedVariable] appName];
+    
+    BaseTableModelItem *recNoti = [BaseTableModelItem createWithTitle:@"接收新消息通知" subTitle:subTitle];
+    recNoti.accessoryType = UITableViewCellAccessoryNone;
+    BaseTableModelGroup *group1 = [[BaseTableModelGroup alloc] initWithHeaderTitle:nil footerTitle:[NSString stringWithFormat:@"如果你要关闭或开启\"%@\"的新消息通知，请在iPhone的\"设置\"-\"通知\"功能中，找到应用程序\"%@\"更改。", appName, appName] settingItems:recNoti, nil];
+    [items addObject:group1];
+    
+    // 获取声音、震动、更新设置的值
+    NSDictionary *settingDict = [[BaseSettingUtil sharedBaseSettingUtil] loadSettingData];
+    BOOL voiceOn = [[settingDict objectForKey:@"voice"] boolValue];
+    BOOL shakeOn = [[settingDict objectForKey:@"shake"] boolValue];
+    
+    BaseTableModelItem *voice = [BaseTableModelItem createWithTitle:@"声音"];
+    voice.type = BaseTableModelItemTypeSwitch;
+    voice.tag = 452;
+    voice.isOn = voiceOn;
+    BaseTableModelItem *shake = [BaseTableModelItem createWithTitle:@"震动"];
+    shake.type = BaseTableModelItemTypeSwitch;
+    shake.tag = 453;
+    shake.isOn = shakeOn;
+    BaseTableModelGroup *group2 = [[BaseTableModelGroup alloc] initWithHeaderTitle:nil footerTitle:[NSString stringWithFormat:@"当\"%@\"在运行时，你可以设置是否需要声音或者振动。", appName] settingItems:voice, shake, nil];
+    [items addObject:group2];
+    
+    BOOL sysVoiceOn = [[settingDict objectForKey:@"sysVoice"] boolValue];
+    BaseTableModelItem *sysVoice = [BaseTableModelItem createWithTitle:@"系统音效"];
+    sysVoice.type = BaseTableModelItemTypeSwitch;
+    sysVoice.tag = 454;
+    sysVoice.isOn = sysVoiceOn;
+    BaseTableModelGroup *group3 = [[BaseTableModelGroup alloc] initWithHeaderTitle:nil footerTitle:@"包括首页刷新、点击按钮时反馈的音效" settingItems: sysVoice, nil];
+    [items addObject:group3];
+    
+    float tempSize = [[SDImageCache sharedImageCache] getSize]/1024;
+    NSString *cacheSize = tempSize >= 1024 ? [NSString stringWithFormat:@"%.1fMB",tempSize/1024] : [NSString stringWithFormat:@"%.1fKB",tempSize];
+    BaseTableModelItem *clear = [BaseTableModelItem createWithTitle:@"清理缓存" subTitle:cacheSize];
+    clear.accessoryType = UITableViewCellAccessoryNone;
+    BaseTableModelGroup *group5 = [[BaseTableModelGroup alloc] initWithHeaderTitle:nil footerTitle:nil settingItems: clear, nil];
+    [items addObject:group5];
+    
+    return items;
 }
 
 #pragma mark - 用户注销方法

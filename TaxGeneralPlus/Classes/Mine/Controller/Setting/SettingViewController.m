@@ -1,6 +1,6 @@
 /************************************************************
- Class    : SafeViewController.m
- Describe : 安全中心界面
+ Class    : SettingViewController.m
+ Describe : 设置界面
  Company  : Prient
  Author   : Yanzheng 严正
  Date     : 2017-11-16
@@ -8,21 +8,20 @@
  Declare  : Copyright © 2017 Yanzheng. All rights reserved.
  ************************************************************/
 
-#import "SafeViewController.h"
+#import "SettingViewController.h"
 #import "MineUtil.h"
 
-@interface SafeViewController ()
+@interface SettingViewController ()
 
 @end
 
-@implementation SafeViewController
+@implementation SettingViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
-    self.title = @"安全中心";
-    self.data = [[MineUtil sharedMineUtil] safeData];
+    self.title = @"设置";
+    self.data = [[MineUtil sharedMineUtil] settingData];
 }
 
 - (void)didReceiveMemoryWarning {

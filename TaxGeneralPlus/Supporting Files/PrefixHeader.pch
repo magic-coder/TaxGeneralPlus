@@ -17,6 +17,7 @@
 #import "Log.h"
 #import "Marcos.h"
 #import "Singleton.h"
+#import "Variable.h"
 
 #pragma mark - 自己扩展的类
 #import "UIView+YZ.h"

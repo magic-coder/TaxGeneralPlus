@@ -47,6 +47,14 @@
 		188AE5731FA054E0008F7D60 /* YZCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 188AE5721FA054DF008F7D60 /* YZCycleScrollView.m */; };
 		1895A8251FB4387200DB9AFC /* AppSubViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1895A8241FB4387200DB9AFC /* AppSubViewCell.m */; };
 		1895A8281FB43E8700DB9AFC /* AppSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1895A8271FB43E8700DB9AFC /* AppSubViewController.m */; };
+		18A1FAF11FBC3BD700AA07DC /* SafeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A1FAF01FBC3BD700AA07DC /* SafeViewController.m */; };
+		18A1FAF41FBC449500AA07DC /* Variable.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A1FAF31FBC449500AA07DC /* Variable.m */; };
+		18A1FAF91FBD27E200AA07DC /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A1FAF81FBD27E200AA07DC /* ScheduleViewController.m */; };
+		18A1FAFD1FBD292E00AA07DC /* ServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A1FAFC1FBD292E00AA07DC /* ServiceViewController.m */; };
+		18A1FB011FBD299400AA07DC /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A1FB001FBD299400AA07DC /* SettingViewController.m */; };
+		18A1FB051FBD2C6600AA07DC /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A1FB041FBD2C6600AA07DC /* AboutViewController.m */; };
+		18A1FB081FBD2DA500AA07DC /* AboutHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A1FB071FBD2DA500AA07DC /* AboutHeaderView.m */; };
+		18A1FB0B1FBD2DB800AA07DC /* AboutFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A1FB0A1FBD2DB800AA07DC /* AboutFooterView.m */; };
 		18A9A0751FA1A8770059C7BB /* UINavigationBar+YZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A9A0741FA1A8770059C7BB /* UINavigationBar+YZ.m */; };
 		18A9A07E1FA1ABF90059C7BB /* BaseSandBoxUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A9A07D1FA1ABF90059C7BB /* BaseSandBoxUtil.m */; };
 		18A9A0811FA1AC0F0059C7BB /* BaseHandleUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A9A0801FA1AC0F0059C7BB /* BaseHandleUtil.m */; };
@@ -222,6 +230,22 @@
 		1895A8241FB4387200DB9AFC /* AppSubViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppSubViewCell.m; sourceTree = "<group>"; };
 		1895A8261FB43E8700DB9AFC /* AppSubViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppSubViewController.h; sourceTree = "<group>"; };
 		1895A8271FB43E8700DB9AFC /* AppSubViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppSubViewController.m; sourceTree = "<group>"; };
+		18A1FAEF1FBC3BD700AA07DC /* SafeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SafeViewController.h; sourceTree = "<group>"; };
+		18A1FAF01FBC3BD700AA07DC /* SafeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SafeViewController.m; sourceTree = "<group>"; };
+		18A1FAF21FBC449500AA07DC /* Variable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Variable.h; sourceTree = "<group>"; };
+		18A1FAF31FBC449500AA07DC /* Variable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Variable.m; sourceTree = "<group>"; };
+		18A1FAF71FBD27E200AA07DC /* ScheduleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScheduleViewController.h; sourceTree = "<group>"; };
+		18A1FAF81FBD27E200AA07DC /* ScheduleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScheduleViewController.m; sourceTree = "<group>"; };
+		18A1FAFB1FBD292E00AA07DC /* ServiceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServiceViewController.h; sourceTree = "<group>"; };
+		18A1FAFC1FBD292E00AA07DC /* ServiceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServiceViewController.m; sourceTree = "<group>"; };
+		18A1FAFF1FBD299400AA07DC /* SettingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		18A1FB001FBD299400AA07DC /* SettingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		18A1FB031FBD2C6600AA07DC /* AboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		18A1FB041FBD2C6600AA07DC /* AboutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		18A1FB061FBD2DA500AA07DC /* AboutHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutHeaderView.h; sourceTree = "<group>"; };
+		18A1FB071FBD2DA500AA07DC /* AboutHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutHeaderView.m; sourceTree = "<group>"; };
+		18A1FB091FBD2DB800AA07DC /* AboutFooterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutFooterView.h; sourceTree = "<group>"; };
+		18A1FB0A1FBD2DB800AA07DC /* AboutFooterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutFooterView.m; sourceTree = "<group>"; };
 		18A9A0731FA1A8770059C7BB /* UINavigationBar+YZ.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+YZ.h"; sourceTree = "<group>"; };
 		18A9A0741FA1A8770059C7BB /* UINavigationBar+YZ.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+YZ.m"; sourceTree = "<group>"; };
 		18A9A07C1FA1ABF90059C7BB /* BaseSandBoxUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseSandBoxUtil.h; sourceTree = "<group>"; };
@@ -558,6 +582,8 @@
 				188AE56D1FA0387F008F7D60 /* Log.h */,
 				1838270B1F90B1900076C8A5 /* Marcos.h */,
 				188AE56C1FA03763008F7D60 /* Singleton.h */,
+				18A1FAF21FBC449500AA07DC /* Variable.h */,
+				18A1FAF31FBC449500AA07DC /* Variable.m */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -665,6 +691,51 @@
 				188AE5721FA054DF008F7D60 /* YZCycleScrollView.m */,
 			);
 			path = YZCycleScrollView;
+			sourceTree = "<group>";
+		};
+		18A1FAEE1FBC3B8400AA07DC /* Safe */ = {
+			isa = PBXGroup;
+			children = (
+				18A1FAEF1FBC3BD700AA07DC /* SafeViewController.h */,
+				18A1FAF01FBC3BD700AA07DC /* SafeViewController.m */,
+			);
+			path = Safe;
+			sourceTree = "<group>";
+		};
+		18A1FAF61FBD27CA00AA07DC /* Schedule */ = {
+			isa = PBXGroup;
+			children = (
+				18A1FAF71FBD27E200AA07DC /* ScheduleViewController.h */,
+				18A1FAF81FBD27E200AA07DC /* ScheduleViewController.m */,
+			);
+			path = Schedule;
+			sourceTree = "<group>";
+		};
+		18A1FAFA1FBD291100AA07DC /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				18A1FAFB1FBD292E00AA07DC /* ServiceViewController.h */,
+				18A1FAFC1FBD292E00AA07DC /* ServiceViewController.m */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		18A1FAFE1FBD298300AA07DC /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				18A1FAFF1FBD299400AA07DC /* SettingViewController.h */,
+				18A1FB001FBD299400AA07DC /* SettingViewController.m */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		18A1FB021FBD2C3900AA07DC /* About */ = {
+			isa = PBXGroup;
+			children = (
+				18A1FB031FBD2C6600AA07DC /* AboutViewController.h */,
+				18A1FB041FBD2C6600AA07DC /* AboutViewController.m */,
+			);
+			path = About;
 			sourceTree = "<group>";
 		};
 		18A9A07B1FA1ABBA0059C7BB /* Util */ = {
@@ -976,6 +1047,10 @@
 			children = (
 				180A90C51FB2EF0200F7D213 /* MineHeaderView.h */,
 				180A90C61FB2EF0200F7D213 /* MineHeaderView.m */,
+				18A1FB061FBD2DA500AA07DC /* AboutHeaderView.h */,
+				18A1FB071FBD2DA500AA07DC /* AboutHeaderView.m */,
+				18A1FB091FBD2DB800AA07DC /* AboutFooterView.h */,
+				18A1FB0A1FBD2DB800AA07DC /* AboutFooterView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -983,9 +1058,14 @@
 		18AE74611F9882E100E357D1 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				1874B7BC1FBBE620001E94F0 /* Account */,
 				180A90C01FB2E3C900F7D213 /* MineViewController.h */,
 				180A90C11FB2E3C900F7D213 /* MineViewController.m */,
+				1874B7BC1FBBE620001E94F0 /* Account */,
+				18A1FAEE1FBC3B8400AA07DC /* Safe */,
+				18A1FAF61FBD27CA00AA07DC /* Schedule */,
+				18A1FAFA1FBD291100AA07DC /* Service */,
+				18A1FAFE1FBD298300AA07DC /* Setting */,
+				18A1FB021FBD2C3900AA07DC /* About */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1348,6 +1428,7 @@
 				18AE744B1F985A1000E357D1 /* MainNavigationController.m in Sources */,
 				187241181F99F8C70089EC02 /* MBProgressHUD+YZ.m in Sources */,
 				180A90D01FB307B100F7D213 /* AppFooterView.m in Sources */,
+				18A1FB0B1FBD2DB800AA07DC /* AboutFooterView.m in Sources */,
 				181608501F99DD5B00EC0FC3 /* UIImage+YZ.m in Sources */,
 				186E5AE51FA1C11000228258 /* TestModel.m in Sources */,
 				18A9A0811FA1AC0F0059C7BB /* BaseHandleUtil.m in Sources */,
@@ -1363,16 +1444,19 @@
 				18AE744E1F985A2900E357D1 /* MainTabBarController.m in Sources */,
 				18B358AB1F9F542400F9CF73 /* UIScrollView+MJExtension.m in Sources */,
 				184F11051FA81341001F8215 /* AppUtil.m in Sources */,
+				18A1FB011FBD299400AA07DC /* SettingViewController.m in Sources */,
 				186E06B11FB1BA110054DA49 /* MineUtil.m in Sources */,
 				18AE747E1F98980600E357D1 /* TestViewController.m in Sources */,
 				18AE74281F9854C700E357D1 /* UIImage+WebP.m in Sources */,
 				18A9A07E1FA1ABF90059C7BB /* BaseSandBoxUtil.m in Sources */,
 				18AE74381F9854C700E357D1 /* UIImageView+WebCache.m in Sources */,
+				18A1FAF41FBC449500AA07DC /* Variable.m in Sources */,
 				18AE74341F9854C700E357D1 /* SDWebImageCoder.m in Sources */,
 				18AE743E1F9854C700E357D1 /* SDWebImageImageIOCoder.m in Sources */,
 				18AE742C1F9854C700E357D1 /* UIImage+ForceDecode.m in Sources */,
 				18AE74401F9854C700E357D1 /* SDWebImageWebPCoder.m in Sources */,
 				18AE742F1F9854C700E357D1 /* SDWebImageDownloader.m in Sources */,
+				18A1FAF11FBC3BD700AA07DC /* SafeViewController.m in Sources */,
 				18AE74331F9854C700E357D1 /* SDWebImagePrefetcher.m in Sources */,
 				18AE74361F9854C700E357D1 /* SDWebImageDownloaderOperation.m in Sources */,
 				186E5AE81FA1C2FF00228258 /* NewsModel.m in Sources */,
@@ -1399,10 +1483,13 @@
 				18B358AC1F9F542400F9CF73 /* NSBundle+MJRefresh.m in Sources */,
 				18AE742A1F9854C700E357D1 /* SDWebImageManager.m in Sources */,
 				18AC77521FA86B9800EB630B /* AppEditViewController.m in Sources */,
+				18A1FAFD1FBD292E00AA07DC /* ServiceViewController.m in Sources */,
 				18AE74371F9854C700E357D1 /* NSData+ImageContentType.m in Sources */,
+				18A1FB081FBD2DA500AA07DC /* AboutHeaderView.m in Sources */,
 				18AE73F11F98547D00E357D1 /* AFNetworkReachabilityManager.m in Sources */,
 				18FCCD861FA6F6E400424A0C /* BaseScrollView.m in Sources */,
 				18DE15BD1FB9399A00434F91 /* BaseViewController.m in Sources */,
+				18A1FB051FBD2C6600AA07DC /* AboutViewController.m in Sources */,
 				180A90BF1FB2E2B800F7D213 /* BaseTableViewController.m in Sources */,
 				18AC77431FA84B5300EB630B /* AppBorderView.m in Sources */,
 				18AE74321F9854C700E357D1 /* SDWebImageCompat.m in Sources */,
@@ -1418,6 +1505,7 @@
 				18AE742B1F9854C700E357D1 /* UIImageView+HighlightedWebCache.m in Sources */,
 				18B358BA1F9F542400F9CF73 /* MJRefreshAutoFooter.m in Sources */,
 				186E5AE21FA1C0CF00228258 /* YYClassInfo.m in Sources */,
+				18A1FAF91FBD27E200AA07DC /* ScheduleViewController.m in Sources */,
 				18AE74391F9854C700E357D1 /* NSImage+WebCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

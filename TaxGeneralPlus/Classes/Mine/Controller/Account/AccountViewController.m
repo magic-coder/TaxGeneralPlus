@@ -20,8 +20,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"个人信息";
     
+    self.title = @"个人信息";
     self.data = [[MineUtil sharedMineUtil] accountData];
 }
 

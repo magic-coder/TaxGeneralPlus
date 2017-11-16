@@ -2,7 +2,7 @@
  Class    : MineHeaderView.m
  Describe : 我的界面顶部头视图展示基本信息
  Company  : Prient
- Author   : Yanzheng
+ Author   : Yanzheng 严正
  Date     : 2017-11-08
  Version  : 1.0
  Declare  : Copyright © 2017 Yanzheng. All rights reserved.
@@ -35,26 +35,27 @@
     _imageView.contentMode = UIViewContentModeScaleAspectFill;
     [self addSubview:_imageView];
     
-    _nightBtn = [[UIButton alloc] init];
+    _nightShiftBtn = [[UIButton alloc] init];
     NSMutableDictionary *settingDict = [[BaseSettingUtil sharedBaseSettingUtil] loadSettingData];
-    if([[settingDict objectForKey:@"night"] boolValue]){
-        [_nightBtn setBackgroundImage:[UIImage imageNamed:@"mine_account_sun"] forState:UIControlStateNormal];
-        [_nightBtn setBackgroundImage:[UIImage imageNamed:@"mine_account_sunHL"] forState:UIControlStateHighlighted];
+    if([[settingDict objectForKey:@"nightShift"] boolValue]){
+        [_nightShiftBtn setBackgroundImage:[UIImage imageNamed:@"mine_account_sun"] forState:UIControlStateNormal];
+        [_nightShiftBtn setBackgroundImage:[UIImage imageNamed:@"mine_account_sunHL"] forState:UIControlStateHighlighted];
     }else{
-        [_nightBtn setBackgroundImage:[UIImage imageNamed:@"mine_account_moon"] forState:UIControlStateNormal];
-        [_nightBtn setBackgroundImage:[UIImage imageNamed:@"mine_account_moonHL"] forState:UIControlStateHighlighted];
+        [_nightShiftBtn setBackgroundImage:[UIImage imageNamed:@"mine_account_moon"] forState:UIControlStateNormal];
+        [_nightShiftBtn setBackgroundImage:[UIImage imageNamed:@"mine_account_moonHL"] forState:UIControlStateHighlighted];
     }
-    [_nightBtn addTarget:self action:@selector(nightAction:) forControlEvents:UIControlEventTouchUpInside];
-    _nightBtn.frame = CGRectMake(self.frameWidth-35, HEIGHT_STATUS+10, 20, 20);
-    [self addSubview:_nightBtn];
+    [_nightShiftBtn addTarget:self action:@selector(nightShiftAction:) forControlEvents:UIControlEventTouchUpInside];
+    _nightShiftBtn.frame = CGRectMake(self.frameWidth-35, HEIGHT_STATUS+10, 20, 20);
+    [self addSubview:_nightShiftBtn];
     
     _accountImageView = [[UIImageView alloc] init];
     _accountImageView.frame = CGRectMake(50, HEIGHT_STATUS+HEIGHT_NAVBAR, 70, 70);
     [self addSubview:_accountImageView];
     
     _accountBtn = [[UIButton alloc] init];
-    [_accountBtn addTarget:self action:@selector(accountSelected:) forControlEvents:UIControlEventTouchUpInside];
+    [_accountBtn addTarget:self action:@selector(btnDidSelected:) forControlEvents:UIControlEventTouchUpInside];
     _accountBtn.frame = CGRectMake(50, HEIGHT_STATUS+HEIGHT_NAVBAR, 285, 70);
+    _accountBtn.tag = 0;
     [self addSubview:_accountBtn];
     
     _levelLabel = [self labelWithFrame:CGRectMake(85, _accountImageView.frameBottom-14, 32, 12)];
@@ -93,10 +94,15 @@
     _leftTitleLabel.text = @"升级详细规则";
     [_bottomView addSubview:_leftTitleLabel];
     
+    _leftBtn = [[UIButton alloc] init];
+    [_leftBtn addTarget:self action:@selector(btnDidSelected:) forControlEvents:UIControlEventTouchUpInside];
+    _leftBtn.frame = CGRectMake(_leftTitleLabel.originX, 10, viewWidth-20, 50);
+    _leftBtn.tag = 1;
+    [_bottomView addSubview:_leftBtn];
+    
     _firstLineView = [[UIView alloc] initWithFrame:CGRectMake(viewWidth, 15, 0.5f, 40)];
     _firstLineView.backgroundColor = DEFAULT_LINE_GRAY_COLOR;
     [_bottomView addSubview:_firstLineView];
-    
     
     _middleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mine_level"]];
     _middleImageView.frame = CGRectMake(floorf((CGFloat)self.frameWidth/2)-15, 10, 30, 30);
@@ -108,6 +114,12 @@
     _middleTitleLabel.textColor = [UIColor grayColor];
     _middleTitleLabel.text = @"黄金等级";
     [_bottomView addSubview:_middleTitleLabel];
+    
+    _middleBtn = [[UIButton alloc] init];
+    [_middleBtn addTarget:self action:@selector(btnDidSelected:) forControlEvents:UIControlEventTouchUpInside];
+    _middleBtn.frame = CGRectMake(_middleTitleLabel.originX, 10, viewWidth-20, 50);
+    _middleBtn.tag = 2;
+    [_bottomView addSubview:_middleBtn];
     
     _secondLineView = [[UIView alloc] initWithFrame:CGRectMake(viewWidth*2, 15, 0.5f, 40)];
     _secondLineView.backgroundColor = DEFAULT_LINE_GRAY_COLOR;
@@ -123,6 +135,12 @@
     _rightTitleLabel.textColor = [UIColor grayColor];
     _rightTitleLabel.text = @"每日签到";
     [_bottomView addSubview:_rightTitleLabel];
+    
+    _rightBtn = [[UIButton alloc] init];
+    [_rightBtn addTarget:self action:@selector(btnDidSelected:) forControlEvents:UIControlEventTouchUpInside];
+    _rightBtn.frame = CGRectMake(_rightTitleLabel.originX, 10, viewWidth-20, 50);
+    _rightBtn.tag = 3;
+    [_bottomView addSubview:_rightBtn];
     
 }
 
@@ -140,27 +158,27 @@
     return label;
 }
 
-// 点击方法
-- (void)nightAction:(UIButton *)sender{
+#pragma mark - 夜间护眼模式按钮点击方法
+- (void)nightShiftAction:(UIButton *)sender{
     NSMutableDictionary *settingDict = [[BaseSettingUtil sharedBaseSettingUtil] loadSettingData];
-    if(![[settingDict objectForKey:@"night"] boolValue]){
+    if(![[settingDict objectForKey:@"nightShift"] boolValue]){
         [sender setBackgroundImage:[UIImage imageNamed:@"mine_account_sun"] forState:UIControlStateNormal];
         [sender setBackgroundImage:[UIImage imageNamed:@"mine_account_sunHL"] forState:UIControlStateHighlighted];
         [[UIScreen mainScreen] setBrightness:0];
-        [settingDict setObject:[NSNumber numberWithBool:YES] forKey:@"night"];
+        [settingDict setObject:[NSNumber numberWithBool:YES] forKey:@"nightShift"];
     }else{
         [sender setBackgroundImage:[UIImage imageNamed:@"mine_account_moon"] forState:UIControlStateNormal];
         [sender setBackgroundImage:[UIImage imageNamed:@"mine_account_moonHL"] forState:UIControlStateHighlighted];
         [[UIScreen mainScreen] setBrightness:0.5f];
-        [settingDict setObject:[NSNumber numberWithBool:NO] forKey:@"night"];
+        [settingDict setObject:[NSNumber numberWithBool:NO] forKey:@"nightShift"];
     }
     [[BaseSettingUtil sharedBaseSettingUtil] writeSettingData:settingDict];
 }
 
-#pragma mark - 点击代理方法
-- (void)accountSelected:(UIButton *)sender{
-    if ([self.delegate respondsToSelector:@selector(mineHeaderViewDidSelected)]) {
-        [self.delegate mineHeaderViewDidSelected];
+#pragma mark - 按钮点击代理方法
+- (void)btnDidSelected:(UIButton *)sender{
+    if ([self.delegate respondsToSelector:@selector(mineHeaderViewBtnDidSelected:)]) {
+        [self.delegate mineHeaderViewBtnDidSelected:sender];
     }
 }
 

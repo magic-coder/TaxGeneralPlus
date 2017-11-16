@@ -1,6 +1,6 @@
 /************************************************************
- Class    : SafeViewController.h
- Describe : 安全中心界面
+ Class    : ScheduleViewController.h
+ Describe : 我的日程界面
  Company  : Prient
  Author   : Yanzheng 严正
  Date     : 2017-11-16
@@ -10,6 +10,6 @@
 
 #import "BaseTableViewController.h"
 
-@interface SafeViewController : BaseTableViewController
+@interface ScheduleViewController : BaseTableViewController
 
 @end

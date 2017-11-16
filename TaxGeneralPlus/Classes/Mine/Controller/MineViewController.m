@@ -31,7 +31,7 @@
     self.tableView.tableHeaderView = _headerView;
     
     // 初始化数据
-    self.data = [MineUtil sharedMineUtil].loadMineData;
+    self.data = [[MineUtil sharedMineUtil] mineData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -58,21 +58,51 @@
         rect.size.height = HEIGHT_STATUS+HEIGHT_NAVBAR+100 - offset.y;
         _headerView.imageView.frame = rect;
         
-        _headerView.nightBtn.frame = CGRectMake(WIDTH_SCREEN-35, offset.y + HEIGHT_STATUS+10, 20, 20);
+        _headerView.nightShiftBtn.frame = CGRectMake(WIDTH_SCREEN-35, offset.y + HEIGHT_STATUS+10, 20, 20);
     }
 }
 
-#pragma mark - 头部视图点击方法
-- (void)mineHeaderViewDidSelected {
-    if(IS_LOGIN){
-        [self.navigationController pushViewController:[[NSClassFromString(@"AccountViewController") class] new] animated:YES];
-    }else{
-        LOGIN_VIEW
+#pragma mark - 头部视图按钮点击方法
+- (void)mineHeaderViewBtnDidSelected:(UIButton *)sender {
+    if(0 == sender.tag){
+        if(IS_LOGIN){
+            [self.navigationController pushViewController:[[NSClassFromString(@"AccountViewController") class] new] animated:YES];
+        }else{
+            LOGIN_VIEW
+        }
+    }
+    if(1 == sender.tag){
+        DLog(@"升级详细规则");
+    }
+    if(2 == sender.tag){
+        DLog(@"黄金等级");
+    }
+    if(3 == sender.tag){
+        DLog(@"每日签到");
     }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    BaseTableModelGroup *group = [self.data objectAtIndex:indexPath.section];
+    BaseTableModelItem *item = [group itemAtIndex:indexPath.row];
+    
+    if([item.title isEqualToString:@"安全中心"]){
+        [self.navigationController pushViewController:[[NSClassFromString(@"SafeViewController") class] new] animated:YES];
+    }
+    if([item.title isEqualToString:@"我的日程"]){
+        [self.navigationController pushViewController:[[NSClassFromString(@"ScheduleViewController") class] new] animated:YES];
+    }
+    if([item.title isEqualToString:@"我的客服"]){
+        [self.navigationController pushViewController:[[NSClassFromString(@"ServiceViewController") class] new] animated:YES];
+    }
+    if([item.title isEqualToString:@"设置"]){
+        [self.navigationController pushViewController:[[NSClassFromString(@"SettingViewController") class] new] animated:YES];
+    }
+    if([item.title isEqualToString:@"关于"]){
+        [self.navigationController pushViewController:[[NSClassFromString(@"AboutViewController") class] new] animated:YES];
+    }
 }
 
 @end

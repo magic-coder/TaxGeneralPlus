@@ -14,9 +14,19 @@
 
 SingletonH(MineUtil)
 
-- (NSMutableArray *)loadMineData;
+// 我的数据（第一级）
+- (NSMutableArray *)mineData;
 
+// 我的用户信息（第二级）
 - (NSMutableArray *)accountData;
+// 安全中心数据（第二级）
+- (NSMutableArray *)safeData;
+// 我的日程数据（第二级）
+- (NSMutableArray *)scheduleData;
+// 我的客服数据（第二级）
+- (NSMutableArray *)serviceData;
+// 设置数据（第二级）
+- (NSMutableArray *)settingData;
 
 - (void)accountLogout:(void (^)(void))success failed:(void (^)(NSString *error))failed;
 

@@ -20,7 +20,7 @@ SingletonM(BaseSettingUtil)
         NSNumber *open = [NSNumber numberWithBool:YES];
         NSNumber *close = [NSNumber numberWithBool:NO];
         // 初始化默认值的设置数据
-        NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:close, @"touchID", open, @"voice", open, @"shake", open, @"sysVoice", close, @"forecast", close, @"night", nil];
+        NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:close, @"touchID", open, @"voice", open, @"shake", open, @"sysVoice", close, @"nightShift", nil];
         [[BaseSandBoxUtil sharedBaseSandBoxUtil] writeData:dict fileName:SETTING_FILE];
     }
 }

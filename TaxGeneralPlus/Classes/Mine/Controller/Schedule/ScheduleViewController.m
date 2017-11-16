@@ -1,6 +1,6 @@
 /************************************************************
- Class    : SafeViewController.m
- Describe : 安全中心界面
+ Class    : ScheduleViewController.m
+ Describe : 我的日程界面
  Company  : Prient
  Author   : Yanzheng 严正
  Date     : 2017-11-16
@@ -8,21 +8,22 @@
  Declare  : Copyright © 2017 Yanzheng. All rights reserved.
  ************************************************************/
 
-#import "SafeViewController.h"
+#import "ScheduleViewController.h"
 #import "MineUtil.h"
 
-@interface SafeViewController ()
+@interface ScheduleViewController ()
 
 @end
 
-@implementation SafeViewController
+@implementation ScheduleViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = @"安全中心";
-    self.data = [[MineUtil sharedMineUtil] safeData];
+    self.title = @"我的日程";
+    
+    self.data = [[MineUtil sharedMineUtil] scheduleData];
 }
 
 - (void)didReceiveMemoryWarning {

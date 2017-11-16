@@ -1,6 +1,6 @@
 /************************************************************
- Class    : SafeViewController.h
- Describe : 安全中心界面
+ Class    : SettingViewController.h
+ Describe : 设置界面
  Company  : Prient
  Author   : Yanzheng 严正
  Date     : 2017-11-16
@@ -10,6 +10,6 @@
 
 #import "BaseTableViewController.h"
 
-@interface SafeViewController : BaseTableViewController
+@interface SettingViewController : BaseTableViewController
 
 @end

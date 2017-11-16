@@ -1,6 +1,6 @@
 /************************************************************
- Class    : SafeViewController.h
- Describe : 安全中心界面
+ Class    : AboutHeaderView.h
+ Describe : 关于界面头部视图
  Company  : Prient
  Author   : Yanzheng 严正
  Date     : 2017-11-16
@@ -8,8 +8,8 @@
  Declare  : Copyright © 2017 Yanzheng. All rights reserved.
  ************************************************************/
 
-#import "BaseTableViewController.h"
+#import <UIKit/UIKit.h>
 
-@interface SafeViewController : BaseTableViewController
+@interface AboutHeaderView : UIView
 
 @end

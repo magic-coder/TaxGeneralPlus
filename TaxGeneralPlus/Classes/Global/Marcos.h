@@ -31,7 +31,7 @@
 #define APPDELEGETE             [[UIApplication sharedApplication] delegate]
 #define WINDOW                  [[UIApplication sharedApplication] keyWindow]
 #define PLACEHOLDER_IMAGE       [UIImage imageNamed:@"common_placeholder"]
-#define IS_SUCCESS             [@"00" isEqualToString:[responseObject objectForKey:@"statusCode"]]
+#define IS_SUCCESS              [@"00" isEqualToString:[responseObject objectForKey:@"statusCode"]]
 #define IS_LOGIN                (nil != [[NSUserDefaults standardUserDefaults] objectForKey:LOGIN_SUCCESS])
 #define LOGIN_VIEW              [self presentViewController:[[NSClassFromString(@"LoginViewController") class] new] animated:YES completion:nil];
 #define RgbColor(r, g, b, a)    [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:a]
@@ -52,9 +52,10 @@
 //#define SERVER_URL  @"https://10.100.16.133:8443/mobiletax/"    // 生产 https VPN 服务器地址
 
 #pragma mark - 定义全局常用key值
-#define DEVICE_INFO     @"deviceInfo"
-#define LOGIN_SUCCESS   @"loginSuccess"
-#define LAST_LOGINCODE  @"lastLoginCode"
+#define DEVICE_INFO         @"deviceInfo"
+#define LOGIN_SUCCESS       @"loginSuccess"
+#define LAST_LOGINCODE      @"lastLoginCode"
+#define GESTURES_PASSWORD   @"gesturesPassword"
 
 #pragma mark - 定义设置文件名称
 #define SETTING_FILE    @"settingData.plist"
