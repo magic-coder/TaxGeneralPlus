@@ -86,6 +86,13 @@
     btn6.tag = 6;
     [self.view addSubview:btn6];
     
+    UIButton *btn7 = [UIButton buttonWithType:UIButtonTypeSystem];
+    btn7.frame = CGRectMake(10, 380, 300, 30);
+    [btn7 setTitle:@"WebView" forState:UIControlStateNormal];
+    [btn7 addTarget:self action:@selector(onClick:) forControlEvents:(UIControlEventTouchUpInside)];
+    btn7.tag = 7;
+    [self.view addSubview:btn7];
+    
     // 添加轮播图
     NSArray *titles = @[@"腾讯", @"京东", @"阿里巴巴", @"小米"];
     NSArray *images = @[@"http://i1.douguo.net//upload/banner/0/6/a/06e051d7378040e13af03db6d93ffbfa.jpg", @"http://i1.douguo.net//upload/banner/9/3/4/93f959b4e84ecc362c52276e96104b74.jpg", @"http://i1.douguo.net//upload/banner/5/e/3/5e228cacf18dada577269273971a86c3.jpg", @"http://i1.douguo.net//upload/banner/d/8/2/d89f438789ee1b381966c1361928cb32.jpg"];
@@ -212,6 +219,15 @@
     if(6 == btn.tag){
         LoginViewController *loginVC = [[LoginViewController alloc] init];
         [self presentViewController:loginVC animated:YES completion:nil];
+    }
+    
+    if(7 == btn.tag){
+        
+        BaseWebViewController *webVC = [[BaseWebViewController alloc] initWithURL:@"http://www.qq.com"];
+         
+        [self.navigationController pushViewController:webVC animated:YES];
+        
+        
     }
     
 }

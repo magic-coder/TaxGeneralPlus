@@ -125,10 +125,11 @@
 		18C02E4F1FA71549009EBD36 /* AppView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C02E4E1FA71549009EBD36 /* AppView.m */; };
 		18C02E521FA71582009EBD36 /* AppModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C02E511FA71582009EBD36 /* AppModel.m */; };
 		18C02E551FA72609009EBD36 /* App.json in Resources */ = {isa = PBXBuildFile; fileRef = 18C02E541FA72609009EBD36 /* App.json */; };
-		18DE15BD1FB9399A00434F91 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE15BC1FB9399A00434F91 /* BaseViewController.m */; };
 		18DE15C01FB93E7A00434F91 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE15BF1FB93E7A00434F91 /* LoginViewController.m */; };
 		18DE15C31FB9458900434F91 /* Login.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18DE15C21FB9458900434F91 /* Login.xcassets */; };
 		18DE15CE1FB9A21B00434F91 /* LoginUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE15CD1FB9A21B00434F91 /* LoginUtil.m */; };
+		18E2C4031FBE8EA800881A8A /* BaseWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E2C4021FBE8EA800881A8A /* BaseWebViewController.m */; };
+		18E2C4051FBEC64600881A8A /* common_loading_wait.gif in Resources */ = {isa = PBXBuildFile; fileRef = 18E2C4041FBEC64600881A8A /* common_loading_wait.gif */; };
 		18E4ED951F9ED39600CAB201 /* YZBottomSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E4ED941F9ED39600CAB201 /* YZBottomSelectView.m */; };
 		18E4ED981F9EE02200CAB201 /* UIColor+YZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E4ED971F9EE02200CAB201 /* UIColor+YZ.m */; };
 		18E4EDA51F9F1D9600CAB201 /* YBPopupMenu+YZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E4EDA41F9F1D9600CAB201 /* YBPopupMenu+YZ.m */; };
@@ -386,13 +387,14 @@
 		18C02E501FA71582009EBD36 /* AppModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppModel.h; sourceTree = "<group>"; };
 		18C02E511FA71582009EBD36 /* AppModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppModel.m; sourceTree = "<group>"; };
 		18C02E541FA72609009EBD36 /* App.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = App.json; sourceTree = "<group>"; };
-		18DE15BB1FB9399A00434F91 /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
-		18DE15BC1FB9399A00434F91 /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		18DE15BE1FB93E7A00434F91 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		18DE15BF1FB93E7A00434F91 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		18DE15C21FB9458900434F91 /* Login.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Login.xcassets; sourceTree = "<group>"; };
 		18DE15CC1FB9A21B00434F91 /* LoginUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginUtil.h; sourceTree = "<group>"; };
 		18DE15CD1FB9A21B00434F91 /* LoginUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginUtil.m; sourceTree = "<group>"; };
+		18E2C4011FBE8EA800881A8A /* BaseWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseWebViewController.h; sourceTree = "<group>"; };
+		18E2C4021FBE8EA800881A8A /* BaseWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseWebViewController.m; sourceTree = "<group>"; };
+		18E2C4041FBEC64600881A8A /* common_loading_wait.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = common_loading_wait.gif; sourceTree = "<group>"; };
 		18E4ED931F9ED39600CAB201 /* YZBottomSelectView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YZBottomSelectView.h; sourceTree = "<group>"; };
 		18E4ED941F9ED39600CAB201 /* YZBottomSelectView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YZBottomSelectView.m; sourceTree = "<group>"; };
 		18E4ED961F9EE02200CAB201 /* UIColor+YZ.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+YZ.h"; sourceTree = "<group>"; };
@@ -472,6 +474,7 @@
 		181608471F99A61E00EC0FC3 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				18E2C4041FBEC64600881A8A /* common_loading_wait.gif */,
 				1816084A1F99DBDE00EC0FC3 /* Navigation.xcassets */,
 				181608481F99A69900EC0FC3 /* TabBar.xcassets */,
 				18E4EDB91F9F253400CAB201 /* PopupMenu.xcassets */,
@@ -663,10 +666,10 @@
 		188AE5661FA02FA5008F7D60 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				18DE15BB1FB9399A00434F91 /* BaseViewController.h */,
-				18DE15BC1FB9399A00434F91 /* BaseViewController.m */,
 				180A90BD1FB2E2B800F7D213 /* BaseTableViewController.h */,
 				180A90BE1FB2E2B800F7D213 /* BaseTableViewController.m */,
+				18E2C4011FBE8EA800881A8A /* BaseWebViewController.h */,
+				18E2C4021FBE8EA800881A8A /* BaseWebViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1342,6 +1345,7 @@
 				186E5AEB1FA1CA9600228258 /* Test.xcassets in Resources */,
 				183826FC1F90B08C0076C8A5 /* LaunchScreen.storyboard in Resources */,
 				1804C9E41FA082D400FCC6F1 /* Common.xcassets in Resources */,
+				18E2C4051FBEC64600881A8A /* common_loading_wait.gif in Resources */,
 				18B358AA1F9F542400F9CF73 /* MJRefresh.bundle in Resources */,
 				183826F91F90B08C0076C8A5 /* Assets.xcassets in Resources */,
 				18E4EDBA1F9F253400CAB201 /* PopupMenu.xcassets in Resources */,
@@ -1389,6 +1393,7 @@
 				18AE74291F9854C700E357D1 /* MKAnnotationView+WebCache.m in Sources */,
 				180A90C71FB2EF0200F7D213 /* MineHeaderView.m in Sources */,
 				18B358BB1F9F542400F9CF73 /* MJRefreshComponent.m in Sources */,
+				18E2C4031FBE8EA800881A8A /* BaseWebViewController.m in Sources */,
 				18B358B91F9F542400F9CF73 /* MJRefreshBackFooter.m in Sources */,
 				18AE74311F9854C700E357D1 /* UIImage+MultiFormat.m in Sources */,
 				1895A8251FB4387200DB9AFC /* AppSubViewCell.m in Sources */,
@@ -1488,7 +1493,6 @@
 				18A1FB081FBD2DA500AA07DC /* AboutHeaderView.m in Sources */,
 				18AE73F11F98547D00E357D1 /* AFNetworkReachabilityManager.m in Sources */,
 				18FCCD861FA6F6E400424A0C /* BaseScrollView.m in Sources */,
-				18DE15BD1FB9399A00434F91 /* BaseViewController.m in Sources */,
 				18A1FB051FBD2C6600AA07DC /* AboutViewController.m in Sources */,
 				180A90BF1FB2E2B800F7D213 /* BaseTableViewController.m in Sources */,
 				18AC77431FA84B5300EB630B /* AppBorderView.m in Sources */,
