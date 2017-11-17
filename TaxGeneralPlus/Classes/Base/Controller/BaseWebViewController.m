@@ -247,7 +247,7 @@
     if(_webView == nil){
         _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frameWidth, self.view.frameHeight)];
         _webView.backgroundColor = DEFAULT_BACKGROUND_COLOR;
-        _webView.scalesPageToFit=YES;   // 自适应
+        //_webView.scalesPageToFit=YES;   // 自适应
         _webView.opaque = NO;           // 去掉底部黑色部分
         _webView.delegate = self;
     }

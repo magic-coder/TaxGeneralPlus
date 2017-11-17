@@ -86,7 +86,10 @@ static NSString * const reuseIdentifier = @"aboutTableViewCell";
     
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if([cell.textLabel.text isEqualToString:@"功能介绍"]){
-        
+        NSString *urlStr = [NSString stringWithFormat:@"%@taxnews/public/introductionIOS.htm", SERVER_URL];
+        BaseWebViewController *introduceVC = [[BaseWebViewController alloc] initWithURL:urlStr];
+        introduceVC.title = cell.textLabel.text;
+        [self.navigationController pushViewController:introduceVC animated:YES];
     }
     if([cell.textLabel.text isEqualToString:@"去App Store评分"]){
         

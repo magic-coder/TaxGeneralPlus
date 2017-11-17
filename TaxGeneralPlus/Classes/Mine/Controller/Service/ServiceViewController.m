@@ -46,8 +46,8 @@
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str] options:@{} completionHandler:nil];
     }
     if([item.title isEqualToString:@"常见问题"]){
-        //BaseWebViewController *questionVC = [[BaseWebViewController alloc] initWithURL:[NSString stringWithFormat:@"%@taxnews/public/comProblemIOS.htm", SERVER_URL]];
-        //viewController = questionVC;
+        BaseWebViewController *questionVC = [[BaseWebViewController alloc] initWithURL:[NSString stringWithFormat:@"%@taxnews/public/comProblemIOS.htm", SERVER_URL]];
+        viewController = questionVC;
     }
     
     if(nil != viewController){

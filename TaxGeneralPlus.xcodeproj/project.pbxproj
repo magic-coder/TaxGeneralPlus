@@ -130,6 +130,8 @@
 		18DE15CE1FB9A21B00434F91 /* LoginUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE15CD1FB9A21B00434F91 /* LoginUtil.m */; };
 		18E2C4031FBE8EA800881A8A /* BaseWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E2C4021FBE8EA800881A8A /* BaseWebViewController.m */; };
 		18E2C4051FBEC64600881A8A /* common_loading_wait.gif in Resources */ = {isa = PBXBuildFile; fileRef = 18E2C4041FBEC64600881A8A /* common_loading_wait.gif */; };
+		18E2C4091FBEE10E00881A8A /* YZTouchID.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E2C4071FBEE10E00881A8A /* YZTouchID.m */; };
+		18E2C40E1FBEE36000881A8A /* TouchIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E2C40D1FBEE36000881A8A /* TouchIDViewController.m */; };
 		18E4ED951F9ED39600CAB201 /* YZBottomSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E4ED941F9ED39600CAB201 /* YZBottomSelectView.m */; };
 		18E4ED981F9EE02200CAB201 /* UIColor+YZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E4ED971F9EE02200CAB201 /* UIColor+YZ.m */; };
 		18E4EDA51F9F1D9600CAB201 /* YBPopupMenu+YZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E4EDA41F9F1D9600CAB201 /* YBPopupMenu+YZ.m */; };
@@ -395,6 +397,10 @@
 		18E2C4011FBE8EA800881A8A /* BaseWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseWebViewController.h; sourceTree = "<group>"; };
 		18E2C4021FBE8EA800881A8A /* BaseWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseWebViewController.m; sourceTree = "<group>"; };
 		18E2C4041FBEC64600881A8A /* common_loading_wait.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = common_loading_wait.gif; sourceTree = "<group>"; };
+		18E2C4071FBEE10E00881A8A /* YZTouchID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YZTouchID.m; sourceTree = "<group>"; };
+		18E2C4081FBEE10E00881A8A /* YZTouchID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZTouchID.h; sourceTree = "<group>"; };
+		18E2C40C1FBEE36000881A8A /* TouchIDViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TouchIDViewController.h; sourceTree = "<group>"; };
+		18E2C40D1FBEE36000881A8A /* TouchIDViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TouchIDViewController.m; sourceTree = "<group>"; };
 		18E4ED931F9ED39600CAB201 /* YZBottomSelectView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YZBottomSelectView.h; sourceTree = "<group>"; };
 		18E4ED941F9ED39600CAB201 /* YZBottomSelectView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YZBottomSelectView.m; sourceTree = "<group>"; };
 		18E4ED961F9EE02200CAB201 /* UIColor+YZ.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+YZ.h"; sourceTree = "<group>"; };
@@ -561,6 +567,7 @@
 		183827061F90B0BB0076C8A5 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				18E2C40A1FBEE33600881A8A /* TouchID */,
 				18AE747A1F9897E600E357D1 /* Test */,
 				18AE74501F9881F100E357D1 /* News */,
 				18AE74511F9881F600E357D1 /* App */,
@@ -609,6 +616,7 @@
 		183827091F90B0ED0076C8A5 /* Expands */ = {
 			isa = PBXGroup;
 			children = (
+				18E2C4061FBEE10E00881A8A /* YZTouchID */,
 				188AE5701FA0546D008F7D60 /* YZCycleScrollView */,
 				18E4ED921F9ED33000CAB201 /* YZBottomSelectView */,
 			);
@@ -1214,6 +1222,32 @@
 			path = Util;
 			sourceTree = "<group>";
 		};
+		18E2C4061FBEE10E00881A8A /* YZTouchID */ = {
+			isa = PBXGroup;
+			children = (
+				18E2C4081FBEE10E00881A8A /* YZTouchID.h */,
+				18E2C4071FBEE10E00881A8A /* YZTouchID.m */,
+			);
+			path = YZTouchID;
+			sourceTree = "<group>";
+		};
+		18E2C40A1FBEE33600881A8A /* TouchID */ = {
+			isa = PBXGroup;
+			children = (
+				18E2C40B1FBEE35200881A8A /* Controller */,
+			);
+			path = TouchID;
+			sourceTree = "<group>";
+		};
+		18E2C40B1FBEE35200881A8A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				18E2C40C1FBEE36000881A8A /* TouchIDViewController.h */,
+				18E2C40D1FBEE36000881A8A /* TouchIDViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		18E4ED921F9ED33000CAB201 /* YZBottomSelectView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1446,6 +1480,7 @@
 				1836FCC41FA1F6AB00ABDA10 /* NewsUtil.m in Sources */,
 				18FCCDA81FA703D000424A0C /* View+MASAdditions.m in Sources */,
 				18AE742E1F9854C700E357D1 /* FLAnimatedImageView+WebCache.m in Sources */,
+				18E2C40E1FBEE36000881A8A /* TouchIDViewController.m in Sources */,
 				18AE744E1F985A2900E357D1 /* MainTabBarController.m in Sources */,
 				18B358AB1F9F542400F9CF73 /* UIScrollView+MJExtension.m in Sources */,
 				184F11051FA81341001F8215 /* AppUtil.m in Sources */,
@@ -1479,6 +1514,7 @@
 				18B358B11F9F542400F9CF73 /* MJRefreshAutoStateFooter.m in Sources */,
 				1836FCBE1FA1ED1400ABDA10 /* UIView+YZ.m in Sources */,
 				18B358AE1F9F542400F9CF73 /* MJRefreshBackGifFooter.m in Sources */,
+				18E2C4091FBEE10E00881A8A /* YZTouchID.m in Sources */,
 				18AE74441F9854FC00E357D1 /* MBProgressHUD.m in Sources */,
 				1836FCBB1FA1E3D900ABDA10 /* NewsTableViewCell.m in Sources */,
 				18AC774F1FA864A800EB630B /* AppEditViewCell.m in Sources */,

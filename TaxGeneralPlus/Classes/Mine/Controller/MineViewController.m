@@ -72,13 +72,25 @@
         }
     }
     if(1 == sender.tag){
-        DLog(@"升级详细规则");
+        if(IS_LOGIN){
+            DLog(@"详细升级规则");
+        }else{
+            LOGIN_VIEW
+        }
     }
     if(2 == sender.tag){
-        DLog(@"黄金等级");
+        if(IS_LOGIN){
+            DLog(@"钻石");
+        }else{
+            LOGIN_VIEW
+        }
     }
     if(3 == sender.tag){
-        DLog(@"每日签到");
+        if(IS_LOGIN){
+            DLog(@"每日签到");
+        }else{
+            LOGIN_VIEW
+        }
     }
 }
 
@@ -89,10 +101,19 @@
     BaseTableModelItem *item = [group itemAtIndex:indexPath.row];
     
     if([item.title isEqualToString:@"安全中心"]){
-        [self.navigationController pushViewController:[[NSClassFromString(@"SafeViewController") class] new] animated:YES];
+        if(IS_LOGIN){
+            [self.navigationController pushViewController:[[NSClassFromString(@"SafeViewController") class] new] animated:YES];
+        }else{
+            LOGIN_VIEW
+        }
     }
     if([item.title isEqualToString:@"我的日程"]){
-        [self.navigationController pushViewController:[[NSClassFromString(@"ScheduleViewController") class] new] animated:YES];
+        //[self.navigationController pushViewController:[[NSClassFromString(@"ScheduleViewController") class] new] animated:YES];
+        [UIAlertController showAlertInViewController:self withTitle:nil message:[NSString stringWithFormat:@"\"%@\"想要打开\"日历\"", [[Variable sharedVariable] appName]] cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"打开"] tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
+            if(0 == (buttonIndex - controller.firstOtherButtonIndex)){
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"calshow:"] options:@{} completionHandler:nil];
+            }
+        }];
     }
     if([item.title isEqualToString:@"我的客服"]){
         [self.navigationController pushViewController:[[NSClassFromString(@"ServiceViewController") class] new] animated:YES];
