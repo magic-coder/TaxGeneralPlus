@@ -92,28 +92,34 @@ SingletonM(MineUtil)
 #pragma mark - 安全中心数据（第二级）
 - (NSMutableArray *)safeData {
     NSMutableArray *items = [[NSMutableArray alloc] init];
-    
-    NSString *gesturePwd = [[NSUserDefaults standardUserDefaults] objectForKey:GESTURES_PASSWORD];
-    BaseTableModelItem *item2 = nil;
-    if(gesturePwd.length > 0){
-        item2 = [BaseTableModelItem createWithTitle:@"手势密码" subTitle:@"已开启"];
-    }else{
-        item2 = [BaseTableModelItem createWithTitle:@"手势密码" subTitle:@"未开启"];
-    }
-    
-    //BaseTableModelGroup *group1 = [[BaseTableModelGroup alloc] initWithHeaderTitle:nil footerTitle:nil settingItems:item1, item2, nil];
-    BaseTableModelGroup *group1 = [[BaseTableModelGroup alloc] initWithHeaderTitle:nil footerTitle:nil settingItems:item2, nil];
-    [items addObject:group1];
-    
     NSDictionary *settingDict = [[BaseSettingUtil sharedBaseSettingUtil] loadSettingData];
+    
+    BOOL gesturePwdOn = [[settingDict objectForKey:@"gesturePwd"] boolValue];
+    NSString *gesturePwd = [[NSUserDefaults standardUserDefaults] objectForKey:GESTURES_PASSWORD];
+    
+    BaseTableModelItem *item2 = [BaseTableModelItem createWithTitle:@"手势密码"];
+    item2.type = BaseTableModelItemTypeSwitch;
+    item2.tag = 422;
+    item2.isOn = gesturePwdOn;
+    
+    BaseTableModelGroup *group2 = nil;
+    if(YES == gesturePwdOn && gesturePwd.length > 0){
+        BaseTableModelItem *item2_1 = [BaseTableModelItem createWithTitle:@"修改手势密码"];
+        group2 = [[BaseTableModelGroup alloc] initWithHeaderTitle:nil footerTitle:nil settingItems:item2, item2_1, nil];
+    }else{
+        group2 = [[BaseTableModelGroup alloc] initWithHeaderTitle:nil footerTitle:nil settingItems:item2, nil];
+    }
+    [items addObject:group2];
+    
+    
     BOOL touchIDOn = [[settingDict objectForKey:@"touchID"] boolValue];
     
     BaseTableModelItem *item3 = [BaseTableModelItem createWithTitle:@"指纹解锁"];
     item3.type = BaseTableModelItemTypeSwitch;
     item3.tag = 423;
     item3.isOn = touchIDOn;
-    BaseTableModelGroup *group2 = [[BaseTableModelGroup alloc] initWithHeaderTitle:nil footerTitle:@"若要开启指纹解锁功能，请先在\"设置\"-\"Touch ID 与密码\"中添加指纹。" settingItems:item3, nil];
-    [items addObject:group2];
+    BaseTableModelGroup *group3 = [[BaseTableModelGroup alloc] initWithHeaderTitle:nil footerTitle:@"若要开启指纹解锁功能，请先在\"设置\"-\"Touch ID 与密码\"中添加指纹。" settingItems:item3, nil];
+    [items addObject:group3];
     
     return items;
 }
@@ -224,6 +230,13 @@ SingletonM(MineUtil)
         if(IS_SUCCESS){
             // 删除用户登录信息
             [[NSUserDefaults standardUserDefaults] removeObjectForKey:LOGIN_SUCCESS];
+            // 删除用户设置信息
+            // 将用户TouchID设置信息删除
+            NSMutableDictionary *settingDict = [[BaseSettingUtil sharedBaseSettingUtil] loadSettingData];
+            [settingDict setValue:[NSNumber numberWithBool:NO] forKey:@"gesturePwd"];
+            [settingDict setValue:[NSNumber numberWithBool:NO] forKey:@"touchID"];
+            [[BaseSettingUtil sharedBaseSettingUtil] writeSettingData:settingDict];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:GESTURES_PASSWORD];
             // 清理缓存
             [[SDImageCache sharedImageCache] clearDiskOnCompletion:nil];
             [[SDImageCache sharedImageCache] clearMemory];

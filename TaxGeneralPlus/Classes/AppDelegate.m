@@ -9,6 +9,8 @@
  ************************************************************/
 
 #import "AppDelegate.h"
+#import "MainTabBarController.h"
+#import "GestureViewController.h"
 
 @interface AppDelegate ()
 
@@ -36,6 +38,8 @@
     _window.rootViewController = [[NSClassFromString(@"MainTabBarController") class] new];
     [_window makeKeyAndVisible];
     
+    [self verifyUnlock];// 判断是否设置安全密码
+    
     return YES;
 }
 
@@ -54,6 +58,8 @@
 #pragma mark - 程序从后台回到前台
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+    
+    [self verifyUnlock];// 判断是否设置安全密码
 }
 
 #pragma mark - 程序获取焦点
@@ -71,5 +77,27 @@
     DLog(@"程序内存警告，可能要终止程序");
 }
 
+#pragma mark - 判断是否开启了手势密码、指纹解锁功能
+- (void)verifyUnlock {
+    if(IS_LOGIN){
+        MainTabBarController *mainTabBarController = [MainTabBarController sharedMainTabBarController];
+        // 校验用户是否开启了手势密码、指纹解锁，并进行相应跳转
+        NSDictionary *settingDict = [[BaseSettingUtil sharedBaseSettingUtil] loadSettingData];
+        
+        if([[settingDict objectForKey:@"touchID"] boolValue]){  // 指纹解锁
+            [mainTabBarController presentViewController:[[NSClassFromString(@"TouchIDViewController") class] new] animated:NO completion:nil];
+        }else{
+            if([[settingDict objectForKey:@"gesturePwd"] boolValue]){
+                NSString *gesturePwd = [[NSUserDefaults standardUserDefaults] objectForKey:GESTURES_PASSWORD];
+                if(gesturePwd.length > 0){  // 手势验证解锁
+                    GestureViewController *gestureVC = [[GestureViewController alloc] init];
+                    [gestureVC setType:GestureViewControllerTypeLogin];
+                    
+                    [mainTabBarController presentViewController:gestureVC animated:NO completion:nil];
+                }
+            }
+        }
+    }
+}
 
 @end

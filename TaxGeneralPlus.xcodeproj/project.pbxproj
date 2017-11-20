@@ -132,6 +132,14 @@
 		18E2C4051FBEC64600881A8A /* common_loading_wait.gif in Resources */ = {isa = PBXBuildFile; fileRef = 18E2C4041FBEC64600881A8A /* common_loading_wait.gif */; };
 		18E2C4091FBEE10E00881A8A /* YZTouchID.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E2C4071FBEE10E00881A8A /* YZTouchID.m */; };
 		18E2C40E1FBEE36000881A8A /* TouchIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E2C40D1FBEE36000881A8A /* TouchIDViewController.m */; };
+		18E2C4111FC2691000881A8A /* CALayer+YZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E2C4101FC2691000881A8A /* CALayer+YZ.m */; };
+		18E2C4221FC26B0D00881A8A /* PCCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E2C4191FC26B0D00881A8A /* PCCircle.m */; };
+		18E2C4231FC26B0D00881A8A /* PCCircleViewConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E2C41A1FC26B0D00881A8A /* PCCircleViewConst.m */; };
+		18E2C4241FC26B0D00881A8A /* PCCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E2C41B1FC26B0D00881A8A /* PCCircleView.m */; };
+		18E2C4251FC26B0D00881A8A /* PCCircleInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E2C41E1FC26B0D00881A8A /* PCCircleInfoView.m */; };
+		18E2C4261FC26B0D00881A8A /* PCLockLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E2C4211FC26B0D00881A8A /* PCLockLabel.m */; };
+		18E2C42D1FC26E5500881A8A /* GestureVerifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E2C42A1FC26E5400881A8A /* GestureVerifyViewController.m */; };
+		18E2C42E1FC26E5500881A8A /* GestureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E2C42C1FC26E5500881A8A /* GestureViewController.m */; };
 		18E4ED951F9ED39600CAB201 /* YZBottomSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E4ED941F9ED39600CAB201 /* YZBottomSelectView.m */; };
 		18E4ED981F9EE02200CAB201 /* UIColor+YZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E4ED971F9EE02200CAB201 /* UIColor+YZ.m */; };
 		18E4EDA51F9F1D9600CAB201 /* YBPopupMenu+YZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E4EDA41F9F1D9600CAB201 /* YBPopupMenu+YZ.m */; };
@@ -401,6 +409,22 @@
 		18E2C4081FBEE10E00881A8A /* YZTouchID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZTouchID.h; sourceTree = "<group>"; };
 		18E2C40C1FBEE36000881A8A /* TouchIDViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TouchIDViewController.h; sourceTree = "<group>"; };
 		18E2C40D1FBEE36000881A8A /* TouchIDViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TouchIDViewController.m; sourceTree = "<group>"; };
+		18E2C40F1FC2691000881A8A /* CALayer+YZ.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CALayer+YZ.h"; sourceTree = "<group>"; };
+		18E2C4101FC2691000881A8A /* CALayer+YZ.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CALayer+YZ.m"; sourceTree = "<group>"; };
+		18E2C4171FC26B0D00881A8A /* PCCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCCircleView.h; sourceTree = "<group>"; };
+		18E2C4181FC26B0D00881A8A /* PCCircleViewConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCCircleViewConst.h; sourceTree = "<group>"; };
+		18E2C4191FC26B0D00881A8A /* PCCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCCircle.m; sourceTree = "<group>"; };
+		18E2C41A1FC26B0D00881A8A /* PCCircleViewConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCCircleViewConst.m; sourceTree = "<group>"; };
+		18E2C41B1FC26B0D00881A8A /* PCCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCCircleView.m; sourceTree = "<group>"; };
+		18E2C41C1FC26B0D00881A8A /* PCCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCCircle.h; sourceTree = "<group>"; };
+		18E2C41E1FC26B0D00881A8A /* PCCircleInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCCircleInfoView.m; sourceTree = "<group>"; };
+		18E2C41F1FC26B0D00881A8A /* PCLockLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCLockLabel.h; sourceTree = "<group>"; };
+		18E2C4201FC26B0D00881A8A /* PCCircleInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCCircleInfoView.h; sourceTree = "<group>"; };
+		18E2C4211FC26B0D00881A8A /* PCLockLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCLockLabel.m; sourceTree = "<group>"; };
+		18E2C4291FC26E5400881A8A /* GestureVerifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GestureVerifyViewController.h; sourceTree = "<group>"; };
+		18E2C42A1FC26E5400881A8A /* GestureVerifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GestureVerifyViewController.m; sourceTree = "<group>"; };
+		18E2C42B1FC26E5400881A8A /* GestureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GestureViewController.h; sourceTree = "<group>"; };
+		18E2C42C1FC26E5500881A8A /* GestureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GestureViewController.m; sourceTree = "<group>"; };
 		18E4ED931F9ED39600CAB201 /* YZBottomSelectView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YZBottomSelectView.h; sourceTree = "<group>"; };
 		18E4ED941F9ED39600CAB201 /* YZBottomSelectView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YZBottomSelectView.m; sourceTree = "<group>"; };
 		18E4ED961F9EE02200CAB201 /* UIColor+YZ.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+YZ.h"; sourceTree = "<group>"; };
@@ -511,6 +535,8 @@
 				18E4ED971F9EE02200CAB201 /* UIColor+YZ.m */,
 				1816084E1F99DD5B00EC0FC3 /* UIImage+YZ.h */,
 				1816084F1F99DD5B00EC0FC3 /* UIImage+YZ.m */,
+				18E2C40F1FC2691000881A8A /* CALayer+YZ.h */,
+				18E2C4101FC2691000881A8A /* CALayer+YZ.m */,
 				181608521F99E3BD00EC0FC3 /* UIDevice+YZ.h */,
 				181608531F99E3BD00EC0FC3 /* UIDevice+YZ.m */,
 				18E4EDA31F9F1D9600CAB201 /* YBPopupMenu+YZ.h */,
@@ -567,6 +593,7 @@
 		183827061F90B0BB0076C8A5 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				18E2C4271FC26D3800881A8A /* Gesture */,
 				18E2C40A1FBEE33600881A8A /* TouchID */,
 				18AE747A1F9897E600E357D1 /* Test */,
 				18AE74501F9881F100E357D1 /* News */,
@@ -601,6 +628,7 @@
 		183827081F90B0D90076C8A5 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
+				18E2C4151FC26B0D00881A8A /* PCGestureUnlock */,
 				18FCCD871FA703D000424A0C /* Masonry */,
 				186E5ADB1FA1C0CF00228258 /* YYModel */,
 				18B358791F9F542400F9CF73 /* MJRefresh */,
@@ -1248,6 +1276,58 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		18E2C4151FC26B0D00881A8A /* PCGestureUnlock */ = {
+			isa = PBXGroup;
+			children = (
+				18E2C4161FC26B0D00881A8A /* FrameWork */,
+				18E2C41D1FC26B0D00881A8A /* View */,
+			);
+			path = PCGestureUnlock;
+			sourceTree = "<group>";
+		};
+		18E2C4161FC26B0D00881A8A /* FrameWork */ = {
+			isa = PBXGroup;
+			children = (
+				18E2C41C1FC26B0D00881A8A /* PCCircle.h */,
+				18E2C4191FC26B0D00881A8A /* PCCircle.m */,
+				18E2C4171FC26B0D00881A8A /* PCCircleView.h */,
+				18E2C41B1FC26B0D00881A8A /* PCCircleView.m */,
+				18E2C4181FC26B0D00881A8A /* PCCircleViewConst.h */,
+				18E2C41A1FC26B0D00881A8A /* PCCircleViewConst.m */,
+			);
+			path = FrameWork;
+			sourceTree = "<group>";
+		};
+		18E2C41D1FC26B0D00881A8A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				18E2C41F1FC26B0D00881A8A /* PCLockLabel.h */,
+				18E2C4211FC26B0D00881A8A /* PCLockLabel.m */,
+				18E2C4201FC26B0D00881A8A /* PCCircleInfoView.h */,
+				18E2C41E1FC26B0D00881A8A /* PCCircleInfoView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		18E2C4271FC26D3800881A8A /* Gesture */ = {
+			isa = PBXGroup;
+			children = (
+				18E2C4281FC26D4800881A8A /* Controller */,
+			);
+			path = Gesture;
+			sourceTree = "<group>";
+		};
+		18E2C4281FC26D4800881A8A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				18E2C42B1FC26E5400881A8A /* GestureViewController.h */,
+				18E2C42C1FC26E5500881A8A /* GestureViewController.m */,
+				18E2C4291FC26E5400881A8A /* GestureVerifyViewController.h */,
+				18E2C42A1FC26E5400881A8A /* GestureVerifyViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		18E4ED921F9ED33000CAB201 /* YZBottomSelectView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1447,12 +1527,14 @@
 				18AE73EE1F98547D00E357D1 /* AFHTTPSessionManager.m in Sources */,
 				18FCCDA91FA703D000424A0C /* MASConstraint.m in Sources */,
 				18AE743B1F9854C700E357D1 /* SDImageCacheConfig.m in Sources */,
+				18E2C42E1FC26E5500881A8A /* GestureViewController.m in Sources */,
 				18AE73EF1F98547D00E357D1 /* AFURLSessionManager.m in Sources */,
 				18AE742D1F9854C700E357D1 /* SDWebImageCodersManager.m in Sources */,
 				180A90CA1FB2F09400F7D213 /* BaseSettingUtil.m in Sources */,
 				18FCCDA51FA703D000424A0C /* MASConstraintMaker.m in Sources */,
 				18A9A0751FA1A8770059C7BB /* UINavigationBar+YZ.m in Sources */,
 				18AE743D1F9854C700E357D1 /* UIView+WebCache.m in Sources */,
+				18E2C42D1FC26E5500881A8A /* GestureVerifyViewController.m in Sources */,
 				18AE73ED1F98547D00E357D1 /* AFURLResponseSerialization.m in Sources */,
 				18B358B41F9F542400F9CF73 /* MJRefreshNormalHeader.m in Sources */,
 				18E4ED981F9EE02200CAB201 /* UIColor+YZ.m in Sources */,
@@ -1462,6 +1544,7 @@
 				18B358B51F9F542400F9CF73 /* MJRefreshStateHeader.m in Sources */,
 				18FCCD731FA6C47400424A0C /* AppTopView.m in Sources */,
 				180A90B91FB2E07900F7D213 /* BaseTableViewCell.m in Sources */,
+				18E2C4251FC26B0D00881A8A /* PCCircleInfoView.m in Sources */,
 				18E4EDB71F9F213900CAB201 /* YBPopupMenuPath.m in Sources */,
 				18E4EDB81F9F213900CAB201 /* YBPopupMenu.m in Sources */,
 				18AE744B1F985A1000E357D1 /* MainNavigationController.m in Sources */,
@@ -1475,6 +1558,7 @@
 				18B358A81F9F542400F9CF73 /* UIScrollView+MJRefresh.m in Sources */,
 				18B358A91F9F542400F9CF73 /* MJRefreshConst.m in Sources */,
 				180A90BC1FB2E0A000F7D213 /* BaseTableViewHeaderFooterView.m in Sources */,
+				18E2C4221FC26B0D00881A8A /* PCCircle.m in Sources */,
 				18FCCDA31FA703D000424A0C /* ViewController+MASAdditions.m in Sources */,
 				180A90B61FB2DFFB00F7D213 /* BaseTableModel.m in Sources */,
 				1836FCC41FA1F6AB00ABDA10 /* NewsUtil.m in Sources */,
@@ -1484,10 +1568,12 @@
 				18AE744E1F985A2900E357D1 /* MainTabBarController.m in Sources */,
 				18B358AB1F9F542400F9CF73 /* UIScrollView+MJExtension.m in Sources */,
 				184F11051FA81341001F8215 /* AppUtil.m in Sources */,
+				18E2C4231FC26B0D00881A8A /* PCCircleViewConst.m in Sources */,
 				18A1FB011FBD299400AA07DC /* SettingViewController.m in Sources */,
 				186E06B11FB1BA110054DA49 /* MineUtil.m in Sources */,
 				18AE747E1F98980600E357D1 /* TestViewController.m in Sources */,
 				18AE74281F9854C700E357D1 /* UIImage+WebP.m in Sources */,
+				18E2C4241FC26B0D00881A8A /* PCCircleView.m in Sources */,
 				18A9A07E1FA1ABF90059C7BB /* BaseSandBoxUtil.m in Sources */,
 				18AE74381F9854C700E357D1 /* UIImageView+WebCache.m in Sources */,
 				18A1FAF41FBC449500AA07DC /* Variable.m in Sources */,
@@ -1497,8 +1583,10 @@
 				18AE74401F9854C700E357D1 /* SDWebImageWebPCoder.m in Sources */,
 				18AE742F1F9854C700E357D1 /* SDWebImageDownloader.m in Sources */,
 				18A1FAF11FBC3BD700AA07DC /* SafeViewController.m in Sources */,
+				18E2C4261FC26B0D00881A8A /* PCLockLabel.m in Sources */,
 				18AE74331F9854C700E357D1 /* SDWebImagePrefetcher.m in Sources */,
 				18AE74361F9854C700E357D1 /* SDWebImageDownloaderOperation.m in Sources */,
+				18E2C4111FC2691000881A8A /* CALayer+YZ.m in Sources */,
 				186E5AE81FA1C2FF00228258 /* NewsModel.m in Sources */,
 				18DE15C01FB93E7A00434F91 /* LoginViewController.m in Sources */,
 				18FCCDA21FA703D000424A0C /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
@@ -1681,6 +1769,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = T6M45QNYSX;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/TaxGeneralPlus/Supporting Files/PrefixHeader.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/TaxGeneralPlus/Supporting Files/Info.plist";
@@ -1696,6 +1785,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = T6M45QNYSX;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/TaxGeneralPlus/Supporting Files/PrefixHeader.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/TaxGeneralPlus/Supporting Files/Info.plist";

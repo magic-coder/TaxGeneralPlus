@@ -12,6 +12,7 @@
 #import "NewsTableViewCell.h"
 #import "NewsModel.h"
 #import "NewsUtil.h"
+#import "MJRefresh.h"
 
 #define NAVBAR_CHANGE_POINT 50
 
@@ -41,7 +42,14 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     
     // 设置下拉刷新
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
-
+    
+    // 判断是否登录
+    if(IS_LOGIN){
+        [self initializeData];// 初始化数据
+    }else{
+        LOGIN_VIEW
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -56,12 +64,8 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     [self scrollViewDidScroll:self.tableView];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     
-    // 判断是否登录
-    if(IS_LOGIN){
-        // 初始化数据
-        [self initializeData];
-    }else{
-        LOGIN_VIEW
+    if(nil == _data || _data.count <= 0){
+        [self initializeData];// 初始化数据
     }
     
 }
