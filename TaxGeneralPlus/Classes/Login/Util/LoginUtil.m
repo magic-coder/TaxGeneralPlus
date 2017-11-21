@@ -28,7 +28,7 @@ SingletonM(LoginUtil)
     
     [YZNetworkingManager POST:@"account/login" parameters:dict success:^(NSURLSessionDataTask *task, id responseObject) {
         // 获取请求状态值
-        if(IS_SUCCESS){
+        if(REQUEST_SUCCESS){
             // 获取登录成功信息
             NSDictionary *businessData = [responseObject objectForKey:@"businessData"];
             [dict setObject:[businessData objectForKey:@"userName"] forKey:@"userName"];
@@ -51,13 +51,57 @@ SingletonM(LoginUtil)
             
             success();
         }else{
-            failed([responseObject objectForKey:@"msg"]);
+            failed(RESPONSE_MSG);
         }
     } failure:^(NSURLSessionDataTask *task, NSString *error) {
         // 登录失败
         failed(error);
     }];
     
+}
+
+#pragma mark - 通过token进行登录
+- (void)loginWithTokenSuccess:(void (^)(void))success failed:(void (^)(NSString *))failed {
+    
+    NSDictionary *deviceDict = [[NSUserDefaults standardUserDefaults] objectForKey:DEVICE_INFO];
+    NSDictionary *userDict = [[NSUserDefaults standardUserDefaults] objectForKey:LOGIN_SUCCESS];
+    
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:@"appToken" forKey:@"loginType"];
+    [dict setObject:@"4" forKey:@"phonetype"];
+    [dict setObject:[userDict objectForKey:@"userCode"] forKey:@"userCode"];
+    [dict setObject:[userDict objectForKey:@"token"] forKey:@"token"];
+    [dict setObject:[deviceDict objectForKey:@"deviceIdentifier"] forKey:@"deviceid"];
+    [dict setObject:[deviceDict objectForKey:@"deviceModel"] forKey:@"phonemodel"];
+    [dict setObject:[deviceDict objectForKey:@"systemVersion"] forKey:@"osversion"];
+    
+    [YZNetworkingManager POST:@"account/login" parameters:dict success:^(NSURLSessionDataTask *task, id responseObject) {
+        if(REQUEST_SUCCESS){
+            
+            NSDictionary *businessData = [responseObject objectForKey:@"businessData"];
+            [dict setObject:[businessData objectForKey:@"userName"] forKey:@"userName"];
+            [dict setObject:[businessData objectForKey:@"orgCode"] forKey:@"orgCode"];
+            [dict setObject:[businessData objectForKey:@"orgName"] forKey:@"orgName"];
+            [dict setObject:[businessData objectForKey:@"userMobile"] forKey:@"userMobile"];
+            [dict setObject:[businessData objectForKey:@"userPhone"] forKey:@"userPhone"];
+            // 获取系统当前时间(登录时间)
+            NSDate *sendDate = [NSDate date];
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+            NSString *loginDate = [dateFormatter stringFromDate:sendDate];
+            [dict setObject:loginDate forKey:@"loginDate"];
+            
+            // 登录成功将信息保存到用户单例模式中
+            [[NSUserDefaults standardUserDefaults] setObject:dict forKey:LOGIN_SUCCESS];
+            [[NSUserDefaults standardUserDefaults] synchronize]; // 强制写入
+            
+            success();
+        }else{
+            failed(RESPONSE_MSG);
+        }
+    } failure:^(NSURLSessionDataTask *task, NSString *error) {
+        failed(error);
+    }];
 }
 
 @end

@@ -17,4 +17,7 @@ SingletonH(LoginUtil)
 // 通过app进行登录
 - (void)loginWithAppDict:(NSMutableDictionary *)dict success:(void (^)(void))success failed:(void (^)(NSString *error))failed;
 
+// 通过token进行登录
+- (void)loginWithTokenSuccess:(void (^)(void))success failed:(void (^)(NSString *error))failed;
+
 @end

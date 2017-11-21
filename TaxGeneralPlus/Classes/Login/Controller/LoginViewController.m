@@ -280,14 +280,14 @@ typedef NS_ENUM(NSInteger, LoginShowType) {
             DLog(@"statusCode = %@", [responseObject objectForKey:@"statusCode"]);
             NSString *statusCode = [responseObject objectForKey:@"statusCode"];
             if([statusCode isEqualToString:@"00"]){
-                [MBProgressHUD showHUDView:self.view text:[responseObject objectForKey:@"msg"] progressHUDMode:(YZProgressHUDModeShow)];
+                [MBProgressHUD showHUDView:self.view text:RESPONSE_MSG progressHUDMode:(YZProgressHUDModeShow)];
                 //正常状态下的背景颜色
                 UIColor *mainColor = RgbColor(255.0, 170.0, 0.0, 1.0f);
                 //倒计时状态下的颜色
                 UIColor *countColor = RgbColor(188.0, 188.0, 188.0, 0.9f);
                 [self setTheCountdownButton:sender startWithTime:59 title:@"获取验证码" countDownTitle:@"秒后重试" mainColor:mainColor countColor:countColor];
             }else{
-                [MBProgressHUD showHUDView:self.view text:[responseObject objectForKey:@"msg"] progressHUDMode:(YZProgressHUDModeShow)];
+                [MBProgressHUD showHUDView:self.view text:RESPONSE_MSG progressHUDMode:(YZProgressHUDModeShow)];
             }
         } failure:^(NSURLSessionDataTask *task, NSString *error) {
             [MBProgressHUD showHUDView:self.view text:error progressHUDMode:(YZProgressHUDModeShow)];
