@@ -226,8 +226,9 @@ SingletonM(MineUtil)
     [dict setObject:[userDict objectForKey:@"userCode"] forKey:@"userCode"];
     
     [YZNetworkingManager POST:@"account/loginout" parameters:dict success:^(NSURLSessionDataTask *task, id responseObject) {
+        
         // 获取请求状态值
-        if(IS_SUCCESS){
+        if(REQUEST_SUCCESS){
             // 删除用户登录信息
             [[NSUserDefaults standardUserDefaults] removeObjectForKey:LOGIN_SUCCESS];
             // 删除用户设置信息
@@ -253,7 +254,7 @@ SingletonM(MineUtil)
             
             success();
         }else{
-            failed([responseObject objectForKey:@"msg"]);
+            failed(RESPONSE_MSG);
         }
     } failure:^(NSURLSessionDataTask *task, NSString *error) {
         failed(error);

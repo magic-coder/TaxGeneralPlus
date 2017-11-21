@@ -68,28 +68,28 @@
         if(IS_LOGIN){
             [self.navigationController pushViewController:[[NSClassFromString(@"AccountViewController") class] new] animated:YES];
         }else{
-            LOGIN_VIEW
+            SHOW_LOGIN_VIEW
         }
     }
     if(1 == sender.tag){
         if(IS_LOGIN){
             DLog(@"详细升级规则");
         }else{
-            LOGIN_VIEW
+            SHOW_LOGIN_VIEW
         }
     }
     if(2 == sender.tag){
         if(IS_LOGIN){
             DLog(@"钻石");
         }else{
-            LOGIN_VIEW
+            SHOW_LOGIN_VIEW
         }
     }
     if(3 == sender.tag){
         if(IS_LOGIN){
             DLog(@"每日签到");
         }else{
-            LOGIN_VIEW
+            SHOW_LOGIN_VIEW
         }
     }
 }
@@ -104,7 +104,7 @@
         if(IS_LOGIN){
             [self.navigationController pushViewController:[[NSClassFromString(@"SafeViewController") class] new] animated:YES];
         }else{
-            LOGIN_VIEW
+            SHOW_LOGIN_VIEW
         }
     }
     if([item.title isEqualToString:@"我的日程"]){
