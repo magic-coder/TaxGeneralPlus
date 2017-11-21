@@ -16,4 +16,8 @@ SingletonH(NewsUtil)
 
 - (NSDictionary *)loadData;
 
+- (void)initDataWithPageSize:(int)pageSize dataBlock:(void (^)(NSDictionary *dataDict))dataBlock failed:(void(^)(NSString *error))failed;
+
+- (void)moreDataWithPageNo:(int)pageNo pageSize:(int)pageSize dataBlock:(void (^)(NSArray *dataArray))dataBlock failed:(void(^)(NSString *error))failed;
+
 @end

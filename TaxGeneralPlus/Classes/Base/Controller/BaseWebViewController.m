@@ -106,7 +106,13 @@
         //同时设置返回按钮和关闭按钮为导航栏左边的按钮
         self.navigationItem.leftBarButtonItems = @[self.backItem, self.closeItem];
     }
-    
+    /*
+    NSString *injectionJSString = @"var script = document.createElement('meta');"
+    "script.name = 'viewport';"
+    "script.content=\"width=device-width, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0, user-scalable=no\";"
+    "document.getElementsByTagName('head')[0].appendChild(script);";
+    [self.webView stringByEvaluatingJavaScriptFromString:injectionJSString];
+    */
     // 加载完成后注入js
     NSString *injectionJSString = @"var script = document.createElement('meta');"
     "script.name = 'viewport';"
@@ -246,8 +252,8 @@
 - (UIWebView *)webView{
     if(_webView == nil){
         _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frameWidth, self.view.frameHeight)];
-        _webView.backgroundColor = DEFAULT_BACKGROUND_COLOR;
-        //_webView.scalesPageToFit=YES;   // 自适应
+        _webView.backgroundColor = [UIColor whiteColor];
+        //_webView.scalesPageToFit = YES;// 自适应
         _webView.opaque = NO;           // 去掉底部黑色部分
         _webView.delegate = self;
     }

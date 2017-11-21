@@ -204,8 +204,17 @@
         }
         case NewsModelStyleOneImage: {
             NSString *oneImageName = [_model.images objectAtIndex:0];
+            oneImageName = [oneImageName stringByReplacingOccurrencesOfString:@"photonews:" withString:@"photonews/"];
             // 获取本地图片
-            _oneImageView.image = [UIImage imageNamed:oneImageName];
+            //_oneImageView.image = [UIImage imageNamed:oneImageName];
+            // 从远程url获取https图片
+            //[_oneImageView sd_setImageWithURL:[NSURL URLWithString:oneImageName] placeholderImage:PLACEHOLDER_IMAGE options:SDWebImageAllowInvalidSSLCertificates];
+            // 从远程url获取图片并裁剪
+            [_oneImageView sd_setImageWithURL:[NSURL URLWithString:oneImageName] placeholderImage:PLACEHOLDER_IMAGE options:SDWebImageAllowInvalidSSLCertificates completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+                // 在回调block中进行图片裁剪处理（去除一圈白边）
+                CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], CGRectMake(20, 20, image.size.width-40, image.size.height-40));
+                _fewImageView.image =[UIImage imageWithCGImage:imageRef];
+            }];
             
             _oneImageView.hidden = NO;
             _fewImageView.hidden = YES;
@@ -217,17 +226,16 @@
         case NewsModelStyleFewImage: {
             NSString *fewImageName = [_model.images objectAtIndex:0];
             // 获取本地图片
-            [_fewImageView setImage:[UIImage imageNamed:fewImageName]];
+            //[_fewImageView setImage:[UIImage imageNamed:fewImageName]];
             // 从远程url获取https图片
             // [_fewImageView sd_setImageWithURL:[NSURL URLWithString:fewImageName] placeholderImage:PLACEHOLDER_IMAGE options:SDWebImageAllowInvalidSSLCertificates completed:nil];
             // 从远程url获取图片并裁剪
-            /*
              [_fewImageView sd_setImageWithURL:[NSURL URLWithString:fewImageName] placeholderImage:PLACEHOLDER_IMAGE options:SDWebImageAllowInvalidSSLCertificates completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-             // 在回调block中进行图片裁剪处理（去除一圈白边）
-             CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], CGRectMake(20, 20, image.size.width-40, image.size.height-40));
-             _fewImageView.image =[UIImage imageWithCGImage:imageRef];
+                 // 在回调block中进行图片裁剪处理（去除一圈白边）
+                 CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], CGRectMake(20, 20, image.size.width-40, image.size.height-40));
+                 _fewImageView.image =[UIImage imageWithCGImage:imageRef];
              }];
-             */
+            
             _oneImageView.hidden = YES;
             _fewImageView.hidden = NO;
             _leftImageView.hidden = YES;
@@ -241,10 +249,11 @@
             NSString *centerImageName = [_model.images objectAtIndex:1];
             NSString *rightImageName = [_model.images objectAtIndex:2];
             // 获取本地图片
+            /*
             [_leftImageView setImage:[UIImage imageNamed:leftImageName]];
             [_centerImageView setImage:[UIImage imageNamed:centerImageName]];
             [_rightImageView setImage:[UIImage imageNamed:rightImageName]];
-            
+             */
             // 从远程url获取https图片
             /*
              [_leftImageView sd_setImageWithURL:[NSURL URLWithString:leftImageName] placeholderImage:PLACEHOLDER_IMAGE options:SDWebImageAllowInvalidSSLCertificates completed:nil];
@@ -252,7 +261,6 @@
              [_rightImageView sd_setImageWithURL:[NSURL URLWithString:rightImageName] placeholderImage:PLACEHOLDER_IMAGE options:SDWebImageAllowInvalidSSLCertificates completed:nil];
              */
             // 从远程url获取图片并裁剪
-            /*
              [_leftImageView sd_setImageWithURL:[NSURL URLWithString:leftImageName] placeholderImage:PLACEHOLDER_IMAGE options:SDWebImageAllowInvalidSSLCertificates completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
              // 在回调block中进行图片裁剪处理（去除一圈白边）
              CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], CGRectMake(20, 20, image.size.width-40, image.size.height-40));
@@ -268,7 +276,6 @@
              CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], CGRectMake(20, 20, image.size.width-40, image.size.height-40));
              _rightImageView.image =[UIImage imageWithCGImage:imageRef];
              }];
-             */
             _oneImageView.hidden = YES;
             _fewImageView.hidden = YES;
             _leftImageView.hidden = NO;

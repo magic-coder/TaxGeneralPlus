@@ -20,7 +20,8 @@
             model.style = NewsModelStyleText;
             break;
         case 1:
-            model.style = NewsModelStyleOneImage;
+            //model.style = NewsModelStyleOneImage;
+            model.style = NewsModelStyleFewImage;
             break;
         case 2:
             model.style = NewsModelStyleFewImage;
@@ -41,7 +42,8 @@
             model.style = NewsModelStyleText;
             break;
         case 1:
-            model.style = NewsModelStyleOneImage;
+            //model.style = NewsModelStyleOneImage;
+            model.style = NewsModelStyleFewImage;
             break;
         case 2:
             model.style = NewsModelStyleFewImage;
@@ -52,6 +54,20 @@
     }
     
     return model;
+}
+
+/*
+ * 该方法是“字典里的属性Key”和“要转化为模型里的属性名”不一样，而重写的
+ * 前：模型的属性   后：字典里的属性
+ */
++ (nullable NSDictionary<NSString *, id> *)modelCustomPropertyMapper{
+    return @{
+             @"title":@"TITLE",
+             @"images":@"IMAGES",
+             //@"source":@"SOURCE",
+             @"datetime":@"RELEASEDATE",
+             @"url":@"URL"
+             };
 }
 
 @end

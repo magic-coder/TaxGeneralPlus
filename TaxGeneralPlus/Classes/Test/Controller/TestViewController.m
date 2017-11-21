@@ -67,21 +67,21 @@
     
     UIButton *btn4 = [UIButton buttonWithType:UIButtonTypeSystem];
     btn4.frame = CGRectMake(10, 260, 300, 30);
-    [btn4 setTitle:@"AFNetworking单项认证登录" forState:UIControlStateNormal];
+    [btn4 setTitle:@"AFNetworking请求首页税闻" forState:UIControlStateNormal];
     [btn4 addTarget:self action:@selector(onClick:) forControlEvents:(UIControlEventTouchUpInside)];
     btn4.tag = 4;
     [self.view addSubview:btn4];
     
     UIButton *btn5 = [UIButton buttonWithType:UIButtonTypeSystem];
     btn5.frame = CGRectMake(10, 300, 300, 30);
-    [btn5 setTitle:@"AFNetworking请求首页税闻" forState:UIControlStateNormal];
+    [btn5 setTitle:@"AFNetworking请求应用数据" forState:UIControlStateNormal];
     [btn5 addTarget:self action:@selector(onClick:) forControlEvents:(UIControlEventTouchUpInside)];
     btn5.tag = 5;
     [self.view addSubview:btn5];
     
     UIButton *btn6 = [UIButton buttonWithType:UIButtonTypeSystem];
     btn6.frame = CGRectMake(10, 340, 300, 30);
-    [btn6 setTitle:@"登录界面" forState:UIControlStateNormal];
+    [btn6 setTitle:@"跳转登录界面" forState:UIControlStateNormal];
     [btn6 addTarget:self action:@selector(onClick:) forControlEvents:(UIControlEventTouchUpInside)];
     btn6.tag = 6;
     [self.view addSubview:btn6];
@@ -171,45 +171,22 @@
     
     if(4 == btn.tag){
         
-        // 拼接报文参数
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:@"26100010001" forKey:@"userCode"];
-        [dict setObject:@"Aa111111" forKey:@"password"];
-        [dict setObject:@"876635" forKey:@"verificationCode"];
-        [dict setObject:@"app" forKey:@"loginType"];
-        [dict setObject:@"iPhoneX" forKey:@"phonemodel"];
-        [dict setObject:[UIDevice currentDevice].systemVersion forKey:@"osversion"];
-        [dict setObject:@"4" forKey:@"phonetype"];
-        [dict setObject:[[[UIDevice currentDevice] identifierForVendor] UUIDString] forKey:@"deviceid"];
-        
-        NSString *jsonString = [[BaseHandleUtil sharedBaseHandleUtil] JSONStringWithObject:dict];
-        
-        /*
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:[NSNumber numberWithInt:10] forKey:@"pageSize"];
-        [dict setObject:@"26101000000" forKey:@"orgCode"];
-        
-        NSString *jsonString = [[BaseHandleUtil sharedBaseHandleUtil] JSONStringWithObject:dict];
-        */
-        NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:jsonString, @"msg", nil];
-        
-        [YZNetworkingManager POST:[NSString stringWithFormat:@"%@account/login", SERVER_URL] parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-        DLog(@"responseObject = %@", responseObject);
+        [dict setObject:@"10" forKey:@"pageSize"];
+        NSDictionary *loginDict = [[NSUserDefaults standardUserDefaults] objectForKey:LOGIN_SUCCESS];
+        [dict setObject:[loginDict objectForKey:@"orgCode"] forKey:@"orgCode"];
+                
+        [YZNetworkingManager POST:@"public/photonews/index" parameters:dict success:^(NSURLSessionDataTask *task, id responseObject) {
+            DLog(@"responseObject = %@", responseObject);
         } failure:^(NSURLSessionDataTask *task, NSString *error) {
-        DLog(@"error = %@", error);
+            DLog(@"error = %@", error);
         }];
+        
     }
     
     if(5 == btn.tag){
         
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:@"10" forKey:@"pageSize"];
-        [dict setObject:@"26101007900" forKey:@"orgCode"];
-        
-        NSString *jsonString = [[BaseHandleUtil sharedBaseHandleUtil] JSONStringWithObject:dict];
-        NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:jsonString, @"msg", nil];
-        
-        [YZNetworkingManager POST:[NSString stringWithFormat:@"%@public/photonews/index", SERVER_URL] parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+        [YZNetworkingManager POST:@"app/index" parameters:@{} success:^(NSURLSessionDataTask *task, id responseObject) {
             DLog(@"responseObject = %@", responseObject);
         } failure:^(NSURLSessionDataTask *task, NSString *error) {
             DLog(@"error = %@", error);

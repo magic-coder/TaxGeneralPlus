@@ -18,8 +18,11 @@
 
 @interface NewsViewController () <YZCycleScrollViewDelegate>
 
-@property (nonatomic, strong) NSMutableArray *data;// 数据列表
-@property (nonatomic, strong) YZCycleScrollView *cycleScrollView;// 顶部轮播焦点图
+@property (nonatomic, assign) int pageNo;                           // 页码值
+@property (nonatomic, assign) int totalPage;                        // 最大页
+
+@property (nonatomic, strong) NSMutableArray *data;                 // 数据列表
+@property (nonatomic, strong) YZCycleScrollView *cycleScrollView;   // 顶部轮播焦点图
 
 @end
 
@@ -41,14 +44,7 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     [self.navigationController.navigationBar yz_setBackgroundColor:[UIColor clearColor]];
     
     // 设置下拉刷新
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
-    
-    // 判断是否登录
-    if(IS_LOGIN){
-        [self initializeData];// 初始化数据
-    }else{
-        LOGIN_VIEW
-    }
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(initializeData)];
     
 }
 
@@ -64,8 +60,13 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     [self scrollViewDidScroll:self.tableView];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     
-    if(nil == _data || _data.count <= 0){
-        [self initializeData];// 初始化数据
+    // 判断是否登录
+    if(IS_LOGIN){
+        if(nil == _data || _data.count <= 0){
+            [self.tableView.mj_header beginRefreshing];// 马上进入刷新状态
+        }
+    }else{
+        SHOW_LOGIN_VIEW
     }
     
 }
@@ -96,38 +97,72 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     }
 }
 
-#pragma mark - 下拉刷新数据
-- (void)refreshData {
-    
-    DLog(@"触发下拉刷新事件");
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.tableView.mj_header endRefreshing];
-    });
-}
-
-#pragma mark - 初始化数据
+#pragma mark - 初始化数（下拉刷新方法）
 - (void)initializeData {
+    _pageNo = 1;
+    
     // 创建数据对象（初始化）
     _data = [[NSMutableArray alloc] init];
     
-    NSDictionary *dataDic = [[NewsUtil sharedNewsUtil] loadData];
-    // 顶部轮播焦点图数据
-    NSDictionary *loopDic = [dataDic objectForKey:@"cycleDict"];
-    NSArray *titles = [loopDic objectForKey:@"titles"];
-    NSArray *images = [loopDic objectForKey:@"images"];
-    NSArray *urls = [loopDic objectForKey:@"urls"];
-    _cycleScrollView = [[YZCycleScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frameWidth, floorf((CGFloat)self.view.frameWidth/1.8)) titles:titles images:images urls:urls autoPlay:YES delay:2.0f];
-    _cycleScrollView.delegate = self;
-    self.tableView.tableHeaderView = _cycleScrollView;
-    // 新闻列表数据
-    NSArray *dataArray = [dataDic objectForKey:@"dataArray"];
-    for(NSDictionary *dic in dataArray){
-        NewsModel *model = [NewsModel createWithDictionary:dic];
-        [_data addObject:model];
-    }
+    // 请求数据
+    [[NewsUtil sharedNewsUtil] initDataWithPageSize:10 dataBlock:^(NSDictionary *dataDict) {
+        
+        _totalPage = [[dataDict objectForKey:@"totalPage"] intValue];
+        
+        // 顶部轮播焦点图数据
+        NSDictionary *loopDict = [dataDict objectForKey:@"loopResult"];
+        NSArray *titles = [loopDict objectForKey:@"titles"];
+        NSArray *images = [loopDict objectForKey:@"images"];
+        NSArray *urls = [loopDict objectForKey:@"urls"];
+        _cycleScrollView = [[YZCycleScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frameWidth, floorf((CGFloat)self.view.frameWidth/1.8)) titles:titles images:images urls:urls autoPlay:YES delay:2.0f];
+        _cycleScrollView.delegate = self;
+        self.tableView.tableHeaderView = _cycleScrollView;
+        // 首页税闻列表数据
+        NSArray *newsArray = [dataDict objectForKey:@"newsResult"];
+        for(NSDictionary *newsDict in newsArray){
+            NewsModel *model = [NewsModel createWithDictionary:newsDict];
+            [_data addObject:model];
+        }
+        [self.tableView reloadData];// 重新加载数据
+        
+        [self.tableView.mj_header endRefreshing];// 结束头部刷新
+        
+        if(_totalPage > 1){
+            self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];// 设置上拉加载
+            [self.tableView.mj_footer resetNoMoreData]; // 重置没有更多的数据（消除没有更多数据的状态）
+        }
+        
+    } failed:^(NSString *error) {
+        [self.tableView.mj_header endRefreshing];// 结束头部刷新
+        [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow];// 错误提示
+    }];
+}
+
+#pragma mark - 加载更多数据
+- (void)loadMoreData {
+    _pageNo++;
     
-    [self.tableView reloadData];
+    [[NewsUtil sharedNewsUtil] moreDataWithPageNo:_pageNo pageSize:10 dataBlock:^(NSArray *dataArray) {
+        for(NSDictionary *dataDict in dataArray){
+            NewsModel *model = [NewsModel createWithDictionary:dataDict];
+            [_data addObject:model];
+        }
+        
+        [self.tableView reloadData];
+        
+        if(_pageNo < _totalPage){
+            [self.tableView.mj_footer endRefreshing];// 结束底部刷新
+        }else{
+            // 拿到当前的上拉刷新控件，变为没有更多数据的状态
+            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+        }
+        
+    } failed:^(NSString *error) {
+        _pageNo--;
+        [self.tableView.mj_footer endRefreshing];   // 结束底部刷新
+        [self.tableView.mj_footer resetNoMoreData]; // 重置没有更多的数据（消除没有更多数据的状态）
+        [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow];// 错误提示
+    }];
 }
 
 #pragma mark - <YZCycleScrollViewDelegate>顶部轮播图点击代理方法
@@ -165,9 +200,11 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     NewsTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    DLog(@"点击了第%ld个，标题为：%@", indexPath.row, cell.model.title);
     
-    [self.navigationController pushViewController:[NSClassFromString(@"TestViewController") new] animated:YES];
+    BaseWebViewController *baseWebVC = [[BaseWebViewController alloc] initWithURL:cell.model.url];
+    [self.navigationController pushViewController:baseWebVC animated:YES];
+    
+    //[self.navigationController pushViewController:[NSClassFromString(@"TestViewController") new] animated:YES];
 
 }
 

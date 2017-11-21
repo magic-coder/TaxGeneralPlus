@@ -31,6 +31,16 @@
         
         _manager.securityPolicy = securityPolicy;
         
+        // 声明返回的结果类型
+        // 不加上这句话，会报“Request failed: unacceptable content-type: text/plain”错误，因为我们要获取text/plain类型数据
+        //_manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        // 如果报接受类型不一致请替换一致text/html  或者 text/plain
+        //_manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/plain", nil];
+        //[_manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+        
+        // 请求超时，时间设置
+        _manager.requestSerializer.timeoutInterval = 20.0;
+        
         /// 关闭缓存避免干扰测试
         _manager.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
         

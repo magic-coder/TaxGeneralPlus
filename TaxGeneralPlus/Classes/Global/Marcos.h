@@ -28,14 +28,16 @@
 #define DEVICE_SCREEN_INCH_IPAD WIDTH_SCREEN > 414 && HEIGHT_SCREEN > 812   // iPad 尺寸  7.9英寸/9.7英寸（768*1024）、10.5英寸（834*1112）、12.9英寸（1024*1366）
 
 #pragma mark - 常用方法宏定义
+#define RgbColor(r, g, b, a)    [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:a]
+#define HexColor(hex, a)        [UIColor colorWithHexString:hex alpha:a]
 #define APPDELEGETE             [[UIApplication sharedApplication] delegate]
 #define WINDOW                  [[UIApplication sharedApplication] keyWindow]
 #define PLACEHOLDER_IMAGE       [UIImage imageNamed:@"common_placeholder"]
-#define IS_SUCCESS              [@"00" isEqualToString:[responseObject objectForKey:@"statusCode"]]
+#define REQUEST_SUCCESS         [@"00" isEqualToString:[responseObject objectForKey:@"statusCode"]]
+#define LOGIN_INVALID           [@"510" isEqualToString:[responseObject objectForKey:@"statusCode"]]
+#define RESPONSE_MSG            [responseObject objectForKey:@"msg"]
 #define IS_LOGIN                (nil != [[NSUserDefaults standardUserDefaults] objectForKey:LOGIN_SUCCESS])
-#define LOGIN_VIEW              [self presentViewController:[[NSClassFromString(@"LoginViewController") class] new] animated:YES completion:nil];
-#define RgbColor(r, g, b, a)    [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:a]
-#define HexColor(hex, a)        [UIColor colorWithHexString:hex alpha:a]
+#define SHOW_LOGIN_VIEW         [self presentViewController:[[NSClassFromString(@"LoginViewController") class] new] animated:YES completion:nil];
 
 #pragma mark - 自定义系统颜色Color
 #define DEFAULT_NAVBAR_COLOR            RgbColor(36.0, 105.0, 211.0, 0.9f)
