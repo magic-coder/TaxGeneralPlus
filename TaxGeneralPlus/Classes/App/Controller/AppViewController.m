@@ -9,6 +9,7 @@
  ************************************************************/
 
 #import "AppViewController.h"
+#import "AppSubViewController.h"
 #import "AppTopView.h"
 #import "AppPullHidenView.h"
 #import "AppHeaderView.h"
@@ -67,8 +68,6 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     [self.view bringSubviewToFront:self.topView];// 设置视图层级为最上层
     [self.view sendSubviewToBack:self.baseScrollView];// 设置视图层级为最底下
     
-    [self initializeData];
-    [self.baseScrollView setContentSize:CGSizeMake(WIDTH_SCREEN, _otherViewHeight+HEIGHT_STATUS+15)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -77,36 +76,44 @@ typedef NS_ENUM(NSInteger, AppViewType) {
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;// 设置顶部状态栏字体为白色
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];// 设置导航栏itemBar字体颜色
+    self.navigationController.navigationBar.titleTextAttributes = @{ NSForegroundColorAttributeName : [UIColor whiteColor] };// 设置导航栏title标题字体颜色
+    [self.navigationController.navigationBar setBarTintColor:DEFAULT_BLUE_COLOR];
+    
+    if(IS_LOGIN){
+        [self initializeData];
+    }else{
+        SHOW_LOGIN_VIEW
+    }
 }
 
 #pragma mark - 初始化数据
 - (void)initializeData {
-    NSDictionary *appData = [[AppUtil sharedAppUtil] loadData];
-    
-    _mineAppData = [appData objectForKey:@"mineData"];
-    _allAppData = [appData objectForKey:@"allData"];
-    _otherAppData = [NSMutableArray array];
-    
-    for(NSDictionary *allDict in _allAppData){
-        DLog(@"%@",allDict);
-        int i=0;
-        for(NSDictionary *mineDict in _mineAppData){
-            NSString *allNo = [allDict objectForKey:@"no"];
-            NSString *mineNo = [mineDict objectForKey:@"no"];
-            if([mineNo isEqualToString:allNo]){
-                i++;
-            }
-        }
-        if(0==i ){
-            [_otherAppData addObject:allDict];
-        }
+    NSMutableDictionary *appDict = [[AppUtil sharedAppUtil] loadDataWithType:AppItemsTypeNone];
+    if(appDict){
+        [self handleData:appDict];
+    }else{
+        [[AppUtil sharedAppUtil] initDataWithType:AppItemsTypeNone dataBlock:^(NSMutableDictionary *dataDict) {
+            [self handleData:dataDict];
+        } failed:^(NSString *error) {
+            [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow];
+        }];
     }
+}
+
+#pragma mark - 处理获取到的数据
+- (void)handleData:(NSMutableDictionary *)data{
+    _mineAppData = [data objectForKey:@"mineData"];
+    _otherAppData = [data objectForKey:@"otherData"];
+    _allAppData = [data objectForKey:@"allData"];
     
-    //[self initAppViewData:_mineAppData type:AppViewTypeMine];
     [self initAppBorderView];
     [self initAppViewData:_otherAppData type:AppViewTypeOther];
     
+    [self.baseScrollView setContentSize:CGSizeMake(WIDTH_SCREEN, _otherViewHeight+HEIGHT_STATUS+15)];
 }
 
 #pragma mark - 添加应用图标底层虚线边框
@@ -127,7 +134,7 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     int viewWidth = ((WIDTH_SCREEN - 25) / 4);
     
     for (int i = 0; i < data.count; i++) {
-        AppModelItem *item = [AppModelItem createWithJSON:data[i]];
+        AppModelItem *item = [AppModelItem createWithDictionary:data[i]];
         AppView *appView = [[AppView alloc] init];
         appView.delegate = self;
         appView.item = item;
@@ -328,14 +335,6 @@ typedef NS_ENUM(NSInteger, AppViewType) {
 - (void)appTopViewBtnClick:(UIButton *)sender {
     DLog(@"%@",sender.titleLabel.text);
     
-    /*
-    [YZNetworkingManager POST:[NSString stringWithFormat:@"%@account/login", SERVER_URL] parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-        DLog(@"responseObject = %@", responseObject);
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        DLog(@"error = %@", error);
-    }];
-     */
-    
     if(sender.tag == 1){
         DLog(@"搜索方法");
     }
@@ -346,7 +345,20 @@ typedef NS_ENUM(NSInteger, AppViewType) {
 
 #pragma mark - <AppViewDelegate>应用模块视图点击代理方法
 - (void)appViewClick:(AppView *)appView{
-    DLog(@"%@",appView.item.title);
+    
+    UIViewController *viewController = nil;
+    
+    NSString *url = appView.item.url;
+    if(url == nil || url.length <= 0){
+        int level = [appView.item.level intValue]+1;
+        viewController = [[AppSubViewController alloc] initWithPno:appView.item.no level:[NSString stringWithFormat:@"%d", level]];
+    }else{
+        viewController = [[BaseWebViewController alloc] initWithURL:url];
+    }
+    
+    viewController.title = appView.item.title; // 设置标题
+    [self.navigationController pushViewController:viewController animated:YES];
+    
 }
 
 @end

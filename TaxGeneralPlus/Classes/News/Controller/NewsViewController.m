@@ -33,12 +33,11 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //self.tableView.rowHeight = 80;// 设置基本行高
-    
     self.view.backgroundColor = DEFAULT_BACKGROUND_COLOR;
     self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;//
     //self.tableView.showsVerticalScrollIndicator = NO;// 隐藏纵向滚动条
+    //self.tableView.rowHeight = 80;// 设置基本行高
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;// 自定义cell样式
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];// 去除底部多余分割线
     [self.navigationController.navigationBar yz_setBackgroundColor:[UIColor clearColor]];
@@ -140,9 +139,11 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
 
 #pragma mark - 加载更多数据
 - (void)loadMoreData {
+    
     _pageNo++;
     
     [[NewsUtil sharedNewsUtil] moreDataWithPageNo:_pageNo pageSize:10 dataBlock:^(NSArray *dataArray) {
+        
         for(NSDictionary *dataDict in dataArray){
             NewsModel *model = [NewsModel createWithDictionary:dataDict];
             [_data addObject:model];
@@ -156,18 +157,19 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
             // 拿到当前的上拉刷新控件，变为没有更多数据的状态
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
         }
-        
     } failed:^(NSString *error) {
         _pageNo--;
         [self.tableView.mj_footer endRefreshing];   // 结束底部刷新
         [self.tableView.mj_footer resetNoMoreData]; // 重置没有更多的数据（消除没有更多数据的状态）
         [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow];// 错误提示
     }];
+    
 }
 
 #pragma mark - <YZCycleScrollViewDelegate>顶部轮播图点击代理方法
 - (void)cycleScrollViewDidSelectedImage:(YZCycleScrollView *)cycleScrollView index:(int)index {
-    DLog(@"点击了顶部轮播图的第%d个，标题为：%@", index, cycleScrollView.titles[index]);
+    BaseWebViewController *webVC = [[BaseWebViewController alloc] initWithURL:cycleScrollView.urls[index]];
+    [self.navigationController pushViewController:webVC animated:YES];
 }
 
 #pragma mark - Table view data source

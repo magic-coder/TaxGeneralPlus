@@ -101,7 +101,10 @@
     
     // 格式化url、请求参数
     NSString *url = [NSString stringWithFormat:@"%@%@", SERVER_URL, URLString];
-    NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:[[BaseHandleUtil sharedBaseHandleUtil] JSONStringWithObject:parameters], @"msg", nil];
+    NSDictionary *param = nil;
+    if(parameters){
+        param = [NSDictionary dictionaryWithObjectsAndKeys:[[BaseHandleUtil sharedBaseHandleUtil] JSONStringWithObject:parameters], @"msg", nil];
+    }
     
     [[[self class] sessionManager] POST:url parameters:param progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (success) {
@@ -121,7 +124,10 @@
     
     // 格式化url、请求参数
     NSString *url = [NSString stringWithFormat:@"%@%@", SERVER_URL, URLString];
-    NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:[[BaseHandleUtil sharedBaseHandleUtil] JSONStringWithObject:parameters], @"msg", nil];
+    NSDictionary *param = nil;
+    if(parameters){
+        param = [NSDictionary dictionaryWithObjectsAndKeys:[[BaseHandleUtil sharedBaseHandleUtil] JSONStringWithObject:parameters], @"msg", nil];
+    }
     
     [[[self class] sessionManager] GET:url parameters:param progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (success) {

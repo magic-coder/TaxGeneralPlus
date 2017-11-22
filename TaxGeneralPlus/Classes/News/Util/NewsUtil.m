@@ -14,11 +14,6 @@
 
 SingletonM(NewsUtil)
 
-- (NSDictionary *)loadData {
-    NSDictionary *dic = [[BaseHandleUtil sharedBaseHandleUtil] readWithJSONFile:@"News.json"];
-    return dic;
-}
-
 - (void)initDataWithPageSize:(int)pageSize dataBlock:(void (^)(NSDictionary *))dataBlock failed:(void (^)(NSString *))failed {
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];

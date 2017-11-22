@@ -52,6 +52,7 @@ static NSString * const reuseHeaderIdentifier = @"reuseHeaderIdentifier";
     [self.collectionView registerClass:[AppEditHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseHeaderIdentifier];
     
     [self initializeData];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -65,14 +66,27 @@ static NSString * const reuseHeaderIdentifier = @"reuseHeaderIdentifier";
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;// 设置顶部状态栏字体为黑色
     self.navigationController.navigationBar.tintColor = DEFAULT_BLUE_COLOR;// 设置导航栏itemBar字体颜色
     self.navigationController.navigationBar.titleTextAttributes = @{ NSForegroundColorAttributeName : [UIColor blackColor] };// 设置导航栏title标题字体颜色
-    [self.navigationController.navigationBar yz_setBackgroundColor:[UIColor whiteColor]];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor whiteColor]];
 }
 
+#pragma mark - 初始化加载数据
 - (void)initializeData {
-    self.data = [NSMutableArray array];
-    NSDictionary *appData = [[AppUtil sharedAppUtil] loadData];
-    NSArray *mineAppData = [appData objectForKey:@"mineData"];
-    NSArray *otherAppData = [appData objectForKey:@"allData"];
+    NSMutableDictionary *appDict = [[AppUtil sharedAppUtil] loadDataWithType:AppItemsTypeNone];
+    if(appDict){
+        [self handleData:appDict];
+    }else{
+        [[AppUtil sharedAppUtil] initDataWithType:AppItemsTypeNone dataBlock:^(NSMutableDictionary *dataDict) {
+            [self handleData:dataDict];
+        } failed:^(NSString *error) {
+            [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow];
+        }];
+    }
+}
+
+#pragma mark - 处理数据
+- (void)handleData:(NSMutableDictionary *)data{
+    NSArray *mineAppData = [data objectForKey:@"mineData"];
+    NSArray *otherAppData = [data objectForKey:@"allData"];
     
     NSMutableArray *mineArray = [NSMutableArray array];
     for(NSDictionary *dict in mineAppData){
@@ -92,6 +106,7 @@ static NSString * const reuseHeaderIdentifier = @"reuseHeaderIdentifier";
     AppModelGroup *otherGroup = [[AppModelGroup alloc] init];
     otherGroup.items = otherArray;
     otherGroup.groupTitle = @"全部应用";
+    _data = [NSMutableArray array];
     [_data addObject:mineGroup];
     [_data addObject:otherGroup];
 }

@@ -22,7 +22,33 @@
 #pragma mark 根据字典创建一个item
 + (AppModelItem *)createWithDictionary:(NSDictionary *)dictionary {
     AppModelItem *item = [super yy_modelWithDictionary:dictionary];
+    
+    if([item.level isEqualToString:@"0"]){
+        item.localImg = [NSString stringWithFormat:@"app_%@", item.no]; // 加载本地default图标(根据应用序列号生成)
+    }else{
+        item.localImg = [NSString stringWithFormat:@"app_%@%@", item.pno, item.no]; // 加载本地default图标(根据应用序列号生成)
+    }
+    if([[dictionary objectForKey:@"isnewapp"] isEqualToString:@"Y"]){
+        item.isNewApp = YES;
+    }else{
+        item.isNewApp = NO;
+    }
     return item;
+}
+
+/*
+ * 该方法是“字典里的属性Key”和“要转化为模型里的属性名”不一样，而重写的
+ * 前：模型的属性   后：字典里的属性
+ */
++ (nullable NSDictionary<NSString *, id> *)modelCustomPropertyMapper{
+    return @{
+             @"no":@"appno",
+             @"pno":@"pappno",
+             @"level":@"applevel",
+             @"title":@"appname",
+             @"webImg":@"appimage",
+             @"url":@"appurl"
+             };
 }
 
 @end

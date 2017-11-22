@@ -11,6 +11,7 @@
 #import "AppSubViewController.h"
 #import "AppSubViewCell.h"
 #import "AppModel.h"
+#import "AppUtil.h"
 
 @interface AppSubViewController ()
 
@@ -45,8 +46,7 @@ static NSString * const reuseIdentifier = @"appSubCell";
     [self.tableView registerClass:[AppSubViewCell class] forCellReuseIdentifier:reuseIdentifier];
     [self.tableView setSeparatorStyle: UITableViewCellSeparatorStyleNone];
     
-    //_data = [AppSubUtil getAppSubData];
-    //_data = [[AppSubUtil shareInstance] loadSubDataWithPno:_pno level:_level];
+    _data = [[AppUtil sharedAppUtil] loadSubDataWithPno:_pno level:_level];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -86,14 +86,12 @@ static NSString * const reuseIdentifier = @"appSubCell";
     
     UIViewController *viewController = nil;
     
-    DLog(@"%@%@", cell.item.pno, cell.item.no);
-    
     NSString *url = cell.item.url;
     if(url == nil || url.length <= 0){
         int level = [cell.item.level intValue]+1;
         viewController = [[AppSubViewController alloc] initWithPno:cell.item.no level:[NSString stringWithFormat:@"%d", level]];
     }else{
-        //viewController = [[BaseWebViewController alloc] initWithURL:url];
+        viewController = [[BaseWebViewController alloc] initWithURL:url];
     }
     
     viewController.title = cell.item.title; // 设置标题

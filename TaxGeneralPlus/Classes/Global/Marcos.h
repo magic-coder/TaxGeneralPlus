@@ -58,9 +58,13 @@
 #define LOGIN_SUCCESS       @"loginSuccess"
 #define LAST_LOGINCODE      @"lastLoginCode"
 #define GESTURES_PASSWORD   @"gesturesPassword"
+#define ICON_VERSION        @"iconVersion"
 
 #pragma mark - 定义设置文件名称
 #define SETTING_FILE    @"settingData.plist"
+#define APP_FILE        @"appData.plist"
+#define APP_SUB_FILE    @"appSubData.plist"
+#define APP_SEARCH_FILE @"appSearchData.plist"
 
 
 #endif /* Marcos_h */

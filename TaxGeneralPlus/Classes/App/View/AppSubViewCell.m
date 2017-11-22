@@ -119,6 +119,7 @@
     _item = item;
     
     // 从远程地址获取logo图
+    DLog(@"%@",_item.localImg);
     [_logoView sd_setImageWithURL:[NSURL URLWithString:_item.webImg] placeholderImage:[UIImage imageNamed:_item.localImg] options:SDWebImageAllowInvalidSSLCertificates completed:nil];
     //[_logoView setImage:[UIImage imageNamed:_model.localImg]];
     [_titleLabel setText:_item.title];

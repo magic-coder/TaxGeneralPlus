@@ -231,6 +231,10 @@ SingletonM(MineUtil)
         if(REQUEST_SUCCESS){
             // 删除用户登录信息
             [[NSUserDefaults standardUserDefaults] removeObjectForKey:LOGIN_SUCCESS];
+            // 删除应用列表数据
+            [[BaseSandBoxUtil sharedBaseSandBoxUtil] removeFileName:APP_FILE];
+            [[BaseSandBoxUtil sharedBaseSandBoxUtil] removeFileName:APP_SUB_FILE];
+            [[BaseSandBoxUtil sharedBaseSandBoxUtil] removeFileName:APP_SEARCH_FILE];
             // 删除用户设置信息
             // 将用户TouchID设置信息删除
             NSMutableDictionary *settingDict = [[BaseSettingUtil sharedBaseSettingUtil] loadSettingData];
