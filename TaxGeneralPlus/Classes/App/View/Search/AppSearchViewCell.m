@@ -1,17 +1,17 @@
 /************************************************************
- Class    : AppSubViewCell.m
- Describe : 第二级菜单列表自定义cell样式
+ Class    : AppSearchViewCell.m
+ Describe : 搜索列表cell样式
  Company  : Prient
- Author   : Yanzheng
- Date     : 2017-11-09
+ Author   : Yanzheng 严正
+ Date     : 2017-11-23
  Version  : 1.0
  Declare  : Copyright © 2017 Yanzheng. All rights reserved.
  ************************************************************/
 
-#import "AppSubViewCell.h"
+#import "AppSearchViewCell.h"
 #import "AppModel.h"
 
-@interface AppSubViewCell ()
+@interface AppSearchViewCell ()
 
 @property (nonatomic, assign) float leftFreeSpace;
 
@@ -22,20 +22,20 @@
 
 @end
 
-@implementation AppSubViewCell
+@implementation AppSearchViewCell
 
 #pragma mark - 初始化加载
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
-        _topLineStyle = AppSubViewCellLineStyleNone;
-        _bottomLineStyle = AppSubViewCellLineStyleDefault;
+        _topLineStyle = AppSearchViewCellLineStyleNone;
+        _bottomLineStyle = AppSearchViewCellLineStyleDefault;
         
         self.backgroundColor = [UIColor whiteColor];
         [self addSubview:self.logoView];
         [self addSubview:self.titleLabel];
-        [self.contentView addSubview:self.topLine];
-        [self.contentView addSubview:self.bottomLine];
+        [self addSubview:self.topLine];
+        [self addSubview:self.bottomLine];
         
     }
     return self;
@@ -85,32 +85,32 @@
     return _bottomLine;
 }
 
-- (void) setTopLineStyle:(AppSubViewCellLineStyle)style{
+- (void) setTopLineStyle:(AppSearchViewCellLineStyle)style{
     _topLineStyle = style;
-    if (style == AppSubViewCellLineStyleDefault) {
+    if (style == AppSearchViewCellLineStyleDefault) {
         [self.topLine setOriginX:_leftFreeSpace];
         [self.topLine setFrameWidth:self.frameWidth - _leftFreeSpace];
         [self.topLine setHidden:NO];
-    }else if (style == AppSubViewCellLineStyleFill) {
+    }else if (style == AppSearchViewCellLineStyleFill) {
         [self.topLine setOriginX:0];
         [self.topLine setFrameWidth:self.frameWidth];
         [self.topLine setHidden:NO];
-    }else if (style == AppSubViewCellLineStyleNone) {
+    }else if (style == AppSearchViewCellLineStyleNone) {
         [self.topLine setHidden:YES];
     }
 }
 
-- (void) setBottomLineStyle:(AppSubViewCellLineStyle)style{
+- (void) setBottomLineStyle:(AppSearchViewCellLineStyle)style{
     _bottomLineStyle = style;
-    if (style == AppSubViewCellLineStyleDefault) {
+    if (style == AppSearchViewCellLineStyleDefault) {
         [self.bottomLine setOriginX:_leftFreeSpace];
         [self.bottomLine setFrameWidth:self.frameWidth - _leftFreeSpace];
         [self.bottomLine setHidden:NO];
-    }else if (style == AppSubViewCellLineStyleFill) {
+    }else if (style == AppSearchViewCellLineStyleFill) {
         [self.bottomLine setOriginX:0];
         [self.bottomLine setFrameWidth:self.frameWidth];
         [self.bottomLine setHidden:NO];
-    }else if (style == AppSubViewCellLineStyleNone) {
+    }else if (style == AppSearchViewCellLineStyleNone) {
         [self.bottomLine setHidden:YES];
     }
 }
@@ -119,9 +119,8 @@
     _item = item;
     
     // 从远程地址获取logo图
-    DLog(@"%@",_item.localImg);
     [_logoView sd_setImageWithURL:[NSURL URLWithString:_item.webImg] placeholderImage:[UIImage imageNamed:_item.localImg] options:SDWebImageAllowInvalidSSLCertificates completed:nil];
-    //[_logoView setImage:[UIImage imageNamed:_model.localImg]];
+    //[_logoView setImage:[UIImage imageNamed:_item.localImg]];
     [_titleLabel setText:_item.title];
     
     [self layoutSubviews];

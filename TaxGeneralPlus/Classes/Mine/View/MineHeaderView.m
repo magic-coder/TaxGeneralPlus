@@ -31,7 +31,7 @@
 #pragma mark - 初始化主视图样式
 - (void)initializeMainView{
     _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.originX, self.originY, self.frameWidth, self.frameHeight-70)];
-    [_imageView sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"mine_account_bg_new"] options:SDWebImageAllowInvalidSSLCertificates completed:nil];
+    [_imageView sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"mine_account_bg"] options:SDWebImageAllowInvalidSSLCertificates completed:nil];
     _imageView.contentMode = UIViewContentModeScaleAspectFill;
     [self addSubview:_imageView];
     

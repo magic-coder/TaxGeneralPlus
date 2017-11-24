@@ -15,11 +15,11 @@
 
 SingletonM(AppUtil)
 
-- (NSMutableDictionary *)loadDataWithType:(AppItemsType)type{
+- (NSMutableDictionary *)loadAppData{
     return [[BaseSandBoxUtil sharedBaseSandBoxUtil] loadDataWithFileName:APP_FILE];
 }
 
-- (void)initDataWithType:(AppItemsType)type dataBlock:(void (^)(NSMutableDictionary *))dataBlock failed:(void (^)(NSString *))failed {
+- (void)initAppDataBlock:(void (^)(NSMutableDictionary *))dataBlock failed:(void (^)(NSString *))failed {
     [YZNetworkingManager POST:@"app/index" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         if(REQUEST_SUCCESS){
             int serverIconVer = [[[[responseObject objectForKey:@"businessData"] objectForKey:@"iconVersion"] objectForKey:@"iconVersionNo"] intValue];// 服务端图标版本号
@@ -71,7 +71,7 @@ SingletonM(AppUtil)
             
             // 最终数据（写入SandBox的数据）[第一级主应用]
             NSMutableDictionary *dataDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:mineData, @"mineData", otherData, @"otherData", allData, @"allData", nil];
-            [self writeNewAppData:dataDict];
+            [self writeAppData:dataDict];
             
             // 最终数据（写入SandBox的数据）[子类应用]
             NSMutableDictionary *subDataDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:subData, @"subAppData", nil];
@@ -107,7 +107,15 @@ SingletonM(AppUtil)
 }
 
 - (NSMutableArray *)loadSearchData {
-    return nil;
+    NSMutableArray *mutableArray = [[NSMutableArray alloc] init];
+    NSMutableDictionary *searchAppDict = [[BaseSandBoxUtil sharedBaseSandBoxUtil] loadDataWithFileName:APP_SEARCH_FILE];
+    NSArray *searchAppData = [searchAppDict objectForKey:@"searchAppData"];
+    for(NSDictionary *dict in searchAppData){
+        AppModelItem *item = [AppModelItem createWithDictionary:dict];
+        [mutableArray addObject:item];
+    }
+    
+    return mutableArray;
 }
 
 // 向服务器保存自定义app排序
@@ -134,7 +142,7 @@ SingletonM(AppUtil)
 }
 
 // 写入应用数据到本地SandBox中
-- (BOOL)writeNewAppData:(NSDictionary *)appData{
+- (BOOL)writeAppData:(NSDictionary *)appData{
     
     NSMutableArray *customData = [[NSMutableArray alloc] init];
     

@@ -65,4 +65,13 @@ SingletonH(BaseHandleUtil)
  */
 - (CGSize)sizeWithString:(NSString *)str font:(UIFont *)font maxSize:(CGSize)maxSize;
 
+/**
+ *  获取关键字，中文转换拼音
+ *
+ *  @param  chinese  需要转换的中文
+ *
+ *  @return 转换后的拼音关键词
+ */
+- (NSString *)transform:(NSString *)chinese;
+
 @end

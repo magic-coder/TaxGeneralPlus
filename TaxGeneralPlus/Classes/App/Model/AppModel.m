@@ -33,6 +33,7 @@
     }else{
         item.isNewApp = NO;
     }
+    item.keyWords = [NSString stringWithFormat:@"%@ %@", item.title, [[BaseHandleUtil sharedBaseHandleUtil] transform:item.title]];
     return item;
 }
 

@@ -50,6 +50,8 @@ typedef NS_ENUM(NSInteger, AppViewType) {
 
 @property (nonatomic, strong) NSMutableArray *viewArray;
 
+@property (nonatomic, assign) BOOL adjustStatus;
+
 @end
 
 @implementation AppViewController
@@ -79,9 +81,8 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     [super viewWillAppear:animated];
     
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;// 设置顶部状态栏字体为白色
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];// 设置导航栏itemBar字体颜色
-    self.navigationController.navigationBar.titleTextAttributes = @{ NSForegroundColorAttributeName : [UIColor whiteColor] };// 设置导航栏title标题字体颜色
-    [self.navigationController.navigationBar setBarTintColor:DEFAULT_BLUE_COLOR];
+    
+    _adjustStatus = NO;// 初始化调整状态值
     
     if(IS_LOGIN){
         [self initializeData];
@@ -90,13 +91,29 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     }
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];// 设置导航栏itemBar字体颜色
+    self.navigationController.navigationBar.titleTextAttributes = @{ NSForegroundColorAttributeName : [UIColor whiteColor] };// 设置导航栏title标题字体颜色
+    [self.navigationController.navigationBar setBarTintColor:DEFAULT_BLUE_COLOR];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    if(_adjustStatus)
+        [self editDataSort];
+    
+}
+
 #pragma mark - 初始化数据
 - (void)initializeData {
-    NSMutableDictionary *appDict = [[AppUtil sharedAppUtil] loadDataWithType:AppItemsTypeNone];
+    NSMutableDictionary *appDict = [[AppUtil sharedAppUtil] loadAppData];
     if(appDict){
         [self handleData:appDict];
     }else{
-        [[AppUtil sharedAppUtil] initDataWithType:AppItemsTypeNone dataBlock:^(NSMutableDictionary *dataDict) {
+        [[AppUtil sharedAppUtil] initAppDataBlock:^(NSMutableDictionary *dataDict) {
             [self handleData:dataDict];
         } failed:^(NSString *error) {
             [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow];
@@ -204,28 +221,28 @@ typedef NS_ENUM(NSInteger, AppViewType) {
             // 向后移动
             if (fromIndex - toIndex < 0) {
                 for (NSInteger i = fromIndex; i < toIndex; i ++) {
-                    UIButton *nextBtn = _viewArray[i+1];
+                    AppView *nextAppView = _viewArray[i+1];
                     // 改变按钮中心点的位置
-                    CGPoint temp = nextBtn.center;
+                    CGPoint temp = nextAppView.center;
                     [UIView animateWithDuration:0.5 animations:^{
-                        nextBtn.center = _viewPoint;
+                        nextAppView.center = _viewPoint;
                     }];
                     _viewPoint = temp;
                     // 交换tag值
-                    nextBtn.tag = i;
+                    nextAppView.tag = i;
                     
                 }
                 [self sortArray];
             } else if (fromIndex - toIndex > 0) {
                 // 向前移动
                 for (NSInteger i = fromIndex; i > toIndex; i --) {
-                    UIButton *beforBtn = _viewArray[i - 1];
-                    CGPoint temp = beforBtn.center;
+                    AppView *beforAppView = _viewArray[i - 1];
+                    CGPoint temp = beforAppView.center;
                     [UIView animateWithDuration:0.5 animations:^{
-                        beforBtn.center = _viewPoint;
+                        beforAppView.center = _viewPoint;
                     }];
                     _viewPoint = temp;
-                    beforBtn.tag = i;
+                    beforAppView.tag = i;
                 }
                 [self sortArray];
             }
@@ -241,10 +258,13 @@ typedef NS_ENUM(NSInteger, AppViewType) {
 }
 #pragma mark 对数组排序
 - (void)sortArray {
+    
+    _adjustStatus = YES;
+    
     // 对已改变按钮的数组进行排序
     [_viewArray sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        UIButton *temp1 = (UIButton *)obj1;
-        UIButton *temp2 = (UIButton *)obj2;
+        AppView *temp1 = (AppView *)obj1;
+        AppView *temp2 = (AppView *)obj2;
         return temp1.tag > temp2.tag;    //将tag值大的按钮向后移
     }];
 }
@@ -333,10 +353,8 @@ typedef NS_ENUM(NSInteger, AppViewType) {
 
 #pragma mark - <AppTopViewDelegate>应用顶部视图点击代理方法
 - (void)appTopViewBtnClick:(UIButton *)sender {
-    DLog(@"%@",sender.titleLabel.text);
-    
     if(sender.tag == 1){
-        DLog(@"搜索方法");
+        [self.navigationController pushViewController:[[NSClassFromString(@"AppSearchViewController") class] new] animated:YES];
     }
     if(sender.tag == 2){
         [self.navigationController pushViewController:[[NSClassFromString(@"AppEditViewController") alloc] init] animated:YES];
@@ -359,6 +377,30 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     viewController.title = appView.item.title; // 设置标题
     [self.navigationController pushViewController:viewController animated:YES];
     
+}
+
+#pragma mark - 排序数据保存
+- (void)editDataSort{
+    NSDictionary *appData = [[AppUtil sharedAppUtil] loadAppData];
+    
+    NSMutableArray *mineData = [[NSMutableArray alloc] init];
+    
+    // 我的应用数据
+    for(AppView *appView in self.viewArray){
+        NSString *appno = appView.item.no;
+        NSString *appname = appView.item.title;
+        NSString *appimage = appView.item.webImg;
+        NSString *appurl = appView.item.url;
+        NSString *userappsort = [NSString stringWithFormat:@"%d", (int)appView.tag];
+        NSString *isnewapp = appView.item.isNewApp ? @"Y" : @"N";
+        
+        NSDictionary *mineDict = [NSDictionary dictionaryWithObjectsAndKeys: appno, @"appno", appname, @"appname", appimage, @"appimage", appurl, @"appurl", userappsort, @"userappsort", @"1", @"apptype", isnewapp, @"isnewapp", nil];
+        [mineData addObject:mineDict];
+    }
+    
+    NSMutableDictionary *dataDict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:mineData, @"mineData", [appData objectForKey:@"otherData"], @"otherData", [appData objectForKey:@"allData"], @"allData", nil];
+    
+    [[AppUtil sharedAppUtil] writeAppData:dataDict];
 }
 
 @end

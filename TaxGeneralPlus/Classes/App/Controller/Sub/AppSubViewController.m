@@ -87,6 +87,7 @@ static NSString * const reuseIdentifier = @"appSubCell";
     UIViewController *viewController = nil;
     
     NSString *url = cell.item.url;
+    DLog(@"url %@ ", url);
     if(url == nil || url.length <= 0){
         int level = [cell.item.level intValue]+1;
         viewController = [[AppSubViewController alloc] initWithPno:cell.item.no level:[NSString stringWithFormat:@"%d", level]];

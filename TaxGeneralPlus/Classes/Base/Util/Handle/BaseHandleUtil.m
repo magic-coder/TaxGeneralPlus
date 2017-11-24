@@ -107,4 +107,25 @@ SingletonM(BaseHandleUtil)
     return size;
 }
 
+#pragma mark - 中文转换拼音
+- (NSString *)transform:(NSString *)chinese {
+    // 去掉空格
+    NSString *trimChinese = [chinese stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    // 转成了可变字符串
+    NSMutableString *str = [NSMutableString stringWithString:trimChinese];
+    // 先转换为带声调的拼音
+    CFStringTransform((CFMutableStringRef)str,NULL, kCFStringTransformMandarinLatin,NO);
+    // 再转换为不带声调的拼音
+    CFStringTransform((CFMutableStringRef)str,NULL, kCFStringTransformStripDiacritics,NO);
+    // 转化为大写拼音
+    NSString *pinYin = [str capitalizedString];
+    NSArray *pinYins = [pinYin componentsSeparatedByString:@" "];
+    NSString *initial = @"";
+    for(NSString *letter in pinYins){
+        initial = [NSString stringWithFormat:@"%@%@", initial, [letter substringToIndex:1]];
+    }
+    // 获取并返回首字母
+    return initial;
+}
+
 @end

@@ -51,6 +51,11 @@ static NSString * const reuseHeaderIdentifier = @"reuseHeaderIdentifier";
     [self.collectionView registerClass:[AppEditViewCell class] forCellWithReuseIdentifier:reuseCellIdentifier];
     [self.collectionView registerClass:[AppEditHeaderView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:reuseHeaderIdentifier];
     
+    //添加导航栏右侧按钮
+    UIBarButtonItem *rightButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(editAppData:)];
+    self.navigationItem.rightBarButtonItem = rightButtonItem;
+    self.navigationItem.rightBarButtonItem.enabled = NO;// 初始化保存按钮不可点击
+    
     [self initializeData];
 
 }
@@ -71,11 +76,11 @@ static NSString * const reuseHeaderIdentifier = @"reuseHeaderIdentifier";
 
 #pragma mark - 初始化加载数据
 - (void)initializeData {
-    NSMutableDictionary *appDict = [[AppUtil sharedAppUtil] loadDataWithType:AppItemsTypeNone];
+    NSMutableDictionary *appDict = [[AppUtil sharedAppUtil] loadAppData];
     if(appDict){
         [self handleData:appDict];
     }else{
-        [[AppUtil sharedAppUtil] initDataWithType:AppItemsTypeNone dataBlock:^(NSMutableDictionary *dataDict) {
+        [[AppUtil sharedAppUtil] initAppDataBlock:^(NSMutableDictionary *dataDict) {
             [self handleData:dataDict];
         } failed:^(NSString *error) {
             [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow];
@@ -186,33 +191,6 @@ static NSString * const reuseHeaderIdentifier = @"reuseHeaderIdentifier";
     return (CGSize){WIDTH_SCREEN, 32};
 }
 
-#pragma mark - <UICollectionDelegate>点击代理方法
-/*
- - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
- if(self.collectionStyle == CollectionStyleNone){
- BaseCollectionViewCell *cell = (BaseCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
- if([cell.titleLabel.text isEqualToString:@"办税地图"]){
- MapDemoViewController *mapVC = [[MapDemoViewController alloc] init];
- mapVC.title = cell.titleLabel.text; // 设置标题
- [self.navigationController pushViewController:mapVC animated:YES];
- }else if([cell.titleLabel.text isEqualToString:@"一户式"]){
- BaseWebViewController *webVC = [[BaseWebViewController alloc] initWithURL:@"http://itunes.com"];
- [self.navigationController pushViewController:webVC animated:YES];
- }else if([cell.titleLabel.text isEqualToString:@"两学一做"]){
- TestWebViewController *testWebView = [[TestWebViewController alloc] initWithURL:@"http://www.apple.com"];
- testWebView.title = cell.titleLabel.text;
- [self.navigationController pushViewController:testWebView animated:YES];
- }else{
- BaseCordovaViewController *cordovaVC = [[BaseCordovaViewController alloc] init];
- NSString *cordovaPage = nil;
- cordovaVC.pagePath = cordovaPage;
- cordovaVC.currentTitle = cell.titleLabel.text;
- [self.navigationController pushViewController:cordovaVC animated:YES];
- }
- }
- }
- */
-
 #pragma mark - 代理编辑按钮点击方法
 - (void)appEditViewCellEditBtnClick:(UIButton *)sender {
     
@@ -240,7 +218,59 @@ static NSString * const reuseHeaderIdentifier = @"reuseHeaderIdentifier";
     
     [self.collectionView reloadData];
     
+    // 点击编辑按钮后设置保存按钮可点击
+    self.navigationItem.rightBarButtonItem.enabled = YES;
+    
 }
 
+#pragma mark - 编辑方法
+- (void)editAppData:(UIBarButtonItem *)sender{
+    // 点击保存将数据写入SandBox覆盖以前数据
+    AppModelGroup *mineGroup = [self.data objectAtIndex:0];
+    AppModelGroup *otherGroup = [self.data objectAtIndex:1];
+    AppModelGroup *allGroup = [self.data objectAtIndex:1];
+    
+    NSMutableArray *mineData = [[NSMutableArray alloc] init];
+    NSMutableArray *otherData = [[NSMutableArray alloc] init];
+    NSMutableArray *allData = [[NSMutableArray alloc] init];
+    
+    // 我的应用数据
+    int ids = 1;
+    for(AppModelItem *mineItem in mineGroup.items){
+        NSDictionary *mineDict = [NSDictionary dictionaryWithObjectsAndKeys: mineItem.no, @"appno", mineItem.title, @"appname", mineItem.webImg, @"appimage", mineItem.url, @"appurl", [NSString stringWithFormat:@"%d", ids], @"userappsort", @"1", @"apptype", mineItem.isNewApp ? @"Y" : @"N", @"isnewapp", nil];
+        [mineData addObject:mineDict];
+        ids++;
+    }
+    // 其他应用数据
+    for(AppModelItem *otherItem in otherGroup.items){
+        NSInteger i = 0;
+        for(AppModelItem *mineItem in mineGroup.items){
+            if([otherItem.no isEqualToString:mineItem.no]){
+                i++;
+            }
+        }
+        if(i == 0){
+            NSDictionary *otherDict = [NSDictionary dictionaryWithObjectsAndKeys:otherItem.no, @"appno", otherItem.title, @"appname", otherItem.webImg, @"appimage", otherItem.url, @"appurl", @"2", @"apptype", otherItem.isNewApp ? @"Y" : @"N", @"isnewapp", nil];
+            [otherData addObject:otherDict];
+        }
+    }
+    
+    // 全部应用数据
+    for(AppModelItem *allItem in allGroup.items){
+        NSDictionary *allDict = [NSDictionary dictionaryWithObjectsAndKeys:allItem.no, @"appno", allItem.title, @"appname", allItem.webImg, @"appimage", allItem.url, @"appurl", allItem.isNewApp ? @"Y" : @"N", @"isnewapp", nil];
+        [allData addObject:allDict];
+    }
+    
+    NSMutableDictionary *dataDict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:mineData, @"mineData", otherData, @"otherData", allData, @"allData", nil];
+    
+    BOOL res = [[AppUtil sharedAppUtil] writeAppData:dataDict];
+    if(res){
+        [MBProgressHUD showHUDView:self.view text:@"保存成功！" progressHUDMode:YZProgressHUDModeShow];
+        // 点击编辑按钮后设置保存按钮可点击
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+    }else{
+        [MBProgressHUD showHUDView:self.view text:@"保存失败，请检查原因！" progressHUDMode:YZProgressHUDModeShow];
+    }
+}
 
 @end

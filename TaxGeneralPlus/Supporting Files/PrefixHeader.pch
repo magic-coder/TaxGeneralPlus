@@ -48,6 +48,7 @@
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
 #import "UIAlertController+Blocks.h"
+#import "TTTAttributedLabel.h"
 
 
 #endif /* PrefixHeader_pch */

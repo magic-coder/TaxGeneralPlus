@@ -11,7 +11,7 @@
 #import "BaseWebViewController.h"
 #import <JavaScriptCore/JavaScriptCore.h>
 
-@interface BaseWebViewController () <UIWebViewDelegate, NSURLConnectionDataDelegate>
+@interface BaseWebViewController () <UIGestureRecognizerDelegate, UIWebViewDelegate, NSURLConnectionDataDelegate>
 
 @property (nonatomic, strong) UIView *imagesViewBG;         // 等待界面视图
 @property (nonatomic, strong) UIWebView *webViewBG;         // 加载等待GIF图
@@ -48,6 +48,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.navigationController.interactivePopGestureRecognizer.delegate = self;
     
     self.view.backgroundColor = DEFAULT_BACKGROUND_COLOR;
     [self.view addSubview:self.webView];

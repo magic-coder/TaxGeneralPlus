@@ -10,19 +10,15 @@
 
 #import <Foundation/Foundation.h>
 
-// 应用列表数据类型
-typedef NS_ENUM(NSInteger, AppItemsType){
-    AppItemsTypeNone,   // 一般应用列表类型
-    AppItemsTypeEdit    // 编辑类型
-};
-
 @interface AppUtil : NSObject
 
 SingletonH(AppUtil)
 
-- (NSMutableDictionary *)loadDataWithType:(AppItemsType)type;
+- (NSMutableDictionary *)loadAppData;
 
-- (void)initDataWithType:(AppItemsType)type dataBlock:(void (^)(NSMutableDictionary *dataDict))dataBlock failed:(void(^)(NSString *error))failed;
+- (void)initAppDataBlock:(void (^)(NSMutableDictionary *dataDict))dataBlock failed:(void(^)(NSString *error))failed;
+
+- (BOOL)writeAppData:(NSDictionary *)appData;// 写入菜单列表（初始化数据、编辑时调用）
 
 - (NSMutableArray *)loadSubDataWithPno:(NSString *)pno level:(NSString *)level;
 

@@ -48,7 +48,7 @@
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     // 判断要显示的控制器是否是否进行隐藏
     BOOL isNavigationBarHidden = NO;
-    NSArray *hidenControllers = @[@"AppViewController", @"MineViewController"];
+    NSArray *hidenControllers = @[@"AppViewController", @"MineViewController", @"AppSearchViewController"];
     for(NSString *hidenControllerName in hidenControllers){
         isNavigationBarHidden = isNavigationBarHidden || [viewController isKindOfClass:[NSClassFromString(hidenControllerName) class]];
     }
