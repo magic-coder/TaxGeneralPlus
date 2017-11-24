@@ -11,6 +11,7 @@
 #import "AppViewController.h"
 #import "AppSubViewController.h"
 #import "AppTopView.h"
+#import "AppPullHidenView.h"
 #import "AppHeaderView.h"
 #import "AppFooterView.h"
 #import "AppBorderView.h"
@@ -26,32 +27,30 @@ typedef NS_ENUM(NSInteger, AppViewType) {
 
 @interface AppViewController () <AppTopViewDelegate, AppViewDelegate>
 
-// 控制长按移动的参数
 @property (nonatomic, assign) CGPoint viewPoint;
 @property (nonatomic, assign) CGPoint startPoint;
 @property (nonatomic, assign) NSInteger beginPos;
+@property (nonatomic, assign) NSInteger endPos;
 
-// 视图组件
-@property (nonatomic, strong) AppTopView *appTopView;
+@property (nonatomic, assign) CGFloat mineViewHeight;
+@property (nonatomic, assign) CGFloat otherViewHeight;
+
+@property (nonatomic, strong) AppTopView *topView;
+@property (nonatomic, strong) AppPullHidenView *pullHidenView;
 @property (nonatomic, strong) BaseScrollView *baseScrollView;
-@property (nonatomic, strong) UIView *pullHiddenView;
 
 @property (nonatomic, strong) AppHeaderView *mineHeaderView;
-@property (nonatomic, strong) UIView *mineFooterView;
-
 @property (nonatomic, strong) AppHeaderView *otherHeaderView;
+@property (nonatomic, strong) UIView *mineFooterView;
 @property (nonatomic, strong) AppFooterView *otherFooterView;
 
-// 视图参数
-@property (nonatomic, assign) float mineAppViewHeight;
-@property (nonatomic, assign) float otherAppViewHeight;
-@property (nonatomic, assign) BOOL adjustStatus;                    // 是否进行了重新排序操作
+@property (nonatomic, strong) NSMutableArray *mineAppData;
+@property (nonatomic, strong) NSArray *allAppData;
+@property (nonatomic, strong) NSMutableArray *otherAppData;
 
-@property (nonatomic, strong) NSMutableArray *mineDataArray;        // 我的应用数据
-@property (nonatomic, strong) NSMutableArray *mineBorderViewArray;  // 我的应用底层虚线视图
-@property (nonatomic, strong) NSMutableArray *mineAppViewArray;     // 我是应用视图
+@property (nonatomic, strong) NSMutableArray *viewArray;
 
-@property (nonatomic, strong) NSMutableArray *otherDataArray;        // 其他/更多应用数据
+@property (nonatomic, assign) BOOL adjustStatus;
 
 @end
 
@@ -63,14 +62,14 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     
     self.view.backgroundColor = DEFAULT_BACKGROUND_COLOR;
     
-    [self.view addSubview:self.appTopView]; // 添加App最顶部头视图
+    [self.view addSubview:self.topView];
     [self.view addSubview:self.baseScrollView];
-    [self.baseScrollView addSubview:self.pullHiddenView];
+    [self.baseScrollView addSubview:self.pullHidenView];
     [self.baseScrollView addSubview:self.mineHeaderView];
     
-    // 设置视图层级关系
-    [self.view bringSubviewToFront:self.appTopView];// 设置视图层级为最上层
+    [self.view bringSubviewToFront:self.topView];// 设置视图层级为最上层
     [self.view sendSubviewToBack:self.baseScrollView];// 设置视图层级为最底下
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -78,40 +77,24 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - 视图即将显示调用的方法
+- (void)loadUI{
+    
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;// 设置顶部状态栏字体为白色
     
-    _adjustStatus = NO;
-    
-    // 重新构建应用前先移除以前的
-    NSArray *subViews = [self.baseScrollView subviews];
-    for(UIView *view in subViews){
-        if([view isKindOfClass:[AppBorderView class]] || [view isKindOfClass:[AppView class]]){
-            [view removeFromSuperview];
-        }
-    }
+    _adjustStatus = NO;// 初始化调整状态值
     
     if(IS_LOGIN){
-        // 获取应用数据
-        NSDictionary *appData = [[AppUtil sharedAppUtil] loadAppData];
-        if(appData){
-            [self initAppData:appData];
-        }else{
-            [[AppUtil sharedAppUtil] initAppDataBlock:^(NSMutableDictionary *dataDict) {
-                [self initAppData:dataDict];
-            } failed:^(NSString *error) {
-                [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow];
-            }];
-        }
+        [self initializeData];
     }else{
         SHOW_LOGIN_VIEW
     }
 }
 
-#pragma mark - 视图已经显示调用的方法
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
@@ -120,82 +103,93 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     [self.navigationController.navigationBar setBarTintColor:DEFAULT_BLUE_COLOR];
 }
 
-#pragma mark - 视图即将销毁调用的方法
-- (void)viewWillDisappear:(BOOL)animated{
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
     if(_adjustStatus)
-        [self editMineAppDataSort];
+        [self editDataSort];
     
 }
 
-#pragma mark - 开始处理加载数据
-- (void)initAppData:(NSDictionary *)data {
-    _mineDataArray = [NSMutableArray array];
-    _mineDataArray = [data objectForKey:@"mineData"];
-    
-    _otherDataArray = [NSMutableArray array];
-    _otherDataArray = [data objectForKey:@"otherData"];
-    [self initMineAppBorderView];
-    [self initAppViewData:_otherDataArray type:AppViewTypeOther];
-    [self.baseScrollView setContentSize:CGSizeMake(WIDTH_SCREEN, _otherAppViewHeight + HEIGHT_STATUS + 15)];
+#pragma mark - 初始化数据
+- (void)initializeData {
+    NSMutableDictionary *appDict = [[AppUtil sharedAppUtil] loadAppData];
+    if(appDict){
+        [self handleData:appDict];
+    }else{
+        [[AppUtil sharedAppUtil] initAppDataBlock:^(NSMutableDictionary *dataDict) {
+            [self handleData:dataDict];
+        } failed:^(NSString *error) {
+            [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow];
+        }];
+    }
 }
 
-#pragma mark - 添加我的应用图标底层虚线边框
-- (void)initMineAppBorderView {
+#pragma mark - 处理获取到的数据
+- (void)handleData:(NSMutableDictionary *)data{
+    _mineAppData = [data objectForKey:@"mineData"];
+    _otherAppData = [data objectForKey:@"otherData"];
+    _allAppData = [data objectForKey:@"allData"];
     
-    _mineBorderViewArray = [NSMutableArray array];
+    [self initAppBorderView];
+    [self initAppViewData:_otherAppData type:AppViewTypeOther];
     
+    [self.baseScrollView setContentSize:CGSizeMake(WIDTH_SCREEN, _otherViewHeight+HEIGHT_STATUS+15)];
+}
+
+#pragma mark - 添加应用图标底层虚线边框
+- (void)initAppBorderView {
     int itemWidth = ((WIDTH_SCREEN - 50) / 4);
-    for (int i = 0; i < _mineDataArray.count; i++) {
-        CGRect frame = CGRectMake((i%4)*(itemWidth+10)+10, (i/4)*(itemWidth+10)+10+self.mineHeaderView.frameBottom, itemWidth-10, itemWidth-10);
+    
+    for (int i = 0; i < _mineAppData.count; i++) {
+        CGRect frame = CGRectMake((i%4)*(itemWidth+10)+10,(i/4)*(itemWidth+10)+self.mineHeaderView.frameBottom+10,itemWidth-10,itemWidth-10);
         frame = CGRectInset(frame, 1, 1);
         AppBorderView *appBorderView = [[AppBorderView alloc] initWithFrame:frame];
         [self.baseScrollView addSubview:appBorderView];
-        [_mineBorderViewArray addObject:appBorderView];
     }
-    [self initAppViewData:_mineDataArray type:AppViewTypeMine];
+    [self initAppViewData:_mineAppData type:AppViewTypeMine];
 }
 
-#pragma mark - 根据类型初始化创建应用模块视图（包含：我的应用、其他/更多应用）
-- (void)initAppViewData:(NSMutableArray *)array type:(AppViewType)type{
-    if(AppViewTypeMine == type)
-        _mineAppViewArray = [NSMutableArray array];
-
+#pragma mark - 初始化创建应用模块视图
+- (void)initAppViewData:(NSArray *)data type:(AppViewType)type{
     int viewWidth = ((WIDTH_SCREEN - 25) / 4);
-    for (int i = 0; i < array.count; i++) {
-        AppModelItem *item = [AppModelItem createWithDictionary:array[i]];
+    
+    for (int i = 0; i < data.count; i++) {
+        AppModelItem *item = [AppModelItem createWithDictionary:data[i]];
         AppView *appView = [[AppView alloc] init];
         appView.delegate = self;
         appView.item = item;
         
-        if(AppViewTypeMine == type){    // 我的应用
+        if(type == AppViewTypeMine){
             appView.tag = i;
-            appView.frame = CGRectMake((i%4)*(viewWidth+5)+5, (i/4)*(viewWidth+5)+self.mineHeaderView.frameBottom, viewWidth, viewWidth);
+            appView.frame = CGRectMake((i%4)*(viewWidth+5)+5,(i/4)*(viewWidth+5)+self.mineHeaderView.frameBottom,viewWidth,viewWidth);
             
-            if(i == array.count - 1){
-                _mineAppViewHeight = appView.frameBottom;
+            if(i == data.count-1){
+                _mineViewHeight = appView.frameBottom;
                 [self.baseScrollView addSubview:self.mineFooterView];// 添加底部视图
             }
-            
+                
             // 添加长按手势
             UILongPressGestureRecognizer *longGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureRecognizerAction:)];
             [appView addGestureRecognizer:longGesture];
             
             [self.baseScrollView addSubview:appView];
-            [_mineAppViewArray addObject:appView];
+            [self.viewArray addObject:appView];
         }
-        if(AppViewTypeOther == type){   // 其他应用(更多应用)
+        
+        if(type == AppViewTypeOther){
             [self.baseScrollView addSubview:self.otherHeaderView];// 添加分组头部视图
             appView.frame = CGRectMake((i%4)*(viewWidth+5)+5,(i/4)*(viewWidth+5)+self.otherHeaderView.frameBottom,viewWidth,viewWidth);
             
-            if(i == array.count - 1){
-                _otherAppViewHeight = appView.frameBottom;
+            if(i == data.count-1){
+                _otherViewHeight = appView.frameBottom;
                 [self.baseScrollView addSubview:self.otherFooterView];// 添加底部视图
             }
+            
             [self.baseScrollView addSubview:appView];
         }
     }
+        
 }
 
 #pragma mark - 长按挪动方法
@@ -204,9 +198,12 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     AppView *appView = (AppView *)sender.view;
     [appView.superview bringSubviewToFront:appView];// 把当前选中视图挪到最前方
     if (sender.state == UIGestureRecognizerStateBegan) {
-        _startPoint = [sender locationInView:sender.view];
+        
+        _startPoint = [sender locationInView:appView];
         _beginPos = appView.tag;
         _viewPoint = appView.center;
+        NSLog(@"appView = %@",appView);
+        NSLog(@"appView.tag = %lu",appView.tag);
         [UIView animateWithDuration:0.2 animations:^{
             appView.backgroundColor = DEFAULT_BACKGROUND_COLOR;
             appView.transform = CGAffineTransformMakeScale(1.1, 1.1);
@@ -228,7 +225,7 @@ typedef NS_ENUM(NSInteger, AppViewType) {
             // 向后移动
             if (fromIndex - toIndex < 0) {
                 for (NSInteger i = fromIndex; i < toIndex; i ++) {
-                    AppView *nextAppView = _mineAppViewArray[i+1];
+                    AppView *nextAppView = _viewArray[i+1];
                     // 改变按钮中心点的位置
                     CGPoint temp = nextAppView.center;
                     [UIView animateWithDuration:0.5 animations:^{
@@ -243,7 +240,7 @@ typedef NS_ENUM(NSInteger, AppViewType) {
             } else if (fromIndex - toIndex > 0) {
                 // 向前移动
                 for (NSInteger i = fromIndex; i > toIndex; i --) {
-                    AppView *beforAppView = _mineAppViewArray[i - 1];
+                    AppView *beforAppView = _viewArray[i - 1];
                     CGPoint temp = beforAppView.center;
                     [UIView animateWithDuration:0.5 animations:^{
                         beforAppView.center = _viewPoint;
@@ -266,10 +263,10 @@ typedef NS_ENUM(NSInteger, AppViewType) {
 #pragma mark 对数组排序
 - (void)sortArray {
     
-    _adjustStatus = YES;    // 设置调整标志
+    _adjustStatus = YES;
     
     // 对已改变按钮的数组进行排序
-    [_mineAppViewArray sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+    [_viewArray sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         AppView *temp1 = (AppView *)obj1;
         AppView *temp2 = (AppView *)obj2;
         return temp1.tag > temp2.tag;    //将tag值大的按钮向后移
@@ -280,8 +277,8 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     /**
      * 判断移动按钮的中心点是否包含了所在按钮的中心点如果是将i返回
      */
-    for (NSInteger i = 0; i < _mineAppViewArray.count; i++) {
-        AppView *appView = _mineAppViewArray[i];
+    for (NSInteger i = 0; i < _mineAppData.count; i++) {
+        AppView *appView = _viewArray[i];
         if (!view || appView != view) {
             if (CGRectContainsPoint(appView.frame, point)) {
                 return i;
@@ -291,36 +288,39 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     return -1;
 }
 
-#pragma mark - 各组件懒加载Getter方法
-#pragma mark 顶部视图
-- (AppTopView *)appTopView {
-    if(!_appTopView){
-        _appTopView = [[AppTopView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, HEIGHT_STATUS + 136)];
-        _appTopView.delegate = self;
+#pragma mark - Getter方法
+- (NSMutableArray *)viewArray {
+    if(!_viewArray){
+        _viewArray = [NSMutableArray array];
     }
-    return _appTopView;
+    return _viewArray;
 }
+#pragma mark 初始化顶部视图
+- (AppTopView *)topView {
+    if(!_topView){
+        _topView = [[AppTopView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, HEIGHT_STATUS+136)];
+        _topView.delegate = self;
+    }
+    return _topView;
+}
+
+- (AppPullHidenView *)pullHidenView {
+    if(!_pullHidenView){
+        _pullHidenView = [[AppPullHidenView alloc] initWithFrame:CGRectMake(0, -HEIGHT_SCREEN, WIDTH_SCREEN, HEIGHT_SCREEN)];
+    }
+    return _pullHidenView;
+}
+
 #pragma mark 初始化基本的回弹UIScrollView视图
 - (BaseScrollView *)baseScrollView {
     if(!_baseScrollView){
-        _baseScrollView = [[BaseScrollView alloc] initWithFrame:CGRectMake(0, self.appTopView.frameBottom, WIDTH_SCREEN, HEIGHT_SCREEN - self.appTopView.frameBottom - HEIGHT_TABBAR)];
+        _baseScrollView = [[BaseScrollView alloc] initWithFrame:CGRectMake(0,self.topView.frameBottom, WIDTH_SCREEN, HEIGHT_SCREEN - self.topView.frameBottom - HEIGHT_TABBAR)];
         _baseScrollView.backgroundColor = [UIColor whiteColor];
     }
     return _baseScrollView;
 }
-#pragma mark 下拉显示logo视图
-- (UIView *)pullHiddenView {
-    if(!_pullHiddenView){
-        _pullHiddenView = [[UIView alloc] initWithFrame:CGRectMake(0, -HEIGHT_SCREEN, WIDTH_SCREEN, HEIGHT_SCREEN)];
-        _pullHiddenView.backgroundColor = DEFAULT_BACKGROUND_COLOR;
-        
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(_pullHiddenView.frameWidth/2-83, _pullHiddenView.frameHeight-90, 166, 45)];
-        imageView.image = [UIImage imageNamed:@"app_common_pull_logo"];
-        [_pullHiddenView addSubview:imageView];
-    }
-    return _pullHiddenView;
-}
-#pragma mark 我的应用分组头视图
+
+#pragma mark 初始化我的应用头部视图
 - (AppHeaderView *)mineHeaderView {
     if(!_mineHeaderView){
         _mineHeaderView = [[AppHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, 30)];
@@ -328,15 +328,17 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     }
     return _mineHeaderView;
 }
-#pragma mark - 我的应用分组底部视图
+
+#pragma mark 初始化我的应用底部视图
 - (UIView *)mineFooterView {
     if(!_mineFooterView){
-        _mineFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, _mineAppViewHeight, WIDTH_SCREEN, 1)];
+        _mineFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, _mineViewHeight, WIDTH_SCREEN, 1)];
         _mineFooterView.backgroundColor = DEFAULT_BACKGROUND_COLOR;
     }
     return _mineFooterView;
 }
-#pragma mark 其他应用分组头视图
+
+#pragma mark 初始化其他应用头部视图
 - (AppHeaderView *)otherHeaderView {
     if(!_otherHeaderView){
         _otherHeaderView = [[AppHeaderView alloc] initWithFrame:CGRectMake(0, self.mineFooterView.frameBottom, WIDTH_SCREEN, 30)];
@@ -344,16 +346,16 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     }
     return _otherHeaderView;
 }
-#pragma mark 其他应用分组底部视图
+
+#pragma mark 初始化其他应用底部视图
 - (AppFooterView *)otherFooterView {
     if(!_otherFooterView){
-        _otherFooterView = [[AppFooterView alloc] initWithFrame:CGRectMake(0, _otherAppViewHeight, WIDTH_SCREEN, 1)];
+        _otherFooterView = [[AppFooterView alloc] initWithFrame:CGRectMake(0, _otherViewHeight, WIDTH_SCREEN, 1)];
     }
     return _otherFooterView;
 }
 
-#pragma mark - 各视图点击代理方法
-#pragma mark 应用顶部视图点击代理方法AppTopViewDelegate
+#pragma mark - <AppTopViewDelegate>应用顶部视图点击代理方法
 - (void)appTopViewBtnClick:(UIButton *)sender {
     if(sender.tag == 1){
         [self.navigationController pushViewController:[[NSClassFromString(@"AppSearchViewController") class] new] animated:YES];
@@ -362,7 +364,8 @@ typedef NS_ENUM(NSInteger, AppViewType) {
         [self.navigationController pushViewController:[[NSClassFromString(@"AppEditViewController") alloc] init] animated:YES];
     }
 }
-#pragma mark 应用模块视图点击代理方法AppViewDelegate
+
+#pragma mark - <AppViewDelegate>应用模块视图点击代理方法
 - (void)appViewClick:(AppView *)appView{
     
     UIViewController *viewController = nil;
@@ -380,14 +383,14 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     
 }
 
-#pragma mark - 自定义排序保存方法
-- (void)editMineAppDataSort{
-    // 获取缓存中的最新数据
+#pragma mark - 排序数据保存
+- (void)editDataSort{
     NSDictionary *appData = [[AppUtil sharedAppUtil] loadAppData];
+    
     NSMutableArray *mineData = [[NSMutableArray alloc] init];
     
     // 我的应用数据
-    for(AppView *appView in self.mineAppViewArray){
+    for(AppView *appView in self.viewArray){
         NSString *appno = appView.item.no;
         NSString *appname = appView.item.title;
         NSString *appimage = appView.item.webImg;
@@ -403,4 +406,5 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     
     [[AppUtil sharedAppUtil] writeAppData:dataDict];
 }
+
 @end

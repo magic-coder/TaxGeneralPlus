@@ -223,6 +223,7 @@ static NSString * const reuseIdentifier = @"appSubCell";
         _hintLabel.numberOfLines = 0;
         _hintLabel.font = [UIFont systemFontOfSize:14.0f];
         _hintLabel.textAlignment = NSTextAlignmentCenter;
+        _hintLabel.textColor = [UIColor grayColor];
         _hintLabel.verticalAlignment = TTTAttributedLabelVerticalAlignmentTop;// 对齐方式
     }
     return _hintLabel;

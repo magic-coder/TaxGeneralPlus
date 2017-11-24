@@ -35,18 +35,17 @@
     return self;
 }
 
-#pragma mark - 添加背景图
+#pragma mark - 背景图片视图懒加载Getter方法
 - (UIImageView *)backgroundImageView {
-    
     if(!_backgroundImageView){
         _backgroundImageView = [[UIImageView alloc] initWithFrame:self.frame];
-        [_backgroundImageView sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageWithColor:RgbColor(69.0, 126.0, 212.0, 9.5f)] options:SDWebImageAllowInvalidSSLCertificates completed:nil];
+        // [UIImage imageWithColor:DEFAULT_BLUE_COLOR]
+        [_backgroundImageView sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"app_top_bg"] options:SDWebImageAllowInvalidSSLCertificates completed:nil];
         _backgroundImageView.userInteractionEnabled = YES;
         _backgroundImageView.multipleTouchEnabled = YES;
-        //控制子视图不能超出父视图的范围
+        // 控制子视图不能超出父视图的范围
         _backgroundImageView.clipsToBounds = YES;
     }
-    
     return _backgroundImageView;
 }
 
@@ -61,23 +60,23 @@
     searchTextField.font = [UIFont systemFontOfSize:14.0f];
     searchTextField.backgroundColor = DEFAULT_BACKGROUND_COLOR;
     searchTextField.alpha = 0.3f;
-    [_backgroundImageView addSubview:searchTextField];
+    [self.backgroundImageView addSubview:searchTextField];
     
     UIImageView *imgSearch = [[UIImageView alloc] initWithFrame:CGRectMake(searchTextField.originX+4, searchTextField.originY+1, 24, 24)];
     imgSearch.image = [UIImage imageNamed:@"app_common_searchHL"];
-    [_backgroundImageView addSubview:imgSearch];
+    [self.backgroundImageView addSubview:imgSearch];
     
     UILabel *searchLabel = [[UILabel alloc] initWithFrame:CGRectMake(searchTextField.originX+34, searchTextField.originY, 100, 26)];
     searchLabel.textColor = [UIColor whiteColor];
     searchLabel.font = [UIFont systemFontOfSize:14.0f];
     searchLabel.text = @"应用搜索";
-    [_backgroundImageView addSubview:searchLabel];
+    [self.backgroundImageView addSubview:searchLabel];
     
     UIButton *btn_search_frame = [UIButton buttonWithType:UIButtonTypeCustom];
     btn_search_frame.frame = searchTextField.frame;
     btn_search_frame.tag = 1;
     [btn_search_frame addTarget:self action:@selector(appBtnOnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [_backgroundImageView addSubview:btn_search_frame];   // 搜索按钮
+    [self.backgroundImageView addSubview:btn_search_frame];   // 搜索按钮
 }
 
 #pragma mark - 添加应用操作按钮
@@ -143,11 +142,11 @@
     [btn_3 addTarget:self action:@selector(appBtnOnClick:) forControlEvents:UIControlEventTouchUpInside];
     [btn_4 addTarget:self action:@selector(appBtnOnClick:) forControlEvents:UIControlEventTouchUpInside];
     
-    [_backgroundImageView addSubview:btn_edit];     // 右侧编辑按钮
-    [_backgroundImageView addSubview:btn_1];
-    [_backgroundImageView addSubview:btn_2];
-    [_backgroundImageView addSubview:btn_3];
-    [_backgroundImageView addSubview:btn_4];
+    [self.backgroundImageView addSubview:btn_edit];     // 右侧编辑按钮
+    [self.backgroundImageView addSubview:btn_1];
+    [self.backgroundImageView addSubview:btn_2];
+    [self.backgroundImageView addSubview:btn_3];
+    [self.backgroundImageView addSubview:btn_4];
     
 }
 

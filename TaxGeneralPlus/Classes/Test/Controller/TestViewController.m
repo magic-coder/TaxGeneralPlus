@@ -67,14 +67,14 @@
     
     UIButton *btn4 = [UIButton buttonWithType:UIButtonTypeSystem];
     btn4.frame = CGRectMake(10, 260, 300, 30);
-    [btn4 setTitle:@"AFNetworking请求首页税闻" forState:UIControlStateNormal];
+    [btn4 setTitle:@"AFNetworking请求数据" forState:UIControlStateNormal];
     [btn4 addTarget:self action:@selector(onClick:) forControlEvents:(UIControlEventTouchUpInside)];
     btn4.tag = 4;
     [self.view addSubview:btn4];
     
     UIButton *btn5 = [UIButton buttonWithType:UIButtonTypeSystem];
     btn5.frame = CGRectMake(10, 300, 300, 30);
-    [btn5 setTitle:@"AFNetworking请求应用数据" forState:UIControlStateNormal];
+    [btn5 setTitle:@"长按拖拽挪动" forState:UIControlStateNormal];
     [btn5 addTarget:self action:@selector(onClick:) forControlEvents:(UIControlEventTouchUpInside)];
     btn5.tag = 5;
     [self.view addSubview:btn5];
@@ -185,12 +185,7 @@
     }
     
     if(5 == btn.tag){
-        
-        [YZNetworkingManager POST:@"app/index" parameters:@{} success:^(NSURLSessionDataTask *task, id responseObject) {
-            DLog(@"responseObject = %@", responseObject);
-        } failure:^(NSURLSessionDataTask *task, NSString *error) {
-            DLog(@"error = %@", error);
-        }];
+        [self.navigationController pushViewController:[[NSClassFromString(@"MoveViewController") class] new] animated:YES];
     }
     
     if(6 == btn.tag){

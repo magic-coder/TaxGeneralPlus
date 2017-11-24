@@ -49,6 +49,10 @@
 		188AE5731FA054E0008F7D60 /* YZCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 188AE5721FA054DF008F7D60 /* YZCycleScrollView.m */; };
 		1895A8251FB4387200DB9AFC /* AppSubViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1895A8241FB4387200DB9AFC /* AppSubViewCell.m */; };
 		1895A8281FB43E8700DB9AFC /* AppSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1895A8271FB43E8700DB9AFC /* AppSubViewController.m */; };
+		189B558F1FC7E2C7003031A9 /* MoveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189B558E1FC7E2C7003031A9 /* MoveViewController.m */; };
+		189B55931FC7E2DA003031A9 /* LBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 189B55921FC7E2DA003031A9 /* LBorderView.m */; };
+		189B55971FC822DF003031A9 /* MsgListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 189B55961FC822DF003031A9 /* MsgListModel.m */; };
+		189B559A1FC8231B003031A9 /* MsgDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 189B55991FC8231B003031A9 /* MsgDetailModel.m */; };
 		18A1FAF11FBC3BD700AA07DC /* SafeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A1FAF01FBC3BD700AA07DC /* SafeViewController.m */; };
 		18A1FAF41FBC449500AA07DC /* Variable.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A1FAF31FBC449500AA07DC /* Variable.m */; };
 		18A1FAF91FBD27E200AA07DC /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A1FAF81FBD27E200AA07DC /* ScheduleViewController.m */; };
@@ -60,7 +64,6 @@
 		18A9A0751FA1A8770059C7BB /* UINavigationBar+YZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A9A0741FA1A8770059C7BB /* UINavigationBar+YZ.m */; };
 		18A9A07E1FA1ABF90059C7BB /* BaseSandBoxUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A9A07D1FA1ABF90059C7BB /* BaseSandBoxUtil.m */; };
 		18A9A0811FA1AC0F0059C7BB /* BaseHandleUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A9A0801FA1AC0F0059C7BB /* BaseHandleUtil.m */; };
-		18AC77401FA8448300EB630B /* AppPullHidenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AC773F1FA8448300EB630B /* AppPullHidenView.m */; };
 		18AC77431FA84B5300EB630B /* AppBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AC77421FA84B5300EB630B /* AppBorderView.m */; };
 		18AC774A1FA8580500EB630B /* YZNetworkingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AC77491FA8580500EB630B /* YZNetworkingManager.m */; };
 		18AC774C1FA8595100EB630B /* root-cert.der in Resources */ = {isa = PBXBuildFile; fileRef = 18AC774B1FA8595100EB630B /* root-cert.der */; };
@@ -249,6 +252,14 @@
 		1895A8241FB4387200DB9AFC /* AppSubViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppSubViewCell.m; sourceTree = "<group>"; };
 		1895A8261FB43E8700DB9AFC /* AppSubViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppSubViewController.h; sourceTree = "<group>"; };
 		1895A8271FB43E8700DB9AFC /* AppSubViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppSubViewController.m; sourceTree = "<group>"; };
+		189B558D1FC7E2C7003031A9 /* MoveViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoveViewController.h; sourceTree = "<group>"; };
+		189B558E1FC7E2C7003031A9 /* MoveViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoveViewController.m; sourceTree = "<group>"; };
+		189B55911FC7E2DA003031A9 /* LBorderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBorderView.h; sourceTree = "<group>"; };
+		189B55921FC7E2DA003031A9 /* LBorderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBorderView.m; sourceTree = "<group>"; };
+		189B55951FC822DF003031A9 /* MsgListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MsgListModel.h; sourceTree = "<group>"; };
+		189B55961FC822DF003031A9 /* MsgListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MsgListModel.m; sourceTree = "<group>"; };
+		189B55981FC8231B003031A9 /* MsgDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MsgDetailModel.h; sourceTree = "<group>"; };
+		189B55991FC8231B003031A9 /* MsgDetailModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MsgDetailModel.m; sourceTree = "<group>"; };
 		18A1FAEF1FBC3BD700AA07DC /* SafeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SafeViewController.h; sourceTree = "<group>"; };
 		18A1FAF01FBC3BD700AA07DC /* SafeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SafeViewController.m; sourceTree = "<group>"; };
 		18A1FAF21FBC449500AA07DC /* Variable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Variable.h; sourceTree = "<group>"; };
@@ -271,8 +282,6 @@
 		18A9A07D1FA1ABF90059C7BB /* BaseSandBoxUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseSandBoxUtil.m; sourceTree = "<group>"; };
 		18A9A07F1FA1AC0F0059C7BB /* BaseHandleUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseHandleUtil.h; sourceTree = "<group>"; };
 		18A9A0801FA1AC0F0059C7BB /* BaseHandleUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseHandleUtil.m; sourceTree = "<group>"; };
-		18AC773E1FA8448300EB630B /* AppPullHidenView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppPullHidenView.h; sourceTree = "<group>"; };
-		18AC773F1FA8448300EB630B /* AppPullHidenView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppPullHidenView.m; sourceTree = "<group>"; };
 		18AC77411FA84B5300EB630B /* AppBorderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppBorderView.h; sourceTree = "<group>"; };
 		18AC77421FA84B5300EB630B /* AppBorderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppBorderView.m; sourceTree = "<group>"; };
 		18AC77481FA8580500EB630B /* YZNetworkingManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YZNetworkingManager.h; sourceTree = "<group>"; };
@@ -719,8 +728,6 @@
 			children = (
 				18FCCD711FA6C47400424A0C /* AppTopView.h */,
 				18FCCD721FA6C47400424A0C /* AppTopView.m */,
-				18AC773E1FA8448300EB630B /* AppPullHidenView.h */,
-				18AC773F1FA8448300EB630B /* AppPullHidenView.m */,
 				180A90CB1FB306BF00F7D213 /* AppHeaderView.h */,
 				180A90CC1FB306BF00F7D213 /* AppHeaderView.m */,
 				180A90CE1FB307B100F7D213 /* AppFooterView.h */,
@@ -935,6 +942,15 @@
 				188AE5721FA054DF008F7D60 /* YZCycleScrollView.m */,
 			);
 			path = YZCycleScrollView;
+			sourceTree = "<group>";
+		};
+		189B55901FC7E2CB003031A9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				189B55911FC7E2DA003031A9 /* LBorderView.h */,
+				189B55921FC7E2DA003031A9 /* LBorderView.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		18A1FAEE1FBC3B8400AA07DC /* Safe */ = {
@@ -1248,6 +1264,10 @@
 		18AE745C1F9882C900E357D1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				189B55951FC822DF003031A9 /* MsgListModel.h */,
+				189B55961FC822DF003031A9 /* MsgListModel.m */,
+				189B55981FC8231B003031A9 /* MsgDetailModel.h */,
+				189B55991FC8231B003031A9 /* MsgDetailModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1318,6 +1338,7 @@
 			isa = PBXGroup;
 			children = (
 				18AE747B1F9897EE00E357D1 /* Controller */,
+				189B55901FC7E2CB003031A9 /* View */,
 				18A9A0A51FA1B4430059C7BB /* Model */,
 			);
 			path = Test;
@@ -1328,6 +1349,8 @@
 			children = (
 				18AE747C1F98980600E357D1 /* TestViewController.h */,
 				18AE747D1F98980600E357D1 /* TestViewController.m */,
+				189B558D1FC7E2C7003031A9 /* MoveViewController.h */,
+				189B558E1FC7E2C7003031A9 /* MoveViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1679,7 +1702,6 @@
 			files = (
 				18B358B61F9F542400F9CF73 /* MJRefreshGifHeader.m in Sources */,
 				18AE74301F9854C700E357D1 /* UIImage+GIF.m in Sources */,
-				18AC77401FA8448300EB630B /* AppPullHidenView.m in Sources */,
 				183826F41F90B08C0076C8A5 /* ViewController.m in Sources */,
 				18AE74351F9854C700E357D1 /* SDImageCache.m in Sources */,
 				18FCCDA41FA703D000424A0C /* MASCompositeConstraint.m in Sources */,
@@ -1707,6 +1729,7 @@
 				1806B1F31F9DF52500F000EB /* UIAlertController+Blocks.m in Sources */,
 				18AE73EE1F98547D00E357D1 /* AFHTTPSessionManager.m in Sources */,
 				18FCCDA91FA703D000424A0C /* MASConstraint.m in Sources */,
+				189B55971FC822DF003031A9 /* MsgListModel.m in Sources */,
 				18AE743B1F9854C700E357D1 /* SDImageCacheConfig.m in Sources */,
 				18E2C42E1FC26E5500881A8A /* GestureViewController.m in Sources */,
 				18AE73EF1F98547D00E357D1 /* AFURLSessionManager.m in Sources */,
@@ -1742,6 +1765,7 @@
 				18E2C4221FC26B0D00881A8A /* PCCircle.m in Sources */,
 				18FCCDA31FA703D000424A0C /* ViewController+MASAdditions.m in Sources */,
 				180A90B61FB2DFFB00F7D213 /* BaseTableModel.m in Sources */,
+				189B559A1FC8231B003031A9 /* MsgDetailModel.m in Sources */,
 				1836FCC41FA1F6AB00ABDA10 /* NewsUtil.m in Sources */,
 				18FCCDA81FA703D000424A0C /* View+MASAdditions.m in Sources */,
 				18AE742E1F9854C700E357D1 /* FLAnimatedImageView+WebCache.m in Sources */,
@@ -1770,6 +1794,7 @@
 				18E2C4111FC2691000881A8A /* CALayer+YZ.m in Sources */,
 				186E5AE81FA1C2FF00228258 /* NewsModel.m in Sources */,
 				18DE15C01FB93E7A00434F91 /* LoginViewController.m in Sources */,
+				189B55931FC7E2DA003031A9 /* LBorderView.m in Sources */,
 				18FCCDA21FA703D000424A0C /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				186E5AE11FA1C0CF00228258 /* NSObject+YYModel.m in Sources */,
 				18AE743C1F9854C700E357D1 /* UIView+WebCacheOperation.m in Sources */,
@@ -1811,6 +1836,7 @@
 				183826F11F90B08C0076C8A5 /* AppDelegate.m in Sources */,
 				18C02E4F1FA71549009EBD36 /* AppView.m in Sources */,
 				18E4EDB61F9F213900CAB201 /* YBRectConst.m in Sources */,
+				189B558F1FC7E2C7003031A9 /* MoveViewController.m in Sources */,
 				18C02E521FA71582009EBD36 /* AppModel.m in Sources */,
 				18AE742B1F9854C700E357D1 /* UIImageView+HighlightedWebCache.m in Sources */,
 				18B358BA1F9F542400F9CF73 /* MJRefreshAutoFooter.m in Sources */,
