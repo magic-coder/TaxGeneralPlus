@@ -30,6 +30,7 @@
 #import "UINavigationBar+YZ.h"
 
 #pragma mark - 自己封装的方法类
+#import "LoginUtil.h"
 #import "BaseScrollView.h"
 #import "BaseHandleUtil.h"
 #import "BaseSandBoxUtil.h"
@@ -45,7 +46,6 @@
 #pragma mark - 第三方库
 #import "YYModel.h"
 #import "Masonry.h"
-#import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
 #import "UIAlertController+Blocks.h"
 #import "TTTAttributedLabel.h"

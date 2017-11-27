@@ -217,54 +217,5 @@ SingletonM(MineUtil)
     return items;
 }
 
-#pragma mark - 用户注销（退出登录）方法
-- (void)accountLogout:(void (^)(void))success failed:(void (^)(NSString *))failed {
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    [dict setObject:@"app" forKey:@"loginType"];
-    
-    NSDictionary *userDict = [[NSUserDefaults standardUserDefaults] objectForKey:LOGIN_SUCCESS];
-    [dict setObject:[userDict objectForKey:@"userCode"] forKey:@"userCode"];
-    
-    [YZNetworkingManager POST:@"account/loginout" parameters:dict success:^(NSURLSessionDataTask *task, id responseObject) {
-        
-        // 获取请求状态值
-        if(REQUEST_SUCCESS){
-            // 删除用户登录信息
-            [[NSUserDefaults standardUserDefaults] removeObjectForKey:LOGIN_SUCCESS];
-            // 删除应用列表数据
-            [[BaseSandBoxUtil sharedBaseSandBoxUtil] removeFileName:APP_FILE];
-            [[BaseSandBoxUtil sharedBaseSandBoxUtil] removeFileName:APP_SUB_FILE];
-            [[BaseSandBoxUtil sharedBaseSandBoxUtil] removeFileName:APP_SEARCH_FILE];
-            // 删除用户设置信息
-            // 将用户TouchID设置信息删除
-            NSMutableDictionary *settingDict = [[BaseSettingUtil sharedBaseSettingUtil] loadSettingData];
-            [settingDict setValue:[NSNumber numberWithBool:NO] forKey:@"gesturePwd"];
-            [settingDict setValue:[NSNumber numberWithBool:NO] forKey:@"touchID"];
-            [[BaseSettingUtil sharedBaseSettingUtil] writeSettingData:settingDict];
-            [[NSUserDefaults standardUserDefaults] removeObjectForKey:GESTURES_PASSWORD];
-            // 清理缓存
-            [[SDImageCache sharedImageCache] clearDiskOnCompletion:nil];
-            [[SDImageCache sharedImageCache] clearMemory];
-            // 清空Cookie
-            NSHTTPCookieStorage * loginCookie = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-            for (NSHTTPCookie * cookie in [loginCookie cookies]){
-                [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
-            }
-            // 删除沙盒自动生成的Cookies.binarycookies文件
-            NSString * path = NSHomeDirectory();
-            NSString * filePath = [path stringByAppendingPathComponent:@"/Library/Cookies/Cookies.binarycookies"];
-            NSFileManager * manager = [NSFileManager defaultManager];
-            [manager removeItemAtPath:filePath error:nil];
-            
-            success();
-        }else{
-            failed(RESPONSE_MSG);
-        }
-    } failure:^(NSURLSessionDataTask *task, NSString *error) {
-        failed(error);
-    }];
-
-}
-
 @end
 

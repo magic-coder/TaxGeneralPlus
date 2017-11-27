@@ -41,18 +41,13 @@
             
             if(-1 == index){
                 [MBProgressHUD showHUDView:self.view text:@"注销中..." progressHUDMode:YZProgressHUDModeLock];
-                [[MineUtil sharedMineUtil] accountLogout:^{
-                    
+                [[LoginUtil sharedLoginUtil] logout:^{
                     [MBProgressHUD hiddenHUDView:self.view];
                     [self.navigationController popViewControllerAnimated:YES];
-                    
-                } failed:^(NSString *error) {
-                    
+                } failure:^(NSString *error) {
                     [MBProgressHUD hiddenHUDView:self.view];
                     [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow];
-                    
                 }];
-                
             }
             
         }];

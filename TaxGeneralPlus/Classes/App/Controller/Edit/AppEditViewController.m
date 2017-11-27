@@ -80,10 +80,14 @@ static NSString * const reuseHeaderIdentifier = @"reuseHeaderIdentifier";
     if(appDict){
         [self handleData:appDict];
     }else{
-        [[AppUtil sharedAppUtil] initAppDataBlock:^(NSMutableDictionary *dataDict) {
+        [[AppUtil sharedAppUtil] initAppDataSuccess:^(NSMutableDictionary *dataDict) {
             [self handleData:dataDict];
-        } failed:^(NSString *error) {
+        } failure:^(NSString *error) {
             [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow];
+        } invalid:^(NSString *msg) {
+            [UIAlertController showAlertInViewController:self withTitle:@"提示" message:msg cancelButtonTitle:@"重新登录" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
+                DLog(@"注销方法");
+            }];
         }];
     }
 }

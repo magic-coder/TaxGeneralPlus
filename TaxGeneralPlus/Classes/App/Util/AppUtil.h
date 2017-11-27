@@ -16,7 +16,9 @@ SingletonH(AppUtil)
 
 - (NSMutableDictionary *)loadAppData;
 
-- (void)initAppDataBlock:(void (^)(NSMutableDictionary *dataDict))dataBlock failed:(void(^)(NSString *error))failed;
+- (void)initAppDataSuccess:(void (^)(NSMutableDictionary *dataDict))success
+               failure:(void(^)(NSString *error))failure
+               invalid:(void (^)(NSString *msg))invalid;
 
 - (BOOL)writeAppData:(NSDictionary *)appData;// 写入菜单列表（初始化数据、编辑时调用）
 

@@ -10,7 +10,7 @@
 
 #import "LoginViewController.h"
 #import "MainTabBarController.h"
-#import "LoginUtil.h"
+#import "OneWayHTTPS.h"
 
 #define LABELSIZE CGSizeMake(70, 20)
 #define TEXTFIELDSIZE CGSizeMake(180, 30)
@@ -269,30 +269,26 @@ typedef NS_ENUM(NSInteger, LoginShowType) {
     NSString *userCode = _usernameTextField.text;
     if(userCode.length > 0){
         
-        NSString *url =@"account/getVerificationCode";
-        
         NSDictionary *dict = @{@"userCode": userCode};
-        NSString *jsonString = [[BaseHandleUtil sharedBaseHandleUtil] JSONStringWithObject:dict];
-        NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:jsonString, @"msg", nil];
         
-        [YZNetworkingManager POST:url parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
-            // 获取请求状态值
-            DLog(@"statusCode = %@", [responseObject objectForKey:@"statusCode"]);
-            NSString *statusCode = [responseObject objectForKey:@"statusCode"];
-            if([statusCode isEqualToString:@"00"]){
-                [MBProgressHUD showHUDView:self.view text:RESPONSE_MSG progressHUDMode:(YZProgressHUDModeShow)];
+        NSString *url = [NSString stringWithFormat:@"%@account/getVerificationCode", SERVER_URL];// 格式化请求 URL 参数
+        NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:[[BaseHandleUtil sharedBaseHandleUtil] JSONStringWithObject:dict], @"msg", nil];   // 格式化参数
+        
+        [OneWayHTTPS POST:url parameters:param success:^(NSURLSessionDataTask *task, id responseObject) {
+            if([@"00" isEqualToString:[responseObject objectForKey:@"statusCode"]]){    // 成功标志
+                [MBProgressHUD showHUDView:self.view text:[responseObject objectForKey:@"msg"] progressHUDMode:(YZProgressHUDModeShow)];
                 //正常状态下的背景颜色
                 UIColor *mainColor = RgbColor(255.0, 170.0, 0.0, 1.0f);
                 //倒计时状态下的颜色
                 UIColor *countColor = RgbColor(188.0, 188.0, 188.0, 0.9f);
                 [self setTheCountdownButton:sender startWithTime:59 title:@"获取验证码" countDownTitle:@"秒后重试" mainColor:mainColor countColor:countColor];
             }else{
-                [MBProgressHUD showHUDView:self.view text:RESPONSE_MSG progressHUDMode:(YZProgressHUDModeShow)];
+                [MBProgressHUD showHUDView:self.view text:[responseObject objectForKey:@"msg"] progressHUDMode:YZProgressHUDModeShow];
             }
         } failure:^(NSURLSessionDataTask *task, NSString *error) {
-            [MBProgressHUD showHUDView:self.view text:error progressHUDMode:(YZProgressHUDModeShow)];
+            [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow];
         }];
-
+        
     }else{
         [MBProgressHUD showHUDView:self.view text:@"请输入用户名，再获取验证码！" progressHUDMode:(YZProgressHUDModeShow)];
     }
@@ -317,11 +313,10 @@ typedef NS_ENUM(NSInteger, LoginShowType) {
         [[LoginUtil sharedLoginUtil] loginWithAppDict:dict success:^{
             [MBProgressHUD hiddenHUDView:self.view];
             [self dismissViewControllerAnimated:YES completion:nil];
-        } failed:^(NSString *error) {
+        } failure:^(NSString *error) {
             [MBProgressHUD hiddenHUDView:self.view];
             [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow];
         }];
-        
     }else{
         if(userCode.length <= 0){
             [MBProgressHUD showHUDView:self.view text:@"用户名不能为空！" progressHUDMode:(YZProgressHUDModeShow)];

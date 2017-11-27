@@ -11,7 +11,6 @@
 #import "AppDelegate.h"
 #import "MainTabBarController.h"
 #import "GestureViewController.h"
-#import "LoginUtil.h"
 
 @interface AppDelegate ()
 
@@ -39,7 +38,7 @@
     _window.rootViewController = [[NSClassFromString(@"MainTabBarController") class] new];
     [_window makeKeyAndVisible];
     
-    [self verifyUnlock];// 判断是否设置安全密码
+    //[self verifyUnlock];// 判断是否设置安全密码
     
     return YES;
 }
@@ -86,6 +85,7 @@
     if(IS_LOGIN){
         // 重新触发token登录
         [[LoginUtil sharedLoginUtil] loginWithTokenSuccess:^{
+            DLog(@"初始化Token登录完毕");
             // 校验用户是否开启了手势密码、指纹解锁，并进行相应跳转
             NSDictionary *settingDict = [[BaseSettingUtil sharedBaseSettingUtil] loadSettingData];
             
@@ -102,10 +102,11 @@
                     }
                 }
             }
-        } failed:^(NSString *error) {
-            [UIAlertController showAlertInViewController:mainTabBarController withTitle:@"登录失效" message:@"当前登录已经失效，您需要重新登录" cancelButtonTitle:@"重新登录" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
-                DLog(@"登录失效操作...");
+        } failure:^(NSString *error) {
+            [UIAlertController showAlertInViewController:mainTabBarController withTitle:@"提示" message:error cancelButtonTitle:@"重新登录" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
+                DLog(@"注销方法");
             }];
+            
         }];
         
     }

@@ -9,6 +9,7 @@
  ************************************************************/
 
 #import "BaseHandleUtil.h"
+#import "MainTabBarController.h"
 
 @implementation BaseHandleUtil
 
@@ -126,6 +127,20 @@ SingletonM(BaseHandleUtil)
     }
     // 获取并返回首字母
     return initial;
+}
+
+#pragma mark - 设置未读消息条数角标提醒
+- (void)msgBadge:(int)badge {
+    // 设置app角标(若为0则系统会自动清除角标)
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:badge];
+    
+    MainTabBarController *mainTabBarController = [MainTabBarController sharedMainTabBarController];
+    // 设置tabBar消息角标
+    if(badge > 0){
+        [mainTabBarController.tabBar.items objectAtIndex:2].badgeValue = [NSString stringWithFormat:@"%d", badge];
+    }else{
+        [mainTabBarController.tabBar.items objectAtIndex:2].badgeValue = nil;
+    }
 }
 
 @end

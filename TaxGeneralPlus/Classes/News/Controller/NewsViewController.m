@@ -76,7 +76,6 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     
     [self.navigationController.navigationBar yz_reset];
 }
-
 #pragma mark - 滚动屏幕渐进渐出顶部导航栏
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     UIColor * color = DEFAULT_BLUE_COLOR;
@@ -104,16 +103,15 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     _data = [[NSMutableArray alloc] init];
     
     // 请求数据
-    [[NewsUtil sharedNewsUtil] initDataWithPageSize:10 dataBlock:^(NSDictionary *dataDict) {
-        
+    [[NewsUtil sharedNewsUtil] initDataWithPageSize:10 success:^(NSDictionary *dataDict) {
         _totalPage = [[dataDict objectForKey:@"totalPage"] intValue];
         
         // 顶部轮播焦点图数据
         /*
-        NSDictionary *loopDict = [dataDict objectForKey:@"loopResult"];
-        NSArray *titles = [loopDict objectForKey:@"titles"];
-        NSArray *images = [loopDict objectForKey:@"images"];
-        NSArray *urls = [loopDict objectForKey:@"urls"];
+         NSDictionary *loopDict = [dataDict objectForKey:@"loopResult"];
+         NSArray *titles = [loopDict objectForKey:@"titles"];
+         NSArray *images = [loopDict objectForKey:@"images"];
+         NSArray *urls = [loopDict objectForKey:@"urls"];
          */
         NSArray *titles = @[@"[学习十九大报告·一日一课]建设美丽中国", @"在新的历史方位上认识和推动国家治理体系和治理能力现代化", @"中央首次派宣讲团赴港宣讲十九大 这位正部领衔", @"多架轰6K等战机飞赴南海战斗巡航的背后"];
         NSArray *images = @[@"cycle_1", @"cycle_2", @"cycle_3", @"cycle_4"];
@@ -136,11 +134,18 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
             self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];// 设置上拉加载
             [self.tableView.mj_footer resetNoMoreData]; // 重置没有更多的数据（消除没有更多数据的状态）
         }
-        
-    } failed:^(NSString *error) {
+    } failure:^(NSString *error) {
         [self.tableView.mj_header endRefreshing];// 结束头部刷新
         [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow];// 错误提示
+    } invalid:^(NSString *msg) {
+        [self.tableView.mj_header endRefreshing];// 结束头部刷新
+        
+        [UIAlertController showAlertInViewController:self withTitle:@"提示" message:msg cancelButtonTitle:@"重新登录" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
+            DLog(@"注销方法");
+        }];
+        
     }];
+
 }
 
 #pragma mark - 加载更多数据
@@ -148,8 +153,7 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     
     _pageNo++;
     
-    [[NewsUtil sharedNewsUtil] moreDataWithPageNo:_pageNo pageSize:10 dataBlock:^(NSArray *dataArray) {
-        
+    [[NewsUtil sharedNewsUtil] moreDataWithPageNo:_pageNo pageSize:10 success:^(NSArray *dataArray) {
         for(NSDictionary *dataDict in dataArray){
             NewsModel *model = [NewsModel createWithDictionary:dataDict];
             [_data addObject:model];
@@ -163,11 +167,20 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
             // 拿到当前的上拉刷新控件，变为没有更多数据的状态
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
         }
-    } failed:^(NSString *error) {
+    } failure:^(NSString *error) {
         _pageNo--;
         [self.tableView.mj_footer endRefreshing];   // 结束底部刷新
         [self.tableView.mj_footer resetNoMoreData]; // 重置没有更多的数据（消除没有更多数据的状态）
         [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow];// 错误提示
+    } invalid:^(NSString *msg) {
+        _pageNo--;
+        [self.tableView.mj_footer endRefreshing];   // 结束底部刷新
+        [self.tableView.mj_footer resetNoMoreData]; // 重置没有更多的数据（消除没有更多数据的状态）
+        
+        [UIAlertController showAlertInViewController:self withTitle:@"提示" message:msg cancelButtonTitle:@"重新登录" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
+            DLog(@"注销方法");
+        }];
+        
     }];
     
 }

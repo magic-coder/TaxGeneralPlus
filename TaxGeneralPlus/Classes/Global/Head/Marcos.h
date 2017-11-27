@@ -33,9 +33,6 @@
 #define APPDELEGETE             [[UIApplication sharedApplication] delegate]
 #define WINDOW                  [[UIApplication sharedApplication] keyWindow]
 #define PLACEHOLDER_IMAGE       [UIImage imageNamed:@"common_placeholder"]
-#define REQUEST_SUCCESS         [@"00" isEqualToString:[responseObject objectForKey:@"statusCode"]]
-#define LOGIN_INVALID           [@"510" isEqualToString:[responseObject objectForKey:@"statusCode"]]
-#define RESPONSE_MSG            [responseObject objectForKey:@"msg"]
 #define IS_LOGIN                (nil != [[NSUserDefaults standardUserDefaults] objectForKey:LOGIN_SUCCESS])
 #define SHOW_LOGIN_VIEW         [self presentViewController:[[NSClassFromString(@"LoginViewController") class] new] animated:YES completion:nil];
 
@@ -64,6 +61,7 @@
 #define APP_FILE        @"appData.plist"
 #define APP_SUB_FILE    @"appSubData.plist"
 #define APP_SEARCH_FILE @"appSearchData.plist"
+#define MSG_FILE        @"msgData.plist"
 
 
 #endif /* Marcos_h */

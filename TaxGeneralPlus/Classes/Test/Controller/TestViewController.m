@@ -7,8 +7,6 @@
 //
 
 #import "TestViewController.h"
-#import "TestModel.h"
-#import "NewsModel.h"
 
 @interface TestViewController () <YBPopupMenuDelegate, YZCycleScrollViewDelegate>
 
@@ -175,13 +173,15 @@
         [dict setObject:@"10" forKey:@"pageSize"];
         NSDictionary *loginDict = [[NSUserDefaults standardUserDefaults] objectForKey:LOGIN_SUCCESS];
         [dict setObject:[loginDict objectForKey:@"orgCode"] forKey:@"orgCode"];
-                
-        [YZNetworkingManager POST:@"public/photonews/index" parameters:dict success:^(NSURLSessionDataTask *task, id responseObject) {
-            DLog(@"responseObject = %@", responseObject);
-        } failure:^(NSURLSessionDataTask *task, NSString *error) {
-            DLog(@"error = %@", error);
-        }];
         
+        [YZNetworkingManager POST:@"public/photonews/index" parameters:dict success:^(id responseObject) {
+            DLog(@"responseObject = %@", responseObject);
+        } failure:^(NSString *error) {
+            DLog(@"error = %@", error);
+        } invalid:^(NSString *msg) {
+            DLog(@"msg = %@", msg);
+        }];
+
     }
     
     if(5 == btn.tag){

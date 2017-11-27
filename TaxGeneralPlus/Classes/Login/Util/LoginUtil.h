@@ -15,9 +15,16 @@
 SingletonH(LoginUtil)
 
 // 通过app进行登录
-- (void)loginWithAppDict:(NSMutableDictionary *)dict success:(void (^)(void))success failed:(void (^)(NSString *error))failed;
+- (void)loginWithAppDict:(NSMutableDictionary *)dict
+                 success:(void (^)(void))success
+                 failure:(void (^)(NSString *error))failure;
 
 // 通过token进行登录
-- (void)loginWithTokenSuccess:(void (^)(void))success failed:(void (^)(NSString *error))failed;
+- (void)loginWithTokenSuccess:(void (^)(void))success
+                      failure:(void (^)(NSString *error))failure;
+
+// 用户注销（退出登录）方法
+- (void)logout:(void (^)(void))success
+       failure:(void (^)(NSString *error))failure;
 
 @end

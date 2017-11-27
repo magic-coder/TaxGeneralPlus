@@ -28,7 +28,4 @@ SingletonH(MineUtil)
 // 设置数据（第二级）
 - (NSMutableArray *)settingData;
 
-// 用户注销（退出登录）方法
-- (void)accountLogout:(void (^)(void))success failed:(void (^)(NSString *error))failed;
-
 @end

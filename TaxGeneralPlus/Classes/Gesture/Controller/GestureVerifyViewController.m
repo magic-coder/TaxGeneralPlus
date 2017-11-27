@@ -13,7 +13,6 @@
 #import "PCCircleView.h"
 #import "PCLockLabel.h"
 #import "GestureViewController.h"
-#import "MineUtil.h"
 
 @interface GestureVerifyViewController ()<CircleViewDelegate>
 
@@ -101,18 +100,13 @@
                 [UIAlertController showAlertInViewController:self withTitle:@"异常操作" message:@"手势密码输入错误次数过多，需注销后重新登录！" cancelButtonTitle:@"注销账户" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
                     
                     [MBProgressHUD showHUDView:self.view text:@"注销中..." progressHUDMode:YZProgressHUDModeLock];
-                    [[MineUtil sharedMineUtil] accountLogout:^{
-                        
+                    [[LoginUtil sharedLoginUtil] logout:^{
                         [MBProgressHUD hiddenHUDView:self.view];
                         [self.navigationController popToViewController:self.navigationController.viewControllers[0] animated:YES];
-                        
-                    } failed:^(NSString *error) {
-                        
+                    } failure:^(NSString *error) {
                         [MBProgressHUD hiddenHUDView:self.view];
                         [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow];
-                        
                     }];
-                    
                 }];
             }else{
                 [self.msgLabel showWarnMsgAndShake:gestureTextGestureVerifyError(_num)];

@@ -74,4 +74,12 @@ SingletonH(BaseHandleUtil)
  */
 - (NSString *)transform:(NSString *)chinese;
 
+
+/**
+ * 设置未读消息条数角标提醒
+ *
+ * @param badge 未读消息条数
+ */
+- (void)msgBadge:(int)badge;
+
 @end

@@ -1,10 +1,12 @@
-//
-//  MsgDetailModel.h
-//  TaxGeneralPlus
-//
-//  Created by Apple on 2017/11/24.
-//  Copyright © 2017年 prient. All rights reserved.
-//
+/************************************************************
+ Class    : MsgDetailModel.h
+ Describe : 消息明细列表数据模型
+ Company  : Prient
+ Author   : Yanzheng 严正
+ Date     : 2017-11-24
+ Version  : 1.0
+ Declare  : Copyright © 2017 Yanzheng. All rights reserved.
+ ************************************************************/
 
 #import <Foundation/Foundation.h>
 
@@ -22,6 +24,6 @@
 
 /************************ 类方法 ************************/
 + (MsgDetailModel *)createWithJSON:(id)json;
-+ (MsgDetailModel *)createDictionary:(NSDictionary *)dictionary;
++ (MsgDetailModel *)createWithDictionary:(NSDictionary *)dictionary;
 
 @end

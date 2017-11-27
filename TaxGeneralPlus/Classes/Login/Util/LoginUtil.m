@@ -9,13 +9,16 @@
  ************************************************************/
 
 #import "LoginUtil.h"
+#import "OneWayHTTPS.h"
 
 @implementation LoginUtil
 
 SingletonM(LoginUtil)
 
 #pragma mark - 通过app进行登录
-- (void)loginWithAppDict:(NSMutableDictionary *)dict success:(void (^)(void))success failed:(void (^)(NSString *))failed {
+- (void)loginWithAppDict:(NSMutableDictionary *)dict
+                 success:(void (^)(void))success
+                 failure:(void (^)(NSString *))failure {
 
     // 获取设备信息
     NSDictionary *deviceDict = [[NSUserDefaults standardUserDefaults] objectForKey:DEVICE_INFO];
@@ -26,9 +29,12 @@ SingletonM(LoginUtil)
     [dict setObject:[deviceDict objectForKey:@"deviceModel"] forKey:@"phonemodel"];
     [dict setObject:[deviceDict objectForKey:@"systemVersion"] forKey:@"osversion"];
     
-    [YZNetworkingManager POST:@"account/login" parameters:dict success:^(NSURLSessionDataTask *task, id responseObject) {
-        // 获取请求状态值
-        if(REQUEST_SUCCESS){
+    NSString *url = [NSString stringWithFormat:@"%@account/login", SERVER_URL];// 格式化请求 URL 参数
+    NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:[[BaseHandleUtil sharedBaseHandleUtil] JSONStringWithObject:dict], @"msg", nil];   // 格式化参数
+    
+    // 登录方法使用封装好的单向 HTTPS 认证请求，不使用 YZNetworkingManager 因为要进行重复登录校验，否则会冲突
+    [OneWayHTTPS POST:url parameters:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        if([@"00" isEqualToString:[responseObject objectForKey:@"statusCode"]]){    // 成功标志
             // 获取登录成功信息
             NSDictionary *businessData = [responseObject objectForKey:@"businessData"];
             [dict setObject:[businessData objectForKey:@"userName"] forKey:@"userName"];
@@ -51,17 +57,19 @@ SingletonM(LoginUtil)
             
             success();
         }else{
-            failed(RESPONSE_MSG);
+            failure([responseObject objectForKey:@"msg"]);
         }
     } failure:^(NSURLSessionDataTask *task, NSString *error) {
-        // 登录失败
-        failed(error);
+        failure(error);
     }];
     
 }
 
 #pragma mark - 通过token进行登录
-- (void)loginWithTokenSuccess:(void (^)(void))success failed:(void (^)(NSString *))failed {
+- (void)loginWithTokenSuccess:(void (^)(void))success
+                      failure:(void (^)(NSString *))failure {
+    
+    DLog(@"触发了Token登录");
     
     NSDictionary *deviceDict = [[NSUserDefaults standardUserDefaults] objectForKey:DEVICE_INFO];
     NSDictionary *userDict = [[NSUserDefaults standardUserDefaults] objectForKey:LOGIN_SUCCESS];
@@ -75,9 +83,12 @@ SingletonM(LoginUtil)
     [dict setObject:[deviceDict objectForKey:@"deviceModel"] forKey:@"phonemodel"];
     [dict setObject:[deviceDict objectForKey:@"systemVersion"] forKey:@"osversion"];
     
-    [YZNetworkingManager POST:@"account/login" parameters:dict success:^(NSURLSessionDataTask *task, id responseObject) {
-        if(REQUEST_SUCCESS){
-            
+    NSString *url = [NSString stringWithFormat:@"%@account/login", SERVER_URL];// 格式化请求 URL 参数
+    NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:[[BaseHandleUtil sharedBaseHandleUtil] JSONStringWithObject:dict], @"msg", nil];   // 格式化参数
+    
+    // 登录方法使用封装好的单向 HTTPS 认证请求，不使用 YZNetworkingManager 因为要进行重复登录校验，否则会冲突
+    [OneWayHTTPS POST:url parameters:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        if([@"00" isEqualToString:[responseObject objectForKey:@"statusCode"]]){    // 成功标志
             NSDictionary *businessData = [responseObject objectForKey:@"businessData"];
             [dict setObject:[businessData objectForKey:@"userName"] forKey:@"userName"];
             [dict setObject:[businessData objectForKey:@"orgCode"] forKey:@"orgCode"];
@@ -97,10 +108,65 @@ SingletonM(LoginUtil)
             
             success();
         }else{
-            failed(RESPONSE_MSG);
+            failure([responseObject objectForKey:@"msg"]);
         }
     } failure:^(NSURLSessionDataTask *task, NSString *error) {
-        failed(error);
+        failure(error);
+    }];
+    
+}
+
+#pragma mark - 用户注销（退出登录）方法
+- (void)logout:(void (^)(void))success
+       failure:(void (^)(NSString *))failure {
+    
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:@"app" forKey:@"loginType"];
+    
+    NSDictionary *userDict = [[NSUserDefaults standardUserDefaults] objectForKey:LOGIN_SUCCESS];
+    [dict setObject:[userDict objectForKey:@"userCode"] forKey:@"userCode"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@account/loginout", SERVER_URL];// 格式化请求 URL 参数
+    NSDictionary *param = [NSDictionary dictionaryWithObjectsAndKeys:[[BaseHandleUtil sharedBaseHandleUtil] JSONStringWithObject:dict], @"msg", nil];   // 格式化参数
+    
+    // 登录方法使用封装好的单向 HTTPS 认证请求，不使用 YZNetworkingManager 因为要进行重复登录校验，否则会冲突
+    [OneWayHTTPS POST:url parameters:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        if([@"00" isEqualToString:[responseObject objectForKey:@"statusCode"]]){    // 成功标志
+            // 删除用户登录信息
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:LOGIN_SUCCESS];
+            // 删除应用列表数据
+            [[BaseSandBoxUtil sharedBaseSandBoxUtil] removeFileName:APP_FILE];
+            [[BaseSandBoxUtil sharedBaseSandBoxUtil] removeFileName:APP_SUB_FILE];
+            [[BaseSandBoxUtil sharedBaseSandBoxUtil] removeFileName:APP_SEARCH_FILE];
+            // 删除消息信息
+            [[BaseSandBoxUtil sharedBaseSandBoxUtil] removeFileName:MSG_FILE];
+            // 删除用户设置信息
+            // 将用户TouchID设置信息删除
+            NSMutableDictionary *settingDict = [[BaseSettingUtil sharedBaseSettingUtil] loadSettingData];
+            [settingDict setValue:[NSNumber numberWithBool:NO] forKey:@"gesturePwd"];
+            [settingDict setValue:[NSNumber numberWithBool:NO] forKey:@"touchID"];
+            [[BaseSettingUtil sharedBaseSettingUtil] writeSettingData:settingDict];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:GESTURES_PASSWORD];
+            // 清理缓存
+            [[SDImageCache sharedImageCache] clearDiskOnCompletion:nil];
+            [[SDImageCache sharedImageCache] clearMemory];
+            // 清空Cookie
+            NSHTTPCookieStorage * loginCookie = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+            for (NSHTTPCookie * cookie in [loginCookie cookies]){
+                [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
+            }
+            // 删除沙盒自动生成的Cookies.binarycookies文件
+            NSString * path = NSHomeDirectory();
+            NSString * filePath = [path stringByAppendingPathComponent:@"/Library/Cookies/Cookies.binarycookies"];
+            NSFileManager * manager = [NSFileManager defaultManager];
+            [manager removeItemAtPath:filePath error:nil];
+            
+            success();
+        }else{
+            failure([responseObject objectForKey:@"msg"]);
+        }
+    } failure:^(NSURLSessionDataTask *task, NSString *error) {
+        failure(error);
     }];
 }
 

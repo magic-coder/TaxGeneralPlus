@@ -45,7 +45,7 @@ SingletonM(MainTabBarController)
                            SELECTED_IMAGE   :   @"tabbar_appHL"
                            },
                        @{
-                           CLASS_NAME       :   @"MsgViewController",
+                           CLASS_NAME       :   @"MsgListViewController",
                            TITLE            :   @"消息",
                            IMAGE            :   @"tabbar_msg",
                            SELECTED_IMAGE   :   @"tabbar_msgHL"
