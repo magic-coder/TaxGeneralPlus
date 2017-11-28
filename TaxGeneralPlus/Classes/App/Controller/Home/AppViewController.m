@@ -100,16 +100,16 @@ typedef NS_ENUM(NSInteger, AppViewType) {
         if(appData){
             [self initAppData:appData];
         }else{
+            [MBProgressHUD showHUDView:self.view text:nil progressHUDMode:YZProgressHUDModeLock];
             [[AppUtil sharedAppUtil] initAppDataSuccess:^(NSMutableDictionary *dataDict) {
+                [MBProgressHUD hiddenHUDView:self.view];
                 [self initAppData:dataDict];
             } failure:^(NSString *error) {
+                [MBProgressHUD hiddenHUDView:self.view];
                 [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow];
             } invalid:^(NSString *msg) {
-                [UIAlertController showAlertInViewController:self withTitle:@"提示" message:msg cancelButtonTitle:@"重新登录" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
-                    DLog(@"注销方法");
-                }];
+                SHOW_RELOGIN_VIEW
             }];
-            
         }
     }else{
         SHOW_LOGIN_VIEW

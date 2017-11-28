@@ -26,20 +26,17 @@
     }
     
     [OneWayHTTPS POST:url parameters:param success:^(NSURLSessionDataTask *task, id responseObject) {
-        if([@"00" isEqualToString:[responseObject objectForKey:@"statusCode"]]){// 成功标志
+        if([@"00" isEqualToString:[responseObject objectForKey:@"statusCode"]]){    // 成功标志
             success(responseObject);
-        }else if([@"500" isEqualToString:[responseObject objectForKey:@"statusCode"]]){
-            invalid(@"未登录，登录后即可使用该功能");
-        }else if([@"510" isEqualToString:[responseObject objectForKey:@"statusCode"]]){
-            invalid(@"登录已失效，请重新登录");
         }else{
             [[LoginUtil sharedLoginUtil] loginWithTokenSuccess:^{
+                // token 登录成功，重新开始业务请求
                 [OneWayHTTPS POST:url parameters:param success:^(NSURLSessionDataTask *task, id responseObject) {
-                    if([@"00" isEqualToString:[responseObject objectForKey:@"statusCode"]]){// 成功标志
+                    if([@"00" isEqualToString:[responseObject objectForKey:@"statusCode"]]){    // 成功标志
                         success(responseObject);
-                    }else if([@"500" isEqualToString:[responseObject objectForKey:@"statusCode"]]){
+                    }else if([@"500" isEqualToString:[responseObject objectForKey:@"statusCode"]]){ // 用户未登录
                         invalid(@"未登录，登录后即可使用该功能");
-                    }else if([@"510" isEqualToString:[responseObject objectForKey:@"statusCode"]]){
+                    }else if([@"510" isEqualToString:[responseObject objectForKey:@"statusCode"]]){ // token 登录失效
                         invalid(@"登录已失效，请重新登录");
                     }else{
                         failure([responseObject objectForKey:@"msg"]);
@@ -49,6 +46,8 @@
                 }];
             } failure:^(NSString *error) {
                 failure(error);
+            } invalid:^(NSString *msg) {
+                invalid(msg);
             }];
         }
     } failure:^(NSURLSessionDataTask *task, NSString *error) {
@@ -69,20 +68,17 @@
     }
     
     [OneWayHTTPS GET:url parameters:param success:^(NSURLSessionDataTask *task, id responseObject) {
-        if([@"00" isEqualToString:[responseObject objectForKey:@"statusCode"]]){// 成功标志
+        if([@"00" isEqualToString:[responseObject objectForKey:@"statusCode"]]){    // 成功标志
             success(responseObject);
-        }else if([@"500" isEqualToString:[responseObject objectForKey:@"statusCode"]]){
-            invalid(@"未登录，登录后即可使用该功能");
-        }else if([@"510" isEqualToString:[responseObject objectForKey:@"statusCode"]]){
-            invalid(@"登录已失效，请重新登录");
         }else{
             [[LoginUtil sharedLoginUtil] loginWithTokenSuccess:^{
+                // token 登录成功，重新开始业务请求
                 [OneWayHTTPS POST:url parameters:param success:^(NSURLSessionDataTask *task, id responseObject) {
-                    if([@"00" isEqualToString:[responseObject objectForKey:@"statusCode"]]){// 成功标志
+                    if([@"00" isEqualToString:[responseObject objectForKey:@"statusCode"]]){    // 成功标志
                         success(responseObject);
-                    }else if([@"500" isEqualToString:[responseObject objectForKey:@"statusCode"]]){
+                    }else if([@"500" isEqualToString:[responseObject objectForKey:@"statusCode"]]){ // 用户未登录
                         invalid(@"未登录，登录后即可使用该功能");
-                    }else if([@"510" isEqualToString:[responseObject objectForKey:@"statusCode"]]){
+                    }else if([@"510" isEqualToString:[responseObject objectForKey:@"statusCode"]]){ // token 登录失效
                         invalid(@"登录已失效，请重新登录");
                     }else{
                         failure([responseObject objectForKey:@"msg"]);
@@ -92,6 +88,8 @@
                 }];
             } failure:^(NSString *error) {
                 failure(error);
+            } invalid:^(NSString *msg) {
+                invalid(msg);
             }];
         }
     } failure:^(NSURLSessionDataTask *task, NSString *error) {

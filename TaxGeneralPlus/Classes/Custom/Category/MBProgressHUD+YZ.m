@@ -26,8 +26,9 @@
     }
     
     if(YZProgressHUDModeShow == progressHUDMode) {
+        hud.label.font = [UIFont systemFontOfSize:15.0f];
         hud.mode = MBProgressHUDModeText;// 设置样式为只显示文字
-        [hud hideAnimated:YES afterDelay:1.2f];// 1.2秒后自动消失
+        [hud hideAnimated:YES afterDelay:1.7f];// 1.7秒后自动消失
     }
     
 }

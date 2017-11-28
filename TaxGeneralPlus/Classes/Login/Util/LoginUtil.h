@@ -21,7 +21,8 @@ SingletonH(LoginUtil)
 
 // 通过token进行登录
 - (void)loginWithTokenSuccess:(void (^)(void))success
-                      failure:(void (^)(NSString *error))failure;
+                      failure:(void (^)(NSString *error))failure
+                      invalid:(void (^)(NSString *msg))invalid;
 
 // 用户注销（退出登录）方法
 - (void)logout:(void (^)(void))success

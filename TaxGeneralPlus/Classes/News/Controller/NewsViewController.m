@@ -140,10 +140,7 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     } invalid:^(NSString *msg) {
         [self.tableView.mj_header endRefreshing];// 结束头部刷新
         
-        [UIAlertController showAlertInViewController:self withTitle:@"提示" message:msg cancelButtonTitle:@"重新登录" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
-            DLog(@"注销方法");
-        }];
-        
+        SHOW_RELOGIN_VIEW
     }];
 
 }
@@ -177,10 +174,7 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
         [self.tableView.mj_footer endRefreshing];   // 结束底部刷新
         [self.tableView.mj_footer resetNoMoreData]; // 重置没有更多的数据（消除没有更多数据的状态）
         
-        [UIAlertController showAlertInViewController:self withTitle:@"提示" message:msg cancelButtonTitle:@"重新登录" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
-            DLog(@"注销方法");
-        }];
-        
+        SHOW_RELOGIN_VIEW
     }];
     
 }

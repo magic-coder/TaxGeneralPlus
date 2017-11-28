@@ -67,9 +67,9 @@ SingletonM(LoginUtil)
 
 #pragma mark - 通过token进行登录
 - (void)loginWithTokenSuccess:(void (^)(void))success
-                      failure:(void (^)(NSString *))failure {
-    
-    DLog(@"触发了Token登录");
+                      failure:(void (^)(NSString *))failure
+                      invalid:(void (^)(NSString *))invalid {
+    DLog(@"开始进行Token登录...");
     
     NSDictionary *deviceDict = [[NSUserDefaults standardUserDefaults] objectForKey:DEVICE_INFO];
     NSDictionary *userDict = [[NSUserDefaults standardUserDefaults] objectForKey:LOGIN_SUCCESS];
@@ -107,13 +107,14 @@ SingletonM(LoginUtil)
             [[NSUserDefaults standardUserDefaults] synchronize]; // 强制写入
             
             success();
+        }else if([@"510" isEqualToString:[responseObject objectForKey:@"statusCode"]]){ // token 失效需重新登录
+            invalid([responseObject objectForKey:@"msg"]);
         }else{
             failure([responseObject objectForKey:@"msg"]);
         }
     } failure:^(NSURLSessionDataTask *task, NSString *error) {
         failure(error);
     }];
-    
 }
 
 #pragma mark - 用户注销（退出登录）方法

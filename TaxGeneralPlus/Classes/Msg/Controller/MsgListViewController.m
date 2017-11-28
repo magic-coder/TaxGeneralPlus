@@ -89,9 +89,7 @@ static int const pageSize = 100;
         self.navigationItem.titleView = nil;
         self.navigationItem.title = @"未连接";
         
-        [UIAlertController showAlertInViewController:self withTitle:@"提示" message:msg cancelButtonTitle:@"重新登录" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
-            DLog(@"注销方法");
-        }];
+        SHOW_RELOGIN_VIEW
     }];
 }
 

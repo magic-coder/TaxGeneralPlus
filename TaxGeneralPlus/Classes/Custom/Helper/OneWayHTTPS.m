@@ -37,7 +37,9 @@
         _manager.responseSerializer = [AFHTTPResponseSerializer serializer];
         // 如果报接受类型不一致请替换一致text/html  或者 text/plain
         _manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/plain", nil];
-        //[_manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+        // 设置请求头类型
+        _manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+        [_manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
         
         // 请求超时，时间设置
         _manager.requestSerializer.timeoutInterval = 20.0;
@@ -136,20 +138,65 @@
     DLog("错误提示信息：%@", error.description);
     
     switch (error.code) {
+        case NSURLErrorCancelled:
+            return @"取消错误！";
+            break;
+        case NSURLErrorBadURL:
+            return @"无效的URL！";
+            break;
         case NSURLErrorTimedOut:
-            return @"访问服务器超时，请检查网络！";
+            return @"访问服务器超时！";
             break;
         case NSURLErrorUnsupportedURL:
-            return @"无效的访问地址，请联系管理员！";
+            return @"不支持的URL地址！";
+            break;
+        case NSURLErrorCannotFindHost:
+            return @"找不到服务器！";
+            break;
+        case NSURLErrorCannotConnectToHost:
+            return @"无法连接服务器！";
+            break;
+        case NSURLErrorNetworkConnectionLost:
+            return @"网络连接异常！";
+            break;
+        case NSURLErrorDNSLookupFailed:
+            return @"DNS解析失败！";
+            break;
+        case NSURLErrorHTTPTooManyRedirects:
+            return @"HTTP重定向太多！";
+            break;
+        case NSURLErrorResourceUnavailable:
+            return @"资源不可用！";
             break;
         case NSURLErrorNotConnectedToInternet:
-            return @"网络连接失败，请检查网络！";
+            return @"无网络连接！";
+            break;
+        case NSURLErrorRedirectToNonExistentLocation:
+            return @"重定向位置不存在！";
             break;
         case NSURLErrorBadServerResponse:
-            return @"404错误，请稍后再试！";
+            return @"服务器响应异常！";
+            break;
+        case NSURLErrorUserCancelledAuthentication:
+            return @"用户取消授权！";
+            break;
+        case NSURLErrorUserAuthenticationRequired:
+            return @"需要用户授权！";
+            break;
+        case NSURLErrorZeroByteResource:
+            return @"零字节资源！";
+            break;
+        case NSURLErrorCannotDecodeRawData:
+            return @"无法解码原始数据！";
+            break;
+        case NSURLErrorCannotDecodeContentData:
+            return @"无法解码内容数据！";
+            break;
+        case NSURLErrorCannotParseResponse:
+            return @"无法解析响应！";
             break;
         default:
-            return @"未知错误异常，请稍后再试！";
+            return @"未知异常！";
             break;
     }
 }

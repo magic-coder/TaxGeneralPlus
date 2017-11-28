@@ -24,6 +24,7 @@
 		1816084B1F99DBDE00EC0FC3 /* Navigation.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1816084A1F99DBDE00EC0FC3 /* Navigation.xcassets */; };
 		181608501F99DD5B00EC0FC3 /* UIImage+YZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 1816084F1F99DD5B00EC0FC3 /* UIImage+YZ.m */; };
 		181608541F99E3BD00EC0FC3 /* UIDevice+YZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 181608531F99E3BD00EC0FC3 /* UIDevice+YZ.m */; };
+		18339AF51FCD0897001E50DD /* Map.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18339AF41FCD0897001E50DD /* Map.xcassets */; };
 		1836FCBB1FA1E3D900ABDA10 /* NewsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1836FCBA1FA1E3D900ABDA10 /* NewsTableViewCell.m */; };
 		1836FCBE1FA1ED1400ABDA10 /* UIView+YZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 1836FCBD1FA1ED1400ABDA10 /* UIView+YZ.m */; };
 		1836FCC41FA1F6AB00ABDA10 /* NewsUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1836FCC31FA1F6AB00ABDA10 /* NewsUtil.m */; };
@@ -126,7 +127,6 @@
 		18B358BB1F9F542400F9CF73 /* MJRefreshComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B358A51F9F542400F9CF73 /* MJRefreshComponent.m */; };
 		18C02E4F1FA71549009EBD36 /* AppView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C02E4E1FA71549009EBD36 /* AppView.m */; };
 		18C02E521FA71582009EBD36 /* AppModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C02E511FA71582009EBD36 /* AppModel.m */; };
-		18C02E551FA72609009EBD36 /* App.json in Resources */ = {isa = PBXBuildFile; fileRef = 18C02E541FA72609009EBD36 /* App.json */; };
 		18C192311FCBB0A800A90B22 /* MsgListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C192301FCBB0A800A90B22 /* MsgListViewCell.m */; };
 		18C192341FCBB5C700A90B22 /* MsgListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C192331FCBB5C700A90B22 /* MsgListViewController.m */; };
 		18C192371FCBBC6400A90B22 /* MsgDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C192361FCBBC6400A90B22 /* MsgDetailViewController.m */; };
@@ -202,6 +202,8 @@
 		1816084F1F99DD5B00EC0FC3 /* UIImage+YZ.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+YZ.m"; sourceTree = "<group>"; };
 		181608521F99E3BD00EC0FC3 /* UIDevice+YZ.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIDevice+YZ.h"; sourceTree = "<group>"; };
 		181608531F99E3BD00EC0FC3 /* UIDevice+YZ.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+YZ.m"; sourceTree = "<group>"; };
+		18339AF31FCD00AA001E50DD /* Codeing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Codeing.h; sourceTree = "<group>"; };
+		18339AF41FCD0897001E50DD /* Map.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Map.xcassets; sourceTree = "<group>"; };
 		1836FCB91FA1E3D900ABDA10 /* NewsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsTableViewCell.h; sourceTree = "<group>"; };
 		1836FCBA1FA1E3D900ABDA10 /* NewsTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsTableViewCell.m; sourceTree = "<group>"; };
 		1836FCBC1FA1ED1400ABDA10 /* UIView+YZ.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+YZ.h"; sourceTree = "<group>"; };
@@ -246,7 +248,6 @@
 		1874B7BE1FBBE6B5001E94F0 /* AccountViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountViewController.h; sourceTree = "<group>"; };
 		1874B7BF1FBBE6B5001E94F0 /* AccountViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccountViewController.m; sourceTree = "<group>"; };
 		188AE56C1FA03763008F7D60 /* Singleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
-		188AE56D1FA0387F008F7D60 /* Log.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Log.h; sourceTree = "<group>"; };
 		188AE5711FA054DF008F7D60 /* YZCycleScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YZCycleScrollView.h; sourceTree = "<group>"; };
 		188AE5721FA054DF008F7D60 /* YZCycleScrollView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YZCycleScrollView.m; sourceTree = "<group>"; };
 		1895A8231FB4387200DB9AFC /* AppSubViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppSubViewCell.h; sourceTree = "<group>"; };
@@ -409,7 +410,6 @@
 		18C02E4E1FA71549009EBD36 /* AppView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppView.m; sourceTree = "<group>"; };
 		18C02E501FA71582009EBD36 /* AppModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppModel.h; sourceTree = "<group>"; };
 		18C02E511FA71582009EBD36 /* AppModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppModel.m; sourceTree = "<group>"; };
-		18C02E541FA72609009EBD36 /* App.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = App.json; sourceTree = "<group>"; };
 		18C1922F1FCBB0A800A90B22 /* MsgListViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MsgListViewCell.h; sourceTree = "<group>"; };
 		18C192301FCBB0A800A90B22 /* MsgListViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MsgListViewCell.m; sourceTree = "<group>"; };
 		18C192321FCBB5C700A90B22 /* MsgListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MsgListViewController.h; sourceTree = "<group>"; };
@@ -538,6 +538,7 @@
 				18DE15C21FB9458900434F91 /* Login.xcassets */,
 				189B559B1FC829E6003031A9 /* News.xcassets */,
 				18C1923C1FCBFB8100A90B22 /* Msg.xcassets */,
+				18339AF41FCD0897001E50DD /* Map.xcassets */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -844,8 +845,8 @@
 		183D26F41FC6607200C2A607 /* Head */ = {
 			isa = PBXGroup;
 			children = (
-				188AE56D1FA0387F008F7D60 /* Log.h */,
 				1838270B1F90B1900076C8A5 /* Marcos.h */,
+				18339AF31FCD00AA001E50DD /* Codeing.h */,
 				188AE56C1FA03763008F7D60 /* Singleton.h */,
 			);
 			path = Head;
@@ -906,14 +907,6 @@
 				186E5ADE1FA1C0CF00228258 /* NSObject+YYModel.m */,
 			);
 			path = YYModel;
-			sourceTree = "<group>";
-		};
-		186E5AEC1FA1CB4400228258 /* Json */ = {
-			isa = PBXGroup;
-			children = (
-				18C02E541FA72609009EBD36 /* App.json */,
-			);
-			path = Json;
 			sourceTree = "<group>";
 		};
 		1874B7BC1FBBE620001E94F0 /* Account */ = {
@@ -1326,7 +1319,6 @@
 			isa = PBXGroup;
 			children = (
 				18AC77471FA857C800EB630B /* Credential */,
-				186E5AEC1FA1CB4400228258 /* Json */,
 				181608471F99A61E00EC0FC3 /* Images */,
 			);
 			path = Resources;
@@ -1668,6 +1660,7 @@
 				1804C9E41FA082D400FCC6F1 /* Common.xcassets in Resources */,
 				189B559C1FC829E6003031A9 /* News.xcassets in Resources */,
 				18E2C4051FBEC64600881A8A /* common_loading_wait.gif in Resources */,
+				18339AF51FCD0897001E50DD /* Map.xcassets in Resources */,
 				18B358AA1F9F542400F9CF73 /* MJRefresh.bundle in Resources */,
 				183826F91F90B08C0076C8A5 /* Assets.xcassets in Resources */,
 				18E4EDBA1F9F253400CAB201 /* PopupMenu.xcassets in Resources */,
@@ -1675,7 +1668,6 @@
 				180A90C41FB2EDEA00F7D213 /* Mine.xcassets in Resources */,
 				183826F71F90B08C0076C8A5 /* Main.storyboard in Resources */,
 				18AC774C1FA8595100EB630B /* root-cert.der in Resources */,
-				18C02E551FA72609009EBD36 /* App.json in Resources */,
 				181608491F99A69900EC0FC3 /* TabBar.xcassets in Resources */,
 				18C1923D1FCBFB8100A90B22 /* Msg.xcassets in Resources */,
 			);

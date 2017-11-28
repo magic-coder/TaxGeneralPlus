@@ -38,7 +38,7 @@
     _window.rootViewController = [[NSClassFromString(@"MainTabBarController") class] new];
     [_window makeKeyAndVisible];
     
-    //[self verifyUnlock];// 判断是否设置安全密码
+    [self verifyUnlock];// 判断是否设置安全密码
     
     return YES;
 }
@@ -83,32 +83,22 @@
     MainTabBarController *mainTabBarController = [MainTabBarController sharedMainTabBarController];
     
     if(IS_LOGIN){
-        // 重新触发token登录
-        [[LoginUtil sharedLoginUtil] loginWithTokenSuccess:^{
-            DLog(@"初始化Token登录完毕");
-            // 校验用户是否开启了手势密码、指纹解锁，并进行相应跳转
-            NSDictionary *settingDict = [[BaseSettingUtil sharedBaseSettingUtil] loadSettingData];
-            
-            if([[settingDict objectForKey:@"touchID"] boolValue]){  // 指纹解锁
-                [mainTabBarController presentViewController:[[NSClassFromString(@"TouchIDViewController") class] new] animated:NO completion:nil];
-            }else{
-                if([[settingDict objectForKey:@"gesturePwd"] boolValue]){
-                    NSString *gesturePwd = [[NSUserDefaults standardUserDefaults] objectForKey:GESTURES_PASSWORD];
-                    if(gesturePwd.length > 0){  // 手势验证解锁
-                        GestureViewController *gestureVC = [[GestureViewController alloc] init];
-                        [gestureVC setType:GestureViewControllerTypeLogin];
-                        
-                        [mainTabBarController presentViewController:gestureVC animated:NO completion:nil];
-                    }
+        // 校验用户是否开启了手势密码、指纹解锁，并进行相应跳转
+        NSDictionary *settingDict = [[BaseSettingUtil sharedBaseSettingUtil] loadSettingData];
+        
+        if([[settingDict objectForKey:@"touchID"] boolValue]){  // 指纹解锁
+            [mainTabBarController presentViewController:[[NSClassFromString(@"TouchIDViewController") class] new] animated:NO completion:nil];
+        }else{
+            if([[settingDict objectForKey:@"gesturePwd"] boolValue]){
+                NSString *gesturePwd = [[NSUserDefaults standardUserDefaults] objectForKey:GESTURES_PASSWORD];
+                if(gesturePwd.length > 0){  // 手势验证解锁
+                    GestureViewController *gestureVC = [[GestureViewController alloc] init];
+                    [gestureVC setType:GestureViewControllerTypeLogin];
+                    
+                    [mainTabBarController presentViewController:gestureVC animated:NO completion:nil];
                 }
             }
-        } failure:^(NSString *error) {
-            [UIAlertController showAlertInViewController:mainTabBarController withTitle:@"提示" message:error cancelButtonTitle:@"重新登录" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
-                DLog(@"注销方法");
-            }];
-            
-        }];
-        
+        }
     }
 }
 

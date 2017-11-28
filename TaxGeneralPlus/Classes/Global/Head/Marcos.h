@@ -30,11 +30,6 @@
 #pragma mark - 常用方法宏定义
 #define RgbColor(r, g, b, a)    [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:a]
 #define HexColor(hex, a)        [UIColor colorWithHexString:hex alpha:a]
-#define APPDELEGETE             [[UIApplication sharedApplication] delegate]
-#define WINDOW                  [[UIApplication sharedApplication] keyWindow]
-#define PLACEHOLDER_IMAGE       [UIImage imageNamed:@"common_placeholder"]
-#define IS_LOGIN                (nil != [[NSUserDefaults standardUserDefaults] objectForKey:LOGIN_SUCCESS])
-#define SHOW_LOGIN_VIEW         [self presentViewController:[[NSClassFromString(@"LoginViewController") class] new] animated:YES completion:nil];
 
 #pragma mark - 自定义系统颜色Color
 #define DEFAULT_BACKGROUND_COLOR        RgbColor(239.0, 239.0, 244.0, 1.0f)
