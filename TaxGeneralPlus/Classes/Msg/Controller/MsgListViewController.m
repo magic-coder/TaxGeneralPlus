@@ -18,6 +18,9 @@
 @property (nonatomic, strong) NSMutableArray *data;             // 消息列表数据
 @property (nonatomic, assign) int pageNo;                       // 页码值
 
+@property (nonatomic, assign) double lastTimestamp;             // 最后一次进入时间戳
+@property (nonatomic, assign) double currentTimestamp;          // 当前时间戳
+
 @end
 
 @implementation MsgListViewController
@@ -51,7 +54,20 @@ static int const pageSize = 100;
     
     // 判断是否登录，若没登录则返回登录页面
     if(IS_LOGIN){
-        [self loadData];
+        // 计算上次刷新与当前时间戳
+        NSTimeInterval timestamp = [[NSDate date] timeIntervalSince1970];
+        _currentTimestamp = floor(timestamp);
+        if(_currentTimestamp - _lastTimestamp < 180){
+            NSDictionary *dataDict = [[MsgUtil sharedMsgUtil] loadMsgFile];
+            if(dataDict != nil){
+                [self handleDataDict:dataDict];// 数据处理
+            }else{
+                [self loadData];
+            }
+        }else{
+            _lastTimestamp = _currentTimestamp;
+            [self loadData];
+        }
     }else{
         SHOW_LOGIN_VIEW
     }

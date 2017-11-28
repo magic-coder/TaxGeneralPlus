@@ -12,16 +12,6 @@
 
 @interface BaseWebViewController : UIViewController
 
-@property (nonatomic, strong)NSURL *url;
-@property (nonatomic ,strong) NSMutableURLRequest *request;
-
-/**
- * @brief 根据远端URL地址加载
- */
 - (instancetype)initWithURL:(NSString *)url;
-/**
- * @brief 根据本地文件路径加载
- */
-- (instancetype)initWithFile:(NSString *)url;
 
 @end

@@ -39,8 +39,8 @@
 - (UIImageView *)backgroundImageView {
     if(!_backgroundImageView){
         _backgroundImageView = [[UIImageView alloc] initWithFrame:self.frame];
-        // [UIImage imageNamed:@"app_top_bg"]
-        [_backgroundImageView sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageWithColor:DEFAULT_BLUE_COLOR] options:SDWebImageAllowInvalidSSLCertificates completed:nil];
+        // [UIImage imageWithColor:DEFAULT_BLUE_COLOR]
+        [_backgroundImageView sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"app_top_bg"] options:SDWebImageAllowInvalidSSLCertificates completed:nil];
         _backgroundImageView.userInteractionEnabled = YES;
         _backgroundImageView.multipleTouchEnabled = YES;
         // 控制子视图不能超出父视图的范围
