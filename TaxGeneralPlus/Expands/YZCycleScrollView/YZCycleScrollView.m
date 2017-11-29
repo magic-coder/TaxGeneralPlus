@@ -26,7 +26,37 @@
 @implementation YZCycleScrollView
 
 #pragma mark - 初始化创建组件
-- (instancetype)initWithFrame:(CGRect)frame titles:(NSArray *)titles images:(NSArray *)images urls:(NSArray *)urls autoPlay:(BOOL)isAuto delay:(NSTimeInterval)timeInterval {
+-(instancetype)initWithTitles:(NSArray *)titles
+                       images:(NSArray *)images
+                         urls:(NSArray *)urls
+                     autoPlay:(BOOL)isAuto
+                        delay:(NSTimeInterval)timeInterval{
+    
+    if(self = [super init]){
+        _titles = titles;
+        _images = images;
+        _urls = urls;
+        _autoPlay = isAuto;
+        _timeInterval = timeInterval;
+        _currentPage = 0;
+        
+        [self addScrollView];
+        [self addPageControl];
+        if (self.autoPlay == YES) {
+            [self toPlay];
+        }
+    }
+    return self;
+}
+
+#pragma mark - 初始化创建组件
+- (instancetype)initWithFrame:(CGRect)frame
+                       titles:(NSArray *)titles
+                       images:(NSArray *)images
+                         urls:(NSArray *)urls
+                     autoPlay:(BOOL)isAuto
+                        delay:(NSTimeInterval)timeInterval {
+    
     if (self = [super initWithFrame:frame]) {
         _titles = titles;
         _images = images;

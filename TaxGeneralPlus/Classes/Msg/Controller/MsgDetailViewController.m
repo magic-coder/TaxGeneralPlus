@@ -9,7 +9,7 @@
  ************************************************************/
 
 #import "MsgDetailViewController.h"
-#import "MJRefresh.h"
+#import "MsgRefreshHeader.h"
 #import "MsgDetailViewCell.h"
 #import "MsgDetailModel.h"
 #import "MsgUtil.h"
@@ -195,10 +195,9 @@ static int const pageSize = 5;
         [self handleDataDict:dataDict];// 数据处理
         [self.tableView reloadData];
         [self reloadAfterMessage:NO];
-        if(_totalPage > 1){
+        if(_totalPage > 1)
             // 设置下拉刷新
-            self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
-        }
+            self.tableView.mj_header = [MsgRefreshHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
     } failure:^(NSString *error) {
         [MBProgressHUD hiddenHUDView:self.view];
         [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow];

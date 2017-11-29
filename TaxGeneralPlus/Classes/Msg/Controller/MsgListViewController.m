@@ -127,24 +127,28 @@ static int const pageSize = 100;
     _data = [[NSMutableArray alloc] init];
     
     NSArray *results = [dataDict objectForKey:@"results"];
-    NSMutableArray *sysData = [[NSMutableArray alloc] init];
-    NSMutableArray *userData = [[NSMutableArray alloc] init];
-    int badge = 0;
-    for(NSDictionary *dict in results){
-        MsgListModel *model = [MsgListModel createWithDictionary:dict];
-        if(![model.sourceCode isEqualToString:@"01"]){
-            [sysData addObject:model];
-        }else{
-            [userData addObject:model];
+    if(results.count > 0){
+        NSMutableArray *sysData = [[NSMutableArray alloc] init];
+        NSMutableArray *userData = [[NSMutableArray alloc] init];
+        int badge = 0;
+        for(NSDictionary *dict in results){
+            MsgListModel *model = [MsgListModel createWithDictionary:dict];
+            if(![model.sourceCode isEqualToString:@"01"]){
+                [sysData addObject:model];
+            }else{
+                [userData addObject:model];
+            }
+            
+            badge += [model.unReadCount intValue];
         }
+        [Variable sharedVariable].unReadCount = badge;
+        [[BaseHandleUtil sharedBaseHandleUtil] msgBadge:badge];// 设置提醒角标
         
-        badge += [model.unReadCount intValue];
+        [_data addObject:sysData];
+        [_data addObject:userData];
+    }else{
+        DLog(@"即将展示无消息数据视图");
     }
-    [Variable sharedVariable].unReadCount = badge;
-    [[BaseHandleUtil sharedBaseHandleUtil] msgBadge:badge];// 设置提醒角标
-    
-    [_data addObject:sysData];
-    [_data addObject:userData];
 }
 
 #pragma mark - Table view data source数据源方法

@@ -52,6 +52,7 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     // 设置下拉刷新
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(initializeData)];
     
+    [self autoLayout];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -59,6 +60,18 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - 自动布局
+- (void)autoLayout{
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(self.view);
+    }];
+    [self.tiggerBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.view).offset(-5);
+        make.right.equalTo(self.view).offset(-5);
+        make.width.mas_equalTo(60);
+        make.height.mas_equalTo(60);
+    }];
+}
 #pragma mark - 视图即将显示
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -124,9 +137,10 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
         NSArray *images = @[@"cycle_1", @"cycle_2", @"cycle_3", @"cycle_4"];
         NSArray *urls = @[@"http://www.qq.com", @"http://www.alibaba.com", @"http://www.baidu.com", @"http://www.jd.com"];
         
-        _cycleScrollView = [[YZCycleScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frameWidth, floorf((CGFloat)self.view.frameWidth/1.8)) titles:titles images:images urls:urls autoPlay:YES delay:2.0f];
+        _cycleScrollView = [[YZCycleScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frameWidth, floorf((CGFloat)self.view.frameWidth/1.8)) titles:titles images:images urls:urls autoPlay:YES delay:2.7f];
         _cycleScrollView.delegate = self;
         self.tableView.tableHeaderView = _cycleScrollView;
+        
         // 首页税闻列表数据
         NSArray *newsArray = [dataDict objectForKey:@"newsResult"];
         for(NSDictionary *newsDict in newsArray){
@@ -182,6 +196,7 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
 #pragma mark - <YZCycleScrollViewDelegate>顶部轮播图点击代理方法
 - (void)cycleScrollViewDidSelectedImage:(YZCycleScrollView *)cycleScrollView index:(int)index {
     BaseWebViewController *webVC = [[BaseWebViewController alloc] initWithURL:cycleScrollView.urls[index]];
+    webVC.title = @"详情";
     [self.navigationController pushViewController:webVC animated:YES];
 }
 
@@ -217,6 +232,7 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     NewsTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     
     BaseWebViewController *baseWebVC = [[BaseWebViewController alloc] initWithURL:cell.model.url];
+    baseWebVC.title = @"详情";
     [self.navigationController pushViewController:baseWebVC animated:YES];
     
     //[self.navigationController pushViewController:[NSClassFromString(@"TestViewController") new] animated:YES];
@@ -235,11 +251,14 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
 #pragma mark - 懒加载方法
 - (UITableView *)tableView {
     if(!_tableView){
+        _tableView = [[UITableView alloc] init];
+        /*
         if(DEVICE_SCREEN_INCH_5_8){
             _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, HEIGHT_SCREEN-HEIGHT_TABBAR-34) style:UITableViewStylePlain];
         }else{
             _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, HEIGHT_SCREEN-HEIGHT_TABBAR) style:UITableViewStylePlain];
         }
+         */
         _tableView.backgroundColor = [UIColor whiteColor];
         _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         //_tableView.showsVerticalScrollIndicator = NO;// 隐藏纵向滚动条
@@ -256,11 +275,13 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
 - (UIButton *)tiggerBtn {
     if(!_tiggerBtn){
         _tiggerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        /*
         if(DEVICE_SCREEN_INCH_5_8){
             _tiggerBtn.frame = CGRectMake(WIDTH_SCREEN-60, HEIGHT_SCREEN-HEIGHT_TABBAR-34-60, 60, 60);
         }else{
             _tiggerBtn.frame = CGRectMake(WIDTH_SCREEN-60, HEIGHT_SCREEN-HEIGHT_TABBAR-60, 60, 60);
         }
+        */
         [_tiggerBtn setImage:[UIImage imageNamed:@"common_trigger"] forState:UIControlStateNormal];
         [_tiggerBtn setImage:[UIImage imageNamed:@"common_triggerHL"] forState:UIControlStateHighlighted];
         [_tiggerBtn addTarget:self action:@selector(tiggerBtnAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -269,7 +290,7 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
 }
 - (GooeySlideMenu *)slideMenu {
     if(!_slideMenu){
-        _slideMenu = [[GooeySlideMenu alloc] initWithTitles:@[@"个人信息", @"每日签到", @"设置", @"功能介绍", @"常见问题"]];
+        _slideMenu = [[GooeySlideMenu alloc] initWithTitles:@[@"个人信息", @"每日签到", @"设置", @"功能介绍", @"常见问题", @"联系客服"]];
         _slideMenu.menuClickBlock = ^(NSInteger index, NSString *title, NSInteger titleCounts) {
             if(0 == index){
                 UIBarButtonItem *backItem=[[UIBarButtonItem alloc] init];
@@ -296,12 +317,15 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
                 questionVC.title =  title;
                 [super.navigationController pushViewController:questionVC animated:YES];
             }
+            if(5 == index){
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://029-87663504"] options:@{} completionHandler:nil];
+            }
         };
     }
     return _slideMenu;
 }
 
-#pragma mark - 菜单按钮点击事件
+#pragma mark - 菜单按钮点击左侧弹出菜单事件
 - (void)tiggerBtnAction:(UIButton *)sender {
     [self.slideMenu trigger];
 }
