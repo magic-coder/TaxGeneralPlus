@@ -7,8 +7,11 @@
 //
 
 #import "TestViewController.h"
+#import "NewsUtil.h"
 
 @interface TestViewController () <YBPopupMenuDelegate, YZCycleScrollViewDelegate>
+
+@property (nonatomic, assign) int i;
 
 @end
 
@@ -124,8 +127,8 @@
 
 - (void)onClick:(UIButton *)btn{
     if(0 == btn.tag){
-        [MBProgressHUD showHUDView:self.view text:@"请求超时，请联系管理员！" progressHUDMode:YZProgressHUDModeShow];
-        /*
+        //[MBProgressHUD showHUDView:self.view text:@"请求超时，请联系管理员！" progressHUDMode:YZProgressHUDModeShow];
+        
         [MBProgressHUD showHUDView:self.view text:@"加载中..." progressHUDMode:(YZProgressHUDModeLock)];
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
             sleep(2.0);
@@ -133,7 +136,6 @@
                 [MBProgressHUD hiddenHUDView:self.view];
             });
         });
-         */
     }
     
     if(1 == btn.tag){
@@ -171,20 +173,16 @@
     }
     
     if(4 == btn.tag){
+        _i = 0;
         
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        [dict setObject:@"10" forKey:@"pageSize"];
-        NSDictionary *loginDict = [[NSUserDefaults standardUserDefaults] objectForKey:LOGIN_SUCCESS];
-        [dict setObject:[loginDict objectForKey:@"orgCode"] forKey:@"orgCode"];
-        
-        [YZNetworkingManager POST:@"public/photonews/index" parameters:dict success:^(id responseObject) {
-            DLog(@"responseObject = %@", responseObject);
+        [[NewsUtil sharedNewsUtil] moreDataWithPageNo:2 pageSize:10 success:^(NSArray *dataArray) {
+            DLog(@"请求次数统计：%d", _i++);
         } failure:^(NSString *error) {
-            DLog(@"error = %@", error);
+            
         } invalid:^(NSString *msg) {
-            DLog(@"msg = %@", msg);
+            
         }];
-
+        
     }
     
     if(5 == btn.tag){
@@ -197,12 +195,10 @@
     }
     
     if(7 == btn.tag){
-        
         BaseWebViewController *webVC = [[BaseWebViewController alloc] initWithURL:@"http://www.qq.com"];
          
         [self.navigationController pushViewController:webVC animated:YES];
-        
-        
+
     }
     
 }

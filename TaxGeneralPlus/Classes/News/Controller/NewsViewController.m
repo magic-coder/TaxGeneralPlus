@@ -9,6 +9,7 @@
  ************************************************************/
 
 #import "NewsViewController.h"
+#import "GooeySlideMenu.h"
 #import "NewsTableViewCell.h"
 #import "NewsModel.h"
 #import "NewsUtil.h"
@@ -16,7 +17,11 @@
 
 #define NAVBAR_CHANGE_POINT 50
 
-@interface NewsViewController () <YZCycleScrollViewDelegate>
+@interface NewsViewController () <UITableViewDelegate, UITableViewDataSource, YZCycleScrollViewDelegate>
+
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) GooeySlideMenu *slideMenu;
+@property (nonatomic, strong) UIButton *tiggerBtn;
 
 @property (nonatomic, assign) int pageNo;                           // 页码值
 @property (nonatomic, assign) int totalPage;                        // 最大页
@@ -33,14 +38,16 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = DEFAULT_BACKGROUND_COLOR;
-    self.tableView.backgroundColor = [UIColor whiteColor];
-    self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;//
-    //self.tableView.showsVerticalScrollIndicator = NO;// 隐藏纵向滚动条
-    //self.tableView.rowHeight = 80;// 设置基本行高
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;// 自定义cell样式
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];// 去除底部多余分割线
+    self.title = @"首页";
+    
     [self.navigationController.navigationBar yz_setBackgroundColor:[UIColor clearColor]];
+    self.view.backgroundColor = DEFAULT_BACKGROUND_COLOR;
+    
+    [self.view addSubview:self.tableView];
+    [self.view addSubview:self.tiggerBtn];
+    
+    [self.view bringSubviewToFront:self.tiggerBtn];// 设置视图层级为最上层
+    [self.view sendSubviewToBack:self.tableView];// 设置视图层级为最上层
     
     // 设置下拉刷新
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(initializeData)];
@@ -130,10 +137,9 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
         
         [self.tableView.mj_header endRefreshing];// 结束头部刷新
         
-        if(_totalPage > 1){
+        if(_totalPage > 1)
             self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];// 设置上拉加载
-            [self.tableView.mj_footer resetNoMoreData]; // 重置没有更多的数据（消除没有更多数据的状态）
-        }
+        
     } failure:^(NSString *error) {
         [self.tableView.mj_header endRefreshing];// 结束头部刷新
         [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow];// 错误提示
@@ -151,29 +157,23 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     _pageNo++;
     
     [[NewsUtil sharedNewsUtil] moreDataWithPageNo:_pageNo pageSize:10 success:^(NSArray *dataArray) {
+        [self.tableView.mj_footer endRefreshing];// 结束底部刷新
+        
         for(NSDictionary *dataDict in dataArray){
             NewsModel *model = [NewsModel createWithDictionary:dataDict];
             [_data addObject:model];
         }
-        
         [self.tableView reloadData];
         
-        if(_pageNo < _totalPage){
-            [self.tableView.mj_footer endRefreshing];// 结束底部刷新
-        }else{
-            // 拿到当前的上拉刷新控件，变为没有更多数据的状态
-            [self.tableView.mj_footer endRefreshingWithNoMoreData];
-        }
     } failure:^(NSString *error) {
         _pageNo--;
         [self.tableView.mj_footer endRefreshing];   // 结束底部刷新
-        [self.tableView.mj_footer resetNoMoreData]; // 重置没有更多的数据（消除没有更多数据的状态）
+        
         [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow];// 错误提示
     } invalid:^(NSString *msg) {
         _pageNo--;
         [self.tableView.mj_footer endRefreshing];   // 结束底部刷新
-        [self.tableView.mj_footer resetNoMoreData]; // 重置没有更多的数据（消除没有更多数据的状态）
-        
+
         SHOW_RELOGIN_VIEW
     }];
     
@@ -230,6 +230,80 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
         return model.cellHeight;
     }
     return 0;
+}
+
+#pragma mark - 懒加载方法
+- (UITableView *)tableView {
+    if(!_tableView){
+        if(DEVICE_SCREEN_INCH_5_8){
+            _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, HEIGHT_SCREEN-HEIGHT_TABBAR-34) style:UITableViewStylePlain];
+        }else{
+            _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, HEIGHT_SCREEN-HEIGHT_TABBAR) style:UITableViewStylePlain];
+        }
+        _tableView.backgroundColor = [UIColor whiteColor];
+        _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        //_tableView.showsVerticalScrollIndicator = NO;// 隐藏纵向滚动条
+        //_tableView.rowHeight = 80;// 设置基本行高
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;// 自定义cell样式
+        _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];// 去除底部多余分割线
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        // 设置下拉刷新
+        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(initializeData)];
+    }
+    return _tableView;
+}
+- (UIButton *)tiggerBtn {
+    if(!_tiggerBtn){
+        _tiggerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        if(DEVICE_SCREEN_INCH_5_8){
+            _tiggerBtn.frame = CGRectMake(WIDTH_SCREEN-60, HEIGHT_SCREEN-HEIGHT_TABBAR-34-60, 60, 60);
+        }else{
+            _tiggerBtn.frame = CGRectMake(WIDTH_SCREEN-60, HEIGHT_SCREEN-HEIGHT_TABBAR-60, 60, 60);
+        }
+        [_tiggerBtn setImage:[UIImage imageNamed:@"common_trigger"] forState:UIControlStateNormal];
+        [_tiggerBtn setImage:[UIImage imageNamed:@"common_triggerHL"] forState:UIControlStateHighlighted];
+        [_tiggerBtn addTarget:self action:@selector(tiggerBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _tiggerBtn;
+}
+- (GooeySlideMenu *)slideMenu {
+    if(!_slideMenu){
+        _slideMenu = [[GooeySlideMenu alloc] initWithTitles:@[@"个人信息", @"每日签到", @"设置", @"功能介绍", @"常见问题"]];
+        _slideMenu.menuClickBlock = ^(NSInteger index, NSString *title, NSInteger titleCounts) {
+            if(0 == index){
+                UIBarButtonItem *backItem=[[UIBarButtonItem alloc] init];
+                backItem.title=@"首页";
+                super.navigationItem.backBarButtonItem = backItem;
+                [super.navigationController pushViewController:[[NSClassFromString(@"AccountViewController") class] new] animated:YES];
+            }
+            if(1 == index){
+                [MBProgressHUD showHUDView:super.view text:@"签到成功" progressHUDMode:YZProgressHUDModeShow];
+            }
+            if(2 == index){
+                UIBarButtonItem *backItem=[[UIBarButtonItem alloc] init];
+                backItem.title=@"首页";
+                super.navigationItem.backBarButtonItem = backItem;
+                [super.navigationController pushViewController:[[NSClassFromString(@"SettingViewController") class] new] animated:YES];
+            }
+            if(3 == index){
+                BaseWebViewController *introduceVC = [[BaseWebViewController alloc] initWithURL:[NSString stringWithFormat:@"%@taxnews/public/introductionIOS.htm", SERVER_URL]];
+                introduceVC.title =  title;
+                [super.navigationController pushViewController:introduceVC animated:YES];
+            }
+            if(4 == index){
+                BaseWebViewController *questionVC = [[BaseWebViewController alloc] initWithURL:[NSString stringWithFormat:@"%@taxnews/public/comProblemIOS.htm", SERVER_URL]];
+                questionVC.title =  title;
+                [super.navigationController pushViewController:questionVC animated:YES];
+            }
+        };
+    }
+    return _slideMenu;
+}
+
+#pragma mark - 菜单按钮点击事件
+- (void)tiggerBtnAction:(UIButton *)sender {
+    [self.slideMenu trigger];
 }
 
 @end

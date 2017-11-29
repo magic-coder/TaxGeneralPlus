@@ -10,6 +10,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NewsViewController : UITableViewController
+@interface NewsViewController : UIViewController
 
 @end
