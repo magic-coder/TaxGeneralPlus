@@ -74,6 +74,32 @@ SingletonH(BaseHandleUtil)
  */
 - (NSString *)transform:(NSString *)chinese;
 
+/**
+ * 获取系统当前时间
+ *
+ * @return 格式为 yyyy-MM-dd HH:mm:ss 的时间
+ */
+- (NSString *)currentDateTime;
+
+/**
+ *  将App事件添加到系统日历提醒事项，实现闹铃提醒的功能
+ *
+ *  @param title      事件标题
+ *  @param location   事件位置
+ *  @param startDate  开始时间
+ *  @param endDate    结束时间
+ *  @param allDay     是否全天
+ *  @param alarmArray 闹钟集合
+ *  @param block      回调方法
+ */
+- (void)createEventCalendarTitle:(NSString *)title 
+                        location:(NSString *)location
+                       startDate:(NSDate *)startDate
+                         endDate:(NSDate *)endDate
+                           notes:(NSString *)notes
+                          allDay:(BOOL)allDay
+                      alarmArray:(NSArray *)alarmArray
+                           block:(void(^)(NSString *msg))block;
 
 /**
  * 设置未读消息条数角标提醒

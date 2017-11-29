@@ -135,6 +135,7 @@
 		18C1923B1FCBBDF500A90B22 /* MsgUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C1923A1FCBBDF500A90B22 /* MsgUtil.m */; };
 		18C1923D1FCBFB8100A90B22 /* Msg.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18C1923C1FCBFB8100A90B22 /* Msg.xcassets */; };
 		18C192401FCC1DB300A90B22 /* OneWayHTTPS.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C1923F1FCC1DB300A90B22 /* OneWayHTTPS.m */; };
+		18CD9E2E1FCE9391005F8186 /* MsgDetailViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CD9E2D1FCE9391005F8186 /* MsgDetailViewCell.m */; };
 		18DE15C01FB93E7A00434F91 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE15BF1FB93E7A00434F91 /* LoginViewController.m */; };
 		18DE15C31FB9458900434F91 /* Login.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18DE15C21FB9458900434F91 /* Login.xcassets */; };
 		18DE15CE1FB9A21B00434F91 /* LoginUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE15CD1FB9A21B00434F91 /* LoginUtil.m */; };
@@ -427,6 +428,8 @@
 		18C1923C1FCBFB8100A90B22 /* Msg.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Msg.xcassets; sourceTree = "<group>"; };
 		18C1923E1FCC1DB300A90B22 /* OneWayHTTPS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OneWayHTTPS.h; sourceTree = "<group>"; };
 		18C1923F1FCC1DB300A90B22 /* OneWayHTTPS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OneWayHTTPS.m; sourceTree = "<group>"; };
+		18CD9E2C1FCE9391005F8186 /* MsgDetailViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MsgDetailViewCell.h; sourceTree = "<group>"; };
+		18CD9E2D1FCE9391005F8186 /* MsgDetailViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MsgDetailViewCell.m; sourceTree = "<group>"; };
 		18DE15BE1FB93E7A00434F91 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		18DE15BF1FB93E7A00434F91 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		18DE15C21FB9458900434F91 /* Login.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Login.xcassets; sourceTree = "<group>"; };
@@ -1377,6 +1380,8 @@
 			children = (
 				18C1922F1FCBB0A800A90B22 /* MsgListViewCell.h */,
 				18C192301FCBB0A800A90B22 /* MsgListViewCell.m */,
+				18CD9E2C1FCE9391005F8186 /* MsgDetailViewCell.h */,
+				18CD9E2D1FCE9391005F8186 /* MsgDetailViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1804,6 +1809,7 @@
 				186F87091FCE7DAE002E5FF2 /* MJRefreshBackNormalFooter.m in Sources */,
 				18AE74381F9854C700E357D1 /* UIImageView+WebCache.m in Sources */,
 				18A1FAF41FBC449500AA07DC /* Variable.m in Sources */,
+				18CD9E2E1FCE9391005F8186 /* MsgDetailViewCell.m in Sources */,
 				18AE74341F9854C700E357D1 /* SDWebImageCoder.m in Sources */,
 				18AE743E1F9854C700E357D1 /* SDWebImageImageIOCoder.m in Sources */,
 				18AE742C1F9854C700E357D1 /* UIImage+ForceDecode.m in Sources */,

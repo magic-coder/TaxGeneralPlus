@@ -33,4 +33,16 @@ SingletonH(MsgUtil)
                         failure:(void(^)(NSString *error))failure
                         invalid:(void (^)(NSString *msg))invalid;
 
+// 加载消息明细信息
+- (void)loadMsgDetailParameters:(NSDictionary *)parameters
+                 success:(void (^)(NSDictionary *dataDict))success
+                    failure:(void (^)(NSString *error))failure
+                   invalid:(void (^)(NSString *msg))invalid;
+
+// 删除消息明细信息
+- (void)deleteMsgDetailUuid:(NSString *)uuid
+                    success:(void (^)(void))success
+                     failure:(void (^)(NSString *error))failure
+                    invalid:(void (^)(NSString *msg))invalid;
+
 @end

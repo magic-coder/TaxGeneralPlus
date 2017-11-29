@@ -9,6 +9,7 @@
  ************************************************************/
 
 #import "MsgListViewController.h"
+#import "MsgDetailViewController.h"
 #import "MsgListViewCell.h"
 #import "MsgListModel.h"
 #import "MsgUtil.h"
@@ -42,6 +43,11 @@ static int const pageSize = 100;
     [self.tableView setSeparatorStyle: UITableViewCellSeparatorStyleNone];
     
     self.title = @"消息";
+    
+    // 从本地初始化数据
+    NSDictionary *dataDict = [[MsgUtil sharedMsgUtil] loadMsgFile];
+    if(dataDict)
+        [self handleDataDict:dataDict];// 数据处理
 }
 
 - (void)didReceiveMemoryWarning {
@@ -54,19 +60,26 @@ static int const pageSize = 100;
     
     // 判断是否登录，若没登录则返回登录页面
     if(IS_LOGIN){
-        // 计算上次刷新与当前时间戳
-        NSTimeInterval timestamp = [[NSDate date] timeIntervalSince1970];
-        _currentTimestamp = floor(timestamp);
-        if(_currentTimestamp - _lastTimestamp < 180){
-            NSDictionary *dataDict = [[MsgUtil sharedMsgUtil] loadMsgFile];
-            if(dataDict != nil){
-                [self handleDataDict:dataDict];// 数据处理
+        // 判断角标
+        UITabBarItem * item = [self.tabBarController.tabBar.items objectAtIndex:2];
+        if([item.badgeValue intValue] != [Variable sharedVariable].unReadCount || [self.navigationItem.title isEqualToString:@"未连接"]) {
+            [self loadData];
+        }else{
+            // 计算上次刷新与当前时间戳
+            NSTimeInterval timestamp = [[NSDate date] timeIntervalSince1970];
+            _currentTimestamp = floor(timestamp);
+            if(_currentTimestamp - _lastTimestamp < 180){   // 3分钟内不进行请求
+                NSDictionary *dataDict = [[MsgUtil sharedMsgUtil] loadMsgFile];
+                if(dataDict){
+                    [self handleDataDict:dataDict];// 数据处理
+                    [self.tableView reloadData];
+                }else{
+                    [self loadData];
+                }
             }else{
+                _lastTimestamp = _currentTimestamp;
                 [self loadData];
             }
-        }else{
-            _lastTimestamp = _currentTimestamp;
-            [self loadData];
         }
     }else{
         SHOW_LOGIN_VIEW
@@ -178,8 +191,28 @@ static int const pageSize = 100;
         if(pushOrgCode == nil){
             pushOrgCode = @"";
         }
-        [MBProgressHUD showHUDView:self.view text:@"删除中" progressHUDMode:YZProgressHUDModeShow];
+        
         // 开始删除方法
+        [MBProgressHUD showHUDView:self.view text:@"删除中..." progressHUDMode:YZProgressHUDModeLock];
+        [[MsgUtil sharedMsgUtil] deleteMsgListSourceCode:sourceCode pushOrgCode:pushOrgCode success:^{
+            [MBProgressHUD hiddenHUDView:self.view];
+            // 删除成功，重新加载数据
+            [[MsgUtil sharedMsgUtil] loadMsgListPageNo:_pageNo pageSize:pageSize success:^(NSDictionary *dataDict) {
+            } failure:^(NSString *error) {
+            } invalid:^(NSString *msg) {
+            }];
+            // 移除本行
+            [[_data objectAtIndex:indexPath.section] removeObjectAtIndex:indexPath.row];
+            [tableView reloadData];
+            // 设置角标
+            [[BaseHandleUtil sharedBaseHandleUtil] msgBadge:[Variable sharedVariable].unReadCount - [cell.model.unReadCount intValue]];
+        } failure:^(NSString *error) {
+            [MBProgressHUD hiddenHUDView:self.view];
+            [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow];
+        } invalid:^(NSString *msg) {
+            [MBProgressHUD hiddenHUDView:self.view];
+            SHOW_RELOGIN_VIEW
+        }];
     }
 }
 
@@ -188,13 +221,6 @@ static int const pageSize = 100;
     return 63;
 }
 
-#pragma mark 返回头视图高度
-/*
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 0.01f;
-}
-
-*/
 #pragma mark 点击行触发点击事件
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -203,12 +229,12 @@ static int const pageSize = 100;
     // 获取当前点击的cell
     MsgListViewCell *cell = (MsgListViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
     
-    //MessageDetailViewController *messageDetailVC = [[MessageDetailViewController alloc] init];
-    //messageDetailVC.title = cell.messageListModel.name; // 设置详细视图标题
+    MsgDetailViewController *msgDetailVC = [[MsgDetailViewController alloc] init];
+    msgDetailVC.title = cell.model.name; // 设置详细视图标题
     
-    //messageDetailVC.sourceCode = cell.messageListModel.sourceCode;
-    //messageDetailVC.pushOrgCode = cell.messageListModel.pushOrgCode;
-    //[self.navigationController pushViewController:messageDetailVC animated:YES];
+    msgDetailVC.sourceCode = cell.model.sourceCode;
+    msgDetailVC.pushOrgCode = cell.model.pushOrgCode;
+    [self.navigationController pushViewController:msgDetailVC animated:YES];
 }
 
 @end

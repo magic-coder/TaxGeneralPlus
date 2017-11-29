@@ -71,6 +71,7 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     // 设置视图层级关系
     [self.view bringSubviewToFront:self.appTopView];// 设置视图层级为最上层
     [self.view sendSubviewToBack:self.baseScrollView];// 设置视图层级为最底下
+    
 }
 
 - (void)didReceiveMemoryWarning {

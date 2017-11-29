@@ -9,6 +9,7 @@
  ************************************************************/
 
 #import "BaseHandleUtil.h"
+#import <EventKit/EventKit.h>
 #import "MainTabBarController.h"
 
 @implementation BaseHandleUtil
@@ -127,6 +128,74 @@ SingletonM(BaseHandleUtil)
     }
     // 获取并返回首字母
     return initial;
+}
+
+#pragma mark - 获取系统当前时间
+- (NSString *)currentDateTime {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    return [formatter stringFromDate:[NSDate date]];
+}
+
+#pragma mark - App事件添加到系统日历提醒事项，实现日程提醒功能
+- (void)createEventCalendarTitle:(NSString *)title
+                        location:(NSString *)location
+                       startDate:(NSDate *)startDate
+                         endDate:(NSDate *)endDate
+                           notes:(NSString *)notes
+                          allDay:(BOOL)allDay
+                      alarmArray:(NSArray *)alarmArray
+                           block:(void (^)(NSString *))block {
+    
+    EKEventStore *eventStore = [[EKEventStore alloc] init];
+    // 检索提醒事件是否存在
+    /*
+     NSPredicate *predicate = [eventStore predicateForEventsWithStartDate:startDate endDate:endDate calendars:[eventStore calendarsForEntityType:EKEntityTypeEvent]];
+     NSArray *eventArray = [eventStore eventsMatchingPredicate:predicate];
+     if(eventArray){
+     block(@"该提醒已经添加，请进入\"日历\"查看！");
+     }
+     */
+    if ([eventStore respondsToSelector:@selector(requestAccessToEntityType:completion:)]){
+        [eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error){
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (error){
+                    block(@"添加失败，请稍后重试！");
+                }else if (!granted){
+                    block(@"不允许使用日历,请在设置中允许此App使用日历！");
+                }else{
+                    EKEvent *event = [EKEvent eventWithEventStore:eventStore];
+                    event.title = [NSString stringWithFormat:@"%@：%@", [Variable sharedVariable].appName, title];
+                    event.location = location;
+                    
+                    NSDateFormatter *tempFormatter = [[NSDateFormatter alloc] init];
+                    [tempFormatter setDateFormat:@"dd.MM.yyyy HH:mm"];
+                    
+                    event.startDate = startDate;
+                    event.endDate   = endDate;
+                    event.allDay = allDay;
+                    event.notes  = notes;
+                    
+                    //添加提醒
+                    if (alarmArray && alarmArray.count > 0) {
+                        for (NSString *timeString in alarmArray) {
+                            [event addAlarm:[EKAlarm alarmWithRelativeOffset:[timeString integerValue]]];
+                        }
+                    }
+                    
+                    [event setCalendar:[eventStore defaultCalendarForNewEvents]];
+                    NSError *err;
+                    [eventStore saveEvent:event span:EKSpanThisEvent error:&err];
+                    // 已添加到系统日历中！
+                    block(@"success");
+                    
+                }
+            });
+        }];
+    }
+    
 }
 
 #pragma mark - 设置未读消息条数角标提醒
