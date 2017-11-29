@@ -38,7 +38,6 @@
     
     // 设置高度
     self.mj_h = MJRefreshHeaderHeight;
-    
 }
 
 - (void)placeSubviews
@@ -55,11 +54,11 @@
     
     // 在刷新的refreshing状态
     if (self.state == MJRefreshStateRefreshing) {
-        if (self.window == nil) return;
+//        if (self.window == nil) return;
         
-        // sectionheader停留解决（Yanzheng修改代码适配iPhoneX）
-        CGFloat insetT = - self.scrollView.mj_offsetY > _scrollViewOriginalInset.top ? - self.scrollView.mj_offsetY : _scrollViewOriginalInset.top + HEIGHT_STATUS;
-        insetT = insetT > self.mj_h + _scrollViewOriginalInset.top ? self.mj_h + _scrollViewOriginalInset.top +  + HEIGHT_STATUS : insetT;
+        // sectionheader停留解决
+        CGFloat insetT = - self.scrollView.mj_offsetY > _scrollViewOriginalInset.top ? - self.scrollView.mj_offsetY : _scrollViewOriginalInset.top;
+        insetT = insetT > self.mj_h + _scrollViewOriginalInset.top ? self.mj_h + _scrollViewOriginalInset.top : insetT;
         self.scrollView.mj_insetT = insetT;
         
         self.insetTDelta = _scrollViewOriginalInset.top - insetT;
@@ -71,7 +70,9 @@
     
     // 当前的contentOffset
     CGFloat offsetY = self.scrollView.mj_offsetY;
-    // 头部控件刚好出现的offsetY（Yanzheng修改代码适配iPhoneX）
+    // 头部控件刚好出现的offsetY
+    // CGFloat happenOffsetY = - self.scrollViewOriginalInset.top;
+    // 头部控件刚好出现的offsetY（Yanzheng 修改，适配 iPhoneX 齐刘海）
     CGFloat happenOffsetY = - self.scrollViewOriginalInset.top - HEIGHT_STATUS;
     
     // 如果是向上滚动到看不见头部控件，直接返回
@@ -127,12 +128,15 @@
     } else if (state == MJRefreshStateRefreshing) {
          dispatch_async(dispatch_get_main_queue(), ^{
             [UIView animateWithDuration:MJRefreshFastAnimationDuration animations:^{
-                // Yanzheng修改代码适配iPhoneX
+                // CGFloat top = self.scrollViewOriginalInset.top + self.mj_h;
+                // Yanzheng 修改，适配 iPhoneX 齐刘海
                 CGFloat top = self.scrollViewOriginalInset.top + self.mj_h + HEIGHT_STATUS;
                 // 增加滚动区域top
                 self.scrollView.mj_insetT = top;
                 // 设置滚动位置
-                [self.scrollView setContentOffset:CGPointMake(0, -top) animated:NO];
+                CGPoint offset = self.scrollView.contentOffset;
+                offset.y = -top;
+                [self.scrollView setContentOffset:offset animated:NO];
             } completion:^(BOOL finished) {
                 [self executeRefreshingCallback];
             }];
@@ -141,13 +145,6 @@
 }
 
 #pragma mark - 公共方法
-- (void)endRefreshing
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.state = MJRefreshStateIdle;
-    });
-}
-
 - (NSDate *)lastUpdatedTime
 {
     return [[NSUserDefaults standardUserDefaults] objectForKey:self.lastUpdatedTimeKey];

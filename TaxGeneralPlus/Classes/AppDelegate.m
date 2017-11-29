@@ -14,6 +14,8 @@
 
 @interface AppDelegate ()
 
+@property (nonatomic, strong) MainTabBarController *rootVC;
+
 @end
 
 @implementation AppDelegate
@@ -32,10 +34,11 @@
     
     // 设置主window视图
     _window = [[UIWindow alloc] initWithFrame:FRAME_SCREEN];
-    _window.backgroundColor = [UIColor clearColor];
+    _window.backgroundColor = [UIColor whiteColor];
     
     // 设置root视图控制器
-    _window.rootViewController = [[NSClassFromString(@"MainTabBarController") class] new];
+    _rootVC = [[MainTabBarController alloc] init];
+    _window.rootViewController = _rootVC;
     [_window makeKeyAndVisible];
     
     [self verifyUnlock];// 判断是否设置安全密码
