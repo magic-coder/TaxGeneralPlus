@@ -16,6 +16,9 @@
 
 @property (nonatomic, strong) MineHeaderView *headerView;
 
+@property (nonatomic, assign) float headerViewH;        // 头部视图高度
+@property (nonatomic, assign) float headerBottomViewH;  // 头部视图下方功能按钮栏高度
+
 @end
 
 @implementation MineViewController
@@ -23,11 +26,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // 为适配所有设备，按比例计算头部视图高度
+    _headerViewH = ceilf(HEIGHT_SCREEN*0.35f);
+    _headerBottomViewH = floorf(_headerViewH*0.25f);
+    
     // 不进行自动调整（否则顶部会自动留出安全距离[空白]）
     self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     // 设置头部视图
-    _headerView = [[MineHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, HEIGHT_STATUS+HEIGHT_NAVBAR+170)];
+    _headerView = [[MineHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, _headerViewH)];
     _headerView.delegate = self;
+    
     self.tableView.tableHeaderView = _headerView;
     
     // 初始化数据
@@ -53,12 +61,14 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     CGPoint offset = scrollView.contentOffset;
     if (offset.y < 0) {
-        CGRect rect = _headerView.imageView.frame;
-        rect.origin.y = offset.y;
-        rect.size.height = HEIGHT_STATUS+HEIGHT_NAVBAR+100 - offset.y;
-        _headerView.imageView.frame = rect;
+        [_headerView.imageView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(_headerView).with.mas_equalTo(offset.y);
+            make.bottom.equalTo(_headerView).with.mas_equalTo(-_headerBottomViewH);
+        }];
         
-        _headerView.nightShiftBtn.frame = CGRectMake(WIDTH_SCREEN-35, offset.y + HEIGHT_STATUS+10, 20, 20);
+        [_headerView.nightShiftBtn mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(_headerView).with.offset(offset.y+HEIGHT_STATUS+10);
+        }];
     }
 }
 

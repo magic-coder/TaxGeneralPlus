@@ -10,6 +10,10 @@
 
 #import "MineHeaderView.h"
 
+@interface MineHeaderView ()
+
+@end
+
 @implementation MineHeaderView
 
 - (instancetype)initWithFrame:(CGRect)frame{
@@ -22,20 +26,26 @@
         // 初始化底部视图
         [self initializeBottomView];
         
-        // 注册按钮点击事件
-        
     }
     return self;
 }
 
 #pragma mark - 初始化主视图样式
 - (void)initializeMainView{
-    _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.originX, self.originY, self.frameWidth, self.frameHeight-70)];
+    
+    _imageView = [UIImageView new];
     [_imageView sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"mine_account_bg"] options:SDWebImageAllowInvalidSSLCertificates completed:nil];
     _imageView.contentMode = UIViewContentModeScaleAspectFill;
     [self addSubview:_imageView];
+    [_imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self).with.insets(UIEdgeInsetsMake(0, 0, floorf(self.frameHeight*0.25f), 0));
+    }];
     
-    _nightShiftBtn = [[UIButton alloc] init];
+    CGSize nightShiftSize = CGSizeMake(20, 20);
+    if(DEVICE_SCREEN_INCH_IPAD)
+        nightShiftSize = CGSizeMake(30, 30);
+        
+    _nightShiftBtn = [UIButton new];
     NSMutableDictionary *settingDict = [[BaseSettingUtil sharedBaseSettingUtil] loadSettingData];
     if([[settingDict objectForKey:@"nightShift"] boolValue]){
         [_nightShiftBtn setBackgroundImage:[UIImage imageNamed:@"mine_account_sun"] forState:UIControlStateNormal];
@@ -45,116 +55,235 @@
         [_nightShiftBtn setBackgroundImage:[UIImage imageNamed:@"mine_account_moonHL"] forState:UIControlStateHighlighted];
     }
     [_nightShiftBtn addTarget:self action:@selector(nightShiftAction:) forControlEvents:UIControlEventTouchUpInside];
-    _nightShiftBtn.frame = CGRectMake(self.frameWidth-35, HEIGHT_STATUS+10, 20, 20);
     [self addSubview:_nightShiftBtn];
+    [_nightShiftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self).with.offset(HEIGHT_STATUS+10);
+        make.right.equalTo(self).with.offset(-15);
+        make.size.mas_equalTo(nightShiftSize);
+    }];
     
-    _accountImageView = [[UIImageView alloc] init];
-    _accountImageView.frame = CGRectMake(50, HEIGHT_STATUS+HEIGHT_NAVBAR, 70, 70);
+    CGSize accountImageSize = CGSizeMake(70, 70);
+    if(DEVICE_SCREEN_INCH_IPAD)
+        accountImageSize = CGSizeMake(112, 112);
+    
+    _accountImageView = [UIImageView new];
     [self addSubview:_accountImageView];
+    [_accountImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self).with.offset(-10);
+        make.left.equalTo(self).with.offset(ceilf(WIDTH_SCREEN*0.125f));
+        make.size.mas_equalTo(accountImageSize);
+    }];
     
-    _accountBtn = [[UIButton alloc] init];
+    _accountBtn = [UIButton new];
     [_accountBtn addTarget:self action:@selector(btnDidSelected:) forControlEvents:UIControlEventTouchUpInside];
-    _accountBtn.frame = CGRectMake(50, HEIGHT_STATUS+HEIGHT_NAVBAR, 285, 70);
     _accountBtn.tag = 0;
     [self addSubview:_accountBtn];
+    [_accountBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.equalTo(_accountImageView);
+        make.right.equalTo(self).with.mas_offset(-ceilf(WIDTH_SCREEN*0.125f));
+        make.height.equalTo(_accountImageView);
+    }];
     
-    _levelLabel = [self labelWithFrame:CGRectMake(85, _accountImageView.frameBottom-14, 32, 12)];
+    CGSize levelSize = CGSizeMake(32, 12);
+    if(DEVICE_SCREEN_INCH_IPAD)
+        levelSize = CGSizeMake(51.2f, 19.2f);
+    
+    _levelLabel = [self initializeHeaderLabel];
     _levelLabel.backgroundColor = RgbColor(240, 180, 0, 1.f);
     _levelLabel.font = [UIFont systemFontOfSize:13.0f];
     _levelLabel.text = @"Lv 0";
     _levelLabel.layer.masksToBounds = YES;
     _levelLabel.layer.cornerRadius = 6;
     [self addSubview:_levelLabel];
+    [_levelLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_accountImageView.mas_right).with.offset(-20);
+        make.bottom.equalTo(_accountBtn);
+        make.size.mas_equalTo(levelSize);
+    }];
     
-    _nameLabel = [self labelWithFrame:CGRectMake(120, _accountImageView.originY+15, self.frameWidth-120, 30)];
-    _nameLabel.font = [UIFont boldSystemFontOfSize:26.0f];
+    float nameFontSize = 26.0f;
+    float nameHeight = 30.0f;
+    if(DEVICE_SCREEN_INCH_IPAD){
+        nameFontSize = 41.6f;
+        nameHeight = 48.0f;
+    }
+    
+    _nameLabel = [self initializeHeaderLabel];
+    _nameLabel.font = [UIFont boldSystemFontOfSize:nameFontSize];
     [self addSubview:_nameLabel];
+    [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_accountImageView).with.offset(15);
+        make.left.mas_equalTo(ceilf(WIDTH_SCREEN*0.32f));
+        make.width.mas_equalTo(WIDTH_SCREEN-ceilf(WIDTH_SCREEN*0.32f));
+        make.height.mas_equalTo(nameHeight);
+    }];
     
-    _orgNameLabel = [self labelWithFrame:CGRectMake(120, _nameLabel.frameBottom, self.frameWidth-120, 20)];
-    _orgNameLabel.font = [UIFont systemFontOfSize:14.0f];
+    float orgNnameFontSize = 14.0f;
+    float orgNameHeight = 20.0f;
+    if(DEVICE_SCREEN_INCH_IPAD){
+        orgNnameFontSize = 22.4f;
+        orgNameHeight = 32.0f;
+    }
+    
+    _orgNameLabel = [self initializeHeaderLabel];
+    _orgNameLabel.font = [UIFont systemFontOfSize:orgNnameFontSize];
     [self addSubview:_orgNameLabel];
+    [_orgNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_nameLabel.mas_bottom).offset(5);
+        make.left.equalTo(_nameLabel);
+        make.width.equalTo(_nameLabel);
+        make.height.mas_equalTo(orgNameHeight);
+    }];
 }
 
 #pragma mark - 初始化底部视图样式（3个操作性按钮）
 - (void)initializeBottomView{
-    _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frameHeight-70, self.frameWidth, 70)];
+    
+    _bottomView = [UIView new];
     _bottomView.backgroundColor = [UIColor whiteColor];
     [self addSubview:_bottomView];
+    [_bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.bottom.width.equalTo(self);
+        make.height.mas_equalTo(floorf(self.frameHeight*0.25f));
+    }];
     
     CGFloat viewWidth = floorf((CGFloat)self.frameWidth/3);
     
-    _leftImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mine_rule"]];
-    _leftImageView.frame = CGRectMake(floorf((CGFloat)self.frameWidth/6)-15, 10, 30, 30);
-    [_bottomView addSubview:_leftImageView];
+    CGSize bottomImageSize = CGSizeMake(30, 30);
+    if(DEVICE_SCREEN_INCH_IPAD)
+        bottomImageSize = CGSizeMake(48, 48);
     
-    _leftTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, _leftImageView.frameBottom+5, viewWidth-20, 20)];
-    _leftTitleLabel.font = [UIFont systemFontOfSize:13.0f];
-    _leftTitleLabel.textAlignment = NSTextAlignmentCenter;
-    _leftTitleLabel.textColor = [UIColor grayColor];
+    _leftImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mine_rule"]];
+    [_bottomView addSubview:_leftImageView];
+    [_leftImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(-floorf((CGFloat)self.frameWidth/3));
+        make.centerY.equalTo(_bottomView).with.offset(-10);
+        make.size.mas_equalTo(bottomImageSize);
+    }];
+    
+    _leftTitleLabel = [self initializeBottomLabel];
     _leftTitleLabel.text = @"升级详细规则";
     [_bottomView addSubview:_leftTitleLabel];
+    [_leftTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_bottomView).with.offset(10);
+        make.bottom.equalTo(_bottomView).with.offset(-5);
+        make.size.mas_equalTo(CGSizeMake(viewWidth-20, 20));
+    }];
     
-    _leftBtn = [[UIButton alloc] init];
+    _leftBtn = [UIButton new];
     [_leftBtn addTarget:self action:@selector(btnDidSelected:) forControlEvents:UIControlEventTouchUpInside];
-    _leftBtn.frame = CGRectMake(_leftTitleLabel.originX, 10, viewWidth-20, 50);
     _leftBtn.tag = 1;
     [_bottomView addSubview:_leftBtn];
+    [_leftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_leftTitleLabel);
+        make.top.equalTo(_leftImageView);
+        make.bottom.equalTo(_leftTitleLabel);
+        make.width.mas_equalTo(viewWidth-20);
+    }];
     
-    _firstLineView = [[UIView alloc] initWithFrame:CGRectMake(viewWidth, 15, 0.5f, 40)];
+    _firstLineView = [UIView new];
     _firstLineView.backgroundColor = DEFAULT_LINE_GRAY_COLOR;
     [_bottomView addSubview:_firstLineView];
+    [_firstLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_bottomView).with.offset(10);
+        make.bottom.equalTo(_bottomView).with.offset(-10);
+        make.width.mas_equalTo(0.5f);
+        make.centerX.equalTo(_bottomView).with.offset(-floorf((CGFloat)self.frameWidth/6));
+    }];
     
     _middleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mine_level"]];
-    _middleImageView.frame = CGRectMake(floorf((CGFloat)self.frameWidth/2)-15, 10, 30, 30);
     [_bottomView addSubview:_middleImageView];
+    [_middleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(_bottomView);
+        make.centerY.equalTo(_bottomView).with.offset(-10);
+        make.size.mas_equalTo(bottomImageSize);
+    }];
     
-    _middleTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(viewWidth+10, _middleImageView.frameBottom+5, viewWidth-20, 20)];
-    _middleTitleLabel.font = [UIFont systemFontOfSize:13.0f];
-    _middleTitleLabel.textAlignment = NSTextAlignmentCenter;
-    _middleTitleLabel.textColor = [UIColor grayColor];
+    _middleTitleLabel = [self initializeBottomLabel];
     _middleTitleLabel.text = @"黄金等级";
     [_bottomView addSubview:_middleTitleLabel];
+    [_middleTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_firstLineView.mas_right).with.offset(10);
+        make.bottom.equalTo(_bottomView).with.offset(-5);
+        make.size.mas_equalTo(CGSizeMake(viewWidth-20, 20));
+    }];
     
-    _middleBtn = [[UIButton alloc] init];
+    _middleBtn = [UIButton new];
     [_middleBtn addTarget:self action:@selector(btnDidSelected:) forControlEvents:UIControlEventTouchUpInside];
-    _middleBtn.frame = CGRectMake(_middleTitleLabel.originX, 10, viewWidth-20, 50);
     _middleBtn.tag = 2;
     [_bottomView addSubview:_middleBtn];
+    [_middleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_middleImageView);
+        make.left.equalTo(_middleTitleLabel);
+        make.bottom.equalTo(_middleTitleLabel);
+        make.width.mas_equalTo(viewWidth-20);
+    }];
     
-    _secondLineView = [[UIView alloc] initWithFrame:CGRectMake(viewWidth*2, 15, 0.5f, 40)];
+    _secondLineView = [UIView new];
     _secondLineView.backgroundColor = DEFAULT_LINE_GRAY_COLOR;
     [_bottomView addSubview:_secondLineView];
+    [_secondLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(_bottomView).with.offset(floorf((CGFloat)self.frameWidth/6));
+        make.top.equalTo(_bottomView).with.offset(10);
+        make.bottom.equalTo(_bottomView).with.offset(-10);
+        make.width.mas_equalTo(0.5f);
+    }];
     
     _rightImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mine_sign"]];
-    _rightImageView.frame = CGRectMake(floorf((CGFloat)self.frameWidth/6*5)-15, 10, 30, 30);
     [_bottomView addSubview:_rightImageView];
+    [_rightImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(_bottomView).with.offset(floorf((CGFloat)self.frameWidth/3));
+        make.centerY.equalTo(_bottomView).with.offset(-10);
+        make.size.mas_equalTo(bottomImageSize);
+    }];
     
-    _rightTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(viewWidth*2+10, _rightImageView.frameBottom+5, viewWidth-20, 20)];
-    _rightTitleLabel.font = [UIFont systemFontOfSize:13.0f];
-    _rightTitleLabel.textAlignment = NSTextAlignmentCenter;
-    _rightTitleLabel.textColor = [UIColor grayColor];
+    _rightTitleLabel = [self initializeBottomLabel];
     _rightTitleLabel.text = @"每日签到";
     [_bottomView addSubview:_rightTitleLabel];
+    [_rightTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(_bottomView).with.offset(-10);
+        make.bottom.equalTo(_bottomView).with.offset(-5);
+        make.width.mas_equalTo(viewWidth-20);
+    }];
     
-    _rightBtn = [[UIButton alloc] init];
+    _rightBtn = [UIButton new];
     [_rightBtn addTarget:self action:@selector(btnDidSelected:) forControlEvents:UIControlEventTouchUpInside];
     _rightBtn.frame = CGRectMake(_rightTitleLabel.originX, 10, viewWidth-20, 50);
     _rightBtn.tag = 3;
     [_bottomView addSubview:_rightBtn];
+    [_rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_rightImageView);
+        make.left.equalTo(_rightTitleLabel);
+        make.bottom.mas_equalTo(-5);
+        make.width.mas_equalTo(viewWidth-20);
+    }];
     
 }
 
-#pragma mark - 创建基本通用样式的Label
-- (UILabel *)labelWithFrame:(CGRect)frame{
-    UILabel *label = [[UILabel alloc] initWithFrame:frame];
+#pragma mark - 创建头部通用样式的Label
+- (UILabel *)initializeHeaderLabel{
+    UILabel *label = [UILabel new];
     label.numberOfLines = 0;
     label.textColor = [UIColor whiteColor];
     label.textAlignment = NSTextAlignmentCenter;
-    label.font = [UIFont boldSystemFontOfSize:16.0f];
+    //label.font = [UIFont boldSystemFontOfSize:16.0f];
     //label.font = [UIFont fontWithName:@"Helvetica" size:13.0f];
     //字体自适应
     label.adjustsFontSizeToFitWidth = YES;
     
+    return label;
+}
+
+#pragma mark - 创建底部通用样式的Label
+- (UILabel *)initializeBottomLabel{
+    UILabel *label = [UILabel new];
+    if(DEVICE_SCREEN_INCH_IPAD){
+        label.font = [UIFont systemFontOfSize:20.8f];
+    }else{
+        label.font = [UIFont systemFontOfSize:13.0f];
+    }
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor grayColor];
     return label;
 }
 

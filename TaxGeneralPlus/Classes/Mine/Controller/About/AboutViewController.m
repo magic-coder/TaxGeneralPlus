@@ -66,9 +66,13 @@ static NSString * const reuseIdentifier = @"aboutTableViewCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    float textFontSize = 15.5f;
+    if(DEVICE_SCREEN_INCH_IPAD)
+        textFontSize = 24.8f;
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;   // 右侧小箭头
-    cell.textLabel.font = [UIFont systemFontOfSize:15.5f];
+    cell.textLabel.font = [UIFont systemFontOfSize:textFontSize];
     cell.textLabel.text = _data[indexPath.row];
     
     return cell;
@@ -76,7 +80,11 @@ static NSString * const reuseIdentifier = @"aboutTableViewCell";
 
 #pragma mark 返回行高
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 43.0f;
+    float h = 43.0f;
+    if(DEVICE_SCREEN_INCH_IPAD)
+        h = 68.8f;
+    
+    return h;
 }
 
 #pragma mark - cell点击事件

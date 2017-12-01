@@ -49,16 +49,26 @@ static UILabel *hLabel = nil;
 #pragma mark - 根据text来计算高度
 + (CGFloat) getHeightForText:(NSString *)text{
     if (text == nil) {
-        return 15.0f;
+        float textHeight = 15.0f;
+        if(DEVICE_SCREEN_INCH_IPAD)
+            textHeight = 24.0f;
+        return textHeight;
     }
     if (hLabel == nil) {
         hLabel = [[UILabel alloc] init];
         [hLabel setNumberOfLines:0];
-        [hLabel setFont:[UIFont systemFontOfSize:14.0f]];
+        if(DEVICE_SCREEN_INCH_IPAD){
+            [hLabel setFont:[UIFont systemFontOfSize:22.4f]];
+        }else{
+            [hLabel setFont:[UIFont systemFontOfSize:14.0f]];
+        }
     }
     [hLabel setText:text];
     float w = WIDTH_SCREEN * 0.92;
-    return [hLabel sizeThatFits:CGSizeMake(w, MAXFLOAT)].height + 14;
+    float h = [hLabel sizeThatFits:CGSizeMake(w, MAXFLOAT)].height + 14;
+    if(DEVICE_SCREEN_INCH_IPAD)
+        h = [hLabel sizeThatFits:CGSizeMake(w, MAXFLOAT)].height + 22.4f;
+    return h;
 }
 
 #pragma mark - Getter
@@ -66,8 +76,12 @@ static UILabel *hLabel = nil;
     if (_titleLabel == nil) {
         _titleLabel = [[UILabel alloc] init];
         [_titleLabel setTextColor:[UIColor grayColor]];
-        [_titleLabel setFont:[UIFont systemFontOfSize:13.0f]];
         [_titleLabel setNumberOfLines:0];
+        if(DEVICE_SCREEN_INCH_IPAD){
+            [_titleLabel setFont:[UIFont systemFontOfSize:20.8f]];
+        }else{
+            [_titleLabel setFont:[UIFont systemFontOfSize:13.0f]];
+        }
     }
     return _titleLabel;
 }

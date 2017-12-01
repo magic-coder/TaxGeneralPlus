@@ -103,26 +103,44 @@ static NSString * const headerFooterViewReuseIdentifier = @"baseHeaderFooterView
 
 #pragma mark 设置Header顶部视图的高度
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    
+    float h = 10.0f;
+    if(DEVICE_SCREEN_INCH_IPAD)
+        h = 16.0f;
+    
     if (_data && _data.count > section) {
         BaseTableModelGroup *group = [_data objectAtIndex:section];
         if (group.headerTitle == nil) {
-            return section == 0 ? 15.0f : 10.0f;
+            if(DEVICE_SCREEN_INCH_IPAD){
+                return section == 0 ? 24.0f : 16.0f;
+            }else{
+                return section == 0 ? 15.0f : 10.0f;
+            }
         }
         return [BaseTableViewHeaderFooterView getHeightForText:group.headerTitle];
     }
-    return 10.0f;
+    return h;
 }
 
 #pragma mark 设置Footer底部视图的高度
 - (CGFloat) tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    
+    float h = 10.0f;
+    if(DEVICE_SCREEN_INCH_IPAD)
+        h = 16.0f;
+    
     if (_data && _data.count > section) {
         BaseTableModelGroup *group = [_data objectAtIndex:section];
         if (group.footerTitle == nil) {
-            return section == _data.count - 1 ? 30.0f : 10.0f;
+            if(DEVICE_SCREEN_INCH_IPAD){
+                return section == _data.count - 1 ? 48.0f : 16.0f;
+            }else{
+                return section == _data.count - 1 ? 30.0f : 10.0f;
+            }
         }
         return [BaseTableViewHeaderFooterView getHeightForText:group.footerTitle];
     }
-    return 10.0f;
+    return h;
 }
 
 #pragma mark - <BaseTableViewCellDelegate> 代理方法按钮的点击方法

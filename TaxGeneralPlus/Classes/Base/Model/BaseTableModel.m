@@ -20,9 +20,17 @@
         
         self.bgColor = [UIColor whiteColor];
         self.titleColor = [UIColor blackColor];
-        self.titleFont = [UIFont systemFontOfSize:15.5f];
+        if(DEVICE_SCREEN_INCH_IPAD){
+            self.titleFont = [UIFont systemFontOfSize:24.8f];
+        }else{
+            self.titleFont = [UIFont systemFontOfSize:15.5f];
+        }
         self.subTitleColor = [UIColor grayColor];
-        self.subTitleFont = [UIFont systemFontOfSize:15.0f];
+        if(DEVICE_SCREEN_INCH_IPAD){
+            self.subTitleFont = [UIFont systemFontOfSize:24.8f];
+        }else{
+            self.subTitleFont = [UIFont systemFontOfSize:15.0f];
+        }
         
         self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         self.selectionStyle = UITableViewCellSelectionStyleDefault;

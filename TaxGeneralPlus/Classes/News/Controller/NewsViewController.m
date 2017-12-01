@@ -14,20 +14,24 @@
 #import "NewsModel.h"
 #import "NewsUtil.h"
 #import "MJRefresh.h"
+#import "YALSunnyRefreshControl.h"
 
 #define NAVBAR_CHANGE_POINT 50
 
 @interface NewsViewController () <UITableViewDelegate, UITableViewDataSource, YZCycleScrollViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) GooeySlideMenu *slideMenu;
-@property (nonatomic, strong) UIButton *tiggerBtn;
 
-@property (nonatomic, assign) int pageNo;                           // 页码值
-@property (nonatomic, assign) int totalPage;                        // 最大页
+@property (nonatomic, strong) YALSunnyRefreshControl *sunnyRefreshControl;   // 顶部刷新动画视图
 
-@property (nonatomic, strong) NSMutableArray *data;                 // 数据列表
-@property (nonatomic, strong) YZCycleScrollView *cycleScrollView;   // 顶部轮播焦点图
+@property (nonatomic, strong) GooeySlideMenu *slideMenu;                    // 滑动快捷菜单
+@property (nonatomic, strong) UIButton *tiggerBtn;                          // 快捷菜单按钮
+
+@property (nonatomic, assign) int pageNo;                                   // 页码值
+@property (nonatomic, assign) int totalPage;                                // 最大页
+
+@property (nonatomic, strong) NSMutableArray *data;                         // 数据列表
+@property (nonatomic, strong) YZCycleScrollView *cycleScrollView;           // 顶部轮播焦点图
 
 @end
 
@@ -46,11 +50,8 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.tiggerBtn];
     
+    [self.view sendSubviewToBack:self.tableView];// 设置视图层级为最下层
     [self.view bringSubviewToFront:self.tiggerBtn];// 设置视图层级为最上层
-    [self.view sendSubviewToBack:self.tableView];// 设置视图层级为最上层
-    
-    // 设置下拉刷新
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(initializeData)];
     
     [self autoLayout];
 }
@@ -63,7 +64,7 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
 #pragma mark - 自动布局
 - (void)autoLayout{
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(self.view);
+        make.edges.equalTo(self.view);
     }];
     [self.tiggerBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.view).offset(-5);
@@ -82,7 +83,8 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     // 判断是否登录
     if(IS_LOGIN){
         if(nil == _data || _data.count <= 0){
-            [self.tableView.mj_header beginRefreshing];// 马上进入刷新状态
+            // [self.tableView.mj_header beginRefreshing];// 马上进入刷新状态
+            [self.sunnyRefreshControl beginRefreshing];
         }
     }else{
         SHOW_LOGIN_VIEW
@@ -119,12 +121,10 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
 - (void)initializeData {
     _pageNo = 1;
     
-    // 创建数据对象（初始化）
-    _data = [[NSMutableArray alloc] init];
-    
     // 请求数据
     [[NewsUtil sharedNewsUtil] initDataWithPageSize:10 success:^(NSDictionary *dataDict) {
-        _totalPage = [[dataDict objectForKey:@"totalPage"] intValue];
+        // 创建数据对象（初始化）
+        _data = [[NSMutableArray alloc] init];
         
         // 顶部轮播焦点图数据
         /*
@@ -147,18 +147,19 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
             NewsModel *model = [NewsModel createWithDictionary:newsDict];
             [_data addObject:model];
         }
-        [self.tableView reloadData];// 重新加载数据
+        [self.tableView reloadData];    // 重新加载数据
         
-        [self.tableView.mj_header endRefreshing];// 结束头部刷新
-        
+        _totalPage = [[dataDict objectForKey:@"totalPage"] intValue];
         if(_totalPage > 1)
-            self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];// 设置上拉加载
+            self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];    // 设置上拉加载
+        
+        [self.sunnyRefreshControl endRefreshing];   // 结束头部刷新动画
         
     } failure:^(NSString *error) {
-        [self.tableView.mj_header endRefreshing];// 结束头部刷新
-        [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow];// 错误提示
+        [self.sunnyRefreshControl endRefreshing];   // 结束头部刷新动画
+        [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow]; // 错误提示
     } invalid:^(NSString *msg) {
-        [self.tableView.mj_header endRefreshing];// 结束头部刷新
+        [self.sunnyRefreshControl endRefreshing];   // 结束头部刷新动画
         
         SHOW_RELOGIN_VIEW
     }];
@@ -171,13 +172,13 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     _pageNo++;
     
     [[NewsUtil sharedNewsUtil] moreDataWithPageNo:_pageNo pageSize:10 success:^(NSArray *dataArray) {
-        [self.tableView.mj_footer endRefreshing];// 结束底部刷新
         
         for(NSDictionary *dataDict in dataArray){
             NewsModel *model = [NewsModel createWithDictionary:dataDict];
             [_data addObject:model];
         }
         [self.tableView reloadData];
+        [self.tableView.mj_footer endRefreshing];// 结束底部刷新
         
     } failure:^(NSString *error) {
         _pageNo--;
@@ -268,9 +269,19 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
         _tableView.delegate = self;
         _tableView.dataSource = self;
         // 设置下拉刷新
-        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(initializeData)];
+        //_tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(initializeData)];
+        // 设置下拉刷新动画视图
+        [self sunnyRefreshControl];
     }
     return _tableView;
+}
+- (YALSunnyRefreshControl *)sunnyRefreshControl {
+    if(!_sunnyRefreshControl){
+        _sunnyRefreshControl = [[YALSunnyRefreshControl alloc] init];
+        [_sunnyRefreshControl addTarget:self action:@selector(sunnyControlDidStartAnimation) forControlEvents:UIControlEventValueChanged];
+        [_sunnyRefreshControl attachToScrollView:self.tableView];
+    }
+    return _sunnyRefreshControl;
 }
 - (UIButton *)tiggerBtn {
     if(!_tiggerBtn){
@@ -328,6 +339,15 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
 #pragma mark - 菜单按钮点击左侧弹出菜单事件
 - (void)tiggerBtnAction:(UIButton *)sender {
     [self.slideMenu trigger];
+}
+#pragma mark - 下拉刷新动画方，开始执行方法
+-(void)sunnyControlDidStartAnimation{
+    /*
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.sunnyRefreshControl endRefreshing];
+    });
+     */
+    [self initializeData];
 }
 
 @end
