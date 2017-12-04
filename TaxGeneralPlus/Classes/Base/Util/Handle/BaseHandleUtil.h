@@ -66,6 +66,17 @@ SingletonH(BaseHandleUtil)
 - (CGSize)sizeWithString:(NSString *)str font:(UIFont *)font maxSize:(CGSize)maxSize;
 
 /**
+ * 计算文本在Label中所需的高度
+ *
+ * @param   text    要计算的文本内容
+ * @param   width   宽度
+ * @param   font    字体
+ *
+ * @return  所需的高度
+ */
+- (CGFloat)calculateHeightWithText:(NSString *)text width:(CGFloat)width font:(UIFont *)font;
+
+/**
  *  获取关键字，中文转换拼音
  *
  *  @param  chinese  需要转换的中文

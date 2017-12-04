@@ -301,7 +301,7 @@ typedef NS_ENUM(NSInteger, AppViewType) {
 #pragma mark 顶部视图
 - (AppTopView *)appTopView {
     if(!_appTopView){
-        _appTopView = [[AppTopView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, HEIGHT_STATUS + 136)];
+        _appTopView = [[AppTopView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, ceilf(HEIGHT_SCREEN*0.22f))];
         _appTopView.delegate = self;
     }
     return _appTopView;

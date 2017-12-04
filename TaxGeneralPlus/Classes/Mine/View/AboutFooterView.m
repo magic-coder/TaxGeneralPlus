@@ -10,66 +10,104 @@
 
 #import "AboutFooterView.h"
 
+@interface AboutFooterView () <TTTAttributedLabelDelegate>
+@property (nonatomic, assign) NSRange boldRange;
+@end
+
 @implementation AboutFooterView
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if(self = [super initWithFrame:frame]){
         self.backgroundColor = DEFAULT_BACKGROUND_COLOR;
         
-        float bottomH = 0.0f;
+        float techFontSize = 12.0f;
+        float taxFontSize = 13.0f;
+        float labelHeight = 20.0f;
+        if(DEVICE_SCREEN_INCH_IPAD){
+            techFontSize = 19.2f;
+            taxFontSize = 20.8f;
+            labelHeight = 32.0f;
+        }
         
-        UILabel *taxLabel = [self labelWithFrame:CGRectMake(0, frame.size.height-80+bottomH, self.frameWidth, 20)];
-        taxLabel.font = [UIFont systemFontOfSize:13.0f];
-        taxLabel.text = @"西安市地方税务局";
-        [self addSubview:taxLabel];
-        
-        UILabel *techLabel = [self labelWithFrame:CGRectMake((self.frameWidth-240)/2+5, frame.size.height-60+bottomH, 60, 20)];
-        techLabel.text = @"技术支持：";
-        [self addSubview:techLabel];
-        
-        UIButton *techBtn = [self buttonWithFrame:CGRectMake((self.frameWidth-240)/2+60, frame.size.height-60+bottomH, 180, 20) title:@"蓬天信息系统（北京）有限公司"];
-        [techBtn addTarget:self action:@selector(onClickTechBtn:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:techBtn];
-        
-        UILabel *statementLabel = [self labelWithFrame:CGRectMake(0, frame.size.height-25+bottomH, self.frameWidth, 20)];
+        // 逆序从下往上依次添加标签
+        // 版权信息
+        UILabel *statementLabel = [self initializeLabel];
         statementLabel.text = @"Copyright © 2000-2018 Prient. All rights reserved.";
         [self addSubview:statementLabel];
+        [statementLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.width.equalTo(self);
+            make.bottom.equalTo(self).with.offset(-5);
+            make.height.mas_equalTo(labelHeight);
+        }];
+        
+        // 技术支持
+        TTTAttributedLabel *techLabel = [TTTAttributedLabel new];
+        techLabel.font = [UIFont systemFontOfSize:techFontSize];
+        techLabel.textColor = [UIColor grayColor];
+        techLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        techLabel.textAlignment = NSTextAlignmentCenter;
+        techLabel.highlightedTextColor = DEFAULT_LIGHT_BLUE_COLOR;// 设置高亮颜色
+        techLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;// 检测url
+        techLabel.linkAttributes = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:(NSString *)kCTUnderlineStyleAttributeName];// 不显示下划线
+        techLabel.delegate = self;
+        NSString *text = @"技术支持：蓬天信息系统（北京）有限公司";
+        
+        [techLabel setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
+            // 设置可点击文字的范围
+            NSRange linkRange = [[mutableAttributedString string] rangeOfString:@"蓬天信息系统（北京）有限公司" options:NSCaseInsensitiveSearch];
+            // 设置可点击文字的颜色
+            [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)DEFAULT_BLUE_COLOR range:linkRange];
+            
+            return mutableAttributedString;
+        }];
+        
+        NSRange urlRange = [text rangeOfString:@"蓬天信息系统（北京）有限公司"];
+        [techLabel addLinkToURL:[NSURL URLWithString:@"https://micyo202.github.io"] withRange:urlRange];
+        
+        [self addSubview:techLabel];
+        [techLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.width.equalTo(self);
+            make.bottom.equalTo(statementLabel.mas_top).with.offset(-10);
+            make.height.mas_equalTo(labelHeight);
+        }];
+        
+        // 单位机构
+        UILabel *taxLabel = [self initializeLabel];
+        taxLabel.font = [UIFont boldSystemFontOfSize:taxFontSize];
+        taxLabel.text = @"西安市地方税务局";
+        [self addSubview:taxLabel];
+        [taxLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.width.equalTo(self);
+            make.bottom.equalTo(techLabel.mas_top).with.offset(-5);
+            make.height.mas_equalTo(labelHeight);
+        }];
         
     }
     return self;
 }
 
-- (void)onClickTechBtn:(UIButton *)sender{
-    NSString *urlString = @"http://www.prient.com";
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@", urlString]];
+#pragma mark - TTTAttributedLabelDelegate 代理方法，url 点击事件
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
     [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
 }
 
 #pragma mark - 创建基本通用样式的Label
-- (UILabel *)labelWithFrame:(CGRect)frame{
-    UILabel *label = [[UILabel alloc] initWithFrame:frame];
+- (UILabel *)initializeLabel{
+    UILabel *label = [UILabel new];
     label.numberOfLines = 0;
     label.textColor = [UIColor grayColor];
     label.textAlignment = NSTextAlignmentCenter;
     //label.font = [UIFont fontWithName:@"Helvetica" size:13.0f];
-    label.font = [UIFont systemFontOfSize:12.0f];
+    if(DEVICE_SCREEN_INCH_IPAD){
+        label.font = [UIFont systemFontOfSize:19.2f];
+    }else{
+        label.font = [UIFont systemFontOfSize:12.0f];
+    }
+    
     //字体自适应
     label.adjustsFontSizeToFitWidth = YES;
     
     return label;
-}
-
-#pragma mark - 创建基本通用样式的Button
-- (UIButton *)buttonWithFrame:(CGRect)frame title:(NSString *)title{
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = frame;
-    [button setBackgroundColor:DEFAULT_BACKGROUND_COLOR];
-    [button setTitleColor:DEFAULT_BLUE_COLOR forState:UIControlStateNormal];
-    [button setTitleColor:DEFAULT_LIGHT_BLUE_COLOR forState:UIControlStateHighlighted];
-    [button setTitle:title forState:UIControlStateNormal];
-    [button.titleLabel setFont:[UIFont systemFontOfSize:12.0f]];
-    
-    return button;
 }
 
 @end

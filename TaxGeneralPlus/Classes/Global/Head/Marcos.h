@@ -27,6 +27,9 @@
 #define DEVICE_SCREEN_INCH_5_8  WIDTH_SCREEN == 375 && HEIGHT_SCREEN == 812 // 5.8英寸    375*812 (X)
 #define DEVICE_SCREEN_INCH_IPAD WIDTH_SCREEN > 414 && HEIGHT_SCREEN > 812   // iPad 尺寸  7.9英寸/9.7英寸（768*1024）、10.5英寸（834*1112）、12.9英寸（1024*1366）
 
+#define IS_ON_IPHONE (UI_USER_INTERFACE_IDIOM == UIUserInterfaceIdiomPhone)
+#define IS_ON_IPAD (UI_USER_INTERFACE_IDIOM == UIUserInterfaceIdiomPad)
+
 #pragma mark - 常用方法宏定义
 #define RgbColor(r, g, b, a)    [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:a]
 #define HexColor(hex, a)        [UIColor colorWithHexString:hex alpha:a]

@@ -63,9 +63,11 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
 
 #pragma mark - 自动布局
 - (void)autoLayout{
+
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
+    
     [self.tiggerBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.view).offset(-5);
         make.right.equalTo(self.view).offset(-5);
@@ -135,7 +137,7 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
          */
         NSArray *titles = @[@"[学习十九大报告·一日一课]建设美丽中国", @"在新的历史方位上认识和推动国家治理体系和治理能力现代化", @"中央首次派宣讲团赴港宣讲十九大 这位正部领衔", @"多架轰6K等战机飞赴南海战斗巡航的背后"];
         NSArray *images = @[@"cycle_1", @"cycle_2", @"cycle_3", @"cycle_4"];
-        NSArray *urls = @[@"http://www.qq.com", @"http://www.alibaba.com", @"http://www.baidu.com", @"http://www.jd.com"];
+        NSArray *urls = @[@"https://www.qq.com", @"https://www.alibaba.com", @"https://www.baidu.com", @"https://www.jd.com"];
         
         _cycleScrollView = [[YZCycleScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frameWidth, floorf((CGFloat)self.view.frameWidth/1.8)) titles:titles images:images urls:urls autoPlay:YES delay:2.7f];
         _cycleScrollView.delegate = self;
@@ -147,7 +149,6 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
             NewsModel *model = [NewsModel createWithDictionary:newsDict];
             [_data addObject:model];
         }
-        [self.tableView reloadData];    // 重新加载数据
         
         _totalPage = [[dataDict objectForKey:@"totalPage"] intValue];
         if(_totalPage > 1)
@@ -155,6 +156,7 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
         
         [self.sunnyRefreshControl endRefreshing];   // 结束头部刷新动画
         
+        [self.tableView reloadData];    // 重新加载数据
     } failure:^(NSString *error) {
         [self.sunnyRefreshControl endRefreshing];   // 结束头部刷新动画
         [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow]; // 错误提示

@@ -138,8 +138,9 @@
 
 - (void)onClick:(UIButton *)btn{
     if(0 == btn.tag){
-        //[MBProgressHUD showHUDView:self.view text:@"请求超时，请联系管理员！" progressHUDMode:YZProgressHUDModeShow];
+        [MBProgressHUD showHUDView:self.view text:@"请求超时，请联系管理员！" progressHUDMode:YZProgressHUDModeShow];
         
+        /*
         [MBProgressHUD showHUDView:self.view text:@"加载中..." progressHUDMode:(YZProgressHUDModeLock)];
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
             sleep(2.0);
@@ -147,6 +148,7 @@
                 [MBProgressHUD hiddenHUDView:self.view];
             });
         });
+         */
     }
     
     if(1 == btn.tag){

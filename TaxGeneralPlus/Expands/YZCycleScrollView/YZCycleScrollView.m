@@ -13,10 +13,12 @@
 
 #define FRAME_WIDTH     self.frame.size.width
 #define FRAME_HEIGHT    self.frame.size.height
-#define PAGE_HEIGHT     20
+//#define PAGE_HEIGHT     20
 
 @interface YZCycleScrollView() <UIScrollViewDelegate>
 @property (nonatomic, strong) NSMutableArray *currentImages;
+@property (nonatomic, assign) float pageHeight;
+@property (nonatomic, assign) float titleFontSize;
 @property (nonatomic, assign) int currentPage;
 @property (nonatomic, weak) UILabel *titleLabel;
 @property (nonatomic, weak) UIPageControl *pageControl;
@@ -24,30 +26,6 @@
 @end
 
 @implementation YZCycleScrollView
-
-#pragma mark - 初始化创建组件
--(instancetype)initWithTitles:(NSArray *)titles
-                       images:(NSArray *)images
-                         urls:(NSArray *)urls
-                     autoPlay:(BOOL)isAuto
-                        delay:(NSTimeInterval)timeInterval{
-    
-    if(self = [super init]){
-        _titles = titles;
-        _images = images;
-        _urls = urls;
-        _autoPlay = isAuto;
-        _timeInterval = timeInterval;
-        _currentPage = 0;
-        
-        [self addScrollView];
-        [self addPageControl];
-        if (self.autoPlay == YES) {
-            [self toPlay];
-        }
-    }
-    return self;
-}
 
 #pragma mark - 初始化创建组件
 - (instancetype)initWithFrame:(CGRect)frame
@@ -58,6 +36,15 @@
                         delay:(NSTimeInterval)timeInterval {
     
     if (self = [super initWithFrame:frame]) {
+
+        if(DEVICE_SCREEN_INCH_IPAD){
+            _pageHeight = 32.0f;
+            _titleFontSize = 28.8f;
+        }else{
+            _pageHeight = 20.0f;
+            _titleFontSize = 18.0f;
+        }
+        
         _titles = titles;
         _images = images;
         _urls = urls;
@@ -76,9 +63,9 @@
 
 #pragma mark - 添加焦点页面控制器
 - (void)addPageControl {
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, FRAME_HEIGHT-PAGE_HEIGHT, FRAME_WIDTH, PAGE_HEIGHT)];
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, FRAME_HEIGHT-_pageHeight, FRAME_WIDTH, _pageHeight)];
     bgView.backgroundColor = [UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:0.2];
-    UIPageControl *pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, 0, FRAME_WIDTH, PAGE_HEIGHT)];
+    UIPageControl *pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, 0, FRAME_WIDTH, _pageHeight)];
     pageControl.numberOfPages = self.images.count;// 小圆点的个数
     pageControl.currentPage = 0;// 初始化页码值
     pageControl.userInteractionEnabled = NO;// 禁止用户对page条操作
@@ -92,9 +79,9 @@
     
     // 标题展示
     if(_titles.count > 0){
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, FRAME_WIDTH - pointSize.width - 40, PAGE_HEIGHT)];
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, FRAME_WIDTH - pointSize.width - 40, _pageHeight)];
         titleLabel.textColor = [UIColor whiteColor];
-        titleLabel.font = [UIFont boldSystemFontOfSize:18];// 字体加粗
+        titleLabel.font = [UIFont boldSystemFontOfSize:_titleFontSize];// 字体加粗
         titleLabel.text = _titles[0];// 默认展示第一个标题
         _titleLabel = titleLabel;
         [bgView addSubview:self.titleLabel];

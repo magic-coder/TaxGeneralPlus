@@ -37,12 +37,14 @@ static NSString * const reuseIdentifier = @"aboutTableViewCell";
     self.tableView.showsVerticalScrollIndicator = NO;// 隐藏纵向滚动条
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     
-    _headerView = [[AboutHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, 240)];
+    _headerView = [[AboutHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, floorf(HEIGHT_SCREEN/3.0f))];
     self.tableView.tableHeaderView = _headerView;
     
-    float footerH = HEIGHT_SCREEN-HEIGHT_STATUS-HEIGHT_NAVBAR-240-43*3-20;
-    if(DEVICE_SCREEN_INCH_5_8)
-        footerH = HEIGHT_SCREEN-HEIGHT_STATUS-HEIGHT_NAVBAR-240-43*3-20-34;
+    
+    float cellH = 43.0f;
+    if(DEVICE_SCREEN_INCH_IPAD)
+        cellH = 68.8f;
+    float footerH = HEIGHT_SCREEN-HEIGHT_STATUS-HEIGHT_NAVBAR-floorf(HEIGHT_SCREEN/3.0f)-(cellH*3)-34-20;
     _footerView = [[AboutFooterView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, footerH)];
     self.tableView.tableFooterView = _footerView;
     

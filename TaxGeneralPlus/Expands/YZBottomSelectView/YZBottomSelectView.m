@@ -12,14 +12,15 @@
 
 #define IS_IPHONE_X (812 == [UIScreen mainScreen].bounds.size.height && 375 == [UIScreen mainScreen].bounds.size.width)
 
-static const CGFloat kRowHeight = 46.0f;
 static const CGFloat kRowLineHeight = 0.5f;
-static const CGFloat kSeparatorHeight = 6.0f;
-static const CGFloat kTitleFontSize = 13.0f;
-static const CGFloat kButtonTitleFontSize = 16.0f;
 static const NSTimeInterval kAnimateDuration = 0.5f;
 
 @interface YZBottomSelectView ()
+
+@property (nonatomic, assign) CGFloat kRowHeight;
+@property (nonatomic, assign) CGFloat kSeparatorHeight;
+@property (nonatomic, assign) CGFloat kTitleFontSize;
+@property (nonatomic, assign) CGFloat kButtonTitleFontSize;
 
 /** block回调 */
 @property (copy, nonatomic) YZBottomSelectViewBlock bottomSelectViewBlock;
@@ -34,6 +35,17 @@ static const NSTimeInterval kAnimateDuration = 0.5f;
 
 #pragma mark - 初始化创建选择视图
 - (instancetype)initWithTitle:(NSString *)title cancelButtonTitle:(NSString *)cancelButtonTitle destructiveButtonTitle:(NSString *)destructiveButtonTitle otherButtonTitles:(NSArray *)otherButtonTitles handler:(YZBottomSelectViewBlock)bottomSelectViewBlock {
+    
+    _kRowHeight = 46.0f;
+    _kSeparatorHeight = 6.0f;
+    _kTitleFontSize = 13.0f;
+    _kButtonTitleFontSize = 16.0f;
+    if(DEVICE_SCREEN_INCH_IPAD){
+        _kRowHeight = 73.6f;
+        _kSeparatorHeight = 9.6f;
+        _kTitleFontSize = 20.8f;
+        _kButtonTitleFontSize = 25.6f;
+    }
     
     self = [super initWithFrame:CGRectZero];
     if (self) {
@@ -61,7 +73,7 @@ static const NSTimeInterval kAnimateDuration = 0.5f;
         if (title && title.length > 0) {
             bootomSelectViewHeight += kRowLineHeight;
             
-            CGFloat titleHeight = ceilf((CGFloat)[title boundingRectWithSize:CGSizeMake(self.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:kTitleFontSize]} context:nil].size.height) + 15*2;
+            CGFloat titleHeight = ceilf((CGFloat)[title boundingRectWithSize:CGSizeMake(self.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:_kTitleFontSize]} context:nil].size.height) + 15*2;
             UILabel *titleLabel = [[UILabel alloc] init];
             // 此处进行判断设备是否为iPhoneX
             if(IS_IPHONE_X) {
@@ -75,7 +87,7 @@ static const NSTimeInterval kAnimateDuration = 0.5f;
             titleLabel.backgroundColor = [UIColor colorWithRed:255/255.0f green:255/255.0f blue:255/255.0f alpha:1];
             titleLabel.textColor = [UIColor colorWithRed:135/255.0f green:135/255.0f blue:135/255.0f alpha:1];
             titleLabel.textAlignment = NSTextAlignmentCenter;
-            titleLabel.font = [UIFont systemFontOfSize:kTitleFontSize];
+            titleLabel.font = [UIFont systemFontOfSize:_kTitleFontSize];
             titleLabel.numberOfLines = 0;
             [_bottomSelectView addSubview:titleLabel];
             
@@ -89,13 +101,13 @@ static const NSTimeInterval kAnimateDuration = 0.5f;
             // 此处进行判断设备是否为iPhoneX
             if(IS_IPHONE_X) {
                 // 设置 iPhoneX 中安全区域（底部危险区域高为：34）
-                destructiveButton.frame = CGRectMake(0, bootomSelectViewHeight-34.0f, self.frame.size.width, kRowHeight);
+                destructiveButton.frame = CGRectMake(0, bootomSelectViewHeight-34.0f, self.frame.size.width, _kRowHeight);
             } else {
-                destructiveButton.frame = CGRectMake(0, bootomSelectViewHeight, self.frame.size.width, kRowHeight);
+                destructiveButton.frame = CGRectMake(0, bootomSelectViewHeight, self.frame.size.width, _kRowHeight);
             }
             destructiveButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;
             destructiveButton.tag = -1;
-            destructiveButton.titleLabel.font = [UIFont systemFontOfSize:kButtonTitleFontSize];
+            destructiveButton.titleLabel.font = [UIFont systemFontOfSize:_kButtonTitleFontSize];
             [destructiveButton setTitle:destructiveButtonTitle forState:UIControlStateNormal];
             [destructiveButton setTitleColor:[UIColor colorWithRed:230/255.0f green:66/255.0f blue:66/255.0f alpha:1] forState:UIControlStateNormal];
             [destructiveButton setBackgroundImage:normalImage forState:UIControlStateNormal];
@@ -103,7 +115,7 @@ static const NSTimeInterval kAnimateDuration = 0.5f;
             [destructiveButton addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
             [_bottomSelectView addSubview:destructiveButton];
             
-            bootomSelectViewHeight += kRowHeight;
+            bootomSelectViewHeight += _kRowHeight;
         }
         
         if (otherButtonTitles && [otherButtonTitles count] > 0) {
@@ -114,13 +126,13 @@ static const NSTimeInterval kAnimateDuration = 0.5f;
                 // 此处进行判断设备是否为iPhoneX
                 if(IS_IPHONE_X) {
                     // 设置 iPhoneX 中安全区域（底部危险区域高为：34）
-                    button.frame = CGRectMake(0, bootomSelectViewHeight-34.0f, self.frame.size.width, kRowHeight);
+                    button.frame = CGRectMake(0, bootomSelectViewHeight-34.0f, self.frame.size.width, _kRowHeight);
                 } else {
-                    button.frame = CGRectMake(0, bootomSelectViewHeight, self.frame.size.width, kRowHeight);
+                    button.frame = CGRectMake(0, bootomSelectViewHeight, self.frame.size.width, _kRowHeight);
                 }
                 button.autoresizingMask = UIViewAutoresizingFlexibleWidth;
                 button.tag = i+1;
-                button.titleLabel.font = [UIFont systemFontOfSize:kButtonTitleFontSize];
+                button.titleLabel.font = [UIFont systemFontOfSize:_kButtonTitleFontSize];
                 [button setTitle:otherButtonTitles[i] forState:UIControlStateNormal];
                 [button setTitleColor:[UIColor colorWithRed:64/255.0f green:64/255.0f blue:64/255.0f alpha:1] forState:UIControlStateNormal];
                 [button setBackgroundImage:normalImage forState:UIControlStateNormal];
@@ -128,24 +140,24 @@ static const NSTimeInterval kAnimateDuration = 0.5f;
                 [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
                 [_bottomSelectView addSubview:button];
                 
-                bootomSelectViewHeight += kRowHeight;
+                bootomSelectViewHeight += _kRowHeight;
             }
         }
         
         if (cancelButtonTitle && cancelButtonTitle.length > 0) {
-            bootomSelectViewHeight += kSeparatorHeight;
+            bootomSelectViewHeight += _kSeparatorHeight;
             
             UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
             // 此处进行判断设备是否为iPhoneX
             if(IS_IPHONE_X) {
                 // 设置 iPhoneX 中安全区域（底部危险区域高为：34）
-                cancelButton.frame = CGRectMake(0, bootomSelectViewHeight-34.0f, self.frame.size.width, kRowHeight);
+                cancelButton.frame = CGRectMake(0, bootomSelectViewHeight-34.0f, self.frame.size.width, _kRowHeight);
             } else {
-                cancelButton.frame = CGRectMake(0, bootomSelectViewHeight, self.frame.size.width, kRowHeight);
+                cancelButton.frame = CGRectMake(0, bootomSelectViewHeight, self.frame.size.width, _kRowHeight);
             }
             cancelButton.autoresizingMask = UIViewAutoresizingFlexibleWidth;
             cancelButton.tag = 0;
-            cancelButton.titleLabel.font = [UIFont systemFontOfSize:kButtonTitleFontSize];
+            cancelButton.titleLabel.font = [UIFont systemFontOfSize:_kButtonTitleFontSize];
             [cancelButton setTitle:cancelButtonTitle ?: @"取消" forState:UIControlStateNormal];
             [cancelButton setTitleColor:[UIColor colorWithRed:64/255.0f green:64/255.0f blue:64/255.0f alpha:1] forState:UIControlStateNormal];
             [cancelButton setBackgroundImage:normalImage forState:UIControlStateNormal];
@@ -153,7 +165,7 @@ static const NSTimeInterval kAnimateDuration = 0.5f;
             [cancelButton addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
             [_bottomSelectView addSubview:cancelButton];
             
-            bootomSelectViewHeight += kRowHeight;
+            bootomSelectViewHeight += _kRowHeight;
         }
         
         _bottomSelectView.frame = CGRectMake(0, self.frame.size.height, self.frame.size.width, bootomSelectViewHeight);

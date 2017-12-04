@@ -25,8 +25,13 @@
         hud.square = YES;// 设置成正方形
     }
     
+    float fontSize = 15.0f;
+    if(DEVICE_SCREEN_INCH_IPAD){
+        fontSize = 24.0f;
+    }
+    
     if(YZProgressHUDModeShow == progressHUDMode) {
-        hud.label.font = [UIFont systemFontOfSize:15.0f];
+        hud.label.font = [UIFont systemFontOfSize:fontSize];
         hud.mode = MBProgressHUDModeText;// 设置样式为只显示文字
         [hud hideAnimated:YES afterDelay:1.7f];// 1.7秒后自动消失
     }

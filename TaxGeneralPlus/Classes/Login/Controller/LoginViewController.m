@@ -11,6 +11,7 @@
 #import "LoginViewController.h"
 #import "MainTabBarController.h"
 #import "OneWayHTTPS.h"
+#import "AppDelegate.h"
 
 #define LABELSIZE CGSizeMake(70, 20)
 #define TEXTFIELDSIZE CGSizeMake(180, 30)

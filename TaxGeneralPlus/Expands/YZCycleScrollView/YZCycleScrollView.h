@@ -31,12 +31,6 @@
 @property (nonatomic, assign) NSTimeInterval timeInterval;// 间隔播放时间
 
 // 初始化创建轮播视图
-- (instancetype)initWithTitles:(NSArray *)titles
-                        images:(NSArray *)images
-                          urls:(NSArray *)urls
-                      autoPlay:(BOOL)isAuto
-                         delay:(NSTimeInterval)timeInterval;
-
 - (instancetype)initWithFrame:(CGRect)frame
                        titles:(NSArray *)titles
                        images:(NSArray *)images

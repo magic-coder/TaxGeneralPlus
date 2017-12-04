@@ -11,12 +11,24 @@
 #import "NewsTableViewCell.h"
 #import "NewsModel.h"
 
-#define TITLE_FONT [UIFont systemFontOfSize:18.0f]
-#define DESCRIBE_FONT [UIFont systemFontOfSize:12.0f]
+//#define TITLE_FONT [UIFont systemFontOfSize:18.0f]
+//#define DESCRIBE_FONT [UIFont systemFontOfSize:12.0f]
 
 @interface NewsTableViewCell ()
 
 @property (nonatomic, assign) float baseSpace;
+
+@property (nonatomic, assign) float imageWidth;
+@property (nonatomic, assign) float imageHeight;
+
+@property (nonatomic, assign) float fewTitleWidth;
+@property (nonatomic, assign) float titleWidth;
+
+@property (nonatomic, assign) float describeWidth;
+@property (nonatomic, assign) float describeHeight;
+
+@property (nonatomic, strong) UIFont *titleFont;
+@property (nonatomic, strong) UIFont *describeFont;
 
 @property (nonatomic, strong) UILabel *titleLabel;
 
@@ -39,14 +51,54 @@
 #pragma mark - 初始化方法
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if(self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        [self.contentView addSubview:self.titleLabel];
-        [self.contentView addSubview:self.oneImageView];
-        [self.contentView addSubview:self.fewImageView];
-        [self.contentView addSubview:self.leftImageView];
-        [self.contentView addSubview:self.centerImageView];
-        [self.contentView addSubview:self.rightImageView];
-        [self.contentView addSubview:self.describeLabel];
-        [self.contentView addSubview:self.bottomLine];
+        
+        if(DEVICE_SCREEN_INCH_IPAD){
+            _baseSpace = 16;
+            
+            _titleFont = [UIFont systemFontOfSize:28.8f];
+            _describeFont = [UIFont systemFontOfSize:19.2f];
+            
+            _describeWidth = 192.0f;// 底部描述标签的宽度
+            _describeHeight = 16.0f;// 底部描述标签的高度
+        }else{
+            _baseSpace = 10;
+            
+            _titleFont = [UIFont systemFontOfSize:18.0f];
+            _describeFont = [UIFont systemFontOfSize:12.0f];
+            
+            _describeWidth = 120.0f;// 底部描述标签的宽度
+            _describeHeight = 10.0f;// 底部描述标签的高度
+        }
+        
+        _imageWidth = floorf((CGFloat)(WIDTH_SCREEN - _baseSpace * 3)/3);
+        _imageHeight = ceilf(_imageWidth*0.65f);// 图片的高度
+        
+        _titleWidth = WIDTH_SCREEN - (_baseSpace*2);
+        _fewTitleWidth = WIDTH_SCREEN - _imageWidth - (_baseSpace*3);
+        
+        // 添加首页税闻所需全部组件
+        _titleLabel = [UILabel new];
+        [_titleLabel setFont:_titleFont];
+        _titleLabel.numberOfLines = 0;  // 标签显示不限制行数
+        [self addSubview:_titleLabel];
+        _oneImageView = [UIImageView new];
+        [self addSubview:_oneImageView];
+        _fewImageView = [UIImageView new];
+        [self addSubview:_fewImageView];
+        _leftImageView = [UIImageView new];
+        [self addSubview:_leftImageView];
+        _centerImageView = [UIImageView new];
+        [self addSubview:_centerImageView];
+        _rightImageView = [UIImageView new];
+        [self addSubview:_rightImageView];
+        _describeLabel = [UILabel new];
+        [_describeLabel setTextColor:[UIColor lightGrayColor]];
+        [_describeLabel setFont:_describeFont];
+        [self addSubview:_describeLabel];
+        _bottomLine = [UIView new];
+        [_bottomLine setBackgroundColor:[UIColor lightGrayColor]];
+        [_bottomLine setAlpha:0.4];
+        [self addSubview:_bottomLine];
     }
     
     return self;
@@ -56,25 +108,25 @@
 - (void)layoutSubviews{
     [super layoutSubviews];
     
-    _baseSpace = 10;
-    float imageWidth = floorf((CGFloat)(self.frameWidth - _baseSpace * 3)/3);
-    float imageHeight = 75;// iPhone上小图片的高度
-    float describeWidth = 120;// 底部描述标签的宽度
-    float describeHeight = 10;// 底部描述标签的高度
-    
     // 纯文本样式（没有图片）
     if(_model.style == NewsModelStyleText){
+        /*
+         float titleLabelX = _baseSpace;
+         float titleLabelY = _baseSpace;
+         CGSize titleSize = [[BaseHandleUtil sharedBaseHandleUtil] sizeWithString:_model.title font:_titleFont maxSize:CGSizeMake(_titleWidth, MAXFLOAT)];
+         float titleLabelW = titleSize.width;
+         float titleLabelH = titleSize.height;
+         */
         float titleLabelX = _baseSpace;
         float titleLabelY = _baseSpace;
-        CGSize titleSize = [[BaseHandleUtil sharedBaseHandleUtil] sizeWithString:_model.title font:TITLE_FONT maxSize:CGSizeMake(self.frameWidth - (_baseSpace * 2), MAXFLOAT)];
-        float titleLabelW = titleSize.width;
-        float titleLabelH = titleSize.height;
+        float titleLabelW = _titleWidth;
+        float titleLabelH = [[BaseHandleUtil sharedBaseHandleUtil] calculateHeightWithText:_model.title width:titleLabelW font:_titleFont];
         [_titleLabel setFrame:CGRectMake(titleLabelX, titleLabelY, titleLabelW, titleLabelH)];
         
         float describeLabelX = _baseSpace;
         float describeLabelY = _titleLabel.frameBottom + _baseSpace;
-        float describeLabelW = describeWidth;
-        float describeLabelH = describeHeight;
+        float describeLabelW = _describeWidth;
+        float describeLabelH = _describeHeight;
         [_describeLabel setFrame:CGRectMake(describeLabelX, describeLabelY, describeLabelW, describeLabelH)];
         
         // 计算cell高度
@@ -82,10 +134,11 @@
     }
     
     // 一张图模式（中间显示一张大图）
+    /*
     if(_model.style == NewsModelStyleOneImage){
         float titleLabelX = _baseSpace;
         float titleLabelY = _baseSpace;
-        CGSize titleSize = [[BaseHandleUtil sharedBaseHandleUtil] sizeWithString:_model.title font:TITLE_FONT maxSize:CGSizeMake(self.frameWidth - (_baseSpace * 2), MAXFLOAT)];
+        CGSize titleSize = [[BaseHandleUtil sharedBaseHandleUtil] sizeWithString:_model.title font:_titleFont maxSize:CGSizeMake(self.frameWidth - (_baseSpace * 2), MAXFLOAT)];
         float titleLabelW = titleSize.width;
         float titleLabelH = titleSize.height;
         [_titleLabel setFrame:CGRectMake(titleLabelX, titleLabelY, titleLabelW, titleLabelH)];
@@ -105,36 +158,36 @@
         // 计算cell高度
         _model.cellHeight = _describeLabel.frameBottom + _baseSpace;
     }
+    */
     
     // 少量图样式（右侧显示一张小图）
     if(_model.style == NewsModelStyleFewImage){
-        float fewImageViewW = imageWidth;
-        float fewImageViewH = imageHeight;
+        float fewImageViewW = _imageWidth;
+        float fewImageViewH = _imageHeight;
         float fewImageViewX = self.frameWidth - _baseSpace - fewImageViewW;
         float fewImageViewY = _baseSpace;
         [_fewImageView setFrame:CGRectMake(fewImageViewX, fewImageViewY, fewImageViewW, fewImageViewH)];
         
         float titleLabelX = _baseSpace;
         float titleLabelY = _baseSpace;
-        CGSize titleSize = [[BaseHandleUtil sharedBaseHandleUtil] sizeWithString:_model.title font:TITLE_FONT maxSize:CGSizeMake(self.frameWidth - (_baseSpace * 3) - fewImageViewW, MAXFLOAT)];
-        float titleLabelW = titleSize.width;
-        float titleLabelH = titleSize.height;
+        CGFloat titleLabelW = _fewTitleWidth;
+        CGFloat titleLabelH = [[BaseHandleUtil sharedBaseHandleUtil] calculateHeightWithText:_model.title width:titleLabelW font:_titleFont];
         [_titleLabel setFrame:CGRectMake(titleLabelX, titleLabelY, titleLabelW, titleLabelH)];
         
         float describeLabelX = _baseSpace;
         float describeLabelY = 0;
-        if(titleLabelH + _baseSpace + 8 <= imageHeight){
-            describeLabelY = _baseSpace + imageHeight - 8;
+        if(titleLabelH + _baseSpace + 8 <= _imageHeight){
+            describeLabelY = _baseSpace + _imageHeight - 8;
         }else{
             describeLabelY = _titleLabel.frameBottom + _baseSpace;
         }
         
-        float describeLabelW = describeWidth;
-        float describeLabelH = describeHeight;
+        float describeLabelW = _describeWidth;
+        float describeLabelH = _describeHeight;
         [_describeLabel setFrame:CGRectMake(describeLabelX, describeLabelY, describeLabelW, describeLabelH)];
         
         // 计算cell高度
-        if(_describeLabel.frameBottom > imageHeight){
+        if(_describeLabel.frameBottom > _imageHeight){
             _model.cellHeight = _describeLabel.frameBottom + _baseSpace;
         }else{
             _model.cellHeight = _fewImageView.frameBottom + _baseSpace;
@@ -145,33 +198,32 @@
     if(_model.style == NewsModelStyleMoreImage){
         float titleLabelX = _baseSpace;
         float titleLabelY = _baseSpace;
-        CGSize titleSize = [[BaseHandleUtil sharedBaseHandleUtil] sizeWithString:_model.title font:TITLE_FONT maxSize:CGSizeMake(self.frameWidth - (_baseSpace * 2), MAXFLOAT)];
-        float titleLabelW = titleSize.width;
-        float titleLabelH = titleSize.height;
+        float titleLabelW = _titleWidth;
+        float titleLabelH = [[BaseHandleUtil sharedBaseHandleUtil] calculateHeightWithText:_model.title width:titleLabelW font:_titleFont];
         [_titleLabel setFrame:CGRectMake(titleLabelX, titleLabelY, titleLabelW, titleLabelH)];
         
         float leftImageViewX = _baseSpace;
         float leftImageViewY = _titleLabel.frameBottom + _baseSpace;
-        float leftImageViewW = imageWidth;
-        float leftImageViewH = imageHeight;
+        float leftImageViewW = _imageWidth;
+        float leftImageViewH = _imageHeight;
         [_leftImageView setFrame:CGRectMake(leftImageViewX, leftImageViewY, leftImageViewW, leftImageViewH)];
         
         float centerImageViewX = _leftImageView.frameRight + 5;
         float centerImageViewY = _titleLabel.frameBottom + _baseSpace;
-        float centerImageViewW = imageWidth;
-        float centerImageViewH = imageHeight;
+        float centerImageViewW = _imageWidth;
+        float centerImageViewH = _imageHeight;
         [_centerImageView setFrame:CGRectMake(centerImageViewX, centerImageViewY, centerImageViewW, centerImageViewH)];
         
         float rightImageViewX = _centerImageView.frameRight + 5;
         float rightImageViewY = _titleLabel.frameBottom + _baseSpace;
-        float rightImageViewW = imageWidth;
-        float rightImageViewH = imageHeight;
+        float rightImageViewW = _imageWidth;
+        float rightImageViewH = _imageHeight;
         [_rightImageView setFrame:CGRectMake(rightImageViewX, rightImageViewY, rightImageViewW, rightImageViewH)];
         
         float describeLabelX = _baseSpace;
         float describeLabelY = _leftImageView.frameBottom + _baseSpace;
-        float describeLabelW = describeWidth;
-        float describeLabelH = describeHeight;
+        float describeLabelW = _describeWidth;
+        float describeLabelH = _describeHeight;
         [_describeLabel setFrame:CGRectMake(describeLabelX, describeLabelY, describeLabelW, describeLabelH)];
         
         // 计算cell高度
@@ -290,79 +342,6 @@
     [_describeLabel setText:_model.datetime];
     
     [self layoutSubviews];
-}
-
-#pragma mark 初始化各组件的Getter方法
-- (UILabel *)titleLabel{
-    if(!_titleLabel){
-        _titleLabel = [[UILabel alloc] init];
-        [_titleLabel setFont:TITLE_FONT];
-        _titleLabel.numberOfLines = 0;  // 标签显示不限制行数
-    }
-    return _titleLabel;
-}
-
-- (UIImageView *)oneImageView {
-    if(!_oneImageView){
-        _oneImageView = [[UIImageView alloc] init];
-    }
-    return _oneImageView;
-}
-
-- (UIImageView *)fewImageView{
-    if(!_fewImageView){
-        _fewImageView = [[UIImageView alloc] init];
-    }
-    return _fewImageView;
-}
-
-- (UIImageView *)leftImageView{
-    if(!_leftImageView){
-        _leftImageView = [[UIImageView alloc] init];
-    }
-    return _leftImageView;
-}
-
-- (UIImageView *)centerImageView{
-    if(!_centerImageView){
-        _centerImageView = [[UIImageView alloc] init];
-    }
-    return _centerImageView;
-}
-
-- (UIImageView *)rightImageView{
-    if(!_rightImageView){
-        _rightImageView = [[UIImageView alloc] init];
-    }
-    return _rightImageView;
-}
-
-- (UILabel *)describeLabel{
-    if(!_describeLabel){
-        _describeLabel = [[UILabel alloc] init];
-        [_describeLabel setTextColor:[UIColor lightGrayColor]];
-        [_describeLabel setFont:DESCRIBE_FONT];
-    }
-    return _describeLabel;
-}
-
-- (UIView *)bottomLine{
-    _bottomLine = [[UIView alloc] init];
-    [_bottomLine setBackgroundColor:[UIColor lightGrayColor]];
-    [_bottomLine setAlpha:0.4];
-    [self.contentView addSubview:_bottomLine];
-    return nil;
-}
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 @end
