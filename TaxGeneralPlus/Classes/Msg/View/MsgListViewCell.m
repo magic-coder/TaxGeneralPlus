@@ -53,32 +53,40 @@
     [self setTopLineStyle:_topLineStyle];
     
     //self.leftFreeSpace = self.frameHeight * 0.18;
-    self.leftFreeSpace = 12;
+    self.leftFreeSpace = 12.0f;
+    if(DEVICE_SCREEN_INCH_IPAD)
+        self.leftFreeSpace = 19.2f;
     
-    float imageWidth = self.frameHeight * 0.72;
+    float imageWidth = self.frameHeight * 0.72f;
     float space = self.leftFreeSpace;
     [self.avatarView setFrame:CGRectMake(space, space, imageWidth, imageWidth)];
     
     float redMarkX = space + imageWidth;
     float redMarkY = space;
-    float redMarkW = 24;
-    float redMarkH = 24;
-    [self.redMarkView setFrame:CGRectMake(redMarkX - 12, redMarkY - 12, redMarkW, redMarkH)];
+    float redMarkW = 24.0f;
+    float redMarkH = 24.0f;
+    if(DEVICE_SCREEN_INCH_IPAD){
+        redMarkW = 38.4f;
+        redMarkH = 38.4f;
+    }
+    [self.redMarkView setFrame:CGRectMake(redMarkX - redMarkW/2, redMarkY - redMarkH/2, redMarkW, redMarkH)];
     
     float labelX = space * 2 + imageWidth;
-    float labelY = self.frameHeight * 0.135;
-    float labelHeight = self.frameHeight * 0.4;
-    float labelWidth = self.frameWidth - labelX - space * 1.5;
+    float labelY = self.frameHeight * 0.135f;
+    float labelHeight = self.frameHeight * 0.4f;
+    float labelWidth = self.frameWidth - labelX - space * 1.5f;
     
-    float dateWidth = 120;
-    float dateHeight = labelHeight * 0.75;
+    float dateWidth = 120.0f;
+    if(DEVICE_SCREEN_INCH_IPAD)
+        dateWidth = 192.0f;
+    float dateHeight = labelHeight * 0.75f;
     float dateX = self.frameWidth - space - dateWidth;
-    [self.dateLabel setFrame:CGRectMake(dateX, labelY * 0.7, dateWidth, dateHeight)];
+    [self.dateLabel setFrame:CGRectMake(dateX, labelY * 0.7f, dateWidth, dateHeight)];
     
     float usernameLabelWidth = self.frameWidth - labelX - dateWidth - space;
     [self.nameLabel setFrame:CGRectMake(labelX, labelY, usernameLabelWidth, labelHeight)];
     
-    labelY = self.frameHeight * 0.91 - labelHeight;
+    labelY = self.frameHeight * 0.91f - labelHeight;
     [self.msgLabel setFrame:CGRectMake(labelX, labelY, labelWidth, labelHeight)];
 }
 
@@ -166,7 +174,11 @@
 - (UILabel *) nameLabel{
     if (_nameLabel == nil) {
         _nameLabel = [[UILabel alloc] init];
-        [_nameLabel setFont:[UIFont systemFontOfSize:16]];
+        if(DEVICE_SCREEN_INCH_IPAD){
+            [_nameLabel setFont:[UIFont systemFontOfSize:25.6f]];
+        }else{
+            [_nameLabel setFont:[UIFont systemFontOfSize:16.0f]];
+        }
     }
     return _nameLabel;
 }
@@ -175,9 +187,13 @@
     if (_dateLabel == nil) {
         _dateLabel = [[UILabel alloc] init];
         [_dateLabel setAlpha:0.8];
-        [_dateLabel setFont:[UIFont systemFontOfSize:12]];
         [_dateLabel setTextAlignment:NSTextAlignmentRight];
         [_dateLabel setTextColor:[UIColor grayColor]];
+        if(DEVICE_SCREEN_INCH_IPAD){
+            [_dateLabel setFont:[UIFont systemFontOfSize:19.2f]];
+        }else{
+            [_dateLabel setFont:[UIFont systemFontOfSize:12.0f]];
+        }
     }
     return _dateLabel;
 }
@@ -186,7 +202,11 @@
     if (_msgLabel == nil) {
         _msgLabel = [[UILabel alloc] init];
         [_msgLabel setTextColor:[UIColor grayColor]];
-        [_msgLabel setFont:[UIFont systemFontOfSize:14]];
+        if(DEVICE_SCREEN_INCH_IPAD){
+            [_msgLabel setFont:[UIFont systemFontOfSize:22.4f]];
+        }else{
+            [_msgLabel setFont:[UIFont systemFontOfSize:14.0f]];
+        }
     }
     return _msgLabel;
 }
@@ -205,12 +225,17 @@
 - (UILabel *)redMark{
     if(_redMark == nil){
         _redMark = [[UILabel alloc] init];
-        [_redMark setFrame:CGRectMake(0, 0, 24, 24)];
         [_redMark setTextColor:[UIColor whiteColor]];
-        [_redMark setFont:[UIFont boldSystemFontOfSize:12]];
         [_redMark setTextAlignment:NSTextAlignmentCenter];
         _redMark.layer.masksToBounds = YES;
         _redMark.layer.cornerRadius = 12.0f;
+        if(DEVICE_SCREEN_INCH_IPAD){
+            [_redMark setFrame:CGRectMake(0, 0, 38.4f, 38.4f)];
+            [_redMark setFont:[UIFont boldSystemFontOfSize:19.2f]];
+        }else{
+            [_redMark setFrame:CGRectMake(0, 0, 24.0f, 24.0f)];
+            [_redMark setFont:[UIFont boldSystemFontOfSize:12.0f]];
+        }
     }
     return _redMark;
 }

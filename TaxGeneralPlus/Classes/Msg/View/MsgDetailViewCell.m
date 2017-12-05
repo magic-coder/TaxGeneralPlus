@@ -11,9 +11,6 @@
 #import "MsgDetailViewCell.h"
 #import "MsgDetailModel.h"
 
-#define TITLE_FONT [UIFont systemFontOfSize:17.0f]
-#define CONTENT_FONT [UIFont systemFontOfSize:14.0f]
-
 @interface MsgDetailViewCell()
 
 //@property (nonatomic, strong) UIView *baseView;
@@ -21,8 +18,17 @@
 
 @property (nonatomic, assign) float baseSpace;
 
+@property (nonatomic, assign) float imgWH;                  // 小图标的尺寸
+@property (nonatomic, assign) float arrowImgWH;             // 详细右侧箭头尺寸
+
+@property (nonatomic, assign) float labelW;                 // 固定标签宽度
+@property (nonatomic, assign) float labelH;                 // 固定标签高度
+
 @property (nonatomic, strong) UIView *firstLine;            // 第一条分割线
 @property (nonatomic, strong) UIView *secondLine;           // 第二条分割线
+
+@property (nonatomic, strong) UIFont *titleFont;            // 标题字体
+@property (nonatomic, strong) UIFont *contentFont;          // 内容字体
 
 @property (nonatomic, strong) UILabel *titleLabel;          // 标题
 @property (nonatomic, strong) UIImageView *userImg;         // 推送人图标
@@ -46,6 +52,28 @@
 #pragma mark - 初始化加载
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        if(DEVICE_SCREEN_INCH_IPAD){
+            _imgWH = 20.8f;
+            
+            _arrowImgWH = 48.0f;
+            
+            _labelW = 115.2f;
+            _labelH = 27.2f;
+            
+            _titleFont = [UIFont systemFontOfSize:27.2f];
+            _contentFont = [UIFont systemFontOfSize:22.4f];
+        }else{
+            _imgWH = 13.0f;
+            
+            _arrowImgWH = 30.0f;
+            
+            _labelW = 72.0f;
+            _labelH = 17.0f;
+            
+            _titleFont = [UIFont systemFontOfSize:17.0f];
+            _contentFont = [UIFont systemFontOfSize:14.0f];
+        }
+        
         self.selectionStyle = UITableViewCellSelectionStyleNone;    // cell点击变色效果
         self.backgroundColor = [UIColor clearColor];
         self.contentView.backgroundColor = [UIColor clearColor];
@@ -123,49 +151,50 @@
     
     // 通用间隙
     _baseSpace = 15.0f;
+    if(DEVICE_SCREEN_INCH_IPAD)
+        _baseSpace = 24.0f;
     // 通用宽度
-    float frameWidth = self.frameWidth - (_baseSpace * 2) - 30.0f;
+    float frameWidth = self.frameWidth - (_baseSpace * 4);
     
     // 标题
     float titleLabelX = _baseSpace;
     float titleLabelY = _baseSpace;
-    CGSize titleSize = [[BaseHandleUtil sharedBaseHandleUtil] sizeWithString:_model.title font:TITLE_FONT maxSize:CGSizeMake(frameWidth, MAXFLOAT)];
-    float titleLabelW = titleSize.width;
-    float titleLabelH = titleSize.height;
+    float titleLabelW = frameWidth;
+    float titleLabelH = [[BaseHandleUtil sharedBaseHandleUtil] calculateHeightWithText:_model.title width:titleLabelW font:_titleFont];
     [_titleLabel setFrame:CGRectMake(titleLabelX, titleLabelY, titleLabelW, titleLabelH)];
     
     // 第一条分割线
     float firstLineX = _baseSpace;
-    float firstLineY = titleLabelY + titleLabelH + _baseSpace;
+    float firstLineY = _titleLabel.frameBottom + _baseSpace;
     float firstLineW = frameWidth;
     float firstLineH = 0.5f;
     [_firstLine setFrame:CGRectMake(firstLineX, firstLineY, firstLineW, firstLineH)];
     
     // 推送人员
-    float pushUserLabelX = _baseSpace + 17;
-    float pushUserLabelY = firstLineY + firstLineH + _baseSpace;
-    float pushUserLabelW = 72.0f;
-    float pushUserLabelH = 17.0f;
+    float pushUserLabelX = _baseSpace + _imgWH + 5;
+    float pushUserLabelY = _firstLine.frameBottom + _baseSpace;
+    float pushUserLabelW = _labelW;
+    float pushUserLabelH = _labelH;
     [_pushUserLabel setFrame:CGRectMake(pushUserLabelX, pushUserLabelY, pushUserLabelW, pushUserLabelH)];
     
     // 人名
-    float userLabelX = _baseSpace + 17 + pushUserLabelW;
+    float userLabelX = _baseSpace + _imgWH + 5 + pushUserLabelW;
     float userLabelY = pushUserLabelY;
     float userLabelW = frameWidth - pushUserLabelW - _baseSpace * 2;
-    float userLabelH = 17.0f;
+    float userLabelH = _labelH;
     [_userLabel setFrame:CGRectMake(userLabelX, userLabelY, userLabelW, userLabelH)];
     
     // 推送时间
-    float pushDateLabelX = _baseSpace + 17;
-    float pushDateLabelY = userLabelY + userLabelH + _baseSpace;
-    float pushDateLabelW = 72.0f;
-    float pushDateLabelH = 17.0f;
-    if([_model.user isEqualToString:@"系统推送"]){
+    float pushDateLabelX = _baseSpace + _imgWH + 5;
+    float pushDateLabelY = _userLabel.frameBottom + _baseSpace;
+    float pushDateLabelW = _labelW;
+    float pushDateLabelH = _labelH;
+    if(![_model.user isEqualToString:@"系统推送"]){
         _userImg.hidden = YES;
         _pushUserLabel.hidden = YES;
         _userLabel.hidden = YES;
         
-        pushDateLabelY = firstLineY + firstLineH + _baseSpace;
+        pushDateLabelY = _firstLine.frameBottom + _baseSpace;
     }else{
         _userImg.hidden = NO;
         _pushUserLabel.hidden = NO;
@@ -174,8 +203,8 @@
         // 用户图标
         float userImgX = _baseSpace;
         float userImgY = pushUserLabelY+2;
-        float userImgW = 13.0f;
-        float userImgH = 13.0f;
+        float userImgW = _imgWH;
+        float userImgH = _imgWH;
         [_userImg setFrame:CGRectMake(userImgX, userImgY, userImgW, userImgH)];
     }
     [_pushDateLabel setFrame:CGRectMake(pushDateLabelX, pushDateLabelY, pushDateLabelW, pushDateLabelH)];
@@ -183,35 +212,35 @@
     // 推送时间图标
     float pushDateImgX = _baseSpace;
     float pushDateImgY = pushDateLabelY+2;
-    float pushDateImgW = 13.0f;
-    float pushDateImgH = 13.0f;
+    float pushDateImgW = _imgWH;
+    float pushDateImgH = _imgWH;
     [_pushDateImg setFrame:CGRectMake(pushDateImgX, pushDateImgY, pushDateImgW, pushDateImgH)];
     
     // 时间
-    float dateLabelX = _baseSpace + 17 + pushDateLabelW;
+    float dateLabelX = _baseSpace + _imgWH + 5 + pushDateLabelW;
     float dateLabelY = pushDateLabelY;
     float dateLabelW = frameWidth - pushDateLabelW - _baseSpace * 2;
-    float dateLabelH = 17.0f;
+    float dateLabelH = _labelH;
     [_dateLabel setFrame:CGRectMake(dateLabelX, dateLabelY, dateLabelW, dateLabelH)];
     
     // 摘要
-    float abstractLabelX = _baseSpace + 17;
+    float abstractLabelX = _baseSpace + _imgWH + 5;
     float abstractLabelY = dateLabelY + dateLabelH + _baseSpace;
-    float abstractLabelW = 72.0f;
-    float abstractLabelH = 17.0f;
+    float abstractLabelW = _labelW;
+    float abstractLabelH = _labelH;
     [_abstractLabel setFrame:CGRectMake(abstractLabelX, abstractLabelY, abstractLabelW, abstractLabelH)];
     
     // 摘要图标
     float abstractImgX = _baseSpace;
     float abstractImgY = abstractLabelY+2;
-    float abstractImgW = 13.0f;
-    float abstractImgH = 13.0f;
+    float abstractImgW = _imgWH;
+    float abstractImgH = _imgWH;
     [_abstractImg setFrame:CGRectMake(abstractImgX, abstractImgY, abstractImgW, abstractImgH)];
     
     // 摘要内容
-    float contentLabelX = _baseSpace + 17 + abstractLabelW;
+    float contentLabelX = _baseSpace + _imgWH + 5 + abstractLabelW;
     float contentLabelY = abstractLabelY;
-    CGSize contentSize = [[BaseHandleUtil sharedBaseHandleUtil] sizeWithString:_model.content font:CONTENT_FONT maxSize:CGSizeMake(frameWidth - abstractLabelW - abstractImgW, MAXFLOAT)];
+    CGSize contentSize = [[BaseHandleUtil sharedBaseHandleUtil] sizeWithString:_model.content font:_contentFont maxSize:CGSizeMake(frameWidth - abstractLabelW - abstractImgW, MAXFLOAT)];
     float contentLabelW = contentSize.width;
     float contentLabelH = contentSize.height;
     [_contentLabel setFrame:CGRectMake(contentLabelX, contentLabelY, contentLabelW, contentLabelH)];
@@ -231,26 +260,26 @@
         
         // 查看详情
         _detailLabel.hidden = NO;
-        float detailLabelX = _baseSpace + 17;
+        float detailLabelX = _baseSpace + _imgWH + 5;
         float detailLabelY = secondLineY + secondLineH + _baseSpace;
         float detailLabelW = frameWidth;
-        float detailLabelH = 17.0f;
+        float detailLabelH = _labelH;
         [_detailLabel setFrame:CGRectMake(detailLabelX, detailLabelY, detailLabelW, detailLabelH)];
         
         // 链接图标
         _linkImg.hidden = NO;
         float linkImgX = _baseSpace;
         float linkImgY = detailLabelY+2;
-        float linkImgW = 13.0f;
-        float linkImgH = 13.0f;
+        float linkImgW = _imgWH;
+        float linkImgH = _imgWH;
         [_linkImg setFrame:CGRectMake(linkImgX, linkImgY, linkImgW, linkImgH)];
         
         // 详情右侧箭头
         _arrowImageView.hidden = NO;
         float arrowImageViewX = frameWidth - 5.0f;
         float arrowImageViewY = detailLabelY - 8.0f;
-        float arrowImageViewW = 30.0f;
-        float arrowImageViewH = 30.0f;
+        float arrowImageViewW = _arrowImgWH;
+        float arrowImageViewH = _arrowImgWH;
         [_arrowImageView setFrame:CGRectMake(arrowImageViewX, arrowImageViewY, arrowImageViewW, arrowImageViewH)];
         
         // 计算cell高度
@@ -270,7 +299,7 @@
     _model.cellHeight = cellHeight;
     
     // 设置基本视图的frame
-    _baseView.frame = CGRectMake(15, 0, WIDTH_SCREEN-30, cellHeight);
+    _baseView.frame = CGRectMake(_baseSpace, 0, WIDTH_SCREEN-(_baseSpace*2), cellHeight);
     [_baseView setImage:[UIImage imageNamed:@"msg_detail_bg" scaleToSize:_baseView.size]];
     
     // 点击效果
@@ -331,7 +360,7 @@
     if (_titleLabel == nil) {
         _titleLabel = [[UILabel alloc] init];
         _titleLabel.numberOfLines = 0;
-        [_titleLabel setFont:TITLE_FONT];
+        [_titleLabel setFont:_titleFont];
         [_titleLabel setTextAlignment:NSTextAlignmentLeft];
         
     }
@@ -351,7 +380,7 @@
     if(_pushUserLabel == nil){
         _pushUserLabel = [[UILabel alloc] init];
         _pushUserLabel.text = @"推送人员：";
-        [_pushUserLabel setFont:CONTENT_FONT];
+        [_pushUserLabel setFont:_contentFont];
         [_pushUserLabel setTextAlignment:NSTextAlignmentLeft];
         [_pushUserLabel setTextColor:[UIColor blackColor]];
     }
@@ -361,7 +390,7 @@
 - (UILabel *)userLabel{
     if(_userLabel == nil){
         _userLabel = [[UILabel alloc] init];
-        [_userLabel setFont:CONTENT_FONT];
+        [_userLabel setFont:_contentFont];
         [_userLabel setAlpha:0.8f];
         [_userLabel setTextAlignment:NSTextAlignmentLeft];
         [_userLabel setTextColor:[UIColor grayColor]];
@@ -381,7 +410,7 @@
     if(_pushDateLabel == nil){
         _pushDateLabel = [[UILabel alloc] init];
         _pushDateLabel.text = @"推送时间：";
-        [_pushDateLabel setFont:CONTENT_FONT];
+        [_pushDateLabel setFont:_contentFont];
         [_pushDateLabel setTextAlignment:NSTextAlignmentLeft];
         [_pushDateLabel setTextColor:[UIColor blackColor]];
     }
@@ -391,7 +420,7 @@
 - (UILabel *)dateLabel{
     if(_dateLabel == nil){
         _dateLabel = [[UILabel alloc] init];
-        [_dateLabel setFont:CONTENT_FONT];
+        [_dateLabel setFont:_contentFont];
         [_dateLabel setAlpha:0.8f];
         [_dateLabel setTextAlignment:NSTextAlignmentLeft];
         [_dateLabel setTextColor:[UIColor grayColor]];
@@ -411,7 +440,7 @@
     if(_abstractLabel == nil){
         _abstractLabel = [[UILabel alloc] init];
         _abstractLabel.text = @"内容摘要：";
-        [_abstractLabel setFont:CONTENT_FONT];
+        [_abstractLabel setFont:_contentFont];
         [_abstractLabel setTextAlignment:NSTextAlignmentLeft];
         [_abstractLabel setTextColor:[UIColor blackColor]];
     }
@@ -422,7 +451,7 @@
     if(_contentLabel == nil){
         _contentLabel = [[UILabel alloc] init];
         _contentLabel.numberOfLines = 0;
-        [_contentLabel setFont:CONTENT_FONT];
+        [_contentLabel setFont:_contentFont];
         [_contentLabel setTextAlignment:NSTextAlignmentLeft];
         [_contentLabel setTextColor:[UIColor grayColor]];
     }
@@ -443,7 +472,7 @@
         _detailLabel = [[UILabel alloc] init];
         _detailLabel.hidden = YES;
         _detailLabel.text = @"查看详情";
-        [_detailLabel setFont:CONTENT_FONT];
+        [_detailLabel setFont:_contentFont];
         [_detailLabel setTextAlignment:NSTextAlignmentLeft];
         [_detailLabel setTextColor:[UIColor blackColor]];
     }

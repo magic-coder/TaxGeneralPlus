@@ -19,6 +19,8 @@
 
 + (MsgDetailModel *)createWithDictionary:(NSDictionary *)dictionary {
     MsgDetailModel *model = [MsgDetailModel yy_modelWithDictionary:dictionary];
+    
+    model.date = [[dictionary objectForKey:@"pushdate"] substringWithRange:NSMakeRange(0, 19)];
     return model;
 }
 
@@ -31,7 +33,7 @@
              @"uuid":@"pushdetailuuid",
              @"title":@"pushtitle",
              @"user":@"taxofficialname",
-             @"date":@"pushdate",
+             //@"date":@"pushdate",
              @"content":@"pushcontent",
              @"url":@"detailurl"
              };
