@@ -190,7 +190,10 @@ static NSString * const reuseHeaderIdentifier = @"reuseHeaderIdentifier";
 
 #pragma mark 设置顶部视图的大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
-    return (CGSize){WIDTH_SCREEN, 32};
+    float h = 32.0f;
+    if(DEVICE_SCREEN_INCH_IPAD)
+        h = 51.2f;
+    return (CGSize){WIDTH_SCREEN, h};
 }
 
 #pragma mark - 代理编辑按钮点击方法

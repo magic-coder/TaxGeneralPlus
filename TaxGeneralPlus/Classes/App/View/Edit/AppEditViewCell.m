@@ -13,6 +13,12 @@
 
 @interface AppEditViewCell ()
 
+@property (nonatomic, assign) float baseSpace;              // 基本的间距
+@property (nonatomic, assign) float editBtnWH;              // 编辑按钮的尺寸
+@property (nonatomic, assign) float titleH;                 // 标题高度
+@property (nonatomic, strong) UIFont *titleFont;            // 标题字体大小
+@property (nonatomic, assign) float newImageWH;             // New图标尺寸
+
 @property (nonatomic, strong) UIView *topLine;              // 顶部边线
 @property (nonatomic, strong) UIView *leftLine;             // 左侧边线
 @property (nonatomic, strong) UIView *rightLine;            // 右侧边线
@@ -39,6 +45,22 @@
 - (void)initialize{
     
     self.contentView.backgroundColor = [UIColor whiteColor];
+    
+    if(DEVICE_SCREEN_INCH_IPAD){
+        _baseSpace = 8.0f;
+        _editBtnWH = 48.0f;
+        _titleH = 32.0f;
+        _titleFont = [UIFont systemFontOfSize:20.8f];
+        
+        _newImageWH = 44.8f;
+    }else{
+        _baseSpace = 5.0f;
+        _editBtnWH = 30.0f;
+        _titleH = 20.0f;
+        _titleFont = [UIFont systemFontOfSize:13.0f];
+        
+        _newImageWH = 28.0f;
+    }
     
     _topLine = [[UIView alloc] init];
     [self.contentView addSubview:_topLine];
@@ -72,22 +94,22 @@
     [super layoutSubviews];
     
     // 顶部边线样式
-    [_topLine setFrame:CGRectMake(5, 5, self.frameWidth-0.5f-10, 0.5f)];
+    [_topLine setFrame:CGRectMake(_baseSpace, _baseSpace, self.frameWidth-0.5f-(_baseSpace*2), 0.5f)];
     [_topLine setBackgroundColor:DEFAULT_LINE_GRAY_COLOR];
     
     // 左侧边线样式
-    [_leftLine setFrame:CGRectMake(5, 0.5f+5, 0.5f, self.frameHeight-0.5f-10)];
+    [_leftLine setFrame:CGRectMake(_baseSpace, 0.5f+_baseSpace, 0.5f, self.frameHeight-0.5f-(_baseSpace*2))];
     [_leftLine setBackgroundColor:DEFAULT_LINE_GRAY_COLOR];
     
     // 右侧边线样式
-    [_rightLine setFrame:CGRectMake(self.frameWidth-0.5f-5, 5, 0.5f, self.frameHeight-0.5f-10)];
+    [_rightLine setFrame:CGRectMake(self.frameWidth-0.5f-_baseSpace, _baseSpace, 0.5f, self.frameHeight-0.5f-(_baseSpace*2))];
     [_rightLine setBackgroundColor:DEFAULT_LINE_GRAY_COLOR];
     
     // 底部边线样式
-    [_bottomLine setFrame:CGRectMake(0.5f+5, self.frameHeight-0.5f-5, self.frameWidth-0.5f-10, 0.5f)];
+    [_bottomLine setFrame:CGRectMake(0.5f+_baseSpace, self.frameHeight-0.5f-_baseSpace, self.frameWidth-0.5f-(_baseSpace*2), 0.5f)];
     [_bottomLine setBackgroundColor:DEFAULT_LINE_GRAY_COLOR];
     
-    [_editBtn setFrame:CGRectMake(self.frameWidth - 35, 5, 30, 30)];
+    [_editBtn setFrame:CGRectMake(self.frameWidth - (_editBtnWH+_baseSpace), _baseSpace, _editBtnWH, _editBtnWH)];
     [_editBtn setImageEdgeInsets:UIEdgeInsetsMake(8, 8, 8, 8)];// 设置按钮图片大小
     if(self.editBtnStyle == AppCellEditBtnStyleDelete){
         [_editBtn setImage:[UIImage imageNamed:@"app_common_remove"] forState:UIControlStateNormal];
@@ -103,7 +125,7 @@
     }
     
     // 新角标
-    [_newsImageView setFrame:CGRectMake(5, 5, 28, 28)];
+    [_newsImageView setFrame:CGRectMake(_baseSpace, _baseSpace, _newImageWH, _newImageWH)];
     
     // 如果image存在，进行设置图片的样式
     if(self.item.webImg || self.item.localImg){
@@ -113,8 +135,8 @@
     
     // 如果title存在，进行设置标签的样式
     if(self.item.title){
-        [_titleLabel setFrame:CGRectMake(0, self.frameHeight*0.7f, self.frameWidth-0.5f, 20)];
-        [_titleLabel setFont:[UIFont systemFontOfSize:13.0f]];
+        [_titleLabel setFrame:CGRectMake(0, self.frameHeight*0.7f, self.frameWidth-0.5f, _titleH)];
+        [_titleLabel setFont:_titleFont];
         [_titleLabel setTextAlignment:NSTextAlignmentCenter];
         [_titleLabel setTextColor:[UIColor lightGrayColor]];
     }

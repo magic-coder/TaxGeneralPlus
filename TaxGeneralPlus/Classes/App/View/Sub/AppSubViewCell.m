@@ -14,6 +14,8 @@
 @interface AppSubViewCell ()
 
 @property (nonatomic, assign) float leftFreeSpace;
+@property (nonatomic, assign) float imageWidth;
+@property (nonatomic, strong) UIFont *titleFont;
 
 @property (nonatomic, strong) UIView *topLine;      // 顶部线条
 @property (nonatomic, strong) UIView *bottomLine;   // 底部线条
@@ -30,6 +32,16 @@
         
         _topLineStyle = AppSubViewCellLineStyleNone;
         _bottomLineStyle = AppSubViewCellLineStyleDefault;
+        
+        if(DEVICE_SCREEN_INCH_IPAD){
+            self.leftFreeSpace = 19.2f;
+            self.imageWidth = 67.2f;
+            self.titleFont = [UIFont systemFontOfSize:24.8f];
+        }else{
+            self.leftFreeSpace = 12.0f;
+            self.imageWidth = 42.0f;
+            self.titleFont = [UIFont systemFontOfSize:15.5f];
+        }
         
         self.backgroundColor = [UIColor whiteColor];
         [self addSubview:self.logoView];
@@ -49,13 +61,10 @@
     [self setBottomLineStyle:_bottomLineStyle];
     [self setTopLineStyle:_topLineStyle];
     
-    self.leftFreeSpace = 12;
-    
-    float imageWidth = 42;
     float space = self.leftFreeSpace;
-    [_logoView setFrame:CGRectMake(space, space-2, imageWidth, imageWidth)];
+    [_logoView setFrame:CGRectMake(space, space-2, self.imageWidth, self.imageWidth)];
     
-    float labelX = space * 2 + imageWidth;
+    float labelX = space * 2 + self.imageWidth;
     float labelY = self.frameHeight * 0.3;
     float labelHeight = self.frameHeight * 0.4;
     float labelWidth = self.frameWidth - labelX - space * 2;
@@ -139,7 +148,7 @@
 - (UILabel *)titleLabel{
     if (_titleLabel == nil) {
         _titleLabel = [[UILabel alloc] init];
-        [_titleLabel setFont:[UIFont systemFontOfSize:15.5f]];
+        _titleLabel.font = self.titleFont;
     }
     return _titleLabel;
 }

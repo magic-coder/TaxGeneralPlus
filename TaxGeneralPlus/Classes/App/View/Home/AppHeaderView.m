@@ -12,6 +12,8 @@
 
 @interface AppHeaderView ()
 
+@property (nonatomic, strong) UIFont *titleFont;
+
 @property (nonatomic, strong) UIView *colorView;
 @property (nonatomic, strong) UILabel *titleLabel;
 
@@ -23,6 +25,13 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if(self = [super initWithFrame:frame]){
         self.backgroundColor = [UIColor whiteColor];
+        
+        if(DEVICE_SCREEN_INCH_IPAD){
+            _titleFont = [UIFont systemFontOfSize:22.4f];
+        }else{
+            _titleFont = [UIFont systemFontOfSize:14.0f];
+        }
+        
         [self addSubview:self.colorView];
         [self addSubview:self.titleLabel];
     }
@@ -37,7 +46,11 @@
 #pragma mark - 分组标题左侧色块视图
 -(UIView *)colorView {
     if(!_colorView){
-        _colorView = [[UIView alloc] initWithFrame:CGRectMake(8, 14, 5, 12)];
+        if(DEVICE_SCREEN_INCH_IPAD){
+            _colorView = [[UIView alloc] initWithFrame:CGRectMake(12.8f, 22.4f, 8.0f, 19.2f)];
+        }else{
+            _colorView = [[UIView alloc] initWithFrame:CGRectMake(8, 14, 5, 12)];
+        }
         _colorView.backgroundColor = DEFAULT_BLUE_COLOR;
     }
     return _colorView;
@@ -46,8 +59,12 @@
 #pragma mark - 分组标题组件
 - (UILabel *)titleLabel {
     if(!_titleLabel){
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(18, self.frameHeight-20, self.frameWidth * 0.3f, 20)];
-        _titleLabel.font = [UIFont systemFontOfSize:14];
+        if(DEVICE_SCREEN_INCH_IPAD){
+            _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(28.8f, self.frameHeight-32, self.frameWidth * 0.3f, 32)];
+        }else{
+            _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(18, self.frameHeight-20, self.frameWidth * 0.3f, 20)];
+        }
+        _titleLabel.font = _titleFont;
         _titleLabel.textColor = [UIColor grayColor];
     }
     return _titleLabel;

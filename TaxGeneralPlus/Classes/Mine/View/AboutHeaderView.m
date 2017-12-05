@@ -47,7 +47,7 @@
         [self addSubview:nameLabel];
         [nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.width.equalTo(self);
-            make.top.equalTo(imageView.mas_bottom).with.offset(10);
+            make.top.equalTo(imageView.mas_bottom).with.offset(5);
             make.height.mas_equalTo(nameHeight);
         }];
         
@@ -65,7 +65,7 @@
         [self addSubview:versionLabel];
         [versionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.width.equalTo(self);
-            make.top.equalTo(nameLabel.mas_bottom).with.offset(5);
+            make.top.equalTo(nameLabel.mas_bottom);
             make.height.mas_equalTo(versionHeight);
         }];
         

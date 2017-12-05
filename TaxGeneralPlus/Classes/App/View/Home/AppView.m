@@ -13,6 +13,9 @@
 
 @interface AppView ()
 
+@property (nonatomic, assign) float titleHeight;
+@property (nonatomic, strong) UIFont *titleFont;
+
 @property (nonatomic, strong) UIImageView *newsImageView;    // 新角标
 @property (nonatomic, strong) UIImageView *imageView;       // 图片视图
 
@@ -23,6 +26,14 @@
 #pragma mark - 初始化创建方法
 - (instancetype)initWithFrame:(CGRect)frame {
     if(self = [super initWithFrame:frame]){
+        
+        if(DEVICE_SCREEN_INCH_IPAD){
+            _titleHeight = 32.0f;
+            _titleFont = [UIFont systemFontOfSize:20.8f];
+        }else{
+            _titleHeight = 20.0f;
+            _titleFont = [UIFont systemFontOfSize:13.0f];
+        }
         
         // 添加UIView点击事件
         UITapGestureRecognizer *tapGesturRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickAction:)];
@@ -65,8 +76,8 @@
     
     // 如果title存在，进行设置标签的样式
     if(self.item.title){
-        [_titleLabel setFrame:CGRectMake(0, self.frameHeight*0.7f, self.frameWidth-0.5f, 20)];
-        [_titleLabel setFont:[UIFont systemFontOfSize:13.0f]];
+        [_titleLabel setFrame:CGRectMake(0, self.frameHeight*0.7f, self.frameWidth-0.5f, _titleHeight)];
+        [_titleLabel setFont:_titleFont];
         [_titleLabel setTextAlignment:NSTextAlignmentCenter];
         [_titleLabel setTextColor:[UIColor lightGrayColor]];
     }

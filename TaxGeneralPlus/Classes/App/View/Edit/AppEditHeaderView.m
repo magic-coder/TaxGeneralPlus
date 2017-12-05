@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) UIView *colorView;
 @property (nonatomic, strong) UILabel *titleLabel;      // 标签
+@property (nonatomic, strong) UIFont *titleFont;
 
 @end
 
@@ -31,6 +32,12 @@
     
     self.backgroundColor = [UIColor whiteColor];
     
+    if(DEVICE_SCREEN_INCH_IPAD){
+        _titleFont = [UIFont systemFontOfSize:22.4f];
+    }else{
+        _titleFont = [UIFont systemFontOfSize:14.0f];
+    }
+    
     [self addSubview:self.colorView];
     
     [self addSubview:self.titleLabel];
@@ -44,8 +51,11 @@
     if(self.title){
         // float x = self.frameWidth * 0.035;
         float w = self.frameWidth * 0.89;
-        CGSize size = [self.titleLabel sizeThatFits:CGSizeMake(w, MAXFLOAT)];   // 根据text计算大小
-        [_titleLabel setFrame:CGRectMake(16, self.frameHeight/2-size.height/2, w, size.height)];
+        float h = [[BaseHandleUtil sharedBaseHandleUtil] calculateHeightWithText:self.title width:w font:_titleFont];
+        float x = 16.0f;
+        if(DEVICE_SCREEN_INCH_IPAD)
+            x = 25.6f;
+        [_titleLabel setFrame:CGRectMake(x, self.frameHeight/2-h/2, w, h)];
         // 居中布局
         //[_titleLabel setFrame:CGRectMake(self.frameWidth/2-size.width/2, self.frameHeight/2-size.height/2, w, size.height)];
     }
@@ -54,7 +64,11 @@
 #pragma mark - 重写Getter用于组件初始化方法
 - (UIView *)colorView {
     if(!_colorView){
-        _colorView = [[UIView alloc] initWithFrame:CGRectMake(8, 10, 5, 12)];
+        if(DEVICE_SCREEN_INCH_IPAD){
+            _colorView = [[UIView alloc] initWithFrame:CGRectMake(12.8f, 16.0f, 8.0f, 19.2f)];
+        }else{
+            _colorView = [[UIView alloc] initWithFrame:CGRectMake(8.0f, 10.0f, 5.0f, 12.0f)];
+        }
         _colorView.backgroundColor = DEFAULT_BLUE_COLOR;
     }
     return _colorView;
@@ -66,7 +80,7 @@
         
         [_titleLabel setNumberOfLines:0];// 自动换行
         [_titleLabel setTextColor:[UIColor grayColor]];
-        [_titleLabel setFont:[UIFont systemFontOfSize:14.0f]];
+        [_titleLabel setFont:_titleFont];
     }
     return _titleLabel;
 }

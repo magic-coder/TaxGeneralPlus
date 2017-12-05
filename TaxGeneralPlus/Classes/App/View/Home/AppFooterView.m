@@ -35,7 +35,7 @@
 - (UIView *)leftLine {
     if(!_leftLine){
         _leftLine = [[UIView alloc] initWithFrame:CGRectMake(20, 10, self.frameWidth/4, 0.5f)];
-        _leftLine.backgroundColor = DEFAULT_BACKGROUND_COLOR;
+        _leftLine.backgroundColor = DEFAULT_LINE_GRAY_COLOR;
     }
     return _leftLine;
 }
@@ -43,7 +43,7 @@
 - (UIView *)rightLine {
     if(!_rightLine){
         _rightLine = [[UIView alloc] initWithFrame:CGRectMake(self.frameRight-self.frameWidth/4-20, 10, self.frameWidth/4, 0.5f)];
-        _rightLine.backgroundColor = DEFAULT_BACKGROUND_COLOR;
+        _rightLine.backgroundColor = DEFAULT_LINE_GRAY_COLOR;
     }
     return _rightLine;
 }
@@ -53,7 +53,11 @@
         _msgLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.frameWidth/2-self.frameWidth/4/2, 0, self.frameWidth/4, 20)];
         _msgLabel.textColor = DEFAULT_LINE_GRAY_COLOR;
         _msgLabel.textAlignment = NSTextAlignmentCenter;
-        _msgLabel.font = [UIFont systemFontOfSize:12.0f];
+        if(DEVICE_SCREEN_INCH_IPAD){
+            _msgLabel.font = [UIFont systemFontOfSize:19.2f];
+        }else{
+            _msgLabel.font = [UIFont systemFontOfSize:12.0f];
+        }
         _msgLabel.text = @"这是我的底线了";
     }
     return _msgLabel;

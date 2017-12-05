@@ -23,6 +23,7 @@
 @property (nonatomic, strong) NSMutableArray *data;
 
 @property (nonatomic, strong) TTTAttributedLabel *hintLabel;    // 搜索提示信息
+@property (nonatomic, strong) UIFont *hintFont;                 // 搜索提示字体
 
 @property (nonatomic, strong) UITextField *searchTextField;     // 搜索输入框
 @property (nonatomic, strong) UIView *searchLine;               // 顶部搜索视图底部线条
@@ -44,6 +45,11 @@ static NSString * const reuseIdentifier = @"appSubCell";
     self.navigationController.interactivePopGestureRecognizer.delegate = self;
     self.view.backgroundColor = [UIColor whiteColor];
     
+    if(DEVICE_SCREEN_INCH_IPAD){
+        _hintFont = [UIFont systemFontOfSize:22.4f];
+    }else{
+        _hintFont = [UIFont systemFontOfSize:14.0f];
+    }
     _tableView = [[AppSearchTableView alloc] initWithFrame:CGRectMake(0, HEIGHT_STATUS + HEIGHT_NAVBAR - 0.5f, WIDTH_SCREEN, HEIGHT_SCREEN - HEIGHT_NAVBAR - HEIGHT_STATUS + 0.5f) style:UITableViewStylePlain];
     _tableView.touchDelegate = self;
     _tableView.backgroundColor = DEFAULT_BACKGROUND_COLOR;
@@ -105,12 +111,28 @@ static NSString * const reuseIdentifier = @"appSubCell";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if(_results.count <= 0){
         NSString *keyWords = _searchTextField.text;
-        NSString *textStr = @"请输入要查询应用的“关键字”或“首字母”";
+        NSString *textStr = @"请输入应用名称/首字母，尽情搜索吧！😊";
         if(keyWords.length>0)
             textStr = [NSString stringWithFormat:@"找不到任何与“%@”相匹配的应用", keyWords];
-        self.hintLabel.text = textStr;
-        CGSize textSize = [[BaseHandleUtil sharedBaseHandleUtil] sizeWithString:textStr font:[UIFont systemFontOfSize:14.0f] maxSize:CGSizeMake(WIDTH_SCREEN-20, MAXFLOAT)];
-        self.hintLabel.frame = CGRectMake(10, 120, WIDTH_SCREEN-20, textSize.height);
+        float textHeight = [[BaseHandleUtil sharedBaseHandleUtil] calculateHeightWithText:textStr width:WIDTH_SCREEN-20 font:_hintFont];
+        float hintLabelY = 120.0f;
+        if(DEVICE_SCREEN_INCH_IPAD)
+            hintLabelY = 192.0f;
+        self.hintLabel.frame = CGRectMake(10, hintLabelY, WIDTH_SCREEN-20, textHeight);
+        if([textStr rangeOfString:@"找不到任何与"].location != NSNotFound && [textStr rangeOfString:@"相匹配的应用"].location != NSNotFound){
+            [self.hintLabel setText:textStr afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
+                // 设置可点击文字的范围
+                //NSRange linkRange = [[mutableAttributedString string] rangeOfString:@"找不到" options:NSCaseInsensitiveSearch];
+                NSRange linkRange = NSMakeRange(6, textStr.length-12);
+                // 设置可点击文字的颜色
+                [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)DEFAULT_RED_COLOR range:linkRange];
+                
+                return mutableAttributedString;
+            }];
+        }else{
+            self.hintLabel.text = textStr;
+        }
+        
         [self.emptyView addSubview:self.hintLabel];
         
         [self.tableView addSubview:self.emptyView];
@@ -151,7 +173,10 @@ static NSString * const reuseIdentifier = @"appSubCell";
 
 #pragma mark 返回行高
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 63.0f;
+    float h = 63.0f;
+    if(DEVICE_SCREEN_INCH_IPAD)
+        h = 100.8f;
+    return h;
 }
 
 #pragma mark 点击行触发点击事件
@@ -209,9 +234,23 @@ static NSString * const reuseIdentifier = @"appSubCell";
         _emptyView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, HEIGHT_SCREEN)];
         _emptyView.backgroundColor = [UIColor whiteColor];
         
-        UIImageView *searchImageView = [[UIImageView alloc] initWithFrame:CGRectMake(WIDTH_SCREEN/2-25, 40, 50, 50)];
+        //UIImageView *searchImageView = [[UIImageView alloc] initWithFrame:CGRectMake(WIDTH_SCREEN/2-25, 40, 50, 50)];
+        UIImageView *searchImageView = [UIImageView new];
         [searchImageView setImage:[UIImage imageNamed:@"app_common_search_hint"]];
         [_emptyView addSubview:searchImageView];
+        
+        float top = 40.0f;
+        CGSize size = CGSizeMake(50, 50);
+        if(DEVICE_SCREEN_INCH_IPAD){
+            top = 64.0f;
+            size = CGSizeMake(80, 80);
+        }
+        
+        [searchImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(_emptyView);
+            make.top.equalTo(_emptyView).with.offset(top);
+            make.size.mas_equalTo(size);
+        }];
         
     }
     return _emptyView;
@@ -221,7 +260,7 @@ static NSString * const reuseIdentifier = @"appSubCell";
     if(!_hintLabel){
         _hintLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
         _hintLabel.numberOfLines = 0;
-        _hintLabel.font = [UIFont systemFontOfSize:14.0f];
+        _hintLabel.font = _hintFont;
         _hintLabel.textAlignment = NSTextAlignmentCenter;
         _hintLabel.textColor = [UIColor grayColor];
         _hintLabel.verticalAlignment = TTTAttributedLabelVerticalAlignmentTop;// 对齐方式
