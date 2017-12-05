@@ -90,8 +90,13 @@
     self.lockView = lockView;
     [self.view addSubview:lockView];
     
+    float msgHeight = 14.0f;
+    if(DEVICE_SCREEN_INCH_IPAD){
+        msgHeight = 22.4f;
+    }
+    
     PCLockLabel *msgLabel = [[PCLockLabel alloc] init];
-    msgLabel.frame = CGRectMake(0, 0, WIDTH_SCREEN, 14);
+    msgLabel.frame = CGRectMake(0, 0, WIDTH_SCREEN, msgHeight);
     msgLabel.center = CGPointMake(WIDTH_SCREEN/2, CGRectGetMinY(lockView.frame) - 30);
     self.msgLabel = msgLabel;
     [self.view addSubview:msgLabel];

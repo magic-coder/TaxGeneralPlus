@@ -81,8 +81,11 @@
  *  解锁视图准备
  */
 -(void)lockViewPrepare{
-    
-    [self setFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width - CircleViewEdgeMargin * 2, [UIScreen mainScreen].bounds.size.width - CircleViewEdgeMargin * 2)];
+    if(DEVICE_SCREEN_INCH_IPAD){
+        [self setFrame:CGRectMake(0, 0, ([UIScreen mainScreen].bounds.size.width)/2, ([UIScreen mainScreen].bounds.size.width)/2)];
+    }else{
+        [self setFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width - CircleViewEdgeMargin * 2, [UIScreen mainScreen].bounds.size.width - CircleViewEdgeMargin * 2)];
+    }
     [self setCenter:CGPointMake([UIScreen mainScreen].bounds.size.width/2, CircleViewCenterY)];
     
     // 默认剪裁子控件

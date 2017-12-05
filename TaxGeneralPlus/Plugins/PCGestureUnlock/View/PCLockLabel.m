@@ -39,7 +39,11 @@
  */
 - (void)viewPrepare{
     
-    [self setFont:[UIFont systemFontOfSize:14.0f]];
+    float fontSize = 14.0f;
+    if(DEVICE_SCREEN_INCH_IPAD)
+        fontSize = 22.4f;
+    
+    [self setFont:[UIFont systemFontOfSize:fontSize]];
     [self setTextAlignment:NSTextAlignmentCenter];
 }
 

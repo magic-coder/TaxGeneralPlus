@@ -95,13 +95,16 @@ typedef NS_ENUM(NSInteger, LoginShowType) {
     _imgRightHandGone.image = [UIImage imageNamed:@"login_hand"];
     [self.view addSubview:_imgRightHandGone];
     
-    
     _smallView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
-    _smallView.frame = CGRectMake(20, 150, self.view.frame.size.width-40, self.view.frame.size.width-40);
+    if(DEVICE_SCREEN_INCH_IPAD){
+        _smallView.size = CGSizeMake(self.view.frame.size.width/2, self.view.frame.size.width/2);
+        _smallView.center = CGPointMake(WIDTH_SCREEN/2, 150+_smallView.size.height/2);
+    }else{
+        _smallView.frame = CGRectMake(20, 150, self.view.frame.size.width-40, self.view.frame.size.width-40);
+    }
     _smallView.layer.cornerRadius = 5;
     _smallView.layer.masksToBounds = YES;
     [self.view addSubview:_smallView];
-    
     
     self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 15, _smallView.frame.size.width-20, 20)];
     self.titleLabel.text = @"用户登录";
@@ -187,7 +190,13 @@ typedef NS_ENUM(NSInteger, LoginShowType) {
     [self.cancelBtn addTarget:self action:@selector(cancelAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.cancelBtn];
     
-    _smallView.frame = CGRectMake(20, 150, self.view.frameWidth-40, CGRectGetMaxY(self.loginBtn.frame)+15);
+    if(DEVICE_SCREEN_INCH_IPAD){
+        _smallView.size = CGSizeMake(WIDTH_SCREEN/2, CGRectGetMaxY(self.loginBtn.frame)+15);
+        _smallView.center = CGPointMake(WIDTH_SCREEN/2, 150+_smallView.size.height/2);
+    }else{
+        _smallView.frame = CGRectMake(20, 150, self.view.frameWidth-40, CGRectGetMaxY(self.loginBtn.frame)+15);
+    }
+    
 }
 
 #pragma mark - 视图已经展示方法，隐藏顶部状态栏
