@@ -14,7 +14,7 @@
 @interface AppSearchViewCell ()
 
 @property (nonatomic, assign) float leftFreeSpace;
-@property (nonatomic, assign) float imageWidth;
+@property (nonatomic, assign) float imageWH;
 @property (nonatomic, strong) UIFont *titleFont;
 
 @property (nonatomic, strong) UIView *topLine;      // 顶部线条
@@ -35,11 +35,11 @@
         
         if(DEVICE_SCREEN_INCH_IPAD){
             self.leftFreeSpace = 19.2f;
-            self.imageWidth = 67.2f;
+            self.imageWH = 67.0f;
             self.titleFont = [UIFont systemFontOfSize:24.8f];
         }else{
             self.leftFreeSpace = 12.0f;
-            self.imageWidth = 42.0f;
+            self.imageWH = 42.0f;
             self.titleFont = [UIFont systemFontOfSize:15.5f];
         }
         
@@ -62,9 +62,9 @@
     [self setTopLineStyle:_topLineStyle];
     
     float space = self.leftFreeSpace;
-    [_logoView setFrame:CGRectMake(space, space-2, self.imageWidth, self.imageWidth)];
+    [_logoView setFrame:CGRectMake(space, space-2, self.imageWH, self.imageWH)];
     
-    float labelX = space * 2 + self.imageWidth;
+    float labelX = space * 2 + self.imageWH;
     float labelY = self.frameHeight * 0.3;
     float labelHeight = self.frameHeight * 0.4;
     float labelWidth = self.frameWidth - labelX - space * 2;

@@ -13,10 +13,11 @@
 
 @interface AppView ()
 
-@property (nonatomic, assign) float titleHeight;
-@property (nonatomic, strong) UIFont *titleFont;
+@property (nonatomic, assign) float imgWH;                  // 图标的尺寸
+@property (nonatomic, assign) float titleHeight;            // 标题高度
+@property (nonatomic, strong) UIFont *titleFont;            // 标题字体
 
-@property (nonatomic, strong) UIImageView *newsImageView;    // 新角标
+@property (nonatomic, strong) UIImageView *newsImageView;   // 新角标
 @property (nonatomic, strong) UIImageView *imageView;       // 图片视图
 
 @end
@@ -28,9 +29,11 @@
     if(self = [super initWithFrame:frame]){
         
         if(DEVICE_SCREEN_INCH_IPAD){
+            _imgWH = 44.0f;
             _titleHeight = 32.0f;
             _titleFont = [UIFont systemFontOfSize:20.8f];
         }else{
+            _imgWH = 27.0f;
             _titleHeight = 20.0f;
             _titleFont = [UIFont systemFontOfSize:13.0f];
         }
@@ -70,7 +73,7 @@
     
     // 如果image存在，进行设置图片的样式
     if(self.item.webImg || self.item.localImg){
-        [_imageView setFrame:CGRectMake(self.frameWidth*0.5f-self.frameHeight*0.3f*0.5f, self.frameHeight*0.5f-self.frameHeight*0.3f*0.7f, self.frameHeight*0.3f, self.frameHeight*0.3f)];
+        [_imageView setFrame:CGRectMake(self.frameWidth*0.5f-_imgWH*0.5f, self.frameHeight*0.5f-_imgWH*0.7f, _imgWH, _imgWH)];
         [_imageView setContentMode:UIViewContentModeScaleToFill];
     }
     

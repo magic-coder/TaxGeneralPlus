@@ -14,6 +14,7 @@
 @interface AppEditViewCell ()
 
 @property (nonatomic, assign) float baseSpace;              // 基本的间距
+@property (nonatomic, assign) float imgWH;                  // 图标大小
 @property (nonatomic, assign) float editBtnWH;              // 编辑按钮的尺寸
 @property (nonatomic, assign) float titleH;                 // 标题高度
 @property (nonatomic, strong) UIFont *titleFont;            // 标题字体大小
@@ -48,6 +49,7 @@
     
     if(DEVICE_SCREEN_INCH_IPAD){
         _baseSpace = 8.0f;
+        _imgWH = 44.0f;
         _editBtnWH = 48.0f;
         _titleH = 32.0f;
         _titleFont = [UIFont systemFontOfSize:20.8f];
@@ -55,6 +57,7 @@
         _newImageWH = 44.8f;
     }else{
         _baseSpace = 5.0f;
+        _imgWH = 27.0f;
         _editBtnWH = 30.0f;
         _titleH = 20.0f;
         _titleFont = [UIFont systemFontOfSize:13.0f];
@@ -129,7 +132,7 @@
     
     // 如果image存在，进行设置图片的样式
     if(self.item.webImg || self.item.localImg){
-        [_imageView setFrame:CGRectMake(self.frameWidth*0.5f-self.frameHeight*0.3f*0.5f, self.frameHeight*0.5f-self.frameHeight*0.3f*0.7f, self.frameHeight*0.3f, self.frameHeight*0.3f)];
+        [_imageView setFrame:CGRectMake(self.frameWidth*0.5f-_imgWH*0.5f, self.frameHeight*0.5f-_imgWH*0.7f, _imgWH, _imgWH)];
         [_imageView setContentMode:UIViewContentModeScaleToFill];
     }
     

@@ -69,7 +69,6 @@
         _menuColor = menuColor;
         self.menuButtonHeight = height;
         [self addButtons:titles];
-        
     }
     
     return self;

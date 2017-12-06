@@ -57,7 +57,7 @@
     if(DEVICE_SCREEN_INCH_IPAD)
         self.leftFreeSpace = 19.2f;
     
-    float imageWidth = self.frameHeight * 0.72f;
+    float imageWidth = floorf(self.frameHeight * 0.72f);
     float space = self.leftFreeSpace;
     [self.avatarView setFrame:CGRectMake(space, space, imageWidth, imageWidth)];
     
