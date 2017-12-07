@@ -110,6 +110,7 @@ typedef NS_ENUM(NSInteger, AppViewType) {
                 [MBProgressHUD hiddenHUDView:self.view];
                 [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow];
             } invalid:^(NSString *msg) {
+                [MBProgressHUD hiddenHUDView:self.view];
                 SHOW_RELOGIN_VIEW
             }];
         }

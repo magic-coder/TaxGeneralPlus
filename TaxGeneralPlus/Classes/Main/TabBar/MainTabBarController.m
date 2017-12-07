@@ -83,4 +83,34 @@ SingletonM(MainTabBarController)
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - 点击 TabBar 按钮效果
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
+    // 读取系统设置（播放音效）
+    NSDictionary *settingDict = [[BaseSettingUtil sharedBaseSettingUtil] loadSettingData];
+    BOOL sysVoiceOn = [[settingDict objectForKey:@"sysVoice"] boolValue];
+    if(sysVoiceOn){
+        NSInteger index = [self.tabBar.items indexOfObject:item];
+        [self animationWithIndex:index];// 点击动画效果
+        [[BaseHandleUtil sharedBaseHandleUtil] playSoundEffect:@"btnsound" type:@"caf"];// 点击时音效
+    }
+}
+
+#pragma mark - TabBar 点击动画效果
+- (void)animationWithIndex:(NSInteger)index{
+    NSMutableArray * tabbarbuttonArray = [NSMutableArray array];
+    for (UIView *tabBarButton in self.tabBar.subviews) {
+        if ([tabBarButton isKindOfClass:NSClassFromString(@"UITabBarButton")]) {
+            [tabbarbuttonArray addObject:tabBarButton];
+        }
+    }
+    CABasicAnimation*pulse = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    pulse.timingFunction= [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    pulse.duration = 0.08;
+    pulse.repeatCount= 1;
+    pulse.autoreverses= YES;
+    pulse.fromValue= [NSNumber numberWithFloat:0.8];
+    pulse.toValue= [NSNumber numberWithFloat:1.2];
+    [[tabbarbuttonArray[index] layer] addAnimation:pulse forKey:nil];
+}
+
 @end

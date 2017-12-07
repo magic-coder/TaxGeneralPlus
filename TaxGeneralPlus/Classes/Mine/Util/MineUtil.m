@@ -206,11 +206,11 @@ SingletonM(MineUtil)
     [items addObject:group2];
     
     BOOL sysVoiceOn = [[settingDict objectForKey:@"sysVoice"] boolValue];
-    BaseTableModelItem *sysVoice = [BaseTableModelItem createWithTitle:@"系统音效"];
+    BaseTableModelItem *sysVoice = [BaseTableModelItem createWithTitle:@"系统特效"];
     sysVoice.type = BaseTableModelItemTypeSwitch;
     sysVoice.tag = 454;
     sysVoice.isOn = sysVoiceOn;
-    BaseTableModelGroup *group3 = [[BaseTableModelGroup alloc] initWithHeaderTitle:nil footerTitle:@"包括首页刷新、点击按钮时反馈的音效" settingItems: sysVoice, nil];
+    BaseTableModelGroup *group3 = [[BaseTableModelGroup alloc] initWithHeaderTitle:nil footerTitle:@"包括刷新、点击按钮时反馈的音效及动画" settingItems: sysVoice, nil];
     [items addObject:group3];
     
     float tempSize = [[SDImageCache sharedImageCache] getSize]/1024;

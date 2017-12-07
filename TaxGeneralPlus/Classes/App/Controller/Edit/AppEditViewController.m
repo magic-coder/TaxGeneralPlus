@@ -250,6 +250,7 @@ static NSString * const reuseHeaderIdentifier = @"reuseHeaderIdentifier";
     // 我的应用数据
     int ids = 1;
     for(AppModelItem *mineItem in mineGroup.items){
+        DLog(@"mineItem.url = %@", mineItem.url);
         NSDictionary *mineDict = [NSDictionary dictionaryWithObjectsAndKeys: mineItem.no, @"appno", mineItem.title, @"appname", mineItem.webImg, @"appimage", mineItem.url, @"appurl", [NSString stringWithFormat:@"%d", ids], @"userappsort", @"1", @"apptype", mineItem.isNewApp ? @"Y" : @"N", @"isnewapp", nil];
         [mineData addObject:mineDict];
         ids++;

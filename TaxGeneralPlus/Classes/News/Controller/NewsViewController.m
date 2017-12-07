@@ -157,6 +157,14 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
         [self.sunnyRefreshControl endRefreshing];   // 结束头部刷新动画
         
         [self.tableView reloadData];    // 重新加载数据
+        
+        // 读取系统设置（播放音效）
+        NSDictionary *settingDict = [[BaseSettingUtil sharedBaseSettingUtil] loadSettingData];
+        BOOL sysVoiceOn = [[settingDict objectForKey:@"sysVoice"] boolValue];
+        if(sysVoiceOn){
+            [[BaseHandleUtil sharedBaseHandleUtil] playSoundEffect:@"refreshsound" type:@"caf"];// 刷新时音效
+        }
+        
     } failure:^(NSString *error) {
         [self.sunnyRefreshControl endRefreshing];   // 结束头部刷新动画
         [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow]; // 错误提示

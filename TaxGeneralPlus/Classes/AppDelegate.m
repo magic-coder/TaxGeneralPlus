@@ -14,7 +14,9 @@
 
 @interface AppDelegate ()
 
-@property (nonatomic, strong) MainTabBarController *rootVC;
+@property (nonatomic, strong) MainTabBarController *rootVC; // 根视图
+
+@property (nonatomic, strong) UIVisualEffectView *blurView; // 多任务后台毛玻璃遮挡效果视图
 
 @end
 
@@ -56,6 +58,8 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
+    [self showBlurView:YES];// 开启遮挡视图
 }
 
 #pragma mark - 程序从后台回到前台
@@ -68,6 +72,8 @@
 #pragma mark - 程序获取焦点
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
+    [self showBlurView:NO];// 开启遮挡视图
 }
 
 #pragma mark - 程序即将退出
@@ -103,6 +109,31 @@
             }
         }
     }
+}
+
+#pragma mark - 切换后台缩略图毛玻璃遮挡
+- (void) showBlurView:(BOOL)isMask{
+    if(isMask){
+        [[[UIApplication sharedApplication] keyWindow] addSubview:self.blurView];
+    }
+    [UIView animateWithDuration:0 animations:^{
+        self.blurView.alpha = isMask ? 0.97f : 0;
+    } completion:^(BOOL finished) {
+        if (!isMask){
+            [self.blurView removeFromSuperview];
+        }
+    }];
+}
+#pragma mark 毛玻璃遮挡视图效果
+- (UIVisualEffectView *)blurView{
+    if (!_blurView) {
+        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+        //  毛玻璃view 视图
+        _blurView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+        _blurView.frame = [[UIApplication sharedApplication] keyWindow].bounds;
+        _blurView.alpha = 0;
+    }
+    return _blurView;
 }
 
 @end

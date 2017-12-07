@@ -28,11 +28,17 @@
     }else{
         item.localImg = [NSString stringWithFormat:@"app_%@%@", item.pno, item.no]; // 加载本地default图标(根据应用序列号生成)
     }
+    
     if([[dictionary objectForKey:@"isnewapp"] isEqualToString:@"Y"]){
         item.isNewApp = YES;
     }else{
         item.isNewApp = NO;
     }
+    
+    if(!item.url){
+        item.url = @"";
+    }
+    
     item.keyWords = [NSString stringWithFormat:@"%@ %@", item.title, [[BaseHandleUtil sharedBaseHandleUtil] transform:item.title]];
     return item;
 }

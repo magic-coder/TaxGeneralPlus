@@ -47,6 +47,9 @@
 		186E5AE81FA1C2FF00228258 /* NewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 186E5AE71FA1C2FF00228258 /* NewsModel.m */; };
 		186F86D01FCE4F41002E5FF2 /* SlideMenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 186F86CC1FCE4F41002E5FF2 /* SlideMenuButton.m */; };
 		186F86D11FCE4F41002E5FF2 /* GooeySlideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 186F86CD1FCE4F41002E5FF2 /* GooeySlideMenu.m */; };
+		186FF2D21FD934A900F76DF4 /* msgsound.caf in Resources */ = {isa = PBXBuildFile; fileRef = 186FF2CF1FD934A900F76DF4 /* msgsound.caf */; };
+		186FF2D31FD934A900F76DF4 /* btnsound.caf in Resources */ = {isa = PBXBuildFile; fileRef = 186FF2D01FD934A900F76DF4 /* btnsound.caf */; };
+		186FF2D41FD934A900F76DF4 /* refreshsound.caf in Resources */ = {isa = PBXBuildFile; fileRef = 186FF2D11FD934A900F76DF4 /* refreshsound.caf */; };
 		187241181F99F8C70089EC02 /* MBProgressHUD+YZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 187241171F99F8C70089EC02 /* MBProgressHUD+YZ.m */; };
 		1874B7C01FBBE6B5001E94F0 /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1874B7BF1FBBE6B5001E94F0 /* AccountViewController.m */; };
 		1881C0271FCFEC23005E6AD6 /* YALSunnyRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1881C0231FCFEC23005E6AD6 /* YALSunnyRefreshControl.m */; };
@@ -256,6 +259,9 @@
 		186F86CD1FCE4F41002E5FF2 /* GooeySlideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GooeySlideMenu.m; sourceTree = "<group>"; };
 		186F86CE1FCE4F41002E5FF2 /* SlideMenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideMenuButton.h; sourceTree = "<group>"; };
 		186F86CF1FCE4F41002E5FF2 /* GooeySlideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GooeySlideMenu.h; sourceTree = "<group>"; };
+		186FF2CF1FD934A900F76DF4 /* msgsound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = msgsound.caf; sourceTree = "<group>"; };
+		186FF2D01FD934A900F76DF4 /* btnsound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = btnsound.caf; sourceTree = "<group>"; };
+		186FF2D11FD934A900F76DF4 /* refreshsound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = refreshsound.caf; sourceTree = "<group>"; };
 		187241161F99F8C70089EC02 /* MBProgressHUD+YZ.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+YZ.h"; sourceTree = "<group>"; };
 		187241171F99F8C70089EC02 /* MBProgressHUD+YZ.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+YZ.m"; sourceTree = "<group>"; };
 		1874B7BE1FBBE6B5001E94F0 /* AccountViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountViewController.h; sourceTree = "<group>"; };
@@ -941,6 +947,16 @@
 			path = GooeySlideMenu;
 			sourceTree = "<group>";
 		};
+		186FF2CB1FD933D600F76DF4 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				186FF2D01FD934A900F76DF4 /* btnsound.caf */,
+				186FF2CF1FD934A900F76DF4 /* msgsound.caf */,
+				186FF2D11FD934A900F76DF4 /* refreshsound.caf */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
 		1874B7BC1FBBE620001E94F0 /* Account */ = {
 			isa = PBXGroup;
 			children = (
@@ -1460,6 +1476,7 @@
 		18AE74711F9889E400E357D1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				186FF2CB1FD933D600F76DF4 /* Sounds */,
 				18AC77471FA857C800EB630B /* Credential */,
 				181608471F99A61E00EC0FC3 /* Images */,
 			);
@@ -1706,10 +1723,12 @@
 				18DE15C31FB9458900434F91 /* Login.xcassets in Resources */,
 				183826FC1F90B08C0076C8A5 /* LaunchScreen.storyboard in Resources */,
 				1804C9E41FA082D400FCC6F1 /* Common.xcassets in Resources */,
+				186FF2D41FD934A900F76DF4 /* refreshsound.caf in Resources */,
 				189B559C1FC829E6003031A9 /* News.xcassets in Resources */,
 				18E2C4051FBEC64600881A8A /* common_loading_wait.gif in Resources */,
 				18339AF51FCD0897001E50DD /* Map.xcassets in Resources */,
 				1881C05B1FCFFD51005E6AD6 /* MJRefresh.bundle in Resources */,
+				186FF2D21FD934A900F76DF4 /* msgsound.caf in Resources */,
 				183826F91F90B08C0076C8A5 /* Assets.xcassets in Resources */,
 				18E4EDBA1F9F253400CAB201 /* PopupMenu.xcassets in Resources */,
 				18FCCD751FA6CBE300424A0C /* App.xcassets in Resources */,
@@ -1717,6 +1736,7 @@
 				1881C0281FCFEC23005E6AD6 /* Images.xcassets in Resources */,
 				183826F71F90B08C0076C8A5 /* Main.storyboard in Resources */,
 				18AC774C1FA8595100EB630B /* root-cert.der in Resources */,
+				186FF2D31FD934A900F76DF4 /* btnsound.caf in Resources */,
 				181608491F99A69900EC0FC3 /* TabBar.xcassets in Resources */,
 				18C1923D1FCBFB8100A90B22 /* Msg.xcassets in Resources */,
 			);

@@ -113,6 +113,15 @@ SingletonH(BaseHandleUtil)
                            block:(void(^)(NSString *msg))block;
 
 /**
+ * 播放本地自定义声音
+ *
+ * @param name  音频文件名称
+ * @param type  音频类型
+ */
+- (void)playSoundEffect:(NSString *)name
+                   type:(NSString *)type;
+
+/**
  * 设置未读消息条数角标提醒
  *
  * @param badge 未读消息条数

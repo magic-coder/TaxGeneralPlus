@@ -10,6 +10,7 @@
 
 #import "BaseHandleUtil.h"
 #import <EventKit/EventKit.h>
+#import <AudioToolbox/AudioToolbox.h>
 #import "MainTabBarController.h"
 
 @implementation BaseHandleUtil
@@ -220,6 +221,20 @@ NSMutableAttributedString *GetAttributedText(NSString *value) {//这里调整富
         }];
     }
     
+}
+
+#pragma mark - 播放本地音频文件
+- (void)playSoundEffect:(NSString *)name
+                   type:(NSString *)type {
+    //得到音效文件的地址
+    NSString *soundFilePath =[[NSBundle mainBundle] pathForResource:name ofType:type];
+    //将地址字符串转换成url
+    NSURL *soundURL = [NSURL fileURLWithPath:soundFilePath];
+    //生成系统音效id
+    SystemSoundID soundFileObject;
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)soundURL, &soundFileObject);
+    //播放系统音效
+    AudioServicesPlaySystemSound(soundFileObject);
 }
 
 #pragma mark - 设置未读消息条数角标提醒
