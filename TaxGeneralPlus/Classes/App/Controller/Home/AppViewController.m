@@ -65,6 +65,7 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     
     [self.view addSubview:self.appTopView]; // 添加App最顶部头视图
     [self.view addSubview:self.baseScrollView];
+    
     [self.baseScrollView addSubview:self.pullHiddenView];
     [self.baseScrollView addSubview:self.mineHeaderView];
     
@@ -340,9 +341,10 @@ typedef NS_ENUM(NSInteger, AppViewType) {
 #pragma mark - 我的应用分组底部视图
 - (UIView *)mineFooterView {
     if(!_mineFooterView){
-        _mineFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, _mineAppViewHeight, WIDTH_SCREEN, 1)];
+        _mineFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, 1)];
         _mineFooterView.backgroundColor = DEFAULT_BACKGROUND_COLOR;
     }
+    _mineFooterView.originY = _mineAppViewHeight;
     return _mineFooterView;
 }
 #pragma mark 其他应用分组头视图
@@ -351,16 +353,18 @@ typedef NS_ENUM(NSInteger, AppViewType) {
         float h = 30.0f;
         if(DEVICE_SCREEN_INCH_IPAD)
             h = 48.0f;
-        _otherHeaderView = [[AppHeaderView alloc] initWithFrame:CGRectMake(0, self.mineFooterView.frameBottom, WIDTH_SCREEN, h)];
+        _otherHeaderView = [[AppHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, h)];
         _otherHeaderView.title = @"更多应用";
     }
+    _otherHeaderView.originY = self.mineFooterView.frameBottom;
     return _otherHeaderView;
 }
 #pragma mark 其他应用分组底部视图
 - (AppFooterView *)otherFooterView {
     if(!_otherFooterView){
-        _otherFooterView = [[AppFooterView alloc] initWithFrame:CGRectMake(0, _otherAppViewHeight, WIDTH_SCREEN, 20.0f)];
+        _otherFooterView = [[AppFooterView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, 20.0f)];
     }
+    _otherFooterView.originY = _otherAppViewHeight;
     return _otherFooterView;
 }
 

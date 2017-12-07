@@ -207,18 +207,26 @@ static NSString * const reuseHeaderIdentifier = @"reuseHeaderIdentifier";
         //DLog(@"进入移除方法 -> senction = %ld, row = %ld",(long)indexpath.section,(long)indexpath.row);
         
         AppModelGroup *mineGroup = [self.data objectAtIndex:0];
-        AppModelItem *delItem = [mineGroup.items objectAtIndex:indexpath.row];
-        [mineGroup.items removeObject:delItem];
-        [self.collectionView reloadData];
+        if(mineGroup.itemsCount > 1){
+            AppModelItem *delItem = [mineGroup.items objectAtIndex:indexpath.row];
+            [mineGroup.items removeObject:delItem];
+            [self.collectionView reloadData];
+        }else{
+            [MBProgressHUD showHUDView:self.view text:@"已经是最后一个我的应用了" progressHUDMode:YZProgressHUDModeShow];
+        }
     }
     if(sender.tag == 1){    // 添加方法
         //DLog(@"进入添加方法 -> senction = %ld, row = %ld",(long)indexpath.section,(long)indexpath.row);
         
         AppModelGroup *mineGroup = [self.data objectAtIndex:0];
-        AppModelGroup *allGroup = [self.data objectAtIndex:1];
-        AppModelGroup *addItem = [allGroup.items objectAtIndex:indexpath.row];
-        [mineGroup.items addObject:addItem];
-        [self.collectionView reloadData];
+        if(mineGroup.itemsCount < 12){
+            AppModelGroup *allGroup = [self.data objectAtIndex:1];
+            AppModelGroup *addItem = [allGroup.items objectAtIndex:indexpath.row];
+            [mineGroup.items addObject:addItem];
+            [self.collectionView reloadData];
+        }else{
+            [MBProgressHUD showHUDView:self.view text:@"最多添加12个我的应用" progressHUDMode:YZProgressHUDModeShow];
+        }
     }
     
     [self.collectionView reloadData];

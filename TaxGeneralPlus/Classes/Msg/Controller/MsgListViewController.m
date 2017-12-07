@@ -22,6 +22,8 @@
 @property (nonatomic, assign) double lastTimestamp;             // 最后一次进入时间戳
 @property (nonatomic, assign) double currentTimestamp;          // 当前时间戳
 
+@property (nonatomic, strong) UIView *emptyView;                // 无消息列表视图
+
 @end
 
 @implementation MsgListViewController
@@ -124,6 +126,8 @@ static int const pageSize = 100;
 
 #pragma mark - 处理得到的数据
 - (void)handleDataDict:(NSDictionary *)dataDict {
+    [self.emptyView removeFromSuperview];// 移除空消息列表界面
+    
     _data = [[NSMutableArray alloc] init];
     
     NSArray *results = [dataDict objectForKey:@"results"];
@@ -147,8 +151,54 @@ static int const pageSize = 100;
         [_data addObject:sysData];
         [_data addObject:userData];
     }else{
-        DLog(@"即将展示无消息数据视图");
+        [self.tableView addSubview:self.emptyView];
     }
+}
+
+#pragma mark - 无消息列表视图
+- (UIView *)emptyView {
+    if(!_emptyView){
+        _emptyView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, HEIGHT_SCREEN)];
+        _emptyView.backgroundColor = DEFAULT_BACKGROUND_COLOR;
+        
+        UIImageView *image = [UIImageView new];
+        image.image = [UIImage imageNamed:@"msg_empty"];
+        [_emptyView addSubview:image];
+        
+        float space = 20.0f;
+        
+        CGSize imageSize = CGSizeMake(60.0f, 60.0f);
+        
+        UIFont *labelFont = [UIFont systemFontOfSize:14.0f];
+        CGSize labelSize = CGSizeMake(WIDTH_SCREEN, 20.0f);
+        if(DEVICE_SCREEN_INCH_IPAD){
+            space = 32.0f;
+            
+            imageSize = CGSizeMake(80.0f, 80.0f);
+            
+            labelFont = [UIFont systemFontOfSize:22.4f];
+            labelSize = CGSizeMake(WIDTH_SCREEN, 32.0f);
+        }
+        
+        [image mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(_emptyView);
+            make.top.equalTo(_emptyView).with.offset(space);
+            make.size.mas_equalTo(imageSize);
+        }];
+        
+        UILabel *label = [UILabel new];
+        label.textAlignment = NSTextAlignmentCenter;
+        label.text = @"没有最新的消息！😳";
+        label.font = labelFont;
+        label.textColor = [UIColor lightGrayColor];
+        [_emptyView addSubview:label];
+        [label mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(image.mas_bottom).with.offset(space/2);
+            make.centerX.equalTo(_emptyView);
+            make.size.mas_equalTo(labelSize);
+        }];
+    }
+    return _emptyView;
 }
 
 #pragma mark - Table view data source数据源方法
