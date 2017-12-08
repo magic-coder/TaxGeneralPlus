@@ -24,6 +24,11 @@
 		1816084B1F99DBDE00EC0FC3 /* Navigation.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1816084A1F99DBDE00EC0FC3 /* Navigation.xcassets */; };
 		181608501F99DD5B00EC0FC3 /* UIImage+YZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 1816084F1F99DD5B00EC0FC3 /* UIImage+YZ.m */; };
 		181608541F99E3BD00EC0FC3 /* UIDevice+YZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 181608531F99E3BD00EC0FC3 /* UIDevice+YZ.m */; };
+		181A59BE1FDA7AB50021421D /* MapListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 181A59BD1FDA7AB50021421D /* MapListModel.m */; };
+		181A59C21FDA7C8A0021421D /* MapListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 181A59C11FDA7C8A0021421D /* MapListViewCell.m */; };
+		181A59C51FDA7E290021421D /* MapListUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 181A59C41FDA7E290021421D /* MapListUtil.m */; };
+		181A59C81FDA81200021421D /* MapListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181A59C71FDA81200021421D /* MapListViewController.m */; };
+		181A59CB1FDA813C0021421D /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181A59CA1FDA813C0021421D /* MapViewController.m */; };
 		181CDB001FCEB122006C6FBF /* MsgRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 181CDAFF1FCEB122006C6FBF /* MsgRefreshHeader.m */; };
 		18339AF51FCD0897001E50DD /* Map.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18339AF41FCD0897001E50DD /* Map.xcassets */; };
 		1836FCBB1FA1E3D900ABDA10 /* NewsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1836FCBA1FA1E3D900ABDA10 /* NewsTableViewCell.m */; };
@@ -212,6 +217,16 @@
 		1816084F1F99DD5B00EC0FC3 /* UIImage+YZ.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+YZ.m"; sourceTree = "<group>"; };
 		181608521F99E3BD00EC0FC3 /* UIDevice+YZ.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIDevice+YZ.h"; sourceTree = "<group>"; };
 		181608531F99E3BD00EC0FC3 /* UIDevice+YZ.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+YZ.m"; sourceTree = "<group>"; };
+		181A59BC1FDA7AB50021421D /* MapListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapListModel.h; sourceTree = "<group>"; };
+		181A59BD1FDA7AB50021421D /* MapListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapListModel.m; sourceTree = "<group>"; };
+		181A59C01FDA7C8A0021421D /* MapListViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapListViewCell.h; sourceTree = "<group>"; };
+		181A59C11FDA7C8A0021421D /* MapListViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapListViewCell.m; sourceTree = "<group>"; };
+		181A59C31FDA7E290021421D /* MapListUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapListUtil.h; sourceTree = "<group>"; };
+		181A59C41FDA7E290021421D /* MapListUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapListUtil.m; sourceTree = "<group>"; };
+		181A59C61FDA81200021421D /* MapListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapListViewController.h; sourceTree = "<group>"; };
+		181A59C71FDA81200021421D /* MapListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapListViewController.m; sourceTree = "<group>"; };
+		181A59C91FDA813C0021421D /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		181A59CA1FDA813C0021421D /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		181CDAFE1FCEB122006C6FBF /* MsgRefreshHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MsgRefreshHeader.h; sourceTree = "<group>"; };
 		181CDAFF1FCEB122006C6FBF /* MsgRefreshHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MsgRefreshHeader.m; sourceTree = "<group>"; };
 		18339AF31FCD00AA001E50DD /* Codeing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Codeing.h; sourceTree = "<group>"; };
@@ -600,6 +615,55 @@
 			path = Category;
 			sourceTree = "<group>";
 		};
+		181A59B81FDA7A670021421D /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				181A59BB1FDA7A800021421D /* Controller */,
+				181A59BF1FDA7C470021421D /* View */,
+				181A59B91FDA7A730021421D /* Model */,
+				181A59BA1FDA7A780021421D /* Util */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		181A59B91FDA7A730021421D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				181A59BC1FDA7AB50021421D /* MapListModel.h */,
+				181A59BD1FDA7AB50021421D /* MapListModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		181A59BA1FDA7A780021421D /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				181A59C31FDA7E290021421D /* MapListUtil.h */,
+				181A59C41FDA7E290021421D /* MapListUtil.m */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		181A59BB1FDA7A800021421D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				181A59C61FDA81200021421D /* MapListViewController.h */,
+				181A59C71FDA81200021421D /* MapListViewController.m */,
+				181A59C91FDA813C0021421D /* MapViewController.h */,
+				181A59CA1FDA813C0021421D /* MapViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		181A59BF1FDA7C470021421D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				181A59C01FDA7C8A0021421D /* MapListViewCell.h */,
+				181A59C11FDA7C8A0021421D /* MapListViewCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		183826E31F90B08C0076C8A5 = {
 			isa = PBXGroup;
 			children = (
@@ -644,6 +708,7 @@
 		183827061F90B0BB0076C8A5 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				181A59B81FDA7A670021421D /* Map */,
 				18AE747A1F9897E600E357D1 /* Test */,
 				18AE74501F9881F100E357D1 /* News */,
 				18AE74511F9881F600E357D1 /* App */,
@@ -1769,6 +1834,7 @@
 				18AE74301F9854C700E357D1 /* UIImage+GIF.m in Sources */,
 				183826F41F90B08C0076C8A5 /* ViewController.m in Sources */,
 				18AE74351F9854C700E357D1 /* SDImageCache.m in Sources */,
+				181A59C81FDA81200021421D /* MapListViewController.m in Sources */,
 				18FCCDA41FA703D000424A0C /* MASCompositeConstraint.m in Sources */,
 				180A90C21FB2E3C900F7D213 /* MineViewController.m in Sources */,
 				18AE74291F9854C700E357D1 /* MKAnnotationView+WebCache.m in Sources */,
@@ -1874,7 +1940,9 @@
 				18AE743C1F9854C700E357D1 /* UIView+WebCacheOperation.m in Sources */,
 				18AE74781F988EFB00E357D1 /* FLAnimatedImage.m in Sources */,
 				18AC774A1FA8580500EB630B /* YZNetworkingManager.m in Sources */,
+				181A59BE1FDA7AB50021421D /* MapListModel.m in Sources */,
 				18FCCDA71FA703D000424A0C /* NSArray+MASAdditions.m in Sources */,
+				181A59CB1FDA813C0021421D /* MapViewController.m in Sources */,
 				18AE743F1F9854C700E357D1 /* UIButton+WebCache.m in Sources */,
 				1881C0601FCFFD51005E6AD6 /* MJRefreshBackStateFooter.m in Sources */,
 				1836FCBE1FA1ED1400ABDA10 /* UIView+YZ.m in Sources */,
@@ -1890,6 +1958,7 @@
 				1881C0671FCFFD51005E6AD6 /* MJRefreshGifHeader.m in Sources */,
 				183D27041FC6A8EE00C2A607 /* TTTAttributedLabel.m in Sources */,
 				18AC77521FA86B9800EB630B /* AppEditViewController.m in Sources */,
+				181A59C21FDA7C8A0021421D /* MapListViewCell.m in Sources */,
 				18A1FAFD1FBD292E00AA07DC /* ServiceViewController.m in Sources */,
 				18AE74371F9854C700E357D1 /* NSData+ImageContentType.m in Sources */,
 				18A1FB081FBD2DA500AA07DC /* AboutHeaderView.m in Sources */,
@@ -1914,6 +1983,7 @@
 				18C1923B1FCBBDF500A90B22 /* MsgUtil.m in Sources */,
 				18A1FAF91FBD27E200AA07DC /* ScheduleViewController.m in Sources */,
 				18AE74391F9854C700E357D1 /* NSImage+WebCache.m in Sources */,
+				181A59C51FDA7E290021421D /* MapListUtil.m in Sources */,
 				183D27001FC66C7000C2A607 /* AppSearchTableView.m in Sources */,
 				183D26FA1FC6651E00C2A607 /* AppSearchViewController.m in Sources */,
 				1881C0681FCFFD51005E6AD6 /* MJRefreshFooter.m in Sources */,

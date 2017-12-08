@@ -73,6 +73,13 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     [self.view bringSubviewToFront:self.appTopView];// 设置视图层级为最上层
     [self.view sendSubviewToBack:self.baseScrollView];// 设置视图层级为最底下
     
+    // 初始化最新数据
+    [[AppUtil sharedAppUtil] initAppDataSuccess:^(NSMutableDictionary *dataDict) {
+        [self initAppData:dataDict];
+    } failure:^(NSString *error) {
+    } invalid:^(NSString *msg) {
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -372,11 +379,36 @@ typedef NS_ENUM(NSInteger, AppViewType) {
 #pragma mark - 各视图点击代理方法
 #pragma mark 应用顶部视图点击代理方法AppTopViewDelegate
 - (void)appTopViewBtnClick:(UIButton *)sender {
+    
+    UIViewController *viewController= nil;
+    NSString *url = nil;
+    
     if(sender.tag == 1){
-        [self.navigationController pushViewController:[[NSClassFromString(@"AppSearchViewController") class] new] animated:YES];
+        viewController = [[NSClassFromString(@"AppSearchViewController") class] new];
     }
     if(sender.tag == 2){
-        [self.navigationController pushViewController:[[NSClassFromString(@"AppEditViewController") alloc] init] animated:YES];
+        viewController = [[NSClassFromString(@"AppEditViewController") class] new];
+    }
+    if(sender.tag == 21){   // 通知公告
+        url = [NSString stringWithFormat:@"%@public/notice/10/1", SERVER_URL];
+    }
+    if(sender.tag == 22){   // 局通讯录
+        url = [NSString stringWithFormat:@"%@litter/initLitter", SERVER_URL];
+    }
+    if(sender.tag == 23){   // 税务地图
+        viewController = [[NSClassFromString(@"MapListViewController") class] new];
+    }
+    if(sender.tag == 24){   // 常见问题
+        url = [NSString stringWithFormat:@"%@taxnews/public/comProblemIOS.htm", SERVER_URL];
+    }
+    
+    if(viewController == nil && url != nil){
+        viewController = [[BaseWebViewController alloc] initWithURL:url];
+        viewController.title = sender.titleLabel.text;
+    }
+    
+    if(viewController != nil){
+        [self.navigationController pushViewController:viewController animated:YES];
     }
 }
 #pragma mark 应用模块视图点击代理方法AppViewDelegate

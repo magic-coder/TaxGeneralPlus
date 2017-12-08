@@ -39,7 +39,7 @@ static int const pageSize = 100;
     [self.view setBackgroundColor:DEFAULT_BACKGROUND_COLOR];
     [self.tableView setBackgroundColor:[UIColor whiteColor]];
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
+    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];// Table分组头视图不显示
     
     [self.tableView registerClass:[MsgListViewCell class] forCellReuseIdentifier:reuseIdentifier];
     [self.tableView setSeparatorStyle: UITableViewCellSeparatorStyleNone];

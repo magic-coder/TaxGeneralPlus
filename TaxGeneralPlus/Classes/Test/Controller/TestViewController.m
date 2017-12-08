@@ -199,7 +199,15 @@
     }
     
     if(5 == btn.tag){
-        [self.navigationController pushViewController:[[NSClassFromString(@"MoveViewController") class] new] animated:YES];
+        _i = 1;
+        [YZNetworkingManager POST:@"public/taxmap/init" parameters:nil success:^(id responseObject) {
+            DLog(@"请求次数统计：%d", _i++);
+            DLog(@"responseObject = %@", responseObject);
+        } failure:^(NSString *error) {
+            DLog(@"error = %@", error);
+        } invalid:^(NSString *msg) {
+            DLog(@"msg = %@", msg);
+        }];
     }
     
     if(6 == btn.tag){
@@ -208,7 +216,7 @@
     }
     
     if(7 == btn.tag){
-        BaseWebViewController *webVC = [[BaseWebViewController alloc] initWithURL:@"http://www.qq.com"];
+        BaseWebViewController *webVC = [[BaseWebViewController alloc] initWithURL:@"https://www.qq.com"];
          
         [self.navigationController pushViewController:webVC animated:YES];
 

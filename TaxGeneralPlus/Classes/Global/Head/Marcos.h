@@ -60,6 +60,7 @@
 #define APP_SUB_FILE    @"appSubData.plist"
 #define APP_SEARCH_FILE @"appSearchData.plist"
 #define MSG_FILE        @"msgData.plist"
+#define MAP_FILE        @"mapData.plist"
 
 
 #endif /* Marcos_h */

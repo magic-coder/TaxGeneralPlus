@@ -108,6 +108,7 @@
     [btn_1 setImage:[UIImage imageNamed:@"app_top_notificationHL"] forState:UIControlStateHighlighted];
     [btn_1 setTitle:@"通知公告" forState:UIControlStateNormal];
     [btn_1.titleLabel setFont:_btnFont];
+    btn_1.tag = 21;
     [btn_1 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btn_1 setTitleColor:DEFAULT_LIGHT_BLUE_COLOR forState:UIControlStateHighlighted];
     btn_1.imageEdgeInsets = UIEdgeInsetsMake(- (btn_1.frameHeight - btn_1.titleLabel.frameHeight- btn_1.titleLabel.originY),(self.frameWidth - (_baseSpace*5))/4/2 - btn_1.imageView.frameWidth/2, 0, 0);
@@ -119,6 +120,7 @@
     [btn_2 setImage:[UIImage imageNamed:@"app_top_contactsHL"] forState:UIControlStateHighlighted];
     [btn_2 setTitle:@"局通讯录" forState:UIControlStateNormal];
     [btn_2.titleLabel setFont:_btnFont];
+    btn_2.tag = 22;
     [btn_2 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btn_2 setTitleColor:DEFAULT_LIGHT_BLUE_COLOR forState:UIControlStateHighlighted];
     btn_2.imageEdgeInsets = UIEdgeInsetsMake(- (btn_2.frameHeight - btn_2.titleLabel.frameHeight- btn_2.titleLabel.originY),(self.frameWidth - 50)/4/2 - btn_2.imageView.frameWidth/2, 0, 0);
@@ -130,6 +132,7 @@
     [btn_3 setImage:[UIImage imageNamed:@"app_top_mapHL"] forState:UIControlStateHighlighted];
     [btn_3 setTitle:@"税务地图" forState:UIControlStateNormal];
     [btn_3.titleLabel setFont:_btnFont];
+    btn_3.tag = 23;
     [btn_3 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btn_3 setTitleColor:DEFAULT_LIGHT_BLUE_COLOR forState:UIControlStateHighlighted];
     btn_3.imageEdgeInsets = UIEdgeInsetsMake(- (btn_3.frameHeight - btn_3.titleLabel.frameHeight- btn_3.titleLabel.originY),(self.frameWidth - 50)/4/2 - btn_3.imageView.frameWidth/2, 0, 0);
@@ -141,6 +144,7 @@
     [btn_4 setImage:[UIImage imageNamed:@"app_top_questionHL"] forState:UIControlStateHighlighted];
     [btn_4 setTitle:@"常见问题" forState:UIControlStateNormal];
     [btn_4.titleLabel setFont:_btnFont];
+    btn_4.tag = 24;
     [btn_4 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btn_4 setTitleColor:DEFAULT_LIGHT_BLUE_COLOR forState:UIControlStateHighlighted];
     btn_4.imageEdgeInsets = UIEdgeInsetsMake(- (btn_4.frameHeight - btn_4.titleLabel.frameHeight- btn_4.titleLabel.originY),(self.frameWidth - 50)/4/2 - btn_4.imageView.frameWidth/2, 0, 0);
