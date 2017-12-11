@@ -122,8 +122,7 @@
 }
 
 - (void)saveBtnClick:sender {
-    [YBPopupMenu showPopupMenuWithTitles:@[@"内容搜索", @"扫一扫", @"设置"] icons:@[@"popupMenu_search", @"popupMenu_scan", @"popupMenu_setting"] delegate:self];
-    
+    [YBPopupMenu showPopupMenuWithTitles:@[@"驾乘路线", @"公交路线", @"步行路线"] icons:@[@"map_route_car", @"map_route_bus", @"map_route_walk"] delegate:self];
 }
 
 // 菜单点击代理

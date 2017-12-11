@@ -44,7 +44,7 @@
 #define DEFAULT_SELECTED_GRAY_COLOR     RgbColor(217.0, 217.0, 217.0, 1.0f)
 
 #pragma mark - 设置服务器地址Service Url
-#define SERVER_URL  @"https://192.168.14.235:8444/mobiletax/"   // 测试 https服务器地址
+#define SERVER_URL  @"https://192.168.14.235:8444/mobiletax/"   // 测试 https 服务器地址
 //#define SERVER_URL  @"https://10.100.16.133:8443/mobiletax/"    // 生产 https VPN 服务器地址
 
 #pragma mark - 定义全局常用key值
@@ -61,6 +61,9 @@
 #define APP_SEARCH_FILE @"appSearchData.plist"
 #define MSG_FILE        @"msgData.plist"
 #define MAP_FILE        @"mapData.plist"
+
+#pragma mark - 授权码AK
+#define BaiduMap_Key    @"LPwcWZdg1Yx4KDiWeLaKhReCgktKb265"
 
 
 #endif /* Marcos_h */

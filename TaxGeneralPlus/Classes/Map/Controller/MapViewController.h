@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+@class MapListModel;
 
 @interface MapViewController : UIViewController
+
+@property(nonatomic, strong) MapListModel *model;
 
 @end

@@ -11,10 +11,13 @@
 #import "AppDelegate.h"
 #import "MainTabBarController.h"
 #import "GestureViewController.h"
+#import <BaiduMapAPI_Base/BMKBaseComponent.h>//引入base相关所有的头文件
 
 @interface AppDelegate ()
 
 @property (nonatomic, strong) MainTabBarController *rootVC; // 根视图
+
+@property (nonatomic, strong) BMKMapManager *mapManager;    // 百度 Map 初始化
 
 @property (nonatomic, strong) UIVisualEffectView *blurView; // 多任务后台毛玻璃遮挡效果视图
 
@@ -28,6 +31,7 @@
     
     [[BaseHandleUtil sharedBaseHandleUtil] currentDeviceInfo]; // 获取设备基本信息
     [[BaseSettingUtil sharedBaseSettingUtil] initSettingData]; // 初始化基本设置信息
+    [self initializeBaiduMap];  // 百度地图 BMKMapManager 初始化
     
     // 隐藏顶部状态栏设为NO
     [UIApplication sharedApplication].statusBarHidden = NO;
@@ -84,6 +88,16 @@
 #pragma mark - 程序内存警告，可能要终止程序
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
     DLog(@"程序内存警告，可能要终止程序");
+}
+
+#pragma mark - 百度地图 BMKMapManager 初始化
+- (void)initializeBaiduMap {
+    _mapManager = [[BMKMapManager alloc] init];
+    // 如果要关注网络及授权验证事件，请设定 generalDelegate 参数
+    BOOL ret = [_mapManager start:BaiduMap_Key generalDelegate:nil];
+    if (!ret) {
+        DLog(@"百度地图管理器启动失败!");
+    }
 }
 
 #pragma mark - 判断是否开启了手势密码、指纹解锁功能

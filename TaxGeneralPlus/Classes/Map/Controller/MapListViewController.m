@@ -9,6 +9,7 @@
  ************************************************************/
 
 #import "MapListViewController.h"
+#import "MapViewController.h"
 #import "MapListViewCell.h"
 #import "MapListModel.h"
 #import "MapListUtil.h"
@@ -186,11 +187,10 @@ static NSString * const reuseIdentifier = @"reuseIdentifierGroup";
             DLog(@"没有坐标点，不可以跳转");
             return;
         }else{
-            /* 开始进行地图界面跳转
-             MapViewController *mapVC = [[MapViewController alloc] init];
-             mapVC.model = parentModel;
-             [self.navigationController pushViewController:mapVC animated:YES];
-             */
+            // 开始进行地图界面跳转
+            MapViewController *mapVC = [[MapViewController alloc] init];
+            mapVC.model = parentModel;
+            [self.navigationController pushViewController:mapVC animated:YES];
         }
     }
 }
