@@ -2,7 +2,7 @@
  Class    : MapListViewCell.m
  Describe : 自定义地图机构列表Cell
  Company  : Prient
- Author   : Yanzheng
+ Author   : Yanzheng 严正
  Date     : 2017-12-08
  Version  : 1.0
  Declare  : Copyright © 2017 Yanzheng. All rights reserved.
@@ -16,6 +16,10 @@
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UIImageView *logoImageView;
 
+@property (nonatomic, assign) float space;
+@property (nonatomic, assign) float imageWH;
+@property (nonatomic, assign) float fontSize;
+
 @end
 
 @implementation MapListViewCell
@@ -24,6 +28,16 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         [self setBackgroundColor:[UIColor whiteColor]];
+        
+        if(DEVICE_SCREEN_INCH_IPAD){
+            _space = 16.0f;
+            _imageWH = 32.0f;
+            _fontSize = 24.0f;
+        }else{
+            _space = 10.0f;
+            _imageWH = 20.0f;
+            _fontSize = 15.0f;
+        }
         
         [self addSubview:self.logoImageView];
         [self addSubview:self.nameLabel];
@@ -36,21 +50,54 @@
     
     if(_model.isExpand){
         switch (_model.level) {
-            case 0:
-                self.logoImageView.frame = CGRectMake(10.0f, 15.0f, 20.0f, 20.0f);
+            case 0: {
                 self.logoImageView.image = [UIImage imageNamed:@"map_group"];
-                self.nameLabel.frame = CGRectMake(40.0f, 5.0f, WIDTH_SCREEN-50, 40.0f);
+                
+                [self.logoImageView mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.size.mas_equalTo(CGSizeMake(_imageWH, _imageWH));
+                    make.centerY.equalTo(self);
+                    make.left.equalTo(self).with.offset(_space);
+                }];
+                [self.nameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.top.equalTo(self).with.offset(5);
+                    make.bottom.equalTo(self).with.offset(-5);
+                    make.left.equalTo(self.logoImageView.mas_right).with.offset(_space);
+                    make.right.equalTo(self).with.offset(-_space);
+                }];
                 break;
-            case 1:
-                self.logoImageView.frame = CGRectMake(40.0f, 15.0f, 20.0f, 20.0f);
+            }
+            case 1: {
                 self.logoImageView.image = [UIImage imageNamed:@"map_station"];
-                self.nameLabel.frame = CGRectMake(70.0f, 5.0f, WIDTH_SCREEN-80, 40.0f);
+                
+                [self.logoImageView mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.size.mas_equalTo(CGSizeMake(_imageWH, _imageWH));
+                    make.centerY.equalTo(self);
+                    make.left.equalTo(self).with.offset(_space*2+_imageWH);
+                }];
+                [self.nameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.top.equalTo(self).with.offset(5);
+                    make.bottom.equalTo(self).with.offset(-5);
+                    make.left.equalTo(self.logoImageView.mas_right).with.offset(_space);
+                    make.right.equalTo(self).with.offset(-_space);
+                }];
                 break;
-            case 2:
-                self.logoImageView.frame = CGRectMake(70.0f, 15.0f, 20.0f, 20.0f);
+            }
+            case 2: {
                 self.logoImageView.image = [UIImage imageNamed:@"map_institute"];
-                self.nameLabel.frame = CGRectMake(100.0f, 5.0f, WIDTH_SCREEN-110, 40.0f);
+                
+                [self.logoImageView mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.size.mas_equalTo(CGSizeMake(_imageWH, _imageWH));
+                    make.centerY.equalTo(self);
+                    make.left.equalTo(self).with.offset(_space*3+_imageWH*2);
+                }];
+                [self.nameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.top.equalTo(self).with.offset(5);
+                    make.bottom.equalTo(self).with.offset(-5);
+                    make.left.equalTo(self.logoImageView.mas_right).with.offset(_space);
+                    make.right.equalTo(self).with.offset(-_space);
+                }];
                 break;
+            }
             default:
                 break;
         }
@@ -80,7 +127,7 @@
     if(_nameLabel == nil){
         _nameLabel = [[UILabel alloc] init];
         _nameLabel.numberOfLines = 0;
-        _nameLabel.font = [UIFont systemFontOfSize:15.0f];
+        _nameLabel.font = [UIFont systemFontOfSize:_fontSize];
     }
     return _nameLabel;
 }

@@ -1,10 +1,12 @@
-//
-//  BaseSettingUtil.h
-//  TaxGeneralPlus
-//
-//  Created by Apple on 2017/11/8.
-//  Copyright © 2017年 prient. All rights reserved.
-//
+/************************************************************
+ Class    : BaseSettingUtil.h
+ Describe : 系统设置处理工具类
+ Company  : Prient
+ Author   : Yanzheng 严正
+ Date     : 2017-11-08
+ Version  : 1.0
+ Declare  : Copyright © 2017 Yanzheng. All rights reserved.
+ ************************************************************/
 
 #import <Foundation/Foundation.h>
 

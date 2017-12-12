@@ -1,10 +1,12 @@
-//
-//  TestViewController.h
-//  TaxGeneralPlus
-//
-//  Created by Apple on 2017/10/19.
-//  Copyright © 2017年 prient. All rights reserved.
-//
+/************************************************************
+ Class    : TestViewController.h
+ Describe : 测试类控制器
+ Company  : Prient
+ Author   : Yanzheng 严正
+ Date     : 2017-10-09
+ Version  : 1.0
+ Declare  : Copyright © 2017 Yanzheng. All rights reserved.
+ ************************************************************/
 
 #import <UIKit/UIKit.h>
 

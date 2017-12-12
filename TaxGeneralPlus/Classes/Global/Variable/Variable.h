@@ -1,10 +1,12 @@
-//
-//  Variable.h
-//  TaxGeneralPlus
-//
-//  Created by Apple on 2017/11/15.
-//  Copyright © 2017年 prient. All rights reserved.
-//
+/************************************************************
+ Class    : Variable.h
+ Describe : 全局参数
+ Company  : Prient
+ Author   : Yanzheng 严正
+ Date     : 2017-11-15
+ Version  : 1.0
+ Declare  : Copyright © 2017 Yanzheng. All rights reserved.
+ ************************************************************/
 
 #import <Foundation/Foundation.h>
 

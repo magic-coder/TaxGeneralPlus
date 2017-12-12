@@ -1,10 +1,12 @@
-//
-//  RouteAnnotation.m
-//  TaxGeneralM
-//
-//  Created by Apple on 2017/2/23.
-//  Copyright © 2017年 Yanzheng. All rights reserved.
-//
+/************************************************************
+ Class    : RouteAnnotation.m
+ Describe : 地图线路规划
+ Company  : Prient
+ Author   : Yanzheng 严正
+ Date     : 2017-12-11
+ Version  : 1.0
+ Declare  : Copyright © 2017 Yanzheng. All rights reserved.
+ ************************************************************/
 
 #import "RouteAnnotation.h"
 #import "UIImage+Rotate.h"

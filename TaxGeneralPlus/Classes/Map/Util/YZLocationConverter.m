@@ -2,8 +2,8 @@
  Class    : YZLocationConverter.h
  Describe : 自定义经纬度、地图坐标、GPS 转换类
  Company  : Prient
- Author   : Yanzheng
- Date     : 2017-02-28
+ Author   : Yanzheng 严正
+ Date     : 2017-12-11
  Version  : 1.0
  Declare  : Copyright © 2017 Yanzheng. All rights reserved.
  ************************************************************/

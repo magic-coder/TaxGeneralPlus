@@ -1,10 +1,12 @@
-//
-//  MapViewController.h
-//  TaxGeneralPlus
-//
-//  Created by Apple on 2017/12/8.
-//  Copyright © 2017年 prient. All rights reserved.
-//
+/************************************************************
+ Class    : MapViewController.h
+ Describe : 地图展示视图控制器
+ Company  : Prient
+ Author   : Yanzheng 严正
+ Date     : 2017-12-08
+ Version  : 1.0
+ Declare  : Copyright © 2017 Yanzheng. All rights reserved.
+ ************************************************************/
 
 #import <UIKit/UIKit.h>
 @class MapListModel;

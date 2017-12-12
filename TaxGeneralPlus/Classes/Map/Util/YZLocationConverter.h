@@ -5,8 +5,8 @@
             GCJ-02：中国坐标偏移标准，Google地图、高德、腾讯使用
             BD-09 ：百度坐标偏移标准，Baidu地图使用
  Company  : Prient
- Author   : Yanzheng
- Date     : 2017-02-28
+ Author   : Yanzheng 严正
+ Date     : 2017-12-11
  Version  : 1.0
  Declare  : Copyright © 2017 Yanzheng. All rights reserved.
  ************************************************************/

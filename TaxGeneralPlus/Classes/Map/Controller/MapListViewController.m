@@ -2,7 +2,7 @@
  Class    : MapListViewController.m
  Describe : 地图机构列表（tree结构）
  Company  : Prient
- Author   : Yanzheng
+ Author   : Yanzheng 严正
  Date     : 2017-12-08
  Version  : 1.0
  Declare  : Copyright © 2017 Yanzheng. All rights reserved.
@@ -134,7 +134,11 @@ static NSString * const reuseIdentifier = @"reuseIdentifierGroup";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 50.0f;
+    float h = 50.0f;
+    if(DEVICE_SCREEN_INCH_IPAD){
+        h = 80.0f;
+    }
+    return h;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{

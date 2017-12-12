@@ -1,10 +1,12 @@
-//
-//  MapListUtil.m
-//  TaxGeneralPlus
-//
-//  Created by Apple on 2017/12/8.
-//  Copyright © 2017年 prient. All rights reserved.
-//
+/************************************************************
+ Class    : MapListUtil.m
+ Describe : 地图机构工具类
+ Company  : Prient
+ Author   : Yanzheng 严正
+ Date     : 2017-12-08
+ Version  : 1.0
+ Declare  : Copyright © 2017 Yanzheng. All rights reserved.
+ ************************************************************/
 
 #import "MapListUtil.h"
 #import "MapListModel.h"
