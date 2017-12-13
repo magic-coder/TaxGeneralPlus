@@ -29,10 +29,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    [[BaseHandleUtil sharedBaseHandleUtil] currentDeviceInfo]; // 获取设备基本信息
-    [[BaseSettingUtil sharedBaseSettingUtil] initSettingData]; // 初始化基本设置信息
-    [self initializeBaiduMap];  // 百度地图 BMKMapManager 初始化
-    
     // 隐藏顶部状态栏设为NO
     [UIApplication sharedApplication].statusBarHidden = NO;
     // 设置顶部状态栏字体为白色
@@ -40,14 +36,31 @@
     
     // 设置主window视图
     _window = [[UIWindow alloc] initWithFrame:FRAME_SCREEN];
-    _window.backgroundColor = [UIColor whiteColor];
+    _window.backgroundColor = DEFAULT_BLUE_COLOR;
     
     // 设置root视图控制器
     _rootVC = [[MainTabBarController alloc] init];
     _window.rootViewController = _rootVC;
     [_window makeKeyAndVisible];
     
+    [self welcomeAnimation];    // 加载启动动画
+    
+    // 判断系统版本是否支持
+#if __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_10_0
+    
+    [UIAlertController showAlertInViewController:_window.rootViewController withTitle:@"对不起，当前系统版本过低" message:@"请在iPhone的\"设置-通用-软件更新\"中升级您的操作系统至ios10.0以上再使用。" cancelButtonTitle:@"退出应用" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
+        exit(0);
+    }];
+    
+#else
+    
+    [[BaseHandleUtil sharedBaseHandleUtil] currentDeviceInfo]; // 获取设备基本信息
+    [[BaseSettingUtil sharedBaseSettingUtil] initSettingData]; // 初始化基本设置信息
+    [self initializeBaiduMap];  // 百度地图 BMKMapManager 初始化
+    
     [self verifyUnlock];// 判断是否设置安全密码
+    
+#endif
     
     return YES;
 }
@@ -88,6 +101,44 @@
 #pragma mark - 程序内存警告，可能要终止程序
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
     DLog(@"程序内存警告，可能要终止程序");
+}
+
+#pragma mark - 启动欢迎动画
+- (void)welcomeAnimation {
+    //logo mask
+    CALayer *maskLayer = [CALayer layer];
+    maskLayer.contents = (id)[UIImage imageNamed:@"common_launch"].CGImage;
+    maskLayer.position = _rootVC.view.center;
+    maskLayer.bounds = CGRectMake(0, 0, 60, 60);
+    _rootVC.view.layer.mask = maskLayer;
+    
+    //logo mask background view
+    UIView *maskBackgroundView = [[UIView alloc]initWithFrame:_rootVC.view.bounds];
+    maskBackgroundView.backgroundColor = [UIColor whiteColor];
+    [_rootVC.view addSubview:maskBackgroundView];
+    [_rootVC.view bringSubviewToFront:maskBackgroundView];
+    
+    //logo mask animation
+    CAKeyframeAnimation *logoMaskAnimaiton = [CAKeyframeAnimation animationWithKeyPath:@"bounds"];
+    logoMaskAnimaiton.duration = 1.0f;
+    logoMaskAnimaiton.beginTime = CACurrentMediaTime() + 1.5f;//延迟一秒
+    
+    CGRect initalBounds = maskLayer.bounds;
+    CGRect secondBounds = CGRectMake(0, 0, 50, 50);
+    CGRect finalBounds  = CGRectMake(0, 0, 2000, 2000);
+    logoMaskAnimaiton.values = @[[NSValue valueWithCGRect:initalBounds],[NSValue valueWithCGRect:secondBounds],[NSValue valueWithCGRect:finalBounds]];
+    logoMaskAnimaiton.keyTimes = @[@(0),@(0.5),@(1)];
+    logoMaskAnimaiton.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut],[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
+    logoMaskAnimaiton.removedOnCompletion = NO;
+    logoMaskAnimaiton.fillMode = kCAFillModeForwards;
+    [_rootVC.view.layer.mask addAnimation:logoMaskAnimaiton forKey:@"logoMaskAnimaiton"];
+    
+    //maskBackgroundView fade animation
+    [UIView animateWithDuration:0.1 delay:1.85 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        maskBackgroundView.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        [maskBackgroundView removeFromSuperview];
+    }];
 }
 
 #pragma mark - 百度地图 BMKMapManager 初始化

@@ -674,17 +674,20 @@
         if(index == 2){
             // 是否安装高德地图
             if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"iosamap://"]]){
-                NSString *urlString =[[NSString stringWithFormat:@"iosamap://path?sourceApplication=&backScheme=&slat=&slon=&sname=我的位置&sid=B001&dlat=%f&dlon=%f&dname=%@&did=B002&dev=0&m=3&t=0",gcj02TargetCoordinate.latitude, gcj02TargetCoordinate.longitude, _model.name] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                //NSString *urlString = [[NSString stringWithFormat:@"iosamap://path?sourceApplication=&backScheme=&slat=&slon=&sname=我的位置&sid=B001&dlat=%f&dlon=%f&dname=%@&did=B002&dev=0&m=3&t=0",gcj02TargetCoordinate.latitude, gcj02TargetCoordinate.longitude, _model.name] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                NSString *urlString = [[NSString stringWithFormat:@"iosamap://path?sourceApplication=&backScheme=&slat=&slon=&sname=我的位置&sid=B001&dlat=%f&dlon=%f&dname=%@&did=B002&dev=0&m=3&t=0",gcj02TargetCoordinate.latitude, gcj02TargetCoordinate.longitude, _model.name] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString] options:@{} completionHandler:nil];
             }else{
-                NSString *urlString =[[NSString stringWithFormat:@"http://uri.amap.com/navigation?from=%f,%f,我的位置&to=%f,%f,%@&mode=car&policy=0&src=TaxGeneralM&coordinate=gaode&callnative=0",gcj02MineCoordinate.longitude, gcj02MineCoordinate.latitude, gcj02TargetCoordinate.longitude, gcj02TargetCoordinate.latitude, _model.name] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                //NSString *urlString =[[NSString stringWithFormat:@"http://uri.amap.com/navigation?from=%f,%f,我的位置&to=%f,%f,%@&mode=car&policy=0&src=TaxGeneralM&coordinate=gaode&callnative=0",gcj02MineCoordinate.longitude, gcj02MineCoordinate.latitude, gcj02TargetCoordinate.longitude, gcj02TargetCoordinate.latitude, _model.name] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                NSString *urlString =[[NSString stringWithFormat:@"http://uri.amap.com/navigation?from=%f,%f,我的位置&to=%f,%f,%@&mode=car&policy=0&src=TaxGeneralM&coordinate=gaode&callnative=0",gcj02MineCoordinate.longitude, gcj02MineCoordinate.latitude, gcj02TargetCoordinate.longitude, gcj02TargetCoordinate.latitude, _model.name] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString] options:@{} completionHandler:nil];
             }
         }
         if(index == 3){
             // 是否安装百度地图
             if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"baidumap://"]]){
-                NSString *urlString =[[NSString stringWithFormat:@"baidumap://map/direction?origin={{我的位置}}&destination=latlng:%f,%f|name=%@&mode=driving&coord_type=gcj02",gcj02TargetCoordinate.latitude, gcj02TargetCoordinate.longitude, _model.name] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                //NSString *urlString =[[NSString stringWithFormat:@"baidumap://map/direction?origin={{我的位置}}&destination=latlng:%f,%f|name=%@&mode=driving&coord_type=gcj02",gcj02TargetCoordinate.latitude, gcj02TargetCoordinate.longitude, _model.name] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                NSString *urlString =[[NSString stringWithFormat:@"baidumap://map/direction?origin={{我的位置}}&destination=latlng:%f,%f|name=%@&mode=driving&coord_type=gcj02",gcj02TargetCoordinate.latitude, gcj02TargetCoordinate.longitude, _model.name] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString] options:@{} completionHandler:nil];
             }else{
                 //初始化调启导航时的参数管理类
@@ -716,10 +719,12 @@
         if(index == 4){
             // 判断是否安装腾讯地图
             if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"qqmap://"]]){
-                NSString *urlString = [[NSString stringWithFormat:@"qqmap://map/routeplan?type=drive&from=我的位置&to=%@&tocoord=%f,%f&coord_type=1&policy=0&referer=TaxGeneralM", _model.name, gcj02TargetCoordinate.latitude, gcj02TargetCoordinate.longitude] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                //NSString *urlString = [[NSString stringWithFormat:@"qqmap://map/routeplan?type=drive&from=我的位置&to=%@&tocoord=%f,%f&coord_type=1&policy=0&referer=TaxGeneralM", _model.name, gcj02TargetCoordinate.latitude, gcj02TargetCoordinate.longitude] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                NSString *urlString = [[NSString stringWithFormat:@"qqmap://map/routeplan?type=drive&from=我的位置&to=%@&tocoord=%f,%f&coord_type=1&policy=0&referer=TaxGeneralM", _model.name, gcj02TargetCoordinate.latitude, gcj02TargetCoordinate.longitude] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString] options:@{} completionHandler:nil];
             }else{
-                NSString *urlString = [[NSString stringWithFormat:@"http://apis.map.qq.com/uri/v1/routeplan?type=drive&from=我的位置&fromcoord=%f,%f&to=%@&tocoord=%f,%f&policy=1&referer=TaxGeneralM", gcj02MineCoordinate.latitude, gcj02MineCoordinate.longitude, _model.name, gcj02TargetCoordinate.latitude, gcj02TargetCoordinate.longitude] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                //NSString *urlString = [[NSString stringWithFormat:@"http://apis.map.qq.com/uri/v1/routeplan?type=drive&from=我的位置&fromcoord=%f,%f&to=%@&tocoord=%f,%f&policy=1&referer=TaxGeneralM", gcj02MineCoordinate.latitude, gcj02MineCoordinate.longitude, _model.name, gcj02TargetCoordinate.latitude, gcj02TargetCoordinate.longitude] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                NSString *urlString = [[NSString stringWithFormat:@"http://apis.map.qq.com/uri/v1/routeplan?type=drive&from=我的位置&fromcoord=%f,%f&to=%@&tocoord=%f,%f&policy=1&referer=TaxGeneralM", gcj02MineCoordinate.latitude, gcj02MineCoordinate.longitude, _model.name, gcj02TargetCoordinate.latitude, gcj02TargetCoordinate.longitude] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString] options:@{} completionHandler:nil];
             }
         }

@@ -31,7 +31,11 @@
     _headerBottomViewH = floorf(_headerViewH*0.25f);
     
     // 不进行自动调整（否则顶部会自动留出安全距离[空白]）
-    self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    if (@available(iOS 11.0, *)) {
+        self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    } else {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
     // 设置头部视图
     _headerView = [[MineHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, _headerViewH)];
     _headerView.delegate = self;

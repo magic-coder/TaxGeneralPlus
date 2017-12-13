@@ -53,12 +53,12 @@
             case 0: {
                 self.logoImageView.image = [UIImage imageNamed:@"map_group"];
                 
-                [self.logoImageView mas_updateConstraints:^(MASConstraintMaker *make) {
+                [self.logoImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
                     make.size.mas_equalTo(CGSizeMake(_imageWH, _imageWH));
                     make.centerY.equalTo(self);
                     make.left.equalTo(self).with.offset(_space);
                 }];
-                [self.nameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+                [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
                     make.top.equalTo(self).with.offset(5);
                     make.bottom.equalTo(self).with.offset(-5);
                     make.left.equalTo(self.logoImageView.mas_right).with.offset(_space);
@@ -69,12 +69,12 @@
             case 1: {
                 self.logoImageView.image = [UIImage imageNamed:@"map_station"];
                 
-                [self.logoImageView mas_updateConstraints:^(MASConstraintMaker *make) {
+                [self.logoImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
                     make.size.mas_equalTo(CGSizeMake(_imageWH, _imageWH));
                     make.centerY.equalTo(self);
                     make.left.equalTo(self).with.offset(_space*2+_imageWH);
                 }];
-                [self.nameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+                [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
                     make.top.equalTo(self).with.offset(5);
                     make.bottom.equalTo(self).with.offset(-5);
                     make.left.equalTo(self.logoImageView.mas_right).with.offset(_space);
@@ -85,12 +85,12 @@
             case 2: {
                 self.logoImageView.image = [UIImage imageNamed:@"map_institute"];
                 
-                [self.logoImageView mas_updateConstraints:^(MASConstraintMaker *make) {
+                [self.logoImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
                     make.size.mas_equalTo(CGSizeMake(_imageWH, _imageWH));
                     make.centerY.equalTo(self);
                     make.left.equalTo(self).with.offset(_space*3+_imageWH*2);
                 }];
-                [self.nameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+                [self.nameLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
                     make.top.equalTo(self).with.offset(5);
                     make.bottom.equalTo(self).with.offset(-5);
                     make.left.equalTo(self.logoImageView.mas_right).with.offset(_space);
