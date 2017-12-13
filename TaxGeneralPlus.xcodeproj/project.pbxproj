@@ -147,6 +147,7 @@
 		18C1923B1FCBBDF500A90B22 /* MsgUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C1923A1FCBBDF500A90B22 /* MsgUtil.m */; };
 		18C1923D1FCBFB8100A90B22 /* Msg.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18C1923C1FCBFB8100A90B22 /* Msg.xcassets */; };
 		18C192401FCC1DB300A90B22 /* OneWayHTTPS.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C1923F1FCC1DB300A90B22 /* OneWayHTTPS.m */; };
+		18C1F12C1FE0D56400ABB365 /* UIImage+Rotate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C1F12B1FE0D56400ABB365 /* UIImage+Rotate.m */; };
 		18CB63E61FDE5F6F006B01E6 /* BaiduMapAPI_Cloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18CB63DF1FDE5F6E006B01E6 /* BaiduMapAPI_Cloud.framework */; };
 		18CB63E71FDE5F6F006B01E6 /* BaiduMapAPI_Location.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18CB63E01FDE5F6E006B01E6 /* BaiduMapAPI_Location.framework */; };
 		18CB63E81FDE5F6F006B01E6 /* BaiduMapAPI_Map.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18CB63E11FDE5F6E006B01E6 /* BaiduMapAPI_Map.framework */; };
@@ -167,7 +168,6 @@
 		18CB64021FDE600E006B01E6 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 18CB64011FDE600D006B01E6 /* libstdc++.6.0.9.tbd */; };
 		18CB64041FDE6114006B01E6 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18CB64031FDE6114006B01E6 /* mapapi.bundle */; };
 		18CB64081FDE693C006B01E6 /* RouteAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CB64071FDE693C006B01E6 /* RouteAnnotation.m */; };
-		18CB640C1FDE6957006B01E6 /* UIImage+Rotate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CB640A1FDE6957006B01E6 /* UIImage+Rotate.m */; };
 		18CB640F1FDE69EC006B01E6 /* YZLocationConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CB640D1FDE69EB006B01E6 /* YZLocationConverter.m */; };
 		18CB64121FDE74C5006B01E6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18CB64111FDE74C5006B01E6 /* MapKit.framework */; };
 		18CD9E2E1FCE9391005F8186 /* MsgDetailViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CD9E2D1FCE9391005F8186 /* MsgDetailViewCell.m */; };
@@ -481,6 +481,8 @@
 		18C1923C1FCBFB8100A90B22 /* Msg.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Msg.xcassets; sourceTree = "<group>"; };
 		18C1923E1FCC1DB300A90B22 /* OneWayHTTPS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OneWayHTTPS.h; sourceTree = "<group>"; };
 		18C1923F1FCC1DB300A90B22 /* OneWayHTTPS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OneWayHTTPS.m; sourceTree = "<group>"; };
+		18C1F12A1FE0D56400ABB365 /* UIImage+Rotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Rotate.h"; sourceTree = "<group>"; };
+		18C1F12B1FE0D56400ABB365 /* UIImage+Rotate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Rotate.m"; sourceTree = "<group>"; };
 		18CB63DF1FDE5F6E006B01E6 /* BaiduMapAPI_Cloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Cloud.framework; path = TaxGeneralPlus/Plugins/BaiduMap/BaiduMapAPI_Cloud.framework; sourceTree = "<group>"; };
 		18CB63E01FDE5F6E006B01E6 /* BaiduMapAPI_Location.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Location.framework; path = TaxGeneralPlus/Plugins/BaiduMap/BaiduMapAPI_Location.framework; sourceTree = "<group>"; };
 		18CB63E11FDE5F6E006B01E6 /* BaiduMapAPI_Map.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Map.framework; path = TaxGeneralPlus/Plugins/BaiduMap/BaiduMapAPI_Map.framework; sourceTree = "<group>"; };
@@ -502,8 +504,6 @@
 		18CB64031FDE6114006B01E6 /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = mapapi.bundle; path = TaxGeneralPlus/Plugins/BaiduMap/BaiduMapAPI_Map.framework/Resources/mapapi.bundle; sourceTree = SOURCE_ROOT; };
 		18CB64061FDE693C006B01E6 /* RouteAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteAnnotation.h; sourceTree = "<group>"; };
 		18CB64071FDE693C006B01E6 /* RouteAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteAnnotation.m; sourceTree = "<group>"; };
-		18CB640A1FDE6957006B01E6 /* UIImage+Rotate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Rotate.m"; path = "../../../../../TaxGeneralM_VPN/TaxGeneral/Venders/BaiduMap/Category/UIImage+Rotate.m"; sourceTree = "<group>"; };
-		18CB640B1FDE6957006B01E6 /* UIImage+Rotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Rotate.h"; path = "../../../../../TaxGeneralM_VPN/TaxGeneral/Venders/BaiduMap/Category/UIImage+Rotate.h"; sourceTree = "<group>"; };
 		18CB640D1FDE69EB006B01E6 /* YZLocationConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YZLocationConverter.m; sourceTree = "<group>"; };
 		18CB640E1FDE69EB006B01E6 /* YZLocationConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZLocationConverter.h; sourceTree = "<group>"; };
 		18CB64111FDE74C5006B01E6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -1675,8 +1675,8 @@
 		18CB64091FDE6949006B01E6 /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				18CB640B1FDE6957006B01E6 /* UIImage+Rotate.h */,
-				18CB640A1FDE6957006B01E6 /* UIImage+Rotate.m */,
+				18C1F12A1FE0D56400ABB365 /* UIImage+Rotate.h */,
+				18C1F12B1FE0D56400ABB365 /* UIImage+Rotate.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1981,6 +1981,7 @@
 				18AE742D1F9854C700E357D1 /* SDWebImageCodersManager.m in Sources */,
 				180A90CA1FB2F09400F7D213 /* BaseSettingUtil.m in Sources */,
 				18FCCDA51FA703D000424A0C /* MASConstraintMaker.m in Sources */,
+				18C1F12C1FE0D56400ABB365 /* UIImage+Rotate.m in Sources */,
 				18A9A0751FA1A8770059C7BB /* UINavigationBar+YZ.m in Sources */,
 				18AE743D1F9854C700E357D1 /* UIView+WebCache.m in Sources */,
 				18E2C42D1FC26E5500881A8A /* GestureVerifyViewController.m in Sources */,
@@ -2088,7 +2089,6 @@
 				18AE74771F988EFB00E357D1 /* FLAnimatedImageView.m in Sources */,
 				18146AB91FA9699D000A3654 /* AppEditHeaderView.m in Sources */,
 				183826F11F90B08C0076C8A5 /* AppDelegate.m in Sources */,
-				18CB640C1FDE6957006B01E6 /* UIImage+Rotate.m in Sources */,
 				18C02E4F1FA71549009EBD36 /* AppView.m in Sources */,
 				1881C05A1FCFFD51005E6AD6 /* MJRefreshConst.m in Sources */,
 				18E4EDB61F9F213900CAB201 /* YBRectConst.m in Sources */,
