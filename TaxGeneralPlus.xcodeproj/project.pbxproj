@@ -466,6 +466,7 @@
 		18AE74751F988EFB00E357D1 /* FLAnimatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImage.h; sourceTree = "<group>"; };
 		18AE747C1F98980600E357D1 /* TestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
 		18AE747D1F98980600E357D1 /* TestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
+		18B70BD01FE1190300EBC27A /* TaxGeneralPlus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TaxGeneralPlus.entitlements; sourceTree = "<group>"; };
 		18C02E4D1FA71549009EBD36 /* AppView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppView.h; sourceTree = "<group>"; };
 		18C02E4E1FA71549009EBD36 /* AppView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppView.m; sourceTree = "<group>"; };
 		18C02E501FA71582009EBD36 /* AppModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppModel.h; sourceTree = "<group>"; };
@@ -755,6 +756,7 @@
 		183826EE1F90B08C0076C8A5 /* TaxGeneralPlus */ = {
 			isa = PBXGroup;
 			children = (
+				18B70BD01FE1190300EBC27A /* TaxGeneralPlus.entitlements */,
 				183827061F90B0BB0076C8A5 /* Classes */,
 				183827091F90B0ED0076C8A5 /* Expands */,
 				183827081F90B0D90076C8A5 /* Plugins */,
@@ -1868,6 +1870,9 @@
 							com.apple.Maps.iOS = {
 								enabled = 1;
 							};
+							com.apple.Push = {
+								enabled = 1;
+							};
 						};
 					};
 				};
@@ -2235,8 +2240,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TaxGeneralPlus/TaxGeneralPlus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T6M45QNYSX;
+				DEVELOPMENT_TEAM = 28MS2284NQ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TaxGeneralPlus/Plugins/BaiduMap",
@@ -2251,7 +2257,7 @@
 					"$(PROJECT_DIR)/TaxGeneralPlus/Plugins/BaiduMap/thirdlibs",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.prient.TaxGeneralPlus;
+				PRODUCT_BUNDLE_IDENTIFIER = com.prient.micyo.TaxGeneralPlus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -2261,8 +2267,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TaxGeneralPlus/TaxGeneralPlus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T6M45QNYSX;
+				DEVELOPMENT_TEAM = 28MS2284NQ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TaxGeneralPlus/Plugins/BaiduMap",
@@ -2277,7 +2284,7 @@
 					"$(PROJECT_DIR)/TaxGeneralPlus/Plugins/BaiduMap/thirdlibs",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.prient.TaxGeneralPlus;
+				PRODUCT_BUNDLE_IDENTIFIER = com.prient.micyo.TaxGeneralPlus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
