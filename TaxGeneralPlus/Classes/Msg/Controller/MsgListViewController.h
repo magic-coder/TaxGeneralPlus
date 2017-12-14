@@ -12,4 +12,6 @@
 
 @interface MsgListViewController : UITableViewController
 
+- (void)loadData;
+
 @end

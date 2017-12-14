@@ -151,6 +151,8 @@ static int const pageSize = 100;
         [_data addObject:sysData];
         [_data addObject:userData];
     }else{
+        [[BaseHandleUtil sharedBaseHandleUtil] msgBadge:[Variable sharedVariable].unReadCount];// 设置提醒角标
+        
         [self.tableView addSubview:self.emptyView];
     }
 }
