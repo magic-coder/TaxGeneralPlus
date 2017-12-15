@@ -19,6 +19,8 @@
 @property (nonatomic, strong) UIView *footerView;
 @property (nonatomic, strong) UILabel *versionLabel;
 
+@property (nonatomic, assign) float cellFontSize;
+
 @property (nonatomic, strong) UITableView *contentTableView;
 
 @end
@@ -38,25 +40,49 @@
 
     self.backgroundColor = DEFAULT_BACKGROUND_COLOR;
     
+    float space = 20.0f;
+    float headerH = 120.0f;
+    float avatarWH = 60.0f;
+    float labelH = 20.0f;
+    
+    float nameFontSize = 18.0f;
+    float orgFontSize = 14.0f;
+    float versionFontSize = 12.0f;
+    
+    _cellFontSize = 15.0f;
+    
+    if(DEVICE_SCREEN_INCH_IPAD){
+        space = 32.0f;
+        headerH = 190.0f;
+        avatarWH = 90.0;
+        labelH = 32.0f;
+        
+        nameFontSize = 28.2f;
+        orgFontSize = 22.4f;
+        versionFontSize = 18.0f;
+        
+        _cellFontSize = 24.0f;
+    }
+    
     //添加头部
     _headerView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"menu_bg"]];
-    _headerView.frame = CGRectMake(0, 0, self.frameWidth, HEIGHT_STATUS+120);
+    _headerView.frame = CGRectMake(0, 0, self.frameWidth, HEIGHT_STATUS+headerH);
     [self addSubview:_headerView];
     
-    _avatarView = [[UIImageView alloc] initWithFrame:CGRectMake(20, HEIGHT_STATUS+30, 60, 60)];
+    _avatarView = [[UIImageView alloc] initWithFrame:CGRectMake(space, HEIGHT_STATUS+(avatarWH/2), avatarWH, avatarWH)];
     [_avatarView setImage:[UIImage imageNamed:@"mine_account_header_color"]];
     [_headerView addSubview:_avatarView];
     
-    _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_avatarView.frameRight+20, _avatarView.originY+10, self.frameWidth-_avatarView.frameWidth-60, 20)];
+    _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_avatarView.frameRight+space, _avatarView.originY+10, self.frameWidth-_avatarView.frameWidth-(space*3), labelH)];
     _nameLabel.textAlignment = NSTextAlignmentCenter;
     _nameLabel.textColor = [UIColor whiteColor];
-    _nameLabel.font = [UIFont boldSystemFontOfSize:18.0f];
+    _nameLabel.font = [UIFont boldSystemFontOfSize:nameFontSize];
     [_headerView addSubview:_nameLabel];
     
-    _orgLabel = [[UILabel alloc] initWithFrame:CGRectMake(_avatarView.frameRight+20, _avatarView.frameBottom-20, self.frameWidth-_avatarView.frameWidth-60, 20)];
+    _orgLabel = [[UILabel alloc] initWithFrame:CGRectMake(_avatarView.frameRight+space, _avatarView.frameBottom-labelH, self.frameWidth-_avatarView.frameWidth-(space*3), labelH)];
     _orgLabel.textAlignment = NSTextAlignmentCenter;
     _orgLabel.textColor = [UIColor whiteColor];
-    _orgLabel.font = [UIFont systemFontOfSize:14.0f];
+    _orgLabel.font = [UIFont systemFontOfSize:orgFontSize];
     [_headerView addSubview:_orgLabel];
     
     //中间tableview
@@ -78,7 +104,7 @@
     _versionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, _footerView.frameWidth, 30)];
     _versionLabel.textAlignment = NSTextAlignmentCenter;
     _versionLabel.textColor = [UIColor lightGrayColor];
-    _versionLabel.font = [UIFont systemFontOfSize:13.0f];
+    _versionLabel.font = [UIFont systemFontOfSize:versionFontSize];
     [_footerView addSubview:_versionLabel];
 }
 
@@ -92,7 +118,10 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 46;
+    float h = 46.0f;
+    if(DEVICE_SCREEN_INCH_IPAD)
+        h = 72.0f;
+    return h;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -103,7 +132,7 @@
     }
     [cell setBackgroundColor:[UIColor whiteColor]];
     [cell.textLabel setTextColor:[UIColor grayColor]];
-    
+    cell.textLabel.font = [UIFont systemFontOfSize:_cellFontSize];
     cell.hidden = NO;
     switch (indexPath.row) {
         case 0: {
@@ -155,7 +184,6 @@
 
 #pragma mark -  设置展示数据（包含，姓名、机构等...）
 - (void)loadData {
-    DLog(@"调用设置方法");
     NSDictionary *loginDict = [[NSUserDefaults standardUserDefaults] objectForKey:LOGIN_SUCCESS];// 登录基本信息
     _nameLabel.text = [loginDict objectForKey:@"userName"]; // 用户名称
     _orgLabel.text = [loginDict objectForKey:@"orgName"];   // 机构名称
@@ -165,11 +193,8 @@
 }
 #pragma mark - 清空已经存在的数据
 - (void)clearData {
-    DLog(@"调用清空方法");
     _nameLabel.text = @"";
     _orgLabel.text = @"";
-    
-    _versionLabel.text = @"";
 }
 
 @end
