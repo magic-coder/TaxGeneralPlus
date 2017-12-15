@@ -94,7 +94,7 @@
 		18A1FB081FBD2DA500AA07DC /* AboutHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A1FB071FBD2DA500AA07DC /* AboutHeaderView.m */; };
 		18A1FB0B1FBD2DB800AA07DC /* AboutFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A1FB0A1FBD2DB800AA07DC /* AboutFooterView.m */; };
 		18A909D11FE280B600104B0C /* MenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A909CF1FE280B600104B0C /* MenuView.m */; };
-		18A909D41FE280D600104B0C /* LeftMenuViewDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A909D31FE280D600104B0C /* LeftMenuViewDemo.m */; };
+		18A909D41FE280D600104B0C /* LeftMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A909D31FE280D600104B0C /* LeftMenuView.m */; };
 		18A9A0751FA1A8770059C7BB /* UINavigationBar+YZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A9A0741FA1A8770059C7BB /* UINavigationBar+YZ.m */; };
 		18A9A07E1FA1ABF90059C7BB /* BaseSandBoxUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A9A07D1FA1ABF90059C7BB /* BaseSandBoxUtil.m */; };
 		18A9A0811FA1AC0F0059C7BB /* BaseHandleUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A9A0801FA1AC0F0059C7BB /* BaseHandleUtil.m */; };
@@ -375,8 +375,8 @@
 		18A1FB0A1FBD2DB800AA07DC /* AboutFooterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutFooterView.m; sourceTree = "<group>"; };
 		18A909CF1FE280B600104B0C /* MenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuView.m; sourceTree = "<group>"; };
 		18A909D01FE280B600104B0C /* MenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuView.h; sourceTree = "<group>"; };
-		18A909D21FE280D600104B0C /* LeftMenuViewDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftMenuViewDemo.h; sourceTree = "<group>"; };
-		18A909D31FE280D600104B0C /* LeftMenuViewDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftMenuViewDemo.m; sourceTree = "<group>"; };
+		18A909D21FE280D600104B0C /* LeftMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftMenuView.h; sourceTree = "<group>"; };
+		18A909D31FE280D600104B0C /* LeftMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftMenuView.m; sourceTree = "<group>"; };
 		18A9A0731FA1A8770059C7BB /* UINavigationBar+YZ.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+YZ.h"; sourceTree = "<group>"; };
 		18A9A0741FA1A8770059C7BB /* UINavigationBar+YZ.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+YZ.m"; sourceTree = "<group>"; };
 		18A9A07C1FA1ABF90059C7BB /* BaseSandBoxUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseSandBoxUtil.h; sourceTree = "<group>"; };
@@ -1287,8 +1287,8 @@
 		18A909CE1FE280AE00104B0C /* View */ = {
 			isa = PBXGroup;
 			children = (
-				18A909D21FE280D600104B0C /* LeftMenuViewDemo.h */,
-				18A909D31FE280D600104B0C /* LeftMenuViewDemo.m */,
+				18A909D21FE280D600104B0C /* LeftMenuView.h */,
+				18A909D31FE280D600104B0C /* LeftMenuView.m */,
 				18A909D01FE280B600104B0C /* MenuView.h */,
 				18A909CF1FE280B600104B0C /* MenuView.m */,
 			);
@@ -2028,7 +2028,7 @@
 				18FCCDA31FA703D000424A0C /* ViewController+MASAdditions.m in Sources */,
 				180A90B61FB2DFFB00F7D213 /* BaseTableModel.m in Sources */,
 				189B559A1FC8231B003031A9 /* MsgDetailModel.m in Sources */,
-				18A909D41FE280D600104B0C /* LeftMenuViewDemo.m in Sources */,
+				18A909D41FE280D600104B0C /* LeftMenuView.m in Sources */,
 				1836FCC41FA1F6AB00ABDA10 /* NewsUtil.m in Sources */,
 				18FCCDA81FA703D000424A0C /* View+MASAdditions.m in Sources */,
 				18AE742E1F9854C700E357D1 /* FLAnimatedImageView+WebCache.m in Sources */,

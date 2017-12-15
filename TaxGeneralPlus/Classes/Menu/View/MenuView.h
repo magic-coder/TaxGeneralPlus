@@ -1,18 +1,28 @@
-//
-//  MenuView.h
-//  MenuDemo
-//
-//  Created by Lying on 16/6/9.
-//  Copyright © 2016年 Lying. All rights reserved.
-//
+/************************************************************
+ Class    : MenuView.h
+ Describe : 左侧滑动菜单底层视图
+ Company  : Prient
+ Author   : Yanzheng 严正
+ Date     : 2017-12-15
+ Version  : 1.0
+ Declare  : Copyright © 2017 Yanzheng. All rights reserved.
+ ************************************************************/
 
 #import <UIKit/UIKit.h>
 
+@protocol MenuViewDelegate <NSObject>
+
+- (void)willAppear;    // 左滑菜单即将显示方法
+- (void)willDisappear;  // 左滑菜单即将消失方法
+
+@end
 
 @interface MenuView : UIView
 
- 
-+(instancetype)MenuViewWithDependencyView:(UIView *)dependencyView MenuView:(UIView *)leftmenuView isShowCoverView:(BOOL)isCover;
+// 代理方法
+@property (nonatomic ,weak) id <MenuViewDelegate> delegate;
+
++ (instancetype)MenuViewWithDependencyView:(UIView *)dependencyView MenuView:(UIView *)leftmenuView isShowCoverView:(BOOL)isCover;
 
 /**
  *  初始化方法
@@ -23,19 +33,22 @@
  *
  *  @return self
  */
--(instancetype)initWithDependencyView:(UIView *)dependencyView MenuView:(UIView *)leftmenuView isShowCoverView:(BOOL)isCover;
+- (instancetype)initWithDependencyView:(UIView *)dependencyView MenuView:(UIView *)leftmenuView isShowCoverView:(BOOL)isCover;
     
 /**
- *  展开菜单，可放进点击事件内
+ * 展开菜单，可放进点击事件内
  */
 -(void)show;
+
 /**
- *  关闭菜单不带动画效果
+ * 关闭菜单不带动画效果
  */
--(void)hidenWithoutAnimation;
+- (void)hidenWithoutAnimation;
+
 /**
- *  关闭菜单带动画效果
+ * 关闭菜单带动画效果
  */
--(void)hidenWithAnimation;
+- (void)hidenWithAnimation;
 
 @end
+

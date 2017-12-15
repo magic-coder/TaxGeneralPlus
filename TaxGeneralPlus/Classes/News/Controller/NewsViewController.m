@@ -16,17 +16,18 @@
 #import "YALSunnyRefreshControl.h"
 
 #import "MenuView.h"
-#import "LeftMenuViewDemo.h"
+#import "LeftMenuView.h"
 
 #define NAVBAR_CHANGE_POINT 50
 
-@interface NewsViewController () <UITableViewDelegate, UITableViewDataSource, YZCycleScrollViewDelegate, HomeMenuViewDelegate>
+@interface NewsViewController () <UITableViewDelegate, UITableViewDataSource, YZCycleScrollViewDelegate, MenuViewDelegate, LeftMenuViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, strong) YALSunnyRefreshControl *sunnyRefreshControl;   // 顶部刷新动画视图
 
 @property (nonatomic, strong) MenuView *menu;                               // 左滑菜单
+@property (nonatomic, strong) LeftMenuView *demo;                       // 左侧菜单
 
 @property (nonatomic, strong) UIButton *tiggerBtn;                          // 快捷菜单按钮
 
@@ -303,13 +304,6 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
 - (UIButton *)tiggerBtn {
     if(!_tiggerBtn){
         _tiggerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        /*
-        if(DEVICE_SCREEN_INCH_5_8){
-            _tiggerBtn.frame = CGRectMake(WIDTH_SCREEN-60, HEIGHT_SCREEN-HEIGHT_TABBAR-34-60, 60, 60);
-        }else{
-            _tiggerBtn.frame = CGRectMake(WIDTH_SCREEN-60, HEIGHT_SCREEN-HEIGHT_TABBAR-60, 60, 60);
-        }
-        */
         [_tiggerBtn setImage:[UIImage imageNamed:@"common_trigger"] forState:UIControlStateNormal];
         [_tiggerBtn setImage:[UIImage imageNamed:@"common_triggerHL"] forState:UIControlStateHighlighted];
         [_tiggerBtn addTarget:self action:@selector(tiggerBtnAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -320,14 +314,24 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
 #pragma mark - 初始化左侧快捷滑动菜单
 - (void)initializeSlideMenu {
     
-    LeftMenuViewDemo *demo = [[LeftMenuViewDemo alloc]initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width * 0.8, [[UIScreen mainScreen] bounds].size.height)];
-    demo.customDelegate = self;
+    _demo = [[LeftMenuView alloc]initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width * 0.8, [[UIScreen mainScreen] bounds].size.height)];
+    _demo.delegate = self;
     
-    self.menu = [[MenuView alloc] initWithDependencyView:self.view MenuView:demo isShowCoverView:YES];
+    self.menu = [[MenuView alloc] initWithDependencyView:self.view MenuView:_demo isShowCoverView:YES];
+    self.menu.delegate = self;
+}
+
+#pragma mark - 左侧滑动菜单主代理方法，菜单即将显示方法（进行设置数据）
+- (void)willAppear {
+    [_demo loadData];// 设置姓名、机构名称
+}
+#pragma mark - 左侧滑动菜单主代理方法，菜单即将隐藏方法（清空原有数据）
+- (void)willDisappear {
+    [_demo clearData]; // 清空展示的数据，下次显示进行重新设置
 }
 
 #pragma mark - 左侧菜单功能点击代理方法
-- (void)LeftMenuViewClick:(NSInteger)tag {
+- (void)leftMenuViewClick:(NSInteger)tag {
     [self.menu hidenWithAnimation];// 隐藏左侧菜单
     
     if(0 == tag){
