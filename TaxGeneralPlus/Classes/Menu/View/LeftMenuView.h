@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@protocol HomeMenuViewDelegate <NSObject>
+@protocol LeftMenuViewDelegate <NSObject>
 
 -(void)LeftMenuViewClick:(NSInteger)tag;
 
@@ -17,6 +17,8 @@
 
 @interface LeftMenuViewDemo : UIView
 
-@property (nonatomic ,weak)id <HomeMenuViewDelegate> customDelegate;
+@property (nonatomic ,weak)id <LeftMenuViewDelegate> delegate;
+
+- (void)loadData;
 
 @end
