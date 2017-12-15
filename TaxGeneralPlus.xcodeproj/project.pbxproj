@@ -19,6 +19,7 @@
 		180A90CA1FB2F09400F7D213 /* BaseSettingUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 180A90C91FB2F09400F7D213 /* BaseSettingUtil.m */; };
 		180A90CD1FB306BF00F7D213 /* AppHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 180A90CC1FB306BF00F7D213 /* AppHeaderView.m */; };
 		180A90D01FB307B100F7D213 /* AppFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 180A90CF1FB307B100F7D213 /* AppFooterView.m */; };
+		180D723E1FE370AA00CAB4B9 /* Menu.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 180D723D1FE370AA00CAB4B9 /* Menu.xcassets */; };
 		18146AB91FA9699D000A3654 /* AppEditHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18146AB81FA9699D000A3654 /* AppEditHeaderView.m */; };
 		181608491F99A69900EC0FC3 /* TabBar.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 181608481F99A69900EC0FC3 /* TabBar.xcassets */; };
 		1816084B1F99DBDE00EC0FC3 /* Navigation.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1816084A1F99DBDE00EC0FC3 /* Navigation.xcassets */; };
@@ -50,8 +51,6 @@
 		186E5AE11FA1C0CF00228258 /* NSObject+YYModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 186E5ADE1FA1C0CF00228258 /* NSObject+YYModel.m */; };
 		186E5AE21FA1C0CF00228258 /* YYClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 186E5ADF1FA1C0CF00228258 /* YYClassInfo.m */; };
 		186E5AE81FA1C2FF00228258 /* NewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 186E5AE71FA1C2FF00228258 /* NewsModel.m */; };
-		186F86D01FCE4F41002E5FF2 /* SlideMenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 186F86CC1FCE4F41002E5FF2 /* SlideMenuButton.m */; };
-		186F86D11FCE4F41002E5FF2 /* GooeySlideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 186F86CD1FCE4F41002E5FF2 /* GooeySlideMenu.m */; };
 		186FF2D21FD934A900F76DF4 /* msgsound.caf in Resources */ = {isa = PBXBuildFile; fileRef = 186FF2CF1FD934A900F76DF4 /* msgsound.caf */; };
 		186FF2D31FD934A900F76DF4 /* btnsound.caf in Resources */ = {isa = PBXBuildFile; fileRef = 186FF2D01FD934A900F76DF4 /* btnsound.caf */; };
 		186FF2D41FD934A900F76DF4 /* refreshsound.caf in Resources */ = {isa = PBXBuildFile; fileRef = 186FF2D11FD934A900F76DF4 /* refreshsound.caf */; };
@@ -94,6 +93,8 @@
 		18A1FB051FBD2C6600AA07DC /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A1FB041FBD2C6600AA07DC /* AboutViewController.m */; };
 		18A1FB081FBD2DA500AA07DC /* AboutHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A1FB071FBD2DA500AA07DC /* AboutHeaderView.m */; };
 		18A1FB0B1FBD2DB800AA07DC /* AboutFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A1FB0A1FBD2DB800AA07DC /* AboutFooterView.m */; };
+		18A909D11FE280B600104B0C /* MenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A909CF1FE280B600104B0C /* MenuView.m */; };
+		18A909D41FE280D600104B0C /* LeftMenuViewDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A909D31FE280D600104B0C /* LeftMenuViewDemo.m */; };
 		18A9A0751FA1A8770059C7BB /* UINavigationBar+YZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A9A0741FA1A8770059C7BB /* UINavigationBar+YZ.m */; };
 		18A9A07E1FA1ABF90059C7BB /* BaseSandBoxUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A9A07D1FA1ABF90059C7BB /* BaseSandBoxUtil.m */; };
 		18A9A0811FA1AC0F0059C7BB /* BaseHandleUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A9A0801FA1AC0F0059C7BB /* BaseHandleUtil.m */; };
@@ -231,6 +232,7 @@
 		180A90CC1FB306BF00F7D213 /* AppHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppHeaderView.m; sourceTree = "<group>"; };
 		180A90CE1FB307B100F7D213 /* AppFooterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppFooterView.h; sourceTree = "<group>"; };
 		180A90CF1FB307B100F7D213 /* AppFooterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppFooterView.m; sourceTree = "<group>"; };
+		180D723D1FE370AA00CAB4B9 /* Menu.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Menu.xcassets; sourceTree = "<group>"; };
 		18146AB71FA9699D000A3654 /* AppEditHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppEditHeaderView.h; sourceTree = "<group>"; };
 		18146AB81FA9699D000A3654 /* AppEditHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppEditHeaderView.m; sourceTree = "<group>"; };
 		181608481F99A69900EC0FC3 /* TabBar.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = TabBar.xcassets; sourceTree = "<group>"; };
@@ -292,10 +294,6 @@
 		186E5AE01FA1C0CF00228258 /* NSObject+YYModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+YYModel.h"; sourceTree = "<group>"; };
 		186E5AE61FA1C2FF00228258 /* NewsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsModel.h; sourceTree = "<group>"; };
 		186E5AE71FA1C2FF00228258 /* NewsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsModel.m; sourceTree = "<group>"; };
-		186F86CC1FCE4F41002E5FF2 /* SlideMenuButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideMenuButton.m; sourceTree = "<group>"; };
-		186F86CD1FCE4F41002E5FF2 /* GooeySlideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GooeySlideMenu.m; sourceTree = "<group>"; };
-		186F86CE1FCE4F41002E5FF2 /* SlideMenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideMenuButton.h; sourceTree = "<group>"; };
-		186F86CF1FCE4F41002E5FF2 /* GooeySlideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GooeySlideMenu.h; sourceTree = "<group>"; };
 		186FF2CF1FD934A900F76DF4 /* msgsound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = msgsound.caf; sourceTree = "<group>"; };
 		186FF2D01FD934A900F76DF4 /* btnsound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = btnsound.caf; sourceTree = "<group>"; };
 		186FF2D11FD934A900F76DF4 /* refreshsound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = refreshsound.caf; sourceTree = "<group>"; };
@@ -375,6 +373,10 @@
 		18A1FB071FBD2DA500AA07DC /* AboutHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutHeaderView.m; sourceTree = "<group>"; };
 		18A1FB091FBD2DB800AA07DC /* AboutFooterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutFooterView.h; sourceTree = "<group>"; };
 		18A1FB0A1FBD2DB800AA07DC /* AboutFooterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutFooterView.m; sourceTree = "<group>"; };
+		18A909CF1FE280B600104B0C /* MenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuView.m; sourceTree = "<group>"; };
+		18A909D01FE280B600104B0C /* MenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuView.h; sourceTree = "<group>"; };
+		18A909D21FE280D600104B0C /* LeftMenuViewDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftMenuViewDemo.h; sourceTree = "<group>"; };
+		18A909D31FE280D600104B0C /* LeftMenuViewDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftMenuViewDemo.m; sourceTree = "<group>"; };
 		18A9A0731FA1A8770059C7BB /* UINavigationBar+YZ.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+YZ.h"; sourceTree = "<group>"; };
 		18A9A0741FA1A8770059C7BB /* UINavigationBar+YZ.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+YZ.m"; sourceTree = "<group>"; };
 		18A9A07C1FA1ABF90059C7BB /* BaseSandBoxUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseSandBoxUtil.h; sourceTree = "<group>"; };
@@ -646,6 +648,7 @@
 				189B559B1FC829E6003031A9 /* News.xcassets */,
 				18C1923C1FCBFB8100A90B22 /* Msg.xcassets */,
 				18339AF41FCD0897001E50DD /* Map.xcassets */,
+				180D723D1FE370AA00CAB4B9 /* Menu.xcassets */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -782,10 +785,11 @@
 		183827061F90B0BB0076C8A5 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				181A59B81FDA7A670021421D /* Map */,
+				18A909CD1FE280A400104B0C /* Menu */,
 				18AE747A1F9897E600E357D1 /* Test */,
 				18AE74501F9881F100E357D1 /* News */,
 				18AE74511F9881F600E357D1 /* App */,
+				181A59B81FDA7A670021421D /* Map */,
 				18AE74531F98821500E357D1 /* Msg */,
 				18AE74541F98823200E357D1 /* Mine */,
 				18AE74551F98824C00E357D1 /* Login */,
@@ -822,7 +826,6 @@
 				18AE73DF1F98547D00E357D1 /* AFNetworking */,
 				18E4EDAF1F9F213900CAB201 /* YBPopupMenu */,
 				18AE74411F9854E900E357D1 /* MBProgressHUD */,
-				186F86CB1FCE4F41002E5FF2 /* GooeySlideMenu */,
 				18E2C4151FC26B0D00881A8A /* PCGestureUnlock */,
 				183D27011FC6A8EE00C2A607 /* TTTAttributedLabel */,
 				1806B1ED1F9DF33600F000EB /* UIAlertControllerBlocks */,
@@ -1075,17 +1078,6 @@
 			path = YYModel;
 			sourceTree = "<group>";
 		};
-		186F86CB1FCE4F41002E5FF2 /* GooeySlideMenu */ = {
-			isa = PBXGroup;
-			children = (
-				186F86CC1FCE4F41002E5FF2 /* SlideMenuButton.m */,
-				186F86CD1FCE4F41002E5FF2 /* GooeySlideMenu.m */,
-				186F86CE1FCE4F41002E5FF2 /* SlideMenuButton.h */,
-				186F86CF1FCE4F41002E5FF2 /* GooeySlideMenu.h */,
-			);
-			path = GooeySlideMenu;
-			sourceTree = "<group>";
-		};
 		186FF2CB1FD933D600F76DF4 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -1282,6 +1274,25 @@
 				18A1FB041FBD2C6600AA07DC /* AboutViewController.m */,
 			);
 			path = About;
+			sourceTree = "<group>";
+		};
+		18A909CD1FE280A400104B0C /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				18A909CE1FE280AE00104B0C /* View */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		18A909CE1FE280AE00104B0C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				18A909D21FE280D600104B0C /* LeftMenuViewDemo.h */,
+				18A909D31FE280D600104B0C /* LeftMenuViewDemo.m */,
+				18A909D01FE280B600104B0C /* MenuView.h */,
+				18A909CF1FE280B600104B0C /* MenuView.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		18A9A07B1FA1ABBA0059C7BB /* Util */ = {
@@ -1920,6 +1931,7 @@
 				18AC774C1FA8595100EB630B /* root-cert.der in Resources */,
 				186FF2D31FD934A900F76DF4 /* btnsound.caf in Resources */,
 				181608491F99A69900EC0FC3 /* TabBar.xcassets in Resources */,
+				180D723E1FE370AA00CAB4B9 /* Menu.xcassets in Resources */,
 				18C1923D1FCBFB8100A90B22 /* Msg.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2004,7 +2016,6 @@
 				18AE744B1F985A1000E357D1 /* MainNavigationController.m in Sources */,
 				187241181F99F8C70089EC02 /* MBProgressHUD+YZ.m in Sources */,
 				180A90D01FB307B100F7D213 /* AppFooterView.m in Sources */,
-				186F86D01FCE4F41002E5FF2 /* SlideMenuButton.m in Sources */,
 				18A1FB0B1FBD2DB800AA07DC /* AboutFooterView.m in Sources */,
 				181608501F99DD5B00EC0FC3 /* UIImage+YZ.m in Sources */,
 				18C192341FCBB5C700A90B22 /* MsgListViewController.m in Sources */,
@@ -2017,13 +2028,13 @@
 				18FCCDA31FA703D000424A0C /* ViewController+MASAdditions.m in Sources */,
 				180A90B61FB2DFFB00F7D213 /* BaseTableModel.m in Sources */,
 				189B559A1FC8231B003031A9 /* MsgDetailModel.m in Sources */,
+				18A909D41FE280D600104B0C /* LeftMenuViewDemo.m in Sources */,
 				1836FCC41FA1F6AB00ABDA10 /* NewsUtil.m in Sources */,
 				18FCCDA81FA703D000424A0C /* View+MASAdditions.m in Sources */,
 				18AE742E1F9854C700E357D1 /* FLAnimatedImageView+WebCache.m in Sources */,
 				18E2C40E1FBEE36000881A8A /* TouchIDViewController.m in Sources */,
 				18AE744E1F985A2900E357D1 /* MainTabBarController.m in Sources */,
 				184F11051FA81341001F8215 /* AppUtil.m in Sources */,
-				186F86D11FCE4F41002E5FF2 /* GooeySlideMenu.m in Sources */,
 				1881C0591FCFFD51005E6AD6 /* UIScrollView+MJRefresh.m in Sources */,
 				18E2C4231FC26B0D00881A8A /* PCCircleViewConst.m in Sources */,
 				18A1FB011FBD299400AA07DC /* SettingViewController.m in Sources */,
@@ -2097,6 +2108,7 @@
 				18C02E4F1FA71549009EBD36 /* AppView.m in Sources */,
 				1881C05A1FCFFD51005E6AD6 /* MJRefreshConst.m in Sources */,
 				18E4EDB61F9F213900CAB201 /* YBRectConst.m in Sources */,
+				18A909D11FE280B600104B0C /* MenuView.m in Sources */,
 				18C02E521FA71582009EBD36 /* AppModel.m in Sources */,
 				18AE742B1F9854C700E357D1 /* UIImageView+HighlightedWebCache.m in Sources */,
 				186E5AE21FA1C0CF00228258 /* YYClassInfo.m in Sources */,

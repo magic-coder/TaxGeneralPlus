@@ -11,8 +11,12 @@
 #import "TestViewController.h"
 #import "NewsUtil.h"
 
-@interface TestViewController () <YBPopupMenuDelegate, YZCycleScrollViewDelegate>
+#import "MenuView.h"
+#import "LeftMenuViewDemo.h"
 
+@interface TestViewController () <YBPopupMenuDelegate, YZCycleScrollViewDelegate, HomeMenuViewDelegate>
+
+@property (nonatomic, strong) MenuView *menu;
 @property (nonatomic, assign) int i;
 
 @end
@@ -187,16 +191,13 @@
     }
     
     if(4 == btn.tag){
-        _i = 0;
         
-        [[NewsUtil sharedNewsUtil] moreDataWithPageNo:2 pageSize:10 success:^(NSArray *dataArray) {
-            DLog(@"请求次数统计：%d", _i++);
-        } failure:^(NSString *error) {
-            
-        } invalid:^(NSString *msg) {
-            
-        }];
+        LeftMenuViewDemo *demo = [[LeftMenuViewDemo alloc]initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width * 0.8, [[UIScreen mainScreen] bounds].size.height)];
+        demo.customDelegate = self;
         
+        self.menu = [[MenuView alloc] initWithDependencyView:self.view MenuView:demo isShowCoverView:YES];
+        
+        [self.menu show];
     }
     
     if(5 == btn.tag){
@@ -222,6 +223,13 @@
         [self.navigationController pushViewController:webVC animated:YES];
 
     }
+    
+}
+
+-(void)LeftMenuViewClick:(NSInteger)tag{
+    [self.menu hidenWithAnimation];
+    
+    NSLog(@"tag = %lu",tag);
     
 }
 

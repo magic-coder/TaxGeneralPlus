@@ -6,7 +6,6 @@
 //  Copyright © 2016年 Lying. All rights reserved.
 //
 #define ImageviewWidth    18
-#define Frame_Width       self.frame.size.width//200
 
 #import "LeftMenuViewDemo.h"
 
@@ -29,51 +28,51 @@
 
 -(void)initView{
 
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = DEFAULT_BACKGROUND_COLOR;
+    
     //添加头部
-    UIView *headerView     = [[UIView alloc]initWithFrame:CGRectMake(0, 0, Frame_Width, 90)];
-    [headerView setBackgroundColor:[UIColor orangeColor]];
-    CGFloat width          = 90/2;
-    
-    UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(12, (90 - width) / 2, width, width)];
-//    [imageview setBackgroundColor:[UIColor redColor]];
-    imageview.layer.cornerRadius = imageview.frame.size.width / 2;
-    imageview.layer.masksToBounds = YES;
-    [imageview setImage:[UIImage imageNamed:@"HeadIcon"]];
-    [headerView addSubview:imageview];
-    
-    
-    width                  = 15;
-    UIImageView *arrow     = [[UIImageView alloc]initWithFrame:CGRectMake(Frame_Width - width - 10, (90 - width)/2, width, width)];
-    arrow.contentMode      = UIViewContentModeScaleAspectFit;
-    [arrow setImage:[UIImage imageNamed:@"person-icon0"]];
-    [headerView addSubview:arrow];
-    
-    UILabel *NameLabel = [[UILabel alloc]initWithFrame:CGRectMake(imageview.frame.size.width + imageview.frame.origin.x * 2, imageview.frame.origin.y, 90, imageview.frame.size.height)];
-    [NameLabel setText:@"隔壁老王"];
-    [headerView addSubview:NameLabel];
-    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frameWidth, HEIGHT_STATUS+HEIGHT_NAVBAR+100)];
+    headerView.backgroundColor = DEFAULT_BLUE_COLOR;
     [self addSubview:headerView];
     
+    UIImageView *avatarView = [[UIImageView alloc] initWithFrame:CGRectMake(15, headerView.frameHeight/2-20, 60, 60)];
+    [avatarView setImage:[UIImage imageNamed:@"mine_account_header_color"]];
+    [headerView addSubview:avatarView];
+    
+    NSDictionary *loginDict = [[NSUserDefaults standardUserDefaults] objectForKey:LOGIN_SUCCESS];// 登录基本信息
+    
+    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(avatarView.frameRight+15, avatarView.originY+10, self.frameWidth-avatarView.frameWidth-45, 20)];
+    [nameLabel setText:[loginDict objectForKey:@"userName"]];
+    nameLabel.textAlignment = NSTextAlignmentCenter;
+    nameLabel.textColor = [UIColor whiteColor];
+    nameLabel.font = [UIFont boldSystemFontOfSize:20.0f];
+    [headerView addSubview:nameLabel];
+    
+    UILabel *orgLabel = [[UILabel alloc] initWithFrame:CGRectMake(avatarView.frameRight+15, nameLabel.frameBottom+5, self.frameWidth-avatarView.frameWidth-45, 20)];
+    [orgLabel setText:[loginDict objectForKey:@"orgName"]];
+    orgLabel.textAlignment = NSTextAlignmentCenter;
+    orgLabel.textColor = [UIColor whiteColor];
+    orgLabel.font = [UIFont systemFontOfSize:16.0f];
+    [headerView addSubview:orgLabel];
     
     //中间tableview
-    UITableView *contentTableView        = [[UITableView alloc]initWithFrame:CGRectMake(0, headerView.frame.size.height, Frame_Width, self.frame.size.height - headerView.frame.size.height - 50)
-                                                                       style:UITableViewStylePlain];
+    UITableView *contentTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, headerView.frameBottom, self.frameWidth, self.frameHeight - headerView.frameHeight) style:UITableViewStylePlain];
     [contentTableView setBackgroundColor:[UIColor whiteColor]];
-    contentTableView.dataSource          = self;
-    contentTableView.delegate            = self;
+    contentTableView.dataSource = self;
+    contentTableView.delegate = self;
     contentTableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [contentTableView setBackgroundColor:[UIColor whiteColor]];
-    contentTableView.separatorStyle      = UITableViewCellSeparatorStyleNone;
+    contentTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     contentTableView.tableFooterView = [UIView new];
     self.contentTableView = contentTableView;
     [self addSubview:contentTableView];
     
     //添加尾部
-    UIView *footerView = [[UIView alloc]initWithFrame:CGRectMake(0, self.frame.size.height - 50, Frame_Width, 50)];
+    /*
+    UIView *footerView = [[UIView alloc]initWithFrame:CGRectMake(0, self.frame.size.height - 50, self.frameWidth, 50)];
     [footerView setBackgroundColor:[UIColor lightGrayColor]];
-    
     [self addSubview:footerView];
+    */
 }
 
 
@@ -88,78 +87,55 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    return 45 ;
+    return 46;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *str = [NSString stringWithFormat:@"LeftView%li",indexPath.row];
+    //NSString *str = [NSString stringWithFormat:@"LeftView%li",indexPath.row];
+    NSString *str = @"ssssllll";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:str];
     
     if(cell == nil){
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:str];
-
     }
     [cell setBackgroundColor:[UIColor whiteColor]];
     [cell.textLabel setTextColor:[UIColor grayColor]];
     
-    //    [cell setCellModel:nil indexPath:indexPath];
-    //    [cell setBackgroundColor:[UIColor colorWithHexString:ColorBackGround]];
     cell.hidden = NO;
     switch (indexPath.row) {
-        case 0:
-        {
-            [cell.imageView setImage:[UIImage imageNamed:@"person-icon1"]];
-            [cell.textLabel setText:@"预约发货"];
-        }
+        case 0: {
+            [cell.imageView setImage:[UIImage imageNamed:@"menu_mine"]];
+            [cell.textLabel setText:@"个人信息"];
             break;
-            
-        case 1:
-        {
-            
-            [cell.imageView setImage:[UIImage imageNamed:@"person-icon2"]];
-            [cell.textLabel setText:@"我的订单"];
         }
+        case 1: {
+            [cell.imageView setImage:[UIImage imageNamed:@"menu_sign"]];
+            [cell.textLabel setText:@"每日签到"];
             break;
-            
-            
-        case 2:
-        {
-            
-            [cell.imageView setImage:[UIImage imageNamed:@"person-icon4"]];
-            [cell.textLabel setText:@"我的评价"];
         }
+        case 2: {
+            [cell.imageView setImage:[UIImage imageNamed:@"menu_introduce"]];
+            [cell.textLabel setText:@"功能介绍"];
             break;
-            
-        case 3:
-        {
-            
-            [cell.imageView setImage:[UIImage imageNamed:@"person-icon5"]];
-            [cell.textLabel setText:@"物流公司"];
         }
+        case 3: {
+            [cell.imageView setImage:[UIImage imageNamed:@"menu_problem"]];
+            [cell.textLabel setText:@"常见问题"];
             break;
-            //新增 整车调度
-        case 4:{
-            
-            [cell.imageView setImage:[UIImage imageNamed:@"person-icon10"]];
-            [cell.textLabel setText:@"消息中心"];
         }
+        case 4: {
+            [cell.imageView setImage:[UIImage imageNamed:@"menu_service"]];
+            [cell.textLabel setText:@"联系客服"];
             break;
-            
-            
-        case 5:
-        {
-            
-            [cell.imageView setImage:[UIImage imageNamed:@"person-icon7"]];
+        }
+        case 5: {
+            [cell.imageView setImage:[UIImage imageNamed:@"menu_setting"]];
             [cell.textLabel setText:@"设置"];
-        }
             break;
-            
-            
+        }
         default:
             break;
     }
-    
     
     return cell;
 }

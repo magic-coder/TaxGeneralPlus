@@ -9,22 +9,25 @@
  ************************************************************/
 
 #import "NewsViewController.h"
-#import "GooeySlideMenu.h"
 #import "NewsTableViewCell.h"
 #import "NewsModel.h"
 #import "NewsUtil.h"
 #import "MJRefresh.h"
 #import "YALSunnyRefreshControl.h"
 
+#import "MenuView.h"
+#import "LeftMenuViewDemo.h"
+
 #define NAVBAR_CHANGE_POINT 50
 
-@interface NewsViewController () <UITableViewDelegate, UITableViewDataSource, YZCycleScrollViewDelegate>
+@interface NewsViewController () <UITableViewDelegate, UITableViewDataSource, YZCycleScrollViewDelegate, HomeMenuViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, strong) YALSunnyRefreshControl *sunnyRefreshControl;   // 顶部刷新动画视图
 
-@property (nonatomic, strong) GooeySlideMenu *slideMenu;                    // 滑动快捷菜单
+@property (nonatomic, strong) MenuView *menu;                               // 左滑菜单
+
 @property (nonatomic, strong) UIButton *tiggerBtn;                          // 快捷菜单按钮
 
 @property (nonatomic, assign) int pageNo;                                   // 页码值
@@ -52,6 +55,7 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     
     [self.view sendSubviewToBack:self.tableView];// 设置视图层级为最下层
     [self.view bringSubviewToFront:self.tiggerBtn];// 设置视图层级为最上层
+    [self initializeSlideMenu];// 初始化左侧滑动菜单
     
     [self autoLayout];
 }
@@ -312,47 +316,55 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     }
     return _tiggerBtn;
 }
-- (GooeySlideMenu *)slideMenu {
-    if(!_slideMenu){
-        _slideMenu = [[GooeySlideMenu alloc] initWithTitles:@[@"个人信息", @"每日签到", @"设置", @"功能介绍", @"常见问题", @"联系客服"]];
-        _slideMenu.menuClickBlock = ^(NSInteger index, NSString *title, NSInteger titleCounts) {
-            if(0 == index){
-                UIBarButtonItem *backItem=[[UIBarButtonItem alloc] init];
-                backItem.title=@"首页";
-                super.navigationItem.backBarButtonItem = backItem;
-                [super.navigationController pushViewController:[[NSClassFromString(@"AccountViewController") class] new] animated:YES];
-            }
-            if(1 == index){
-                [MBProgressHUD showHUDView:super.view text:@"签到成功" progressHUDMode:YZProgressHUDModeShow];
-            }
-            if(2 == index){
-                UIBarButtonItem *backItem=[[UIBarButtonItem alloc] init];
-                backItem.title=@"首页";
-                super.navigationItem.backBarButtonItem = backItem;
-                [super.navigationController pushViewController:[[NSClassFromString(@"SettingViewController") class] new] animated:YES];
-            }
-            if(3 == index){
-                BaseWebViewController *introduceVC = [[BaseWebViewController alloc] initWithURL:[NSString stringWithFormat:@"%@taxnews/public/introductionIOS.htm", SERVER_URL]];
-                introduceVC.title =  title;
-                [super.navigationController pushViewController:introduceVC animated:YES];
-            }
-            if(4 == index){
-                BaseWebViewController *questionVC = [[BaseWebViewController alloc] initWithURL:[NSString stringWithFormat:@"%@taxnews/public/comProblemIOS.htm", SERVER_URL]];
-                questionVC.title =  title;
-                [super.navigationController pushViewController:questionVC animated:YES];
-            }
-            if(5 == index){
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://029-87663504"] options:@{} completionHandler:nil];
-            }
-        };
+
+#pragma mark - 初始化左侧快捷滑动菜单
+- (void)initializeSlideMenu {
+    
+    LeftMenuViewDemo *demo = [[LeftMenuViewDemo alloc]initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width * 0.8, [[UIScreen mainScreen] bounds].size.height)];
+    demo.customDelegate = self;
+    
+    self.menu = [[MenuView alloc] initWithDependencyView:self.view MenuView:demo isShowCoverView:YES];
+}
+
+#pragma mark - 左侧菜单功能点击代理方法
+- (void)LeftMenuViewClick:(NSInteger)tag {
+    [self.menu hidenWithAnimation];// 隐藏左侧菜单
+    
+    if(0 == tag){
+        UIBarButtonItem *backItem=[[UIBarButtonItem alloc] init];
+        backItem.title=@"首页";
+        super.navigationItem.backBarButtonItem = backItem;
+        [super.navigationController pushViewController:[[NSClassFromString(@"AccountViewController") class] new] animated:YES];
     }
-    return _slideMenu;
+    if(1 == tag){
+        [MBProgressHUD showHUDView:super.view text:@"签到成功" progressHUDMode:YZProgressHUDModeShow];
+    }
+    if(2 == tag){
+        BaseWebViewController *introduceVC = [[BaseWebViewController alloc] initWithURL:[NSString stringWithFormat:@"%@taxnews/public/introductionIOS.htm", SERVER_URL]];
+        introduceVC.title =  @"功能介绍";
+        [super.navigationController pushViewController:introduceVC animated:YES];
+    }
+    if(3 == tag){
+        BaseWebViewController *questionVC = [[BaseWebViewController alloc] initWithURL:[NSString stringWithFormat:@"%@taxnews/public/comProblemIOS.htm", SERVER_URL]];
+        questionVC.title =  @"常见问题";
+        [super.navigationController pushViewController:questionVC animated:YES];
+    }
+    if(4 == tag){
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://029-87663504"] options:@{} completionHandler:nil];
+    }
+    if(5 == tag){
+        UIBarButtonItem *backItem=[[UIBarButtonItem alloc] init];
+        backItem.title=@"首页";
+        super.navigationItem.backBarButtonItem = backItem;
+        [super.navigationController pushViewController:[[NSClassFromString(@"SettingViewController") class] new] animated:YES];
+    }
 }
 
 #pragma mark - 菜单按钮点击左侧弹出菜单事件
 - (void)tiggerBtnAction:(UIButton *)sender {
-    [self.slideMenu trigger];
+    [self.menu show];
 }
+
 #pragma mark - 下拉刷新动画方，开始执行方法
 -(void)sunnyControlDidStartAnimation{
     /*
