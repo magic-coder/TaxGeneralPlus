@@ -2,9 +2,9 @@
 
 ### 一、简介
 
-项目Devices采用Universal，同时支持iPhone&iPad，技术重新选型，升级所有第三方库，整体UI重构，代码更简洁，兼容IOS11，适配iPhoneX，便于后期维护<br>
-主界面框架模式采用目前主流的UINavigationController与UITabBarController整合模式（既：导航控制器与选项卡整合模式）
-切换模式采用整屏切换，视觉感强烈，集成了全新的下拉刷新动画
+项目Devices采用Universal，同时支持**iPhone & iPad**，技术重新选型，UI渲染更细腻，代码清晰简洁，兼容IOS11，适配iPhoneX，便于后期维护<br>
+主界面框架模式采用目前主流的**UINavigationController**与**UITabBarController**整合模式（既：导航控制器与选项卡整合模式）
+整屏切换效果，集成了全新的动画效果，视觉感强烈。
 
 ### 二、开发环境
 
