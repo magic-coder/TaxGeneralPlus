@@ -12,6 +12,7 @@
 
 // 自定义加载框展示方式枚举型
 typedef NS_ENUM (NSInteger, YZProgressHUDMode) {
+    YZProgressHUDModeEvent, // 屏蔽事件，禁止所有用户操作
     YZProgressHUDModeLock,  // 锁定方式不自动消失
     YZProgressHUDModeShow   // 提示方式自动消失
 };

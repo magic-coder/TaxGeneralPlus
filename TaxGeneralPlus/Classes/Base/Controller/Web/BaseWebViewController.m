@@ -241,7 +241,7 @@
 #pragma mark - 设置加载等待动画界面
 - (void)showLoadingView{
     
-    self.loadTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(loadTimerCallback) userInfo:nil repeats:YES];
+    self.loadTimer = [NSTimer scheduledTimerWithTimeInterval:0.6f target:self selector:@selector(loadTimerCallback) userInfo:nil repeats:YES];
     
     // 添加等待背景图
     _imagesViewBG = [[UIView alloc] initWithFrame:self.view.frame];

@@ -21,6 +21,11 @@
     hud.contentColor = [UIColor whiteColor];    // 设置字体颜色
     hud.label.text = text;
     
+    if(YZProgressHUDModeEvent == progressHUDMode) {
+        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+        hud.square = YES;// 设置成正方形
+    }
+    
     if(YZProgressHUDModeLock == progressHUDMode) {
         hud.square = YES;// 设置成正方形
     }
@@ -40,9 +45,10 @@
 
 #pragma mark - 隐藏提示框
 + (void)hiddenHUDView:(UIView *)view {
-    
+    if([[UIApplication sharedApplication] isIgnoringInteractionEvents]){
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+    }
     [MBProgressHUD hideHUDForView:view animated:YES];
-    
 }
 
 @end

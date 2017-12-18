@@ -55,7 +55,7 @@ static NSString * const reuseIdentifier = @"reuseIdentifierGroup";
 // 刷新数据方法
 - (void)refreshAction:(UIBarButtonItem *)sender {
     sender.enabled = NO;
-    [MBProgressHUD showHUDView:self.view text:nil progressHUDMode:YZProgressHUDModeLock];
+    [MBProgressHUD showHUDView:self.view text:nil progressHUDMode:YZProgressHUDModeEvent];
     [[MapListUtil sharedMapListUtil] initMapDataSuccess:^(NSMutableArray *dataArray) {
         sender.enabled = YES;
         [MBProgressHUD hiddenHUDView:self.view];
