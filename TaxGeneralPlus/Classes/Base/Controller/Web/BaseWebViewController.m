@@ -10,7 +10,7 @@
 
 #import "BaseWebViewController.h"
 
-@interface BaseWebViewController () <UIWebViewDelegate, NSURLConnectionDataDelegate>
+@interface BaseWebViewController () <UIWebViewDelegate, NSURLConnectionDataDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UIView *imagesViewBG;         // 等待界面视图
 @property (nonatomic, strong) UIWebView *webViewBG;         // 加载等待GIF图
@@ -57,6 +57,15 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - 视图即将显示方法
+- (void)viewWillAppear:(BOOL)animated {
+    self.navigationController.interactivePopGestureRecognizer.delegate = self;
+}
+//默认所有页面支持右滑返回
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    return true;
 }
 
 #pragma mark - 视图已经销毁执行的方法

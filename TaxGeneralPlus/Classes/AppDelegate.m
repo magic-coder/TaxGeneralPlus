@@ -19,13 +19,21 @@
 
 #import <AudioToolbox/AudioToolbox.h>
 
-@interface AppDelegate () <UNUserNotificationCenterDelegate>
+#import "AuthHelper.h"
+
+@interface AppDelegate () <UNUserNotificationCenterDelegate, SangforSDKDelegate>
 
 @property (nonatomic, strong) MainTabBarController *rootVC; // 根视图
 
 @property (nonatomic, strong) BMKMapManager *mapManager;    // 百度 Map 初始化
 
 @property (nonatomic, strong) UIVisualEffectView *blurView; // 多任务后台毛玻璃遮挡效果视图
+
+@property (nonatomic, strong) AuthHelper *helper;    // VPN 处理类
+
+// 启动动画遮挡
+@property (nonatomic, strong) CALayer *maskLayer;
+@property (nonatomic, strong) UIView *maskBackgroundView;
 
 @end
 
@@ -34,11 +42,6 @@
 #pragma mark - 程序加载完毕
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
-    // 隐藏顶部状态栏设为NO
-    [UIApplication sharedApplication].statusBarHidden = NO;
-    // 设置顶部状态栏字体为白色
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     
     // 设置主window视图
     _window = [[UIWindow alloc] initWithFrame:FRAME_SCREEN];
@@ -49,8 +52,7 @@
     _window.rootViewController = _rootVC;
     [_window makeKeyAndVisible];
     
-    [self detectNetwork];       // 检测当前网络状态
-    [self welcomeAnimation];    // 加载启动动画
+    [self welcomeAnimationMask];    // 加载启动动画遮挡（VPN认证完毕后会移除动画遮挡）
     
     // 判断系统版本是否支持
 #if __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_10_0
@@ -61,13 +63,15 @@
     
 #else
     
+    [self detectNetwork];       // 检测当前网络状态（若正常，则在该方法中进行VPN认证）
+    
     [[BaseHandleUtil sharedBaseHandleUtil] currentDeviceInfo]; // 获取设备基本信息
     [[BaseSettingUtil sharedBaseSettingUtil] initSettingData]; // 初始化基本设置信息
     
-    [self initializeBaiduMap];  // 百度地图 BMKMapManager 初始化
-    [self verifyUnlock];// 判断是否设置安全密码
-    [self registerNotification];// 注册推送服务
-    [self monitoringScreenShot];// 监测截屏操作
+    [self registerNotification];    // 注册推送服务
+    [self initializeBaiduMap];      // 百度地图 BMKMapManager 初始化
+    [self verifyUnlock];            // 判断是否设置安全密码
+    [self monitoringScreenShot];    // 监测截屏操作
     
 #endif
     
@@ -134,18 +138,18 @@
                 DLog(@"未知网络");
                 break;
             case AFNetworkReachabilityStatusNotReachable: // 没有网络(断网)
-                DLog(@"没有网络(断网)");
-                [MBProgressHUD showHUDView:_window.rootViewController.view text:@"当前网络不通，请检查网络设置是否正常" progressHUDMode:YZProgressHUDModeShow];
-                break;
-            case AFNetworkReachabilityStatusReachableViaWWAN: // 蜂窝移动数据
-                DLog(@"蜂窝移动数据");
-                [UIAlertController showAlertInViewController:_window.rootViewController withTitle:@"网络提示" message:@"您当前正在使用\"蜂窝移动数据\"，可能会产生额外的流量费用。" cancelButtonTitle:@"我知道了" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
+                DLog(@"没有网络");
+                [UIAlertController showAlertInViewController:_rootVC withTitle:@"没有网络" message:@"无法连接网络，请检查网络设置是否正常！" cancelButtonTitle:@"我知道了" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
                 }];
+                return;
+            case AFNetworkReachabilityStatusReachableViaWWAN: // 蜂窝移动数据
+                DLog(@"蜂窝移动网络");
                 break;
             case AFNetworkReachabilityStatusReachableViaWiFi: // WIFI
-                DLog(@"WIFI");
+                DLog(@"WIFI网络");
                 break;
         }
+        [self initializeVPN];       // 网络正常，开始初始化、认证VPN
     }];
     // 3.开始监控
     [manager startMonitoring];
@@ -290,27 +294,31 @@
     }];
 }
 
-#pragma mark - 启动欢迎动画
-- (void)welcomeAnimation {
+#pragma mark - 启动欢迎动画加载方法
+#pragma mark 启动欢迎动画遮挡
+- (void)welcomeAnimationMask {
     //logo mask
-    CALayer *maskLayer = [CALayer layer];
-    maskLayer.contents = (id)[UIImage imageNamed:@"common_launch"].CGImage;
-    maskLayer.position = _rootVC.view.center;
-    maskLayer.bounds = CGRectMake(0, 0, 60, 60);
-    _rootVC.view.layer.mask = maskLayer;
+    _maskLayer = [CALayer layer];
+    _maskLayer.contents = (id)[UIImage imageNamed:@"common_launch"].CGImage;
+    _maskLayer.position = _rootVC.view.center;
+    _maskLayer.bounds = CGRectMake(0, 0, 60, 60);
+    _rootVC.view.layer.mask = _maskLayer;
     
     //logo mask background view
-    UIView *maskBackgroundView = [[UIView alloc]initWithFrame:_rootVC.view.bounds];
-    maskBackgroundView.backgroundColor = [UIColor whiteColor];
-    [_rootVC.view addSubview:maskBackgroundView];
-    [_rootVC.view bringSubviewToFront:maskBackgroundView];
+    _maskBackgroundView = [[UIView alloc]initWithFrame:_rootVC.view.bounds];
+    _maskBackgroundView.backgroundColor = [UIColor whiteColor];
+    [_rootVC.view addSubview:_maskBackgroundView];
+    [_rootVC.view bringSubviewToFront:_maskBackgroundView];
+}
+#pragma mark 启动欢迎动画移除
+- (void)welcomeAnimationFade {
     
     //logo mask animation
     CAKeyframeAnimation *logoMaskAnimaiton = [CAKeyframeAnimation animationWithKeyPath:@"bounds"];
     logoMaskAnimaiton.duration = 1.0f;
-    logoMaskAnimaiton.beginTime = CACurrentMediaTime() + 1.5f;//延迟一秒
+    logoMaskAnimaiton.beginTime = CACurrentMediaTime() + 1.0f;//延迟一秒
     
-    CGRect initalBounds = maskLayer.bounds;
+    CGRect initalBounds = _maskLayer.bounds;
     CGRect secondBounds = CGRectMake(0, 0, 50, 50);
     CGRect finalBounds  = CGRectMake(0, 0, 5000, 5000);
     logoMaskAnimaiton.values = @[[NSValue valueWithCGRect:initalBounds],[NSValue valueWithCGRect:secondBounds],[NSValue valueWithCGRect:finalBounds]];
@@ -321,11 +329,125 @@
     [_rootVC.view.layer.mask addAnimation:logoMaskAnimaiton forKey:@"logoMaskAnimaiton"];
     
     //maskBackgroundView fade animation
-    [UIView animateWithDuration:0.1 delay:1.85 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        maskBackgroundView.alpha = 0.0;
+    [UIView animateWithDuration:0.1f delay:1.35f options:UIViewAnimationOptionCurveEaseIn animations:^{
+        _maskBackgroundView.alpha = 0.0;
     } completion:^(BOOL finished) {
-        [maskBackgroundView removeFromSuperview];
+        [_maskBackgroundView removeFromSuperview];
+        
+        // 隐藏顶部状态栏设为NO
+        [UIApplication sharedApplication].statusBarHidden = NO;
+        // 设置顶部状态栏字体为白色
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+        
     }];
+}
+
+#pragma mark - 初始化VPN方法
+- (void)initializeVPN {
+    // 判断VPN是否已经初始化登录
+    if (VPN_STATUS_OK == [self.helper vpnQueryStatus]){
+        DLog(@"VPN 当前是已经登录状态，注销后才能再登录");
+        return;
+    }
+    self.helper = [AuthHelper getInstance];
+    [self.helper init:EasyApp host:VPN_HOST port:VPN_PORT delegate:self];
+}
+#pragma mark - 初始化用户名、密码认证参数
+- (void)initializeAuthParam {
+    [self.helper setAuthParam:@PORPERTY_NamePasswordAuth_NAME param:VPN_USERNAME];
+    [self.helper setAuthParam:@PORPERTY_NamePasswordAuth_PASSWORD param:VPN_PASSWORD];
+}
+#pragma mark - <SangforSDKDelegate> VPN 代理方法
+- (void)onCallBack:(const VPN_RESULT_NO)vpnErrno authType:(const int)authType {
+    
+    switch (vpnErrno) {
+        case RESULT_VPN_INIT_FAIL: {
+            DLog(@"VPN 初始化失败！");
+            break;
+        }
+        case RESULT_VPN_AUTH_FAIL: {
+            [self.helper clearAuthParam:@SET_RND_CODE_STR];
+            [self.helper vpnQueryStatus];
+            DLog(@"VPN 认证失败！");
+            break;
+        }
+        case RESULT_VPN_INIT_SUCCESS: {
+            //显示当前sdk版本号
+            NSString *version = [self.helper getSdkVersion];
+            DLog(@"VPN 初始化成功！版本号：%@", version);
+            
+            [self.helper setAuthParam:@AUTH_DEVICE_LANGUAGE param:@"en_US"];//zh_CN or en_US
+            
+            [self initializeAuthParam];// 初始化VPN用户名、密码参数
+            
+            [self.helper loginVpn:SSL_AUTH_TYPE_PASSWORD];
+            break;
+        }
+        case RESULT_VPN_AUTH_SUCCESS: {
+            DLog(@"VPN 认证成功！");
+            [self startAuth:authType];
+            break;
+        }
+        case RESULT_VPN_AUTH_LOGOUT: {
+            DLog(@"VPN 注销！");
+            break;
+        }
+        case RESULT_VPN_OTHER: {
+            DLog(@"VPN 返回其他状态！");
+            break;
+        }
+        case RESULT_VPN_NONE: {
+            DLog(@"VPN 值无效！");
+            break;
+        }
+        case RESULT_VPN_L3VPN_FAIL: {
+            [self.helper clearAuthParam:@SET_RND_CODE_STR];
+            DLog(@"L3VPN 启动失败！");
+            break;
+        }
+        default: {
+            DLog(@"VPN 未知错误！");
+            break;
+        }
+    }
+    
+}
+#pragma mark - VPN开始认证方法
+- (void) startAuth:(const int)authType {
+    switch (authType) {
+        case SSL_AUTH_TYPE_CERTIFICATE: {
+            DLog(@"Start Certificate Auth！");
+            break;
+        }
+        case SSL_AUTH_TYPE_PASSWORD: {
+            DLog(@"Start Password Name Auth！");
+            [self initializeAuthParam]; // 初始化VPN用户名、密码参数
+            break;
+        }
+        case SSL_AUTH_TYPE_NONE: {
+            DLog(@"VPN Auth Success!");
+            [Variable sharedVariable].vpnSuccess = YES; // 设置VPN认证标志为成功
+            [self welcomeAnimationFade];    // 移除欢迎动画
+            return;
+        }
+        case SSL_AUTH_TYPE_SMS: {
+            DLog(@"Start SMS Auth！");
+            break;
+        }
+        case SSL_AUTH_TYPE_RADIUS: {
+            DLog(@"Start Radius Auth！");
+            break;
+        }
+        case SSL_AUTH_TYPE_TOKEN: {
+            DLog(@"Start Token Auth！");
+            break;
+        }
+        default: {
+            DLog(@"Unknowm Failed！");
+            return;
+        }
+    }
+    [self.helper loginVpn:authType];
 }
 
 @end

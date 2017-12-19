@@ -21,10 +21,10 @@
     MsgListModel *model = [super yy_modelWithDictionary:dictionary];
     
     if([model.sourceCode isEqualToString:@"01"]){     // 一般用户推送
-        model.avatar = @"msg_head";
+        model.avatar = @"msg_information";
         model.name = [dictionary objectForKey:@"swjgjc"];
     }else{
-        model.avatar = @"msg_information";
+        model.avatar = @"msg_notification";
         model.name = [dictionary objectForKey:@"sourcename"];
     }
     

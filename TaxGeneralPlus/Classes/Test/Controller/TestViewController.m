@@ -10,10 +10,13 @@
 
 #import "TestViewController.h"
 #import "NewsUtil.h"
+#import "AuthHelper.h"
 
-@interface TestViewController () <YBPopupMenuDelegate, YZCycleScrollViewDelegate>
+@interface TestViewController () <YBPopupMenuDelegate, YZCycleScrollViewDelegate, SangforSDKDelegate>
 
 @property (nonatomic, assign) int i;
+
+@property (nonatomic, strong) AuthHelper *helper;    // VPN 处理类
 
 @end
 
@@ -52,57 +55,57 @@
     }];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-    btn.frame = CGRectMake(10, 80, 200, 30);
+    btn.frame = CGRectMake(10, 10, 200, 30);
     [btn setTitle:@"MBProgressHUD" forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(onClick:) forControlEvents:(UIControlEventTouchUpInside)];
     btn.tag = 0;
     [self.view addSubview:btn];
-
+    
     UIButton *btn1 = [UIButton buttonWithType:UIButtonTypeSystem];
-    btn1.frame = CGRectMake(10, 120, 300, 30);
+    btn1.frame = CGRectMake(10, btn.frameBottom, 300, 30);
     [btn1 setTitle:@"UIAlertControllerBlocks-Alert" forState:UIControlStateNormal];
     [btn1 addTarget:self action:@selector(onClick:) forControlEvents:(UIControlEventTouchUpInside)];
     btn1.tag = 1;
     [self.view addSubview:btn1];
     
     UIButton *btn2 = [UIButton buttonWithType:UIButtonTypeSystem];
-    btn2.frame = CGRectMake(10, 150, 300, 30);
+    btn2.frame = CGRectMake(10, btn1.frameBottom, 300, 30);
     [btn2 setTitle:@"UIAlertControllerBlocks-ActionSheet" forState:UIControlStateNormal];
     [btn2 addTarget:self action:@selector(onClick:) forControlEvents:(UIControlEventTouchUpInside)];
     btn2.tag = 2;
     [self.view addSubview:btn2];
     
     UIButton *btn3 = [UIButton buttonWithType:UIButtonTypeSystem];
-    btn3.frame = CGRectMake(10, 180, 300, 30);
+    btn3.frame = CGRectMake(10, btn2.frameBottom, 300, 30);
     [btn3 setTitle:@"YZBottomSelectView" forState:UIControlStateNormal];
     [btn3 addTarget:self action:@selector(onClick:) forControlEvents:(UIControlEventTouchUpInside)];
     btn3.tag = 3;
     [self.view addSubview:btn3];
     
     UIButton *btn4 = [UIButton buttonWithType:UIButtonTypeSystem];
-    btn4.frame = CGRectMake(10, 260, 300, 30);
+    btn4.frame = CGRectMake(10, btn3.frameBottom, 300, 30);
     [btn4 setTitle:@"AFNetworking请求数据" forState:UIControlStateNormal];
     [btn4 addTarget:self action:@selector(onClick:) forControlEvents:(UIControlEventTouchUpInside)];
     btn4.tag = 4;
     [self.view addSubview:btn4];
     
     UIButton *btn5 = [UIButton buttonWithType:UIButtonTypeSystem];
-    btn5.frame = CGRectMake(10, 300, 300, 30);
-    [btn5 setTitle:@"长按拖拽挪动" forState:UIControlStateNormal];
+    btn5.frame = CGRectMake(10, btn4.frameBottom, 300, 30);
+    [btn5 setTitle:@"跳转登录界面" forState:UIControlStateNormal];
     [btn5 addTarget:self action:@selector(onClick:) forControlEvents:(UIControlEventTouchUpInside)];
     btn5.tag = 5;
     [self.view addSubview:btn5];
     
     UIButton *btn6 = [UIButton buttonWithType:UIButtonTypeSystem];
-    btn6.frame = CGRectMake(10, 340, 300, 30);
-    [btn6 setTitle:@"跳转登录界面" forState:UIControlStateNormal];
+    btn6.frame = CGRectMake(10, btn5.frameBottom, 300, 30);
+    [btn6 setTitle:@"WebView" forState:UIControlStateNormal];
     [btn6 addTarget:self action:@selector(onClick:) forControlEvents:(UIControlEventTouchUpInside)];
     btn6.tag = 6;
     [self.view addSubview:btn6];
     
     UIButton *btn7 = [UIButton buttonWithType:UIButtonTypeSystem];
-    btn7.frame = CGRectMake(10, 380, 300, 30);
-    [btn7 setTitle:@"WebView" forState:UIControlStateNormal];
+    btn7.frame = CGRectMake(10, btn6.frameBottom, 300, 30);
+    [btn7 setTitle:@"VPN连接" forState:UIControlStateNormal];
     [btn7 addTarget:self action:@selector(onClick:) forControlEvents:(UIControlEventTouchUpInside)];
     btn7.tag = 7;
     [self.view addSubview:btn7];
@@ -112,7 +115,7 @@
     NSArray *images = @[@"http://i1.douguo.net//upload/banner/0/6/a/06e051d7378040e13af03db6d93ffbfa.jpg", @"http://i1.douguo.net//upload/banner/9/3/4/93f959b4e84ecc362c52276e96104b74.jpg", @"http://i1.douguo.net//upload/banner/5/e/3/5e228cacf18dada577269273971a86c3.jpg", @"http://i1.douguo.net//upload/banner/d/8/2/d89f438789ee1b381966c1361928cb32.jpg"];
     NSArray *urls = @[@"http://www.qq.com", @"http://www.jd.com", @"http://www.taobao.com", @"http://www.xiaomi.com"];
     
-    YZCycleScrollView *cycleScrollView = [[YZCycleScrollView alloc] initWithFrame:CGRectMake(0, HEIGHT_SCREEN/2, WIDTH_SCREEN, HEIGHT_SCREEN/4) titles:titles images:images urls:urls autoPlay:YES delay:2.0f];
+    YZCycleScrollView *cycleScrollView = [[YZCycleScrollView alloc] initWithFrame:CGRectMake(0, btn7.frameBottom , WIDTH_SCREEN, HEIGHT_SCREEN/4) titles:titles images:images urls:urls autoPlay:YES delay:2.0f];
     cycleScrollView.delegate = self;
     [self.view addSubview:cycleScrollView];
     
@@ -187,10 +190,6 @@
     }
     
     if(4 == btn.tag){
-        DLog(@"暂无测试用例");
-    }
-    
-    if(5 == btn.tag){
         _i = 1;
         [YZNetworkingManager POST:@"public/taxmap/init" parameters:nil success:^(id responseObject) {
             DLog(@"请求次数统计：%d", _i++);
@@ -202,28 +201,120 @@
         }];
     }
     
-    if(6 == btn.tag){
+    if(5 == btn.tag){
         LoginViewController *loginVC = [[LoginViewController alloc] init];
         [self presentViewController:loginVC animated:YES completion:nil];
     }
     
-    if(7 == btn.tag){
+    if(6 == btn.tag){
         BaseWebViewController *webVC = [[BaseWebViewController alloc] initWithURL:@"https://www.qq.com"];
-         
         [self.navigationController pushViewController:webVC animated:YES];
-
+    }
+    
+    if(7 == btn.tag){
+        [self initializeVPN];       // 初始化VPN
     }
     
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark - 初始化VPN方法
+- (void)initializeVPN {
+    // 判断VPN是否已经初始化登录
+    if (VPN_STATUS_OK == [self.helper vpnQueryStatus]){
+        DLog(@"vpn当前是已经登录状态，注销后才能再登录");
+        return;
+    }
+    self.helper = [AuthHelper getInstance];
+    [self.helper init:EasyApp host:VPN_HOST port:VPN_PORT delegate:self];
 }
-*/
+#pragma mark - 初始化用户名、密码认证参数
+- (void)initializeAuthParam {
+    [self.helper setAuthParam:@PORPERTY_NamePasswordAuth_NAME param:VPN_USERNAME];
+    [self.helper setAuthParam:@PORPERTY_NamePasswordAuth_PASSWORD param:VPN_PASSWORD];
+}
+#pragma mark - SangforSDKDelegate 深信服VPN代理方法
+- (void)onCallBack:(const VPN_RESULT_NO)vpnErrno authType:(const int)authType {
+    switch (vpnErrno) {
+        case RESULT_VPN_INIT_FAIL: {
+            DLog(@"VPN 初始化失败！");
+            break;
+        }
+        case RESULT_VPN_AUTH_FAIL: {
+            [self.helper clearAuthParam:@SET_RND_CODE_STR];
+            [self.helper vpnQueryStatus];
+            DLog(@"VPN 认证失败！");
+            break;
+        }
+        case RESULT_VPN_INIT_SUCCESS: {
+            DLog(@"VPN 初始化成功！");
+            //显示当前sdk版本号
+            NSString *version = [self.helper getSdkVersion];
+            DLog(@"VPN SDK Version: %@", version);
+            [self.helper setAuthParam:@AUTH_DEVICE_LANGUAGE param:@"en_US"];//zh_CN or en_US
+            
+            [self initializeAuthParam];
+            
+            [self.helper loginVpn:SSL_AUTH_TYPE_PASSWORD];
+            break;
+        }
+        case RESULT_VPN_AUTH_SUCCESS: {
+            DLog(@"VPN认证成功！");
+            [self startAuth:authType];
+            break;
+        }
+        case RESULT_VPN_AUTH_LOGOUT: {
+            DLog(@"VPN注销！");
+            break;
+        }
+        case RESULT_VPN_OTHER: {
+            DLog(@"VPN返回其他状态！");
+            break;
+        }
+        case RESULT_VPN_NONE: {
+            DLog(@"VPN值无效！");
+            break;
+        }
+        case RESULT_VPN_L3VPN_FAIL: {
+            [self.helper clearAuthParam:@SET_RND_CODE_STR];
+            DLog(@"L3VPN启动失败！");
+            break;
+        }
+        default: {
+            DLog(@"VPN未知错误！");
+            break;
+        }
+    }
+}
+#pragma mark - 开始认证方法
+- (void) startAuth:(const int)authType {
+    switch (authType) {
+        case SSL_AUTH_TYPE_CERTIFICATE: {
+            DLog(@"开始证书认证！");
+            break;
+        }
+        case SSL_AUTH_TYPE_PASSWORD: {
+            DLog(@"开始用户名密码认证！");
+            [self initializeAuthParam];
+            break;
+        }
+        case SSL_AUTH_TYPE_NONE: {
+            DLog(@"VPN认证成功!");
+            return;
+        }
+        case SSL_AUTH_TYPE_SMS: {
+            DLog(@"VPN开始短信认证！");
+            break;
+        }
+        case SSL_AUTH_TYPE_RADIUS: {
+            DLog(@"VPN开始短信认证！");
+            break;
+        }
+        case SSL_AUTH_TYPE_TOKEN:
+        default:
+            DLog(@"VPN未知错误！");
+            return;
+    }
+    [self.helper loginVpn:authType];
+}
 
 @end

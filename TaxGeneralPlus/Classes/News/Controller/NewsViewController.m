@@ -24,10 +24,10 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 
-@property (nonatomic, strong) YALSunnyRefreshControl *sunnyRefreshControl;   // 顶部刷新动画视图
+@property (nonatomic, strong) YALSunnyRefreshControl *sunnyRefreshControl;  // 顶部刷新动画视图
 
 @property (nonatomic, strong) MenuView *menu;                               // 左滑菜单
-@property (nonatomic, strong) LeftMenuView *demo;                       // 左侧菜单
+@property (nonatomic, strong) LeftMenuView *demo;                           // 左侧菜单
 
 @property (nonatomic, strong) UIButton *tiggerBtn;                          // 快捷菜单按钮
 
@@ -37,6 +37,9 @@
 @property (nonatomic, strong) NSMutableArray *data;                         // 数据列表
 @property (nonatomic, strong) YZCycleScrollView *cycleScrollView;           // 顶部轮播焦点图
 
+@property (nonatomic, assign) BOOL isInit;                                  // 初始化标志
+@property (nonatomic, strong) NSTimer *timer;                               // 自定义计时器，获取VPN认证状态
+
 @end
 
 @implementation NewsViewController
@@ -45,6 +48,8 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    _isInit = YES;  // 设置初始化标志
     
     self.title = @"首页";
     
@@ -89,9 +94,8 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     
     // 判断是否登录
     if(IS_LOGIN){
-        if(nil == _data || _data.count <= 0){
-            // [self.tableView.mj_header beginRefreshing];// 马上进入刷新状态
-            [self.sunnyRefreshControl beginRefreshing];
+        if(_isInit){
+            self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerCallBack) userInfo:nil repeats:YES];
         }
     }else{
         SHOW_LOGIN_VIEW
@@ -121,6 +125,24 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
         CGFloat alpha = MIN(1, 1 - ((NAVBAR_CHANGE_POINT + HEIGHT_STATUS + HEIGHT_NAVBAR - offsetY) / (HEIGHT_STATUS + HEIGHT_NAVBAR)));
         if(alpha < 0.6)
             self.navigationItem.title = nil;
+    }
+}
+
+#pragma mark - 定时器循环调用方法
+- (void)timerCallBack {
+    if([Variable sharedVariable].vpnSuccess){   // 如果VPN认证成功，开始加载数据
+        
+        // 释放定时器，销毁 timer
+        if([self.timer isValid]){
+            [self.timer invalidate];
+            self.timer = nil;
+        }
+        
+        // 初始化数据
+        if(nil == _data || _data.count <= 0){
+            _isInit = NO;
+            [self.sunnyRefreshControl beginRefreshing]; // 马上进入刷新状态
+        }
     }
 }
 

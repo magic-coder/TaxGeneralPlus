@@ -44,8 +44,8 @@
 #define DEFAULT_SELECTED_GRAY_COLOR     RgbColor(217.0, 217.0, 217.0, 1.0f)
 
 #pragma mark - 设置服务器地址Service Url
-#define SERVER_URL  @"https://192.168.14.235:8444/mobiletax/"   // 测试 https 服务器地址
-//#define SERVER_URL  @"https://10.100.16.133:8443/mobiletax/"    // 生产 https VPN 服务器地址
+//#define SERVER_URL  @"https://192.168.14.235:8444/mobiletax/"   // 测试 https 服务器地址
+#define SERVER_URL  @"https://10.100.16.133:8443/mobiletax/"    // 生产 https VPN 服务器地址
 
 #pragma mark - 定义全局常用key值
 #define DEVICE_INFO         @"deviceInfo"
@@ -64,6 +64,12 @@
 
 #pragma mark - 授权码AK
 #define BaiduMap_Key    @"LPwcWZdg1Yx4KDiWeLaKhReCgktKb265"
+
+#pragma mark - VPN基本信息
+#define VPN_HOST        @"202.100.37.174"
+#define VPN_PORT        443
+#define VPN_USERNAME    @"prient"
+#define VPN_PASSWORD    @"Xaprient12!@"
 
 
 #endif /* Marcos_h */

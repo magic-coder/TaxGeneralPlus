@@ -19,6 +19,6 @@ SingletonH(Variable)
 @property (nonatomic, strong) NSString *buildVersion;       // 编译版本号
 
 @property (nonatomic, assign) int unReadCount;              // 未读消息条数
-@property (nonatomic, assign) BOOL vpnSuccess;              // VPN是否陈成功
+@property (nonatomic, assign) BOOL vpnSuccess;              // VPN是否认证成功
 
 @end

@@ -193,6 +193,14 @@
 		18E4EDB61F9F213900CAB201 /* YBRectConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E4EDB11F9F213900CAB201 /* YBRectConst.m */; };
 		18E4EDB71F9F213900CAB201 /* YBPopupMenuPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E4EDB21F9F213900CAB201 /* YBPopupMenuPath.m */; };
 		18E4EDB81F9F213900CAB201 /* YBPopupMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E4EDB41F9F213900CAB201 /* YBPopupMenu.m */; };
+		18E90D2E1FE7B89D004E1282 /* AuthHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E90D291FE7B89C004E1282 /* AuthHelper.m */; };
+		18E90D2F1FE7B89D004E1282 /* libSangforSdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E90D2A1FE7B89C004E1282 /* libSangforSdk.a */; };
+		18E90D371FE7BA22004E1282 /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E90D361FE7BA22004E1282 /* libxml2.2.tbd */; };
+		18E90D391FE7BA2D004E1282 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E90D381FE7BA2D004E1282 /* libc++.tbd */; };
+		18E90D3A1FE7BA52004E1282 /* libicucore.A.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E90D301FE7B93D004E1282 /* libicucore.A.tbd */; };
+		18E90D3C1FE7BA5D004E1282 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E90D3B1FE7BA5D004E1282 /* AdSupport.framework */; };
+		18E90D3E1FE7BA72004E1282 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E90D3D1FE7BA72004E1282 /* MobileCoreServices.framework */; };
+		18E90D3F1FE7BA8E004E1282 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E90D341FE7B952004E1282 /* NetworkExtension.framework */; };
 		18FCCD731FA6C47400424A0C /* AppTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FCCD721FA6C47400424A0C /* AppTopView.m */; };
 		18FCCD751FA6CBE300424A0C /* App.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18FCCD741FA6CBE300424A0C /* App.xcassets */; };
 		18FCCD821FA6F51300424A0C /* AppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FCCD811FA6F51300424A0C /* AppViewController.m */; };
@@ -552,6 +560,20 @@
 		18E4EDB31F9F213900CAB201 /* YBRectConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBRectConst.h; sourceTree = "<group>"; };
 		18E4EDB41F9F213900CAB201 /* YBPopupMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBPopupMenu.m; sourceTree = "<group>"; };
 		18E4EDB51F9F213900CAB201 /* YBPopupMenuPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBPopupMenuPath.h; sourceTree = "<group>"; };
+		18E90D291FE7B89C004E1282 /* AuthHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthHelper.m; sourceTree = "<group>"; };
+		18E90D2A1FE7B89C004E1282 /* libSangforSdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSangforSdk.a; sourceTree = "<group>"; };
+		18E90D2B1FE7B89C004E1282 /* sdkheader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sdkheader.h; sourceTree = "<group>"; };
+		18E90D2C1FE7B89C004E1282 /* AuthHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthHelper.h; sourceTree = "<group>"; };
+		18E90D2D1FE7B89C004E1282 /* sslvpnnb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sslvpnnb.h; sourceTree = "<group>"; };
+		18E90D301FE7B93D004E1282 /* libicucore.A.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.A.tbd; path = usr/lib/libicucore.A.tbd; sourceTree = SDKROOT; };
+		18E90D321FE7B948004E1282 /* libc++.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.1.tbd"; path = "usr/lib/libc++.1.tbd"; sourceTree = SDKROOT; };
+		18E90D341FE7B952004E1282 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
+		18E90D361FE7BA22004E1282 /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = usr/lib/libxml2.2.tbd; sourceTree = SDKROOT; };
+		18E90D381FE7BA2D004E1282 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		18E90D3B1FE7BA5D004E1282 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		18E90D3D1FE7BA72004E1282 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		18E90D411FE7BCA7004E1282 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		18E90D431FE7BCAE004E1282 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		18FCCD711FA6C47400424A0C /* AppTopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppTopView.h; sourceTree = "<group>"; };
 		18FCCD721FA6C47400424A0C /* AppTopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppTopView.m; sourceTree = "<group>"; };
 		18FCCD741FA6CBE300424A0C /* App.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = App.xcassets; sourceTree = "<group>"; };
@@ -591,6 +613,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18E90D3F1FE7BA8E004E1282 /* NetworkExtension.framework in Frameworks */,
+				18E90D3E1FE7BA72004E1282 /* MobileCoreServices.framework in Frameworks */,
+				18E90D3C1FE7BA5D004E1282 /* AdSupport.framework in Frameworks */,
+				18E90D3A1FE7BA52004E1282 /* libicucore.A.tbd in Frameworks */,
+				18E90D391FE7BA2D004E1282 /* libc++.tbd in Frameworks */,
+				18E90D371FE7BA22004E1282 /* libxml2.2.tbd in Frameworks */,
+				18E90D2F1FE7B89D004E1282 /* libSangforSdk.a in Frameworks */,
 				18CB64021FDE600E006B01E6 /* libstdc++.6.0.9.tbd in Frameworks */,
 				18CB64001FDE6005006B01E6 /* CoreTelephony.framework in Frameworks */,
 				18CB63FE1FDE5FFE006B01E6 /* libsqlite3.0.tbd in Frameworks */,
@@ -819,6 +848,7 @@
 		183827081F90B0D90076C8A5 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
+				18E90D281FE7B89C004E1282 /* Sangfor */,
 				18FCCD871FA703D000424A0C /* Masonry */,
 				186E5ADB1FA1C0CF00228258 /* YYModel */,
 				1881C02A1FCFFD51005E6AD6 /* MJRefresh */,
@@ -1662,6 +1692,15 @@
 		18CB63D01FDE5EED006B01E6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				18E90D431FE7BCAE004E1282 /* Foundation.framework */,
+				18E90D411FE7BCA7004E1282 /* UIKit.framework */,
+				18E90D3D1FE7BA72004E1282 /* MobileCoreServices.framework */,
+				18E90D3B1FE7BA5D004E1282 /* AdSupport.framework */,
+				18E90D381FE7BA2D004E1282 /* libc++.tbd */,
+				18E90D361FE7BA22004E1282 /* libxml2.2.tbd */,
+				18E90D341FE7B952004E1282 /* NetworkExtension.framework */,
+				18E90D321FE7B948004E1282 /* libc++.1.tbd */,
+				18E90D301FE7B93D004E1282 /* libicucore.A.tbd */,
 				18CB64111FDE74C5006B01E6 /* MapKit.framework */,
 				18CB64011FDE600D006B01E6 /* libstdc++.6.0.9.tbd */,
 				18CB63FF1FDE6005006B01E6 /* CoreTelephony.framework */,
@@ -1801,6 +1840,18 @@
 				18E4EDB21F9F213900CAB201 /* YBPopupMenuPath.m */,
 			);
 			path = YBPopupMenu;
+			sourceTree = "<group>";
+		};
+		18E90D281FE7B89C004E1282 /* Sangfor */ = {
+			isa = PBXGroup;
+			children = (
+				18E90D291FE7B89C004E1282 /* AuthHelper.m */,
+				18E90D2A1FE7B89C004E1282 /* libSangforSdk.a */,
+				18E90D2B1FE7B89C004E1282 /* sdkheader.h */,
+				18E90D2C1FE7B89C004E1282 /* AuthHelper.h */,
+				18E90D2D1FE7B89C004E1282 /* sslvpnnb.h */,
+			);
+			path = Sangfor;
 			sourceTree = "<group>";
 		};
 		18FCCD831FA6F6C700424A0C /* View */ = {
@@ -1985,6 +2036,7 @@
 				18FCCDAA1FA703D000424A0C /* MASViewConstraint.m in Sources */,
 				1881C0631FCFFD51005E6AD6 /* MJRefreshAutoGifFooter.m in Sources */,
 				18FCCDAB1FA703D000424A0C /* MASViewAttribute.m in Sources */,
+				18E90D2E1FE7B89D004E1282 /* AuthHelper.m in Sources */,
 				183826FF1F90B08C0076C8A5 /* main.m in Sources */,
 				183D26FD1FC6659300C2A607 /* AppSearchViewCell.m in Sources */,
 				1895A8281FB43E8700DB9AFC /* AppSubViewController.m in Sources */,
@@ -2255,6 +2307,7 @@
 				CODE_SIGN_ENTITLEMENTS = TaxGeneralPlus/TaxGeneralPlus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 28MS2284NQ;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TaxGeneralPlus/Plugins/BaiduMap",
@@ -2267,6 +2320,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TaxGeneralPlus/Plugins/BaiduMap/thirdlibs",
+					"$(PROJECT_DIR)/TaxGeneralPlus/Plugins/Sangfor",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.prient.micyo.TaxGeneralPlus;
@@ -2282,6 +2336,7 @@
 				CODE_SIGN_ENTITLEMENTS = TaxGeneralPlus/TaxGeneralPlus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 28MS2284NQ;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TaxGeneralPlus/Plugins/BaiduMap",
@@ -2294,6 +2349,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TaxGeneralPlus/Plugins/BaiduMap/thirdlibs",
+					"$(PROJECT_DIR)/TaxGeneralPlus/Plugins/Sangfor",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.prient.micyo.TaxGeneralPlus;
