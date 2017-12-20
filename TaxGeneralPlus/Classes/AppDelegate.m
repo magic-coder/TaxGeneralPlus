@@ -62,7 +62,6 @@
     }];
     
 #else
-    
     [self detectNetwork];       // 检测当前网络状态（若正常，则在该方法中进行VPN认证）
     
     [[BaseHandleUtil sharedBaseHandleUtil] currentDeviceInfo]; // 获取设备基本信息
@@ -217,8 +216,10 @@
     NSDictionary *userInfo = response.notification.request.content.userInfo;
     if([userInfo[@"sourceCode"] isEqualToString:@"01"]){    // 用户推送
         _rootVC.selectedIndex = 2;
-        MsgListViewController *msgListVC = (MsgListViewController *)[[BaseHandleUtil sharedBaseHandleUtil] topViewController];
-        [msgListVC loadData];
+        if([Variable sharedVariable].vpnSuccess){
+            MsgListViewController *msgListVC = (MsgListViewController *)[[BaseHandleUtil sharedBaseHandleUtil] topViewController];
+            [msgListVC loadData];
+        }
     }
     completionHandler();  // 系统要求执行这个方法
 }
@@ -316,7 +317,7 @@
     //logo mask animation
     CAKeyframeAnimation *logoMaskAnimaiton = [CAKeyframeAnimation animationWithKeyPath:@"bounds"];
     logoMaskAnimaiton.duration = 1.0f;
-    logoMaskAnimaiton.beginTime = CACurrentMediaTime() + 1.0f;//延迟一秒
+    logoMaskAnimaiton.beginTime = CACurrentMediaTime() + 1.0f;//延迟1秒
     
     CGRect initalBounds = _maskLayer.bounds;
     CGRect secondBounds = CGRectMake(0, 0, 50, 50);

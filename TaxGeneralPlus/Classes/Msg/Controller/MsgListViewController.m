@@ -24,6 +24,9 @@
 
 @property (nonatomic, strong) UIView *emptyView;                // 无消息列表视图
 
+@property (nonatomic, assign) BOOL isInit;                      // 初始化标志
+@property (nonatomic, strong) NSTimer *timer;                   // 自定义计时器，获取VPN认证状态
+
 @end
 
 @implementation MsgListViewController
@@ -33,6 +36,8 @@ static int const pageSize = 100;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    _isInit = YES;  // 设置初始化标志
     
     _data = [[NSMutableArray alloc] init];
     
@@ -62,29 +67,51 @@ static int const pageSize = 100;
     
     // 判断是否登录，若没登录则返回登录页面
     if(IS_LOGIN){
-        // 判断角标
-        UITabBarItem * item = [self.tabBarController.tabBar.items objectAtIndex:2];
-        if([item.badgeValue intValue] != [Variable sharedVariable].unReadCount || [self.navigationItem.title isEqualToString:@"未连接"]) {
-            [self loadData];
+        if(_isInit){
+            self.timer = [NSTimer scheduledTimerWithTimeInterval:0.5f target:self selector:@selector(timerCallBack) userInfo:nil repeats:YES];
         }else{
-            // 计算上次刷新与当前时间戳
-            NSTimeInterval timestamp = [[NSDate date] timeIntervalSince1970];
-            _currentTimestamp = floor(timestamp);
-            if(_currentTimestamp - _lastTimestamp < 180){   // 3分钟内不进行请求
-                NSDictionary *dataDict = [[MsgUtil sharedMsgUtil] loadMsgFile];
-                if(dataDict){
-                    [self handleDataDict:dataDict];// 数据处理
-                    [self.tableView reloadData];
+            // 判断角标
+            UITabBarItem * item = [self.tabBarController.tabBar.items objectAtIndex:2];
+            if([item.badgeValue intValue] != [Variable sharedVariable].unReadCount || [self.navigationItem.title isEqualToString:@"未连接"]) {
+                [self loadData];
+            }else{
+                // 计算上次刷新与当前时间戳
+                NSTimeInterval timestamp = [[NSDate date] timeIntervalSince1970];
+                _currentTimestamp = floor(timestamp);
+                if(_currentTimestamp - _lastTimestamp < 180 ){   // 3分钟内不进行请求
+                    NSDictionary *dataDict = [[MsgUtil sharedMsgUtil] loadMsgFile];
+                    if(dataDict){
+                        [self handleDataDict:dataDict];// 数据处理
+                        [self.tableView reloadData];
+                    }else{
+                        [self loadData];
+                    }
                 }else{
+                    _lastTimestamp = _currentTimestamp;
                     [self loadData];
                 }
-            }else{
-                _lastTimestamp = _currentTimestamp;
-                [self loadData];
             }
         }
     }else{
         SHOW_LOGIN_VIEW
+    }
+}
+
+#pragma mark - 监测vpn认证是否正常 timer 方法
+- (void)timerCallBack {
+    if([Variable sharedVariable].vpnSuccess){   // 如果VPN认证成功，开始加载数据
+        
+        _isInit = NO;
+        _lastTimestamp = floor([[NSDate date] timeIntervalSince1970]);
+        
+        // 释放定时器，销毁 timer
+        if([self.timer isValid]){
+            [self.timer invalidate];
+            self.timer = nil;
+        }
+        
+        // 初始化数据
+        [self loadData];
     }
 }
 
