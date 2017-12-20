@@ -315,6 +315,7 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     }
     return _tableView;
 }
+
 - (YALSunnyRefreshControl *)sunnyRefreshControl {
     if(!_sunnyRefreshControl){
         _sunnyRefreshControl = [[YALSunnyRefreshControl alloc] init];
@@ -322,7 +323,7 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
         [_sunnyRefreshControl attachToScrollView:self.tableView];
     }
     return _sunnyRefreshControl;
-}
+} 
 - (UIButton *)tiggerBtn {
     if(!_tiggerBtn){
         _tiggerBtn = [UIButton buttonWithType:UIButtonTypeCustom];

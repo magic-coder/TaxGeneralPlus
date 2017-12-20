@@ -126,7 +126,7 @@ typedef NS_ENUM(NSInteger, LoginShowType) {
     imgUser.image = [UIImage imageNamed:@"login_username"];
     [self.usernameTextField.leftView addSubview:imgUser];
     self.usernameTextField.keyboardType = UIKeyboardTypeASCIICapable;   // 设置键盘类型
-    self.usernameTextField.text = @"26100010001";
+    self.usernameTextField.text = @"26111000006";
     [_smallView.contentView addSubview:self.usernameTextField];
     
     self.passwordTextField = [[UITextField alloc]initWithFrame:CGRectMake(CGRectGetMinX(self.usernameTextField.frame), CGRectGetMaxY(self.usernameTextField.frame)+10, CGRectGetWidth(self.usernameTextField.frame), CGRectGetHeight(self.usernameTextField.frame))];
@@ -276,6 +276,9 @@ typedef NS_ENUM(NSInteger, LoginShowType) {
 #pragma mark - 发送验证码方法
 -(void)sendAction:(UIButton *)sender{
     
+    // 防止重复点击（间隔1秒）
+    CLICK_LOCK
+    
     NSString *userCode = _usernameTextField.text;
     if(userCode.length > 0){
         
@@ -306,6 +309,9 @@ typedef NS_ENUM(NSInteger, LoginShowType) {
 
 #pragma mark - 登录方法
 -(void)loginAction:(UIButton *)sender{
+    
+    // 防止重复点击（间隔1秒）
+    CLICK_LOCK
     
     NSString *userCode = _usernameTextField.text;
     NSString *password = _passwordTextField.text;

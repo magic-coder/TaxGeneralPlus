@@ -36,4 +36,12 @@ SHOW_LOGIN_VIEW \
 }]; \
 }]; \
 
+#pragma mark - 防止重复点击（间隔1秒）
+#define CLICK_LOCK \
+\
+sender.enabled = NO; \
+dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ \
+sender.enabled = YES; \
+}); \
+
 #endif /* Codeing_h */
