@@ -66,7 +66,7 @@
 #pragma mark - 添加搜索栏
 - (void)addSearchBar {
     // 添加搜索框
-    UITextField *searchTextField = [[UITextField alloc] initWithFrame:CGRectMake(20, HEIGHT_STATUS+10, self.frameWidth - 60 - 15, 28)];
+    UITextField *searchTextField = [[UITextField alloc] initWithFrame:CGRectMake(20, HEIGHT_STATUS+10, self.frameWidth - 60 - 15, 26)];
     searchTextField.layer.cornerRadius = 5;
     searchTextField.layer.borderWidth = .5;
     searchTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -75,11 +75,11 @@
     searchTextField.alpha = 0.3f;
     [self.backgroundImageView addSubview:searchTextField];
     
-    UIImageView *imgSearch = [[UIImageView alloc] initWithFrame:CGRectMake(searchTextField.originX+4, searchTextField.originY+1, 26, 26)];
+    UIImageView *imgSearch = [[UIImageView alloc] initWithFrame:CGRectMake(searchTextField.originX+4, searchTextField.originY+1, 24, 24)];
     imgSearch.image = [UIImage imageNamed:@"app_common_searchHL"];
     [self.backgroundImageView addSubview:imgSearch];
     
-    UILabel *searchLabel = [[UILabel alloc] initWithFrame:CGRectMake(searchTextField.originX+26+10, searchTextField.originY, 120, 28)];
+    UILabel *searchLabel = [[UILabel alloc] initWithFrame:CGRectMake(searchTextField.originX+26+10, searchTextField.originY, 120, 26)];
     searchLabel.textColor = [UIColor whiteColor];
     searchLabel.font = [UIFont systemFontOfSize:14.0f];
     searchLabel.text = @"应用搜索";

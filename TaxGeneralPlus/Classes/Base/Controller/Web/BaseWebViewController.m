@@ -44,6 +44,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.navigationController.interactivePopGestureRecognizer.delegate = self;  // 滑动手势返回方法
+    
     self.view.backgroundColor = DEFAULT_BACKGROUND_COLOR;
     self.navigationItem.leftBarButtonItem = self.backItem;  // 自定义导航栏按钮
     
@@ -57,15 +59,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - 视图即将显示方法
-- (void)viewWillAppear:(BOOL)animated {
-    self.navigationController.interactivePopGestureRecognizer.delegate = self;
-}
-//默认所有页面支持右滑返回
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
-    return true;
 }
 
 #pragma mark - 视图已经销毁执行的方法
