@@ -56,11 +56,16 @@
     
     // 判断系统版本是否支持
 #if __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_10_0
-    
-    [UIAlertController showAlertInViewController:_window.rootViewController withTitle:@"对不起，当前系统版本过低" message:@"请在iPhone的\"设置-通用-软件更新\"中升级您的操作系统至ios10.0以上再使用。" cancelButtonTitle:@"退出应用" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
+    FCAlertView *alert = [[FCAlertView alloc] init];
+    [alert showAlertWithTitle:@"当前系统版本过低"
+                 withSubtitle:@"请在iPhone的\"设置-通用-软件更新\"中升级您的操作系统至ios10.0以上再使用。"
+              withCustomImage:nil
+          withDoneButtonTitle:@"退出应用"
+                   andButtons:nil];
+    [alert makeAlertTypeWarning];
+    [alert doneActionBlock:^{
         exit(0);
     }];
-    
 #else
     [self detectNetwork];       // 检测当前网络状态（若正常，则在该方法中进行VPN认证）
     
@@ -137,10 +142,17 @@
                 DLog(@"未知网络");
                 break;
             case AFNetworkReachabilityStatusNotReachable: // 没有网络(断网)
+            {
                 DLog(@"没有网络");
-                [UIAlertController showAlertInViewController:_rootVC withTitle:@"没有网络" message:@"无法连接网络，请检查网络设置是否正常！" cancelButtonTitle:@"我知道了" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
-                }];
+                FCAlertView *alert = [[FCAlertView alloc] init];
+                [alert showAlertWithTitle:@"没有网络"
+                             withSubtitle:@"无法连接网络，请检查网络设置是否正常！"
+                          withCustomImage:nil
+                      withDoneButtonTitle:@"我知道了"
+                               andButtons:nil];
+                [alert makeAlertTypeWarning];
                 return;
+            }
             case AFNetworkReachabilityStatusReachableViaWWAN: // 蜂窝移动数据
                 DLog(@"蜂窝移动网络");
                 break;
@@ -291,8 +303,13 @@
 }
 #pragma mark 截屏提示信息
 - (void)screenShotHint {
-    [UIAlertController showAlertInViewController:_window.rootViewController withTitle:@"安全提醒！" message:@"内部信息，只适合当面使用。不要截图或分享给他人以保障信息安全。" cancelButtonTitle:nil destructiveButtonTitle:@"绝不给别人" otherButtonTitles:nil tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
-    }];
+    FCAlertView *alert = [[FCAlertView alloc] init];
+    [alert showAlertWithTitle:@"安全提醒"
+                 withSubtitle:@"内部信息，只适合当面使用。不要截图或分享给他人以保障信息安全。"
+              withCustomImage:nil
+          withDoneButtonTitle:@"绝不给别人"
+                   andButtons:nil];
+    [alert makeAlertTypeCaution];
 }
 
 #pragma mark - 启动欢迎动画加载方法

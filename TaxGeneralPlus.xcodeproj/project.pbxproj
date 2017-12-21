@@ -201,6 +201,14 @@
 		18E90D3C1FE7BA5D004E1282 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E90D3B1FE7BA5D004E1282 /* AdSupport.framework */; };
 		18E90D3E1FE7BA72004E1282 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E90D3D1FE7BA72004E1282 /* MobileCoreServices.framework */; };
 		18E90D3F1FE7BA8E004E1282 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18E90D341FE7B952004E1282 /* NetworkExtension.framework */; };
+		18E90D601FEB58A3004E1282 /* FCAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E90D561FEB58A3004E1282 /* FCAlertView.m */; };
+		18E90D611FEB58A3004E1282 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 18E90D571FEB58A3004E1282 /* .gitkeep */; };
+		18E90D621FEB58A3004E1282 /* alert-round.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E90D5A1FEB58A3004E1282 /* alert-round.png */; };
+		18E90D631FEB58A3004E1282 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 18E90D5B1FEB58A3004E1282 /* .gitkeep */; };
+		18E90D641FEB58A3004E1282 /* heart.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E90D5C1FEB58A3004E1282 /* heart.png */; };
+		18E90D651FEB58A3004E1282 /* close-round.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E90D5D1FEB58A3004E1282 /* close-round.png */; };
+		18E90D661FEB58A3004E1282 /* checkmark-round.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E90D5E1FEB58A3004E1282 /* checkmark-round.png */; };
+		18E90D671FEB58A3004E1282 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 18E90D5F1FEB58A3004E1282 /* star.png */; };
 		18FCCD731FA6C47400424A0C /* AppTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FCCD721FA6C47400424A0C /* AppTopView.m */; };
 		18FCCD751FA6CBE300424A0C /* App.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18FCCD741FA6CBE300424A0C /* App.xcassets */; };
 		18FCCD821FA6F51300424A0C /* AppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FCCD811FA6F51300424A0C /* AppViewController.m */; };
@@ -574,6 +582,15 @@
 		18E90D3D1FE7BA72004E1282 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		18E90D411FE7BCA7004E1282 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		18E90D431FE7BCAE004E1282 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		18E90D561FEB58A3004E1282 /* FCAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCAlertView.m; sourceTree = "<group>"; };
+		18E90D571FEB58A3004E1282 /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		18E90D581FEB58A3004E1282 /* FCAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCAlertView.h; sourceTree = "<group>"; };
+		18E90D5A1FEB58A3004E1282 /* alert-round.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-round.png"; sourceTree = "<group>"; };
+		18E90D5B1FEB58A3004E1282 /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		18E90D5C1FEB58A3004E1282 /* heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart.png; sourceTree = "<group>"; };
+		18E90D5D1FEB58A3004E1282 /* close-round.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close-round.png"; sourceTree = "<group>"; };
+		18E90D5E1FEB58A3004E1282 /* checkmark-round.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkmark-round.png"; sourceTree = "<group>"; };
+		18E90D5F1FEB58A3004E1282 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 		18FCCD711FA6C47400424A0C /* AppTopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppTopView.h; sourceTree = "<group>"; };
 		18FCCD721FA6C47400424A0C /* AppTopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppTopView.m; sourceTree = "<group>"; };
 		18FCCD741FA6CBE300424A0C /* App.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = App.xcassets; sourceTree = "<group>"; };
@@ -848,6 +865,7 @@
 		183827081F90B0D90076C8A5 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
+				18E90D541FEB58A3004E1282 /* FCAlertView */,
 				18E90D281FE7B89C004E1282 /* Sangfor */,
 				18FCCD871FA703D000424A0C /* Masonry */,
 				186E5ADB1FA1C0CF00228258 /* YYModel */,
@@ -1854,6 +1872,38 @@
 			path = Sangfor;
 			sourceTree = "<group>";
 		};
+		18E90D541FEB58A3004E1282 /* FCAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				18E90D551FEB58A3004E1282 /* Classes */,
+				18E90D591FEB58A3004E1282 /* Assets */,
+			);
+			path = FCAlertView;
+			sourceTree = "<group>";
+		};
+		18E90D551FEB58A3004E1282 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				18E90D561FEB58A3004E1282 /* FCAlertView.m */,
+				18E90D571FEB58A3004E1282 /* .gitkeep */,
+				18E90D581FEB58A3004E1282 /* FCAlertView.h */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		18E90D591FEB58A3004E1282 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				18E90D5A1FEB58A3004E1282 /* alert-round.png */,
+				18E90D5B1FEB58A3004E1282 /* .gitkeep */,
+				18E90D5C1FEB58A3004E1282 /* heart.png */,
+				18E90D5D1FEB58A3004E1282 /* close-round.png */,
+				18E90D5E1FEB58A3004E1282 /* checkmark-round.png */,
+				18E90D5F1FEB58A3004E1282 /* star.png */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 		18FCCD831FA6F6C700424A0C /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1964,22 +2014,29 @@
 			files = (
 				1881C0291FCFEC23005E6AD6 /* YALSunnyRefreshControl.xib in Resources */,
 				18CB64041FDE6114006B01E6 /* mapapi.bundle in Resources */,
+				18E90D631FEB58A3004E1282 /* .gitkeep in Resources */,
 				1816084B1F99DBDE00EC0FC3 /* Navigation.xcassets in Resources */,
 				18DE15C31FB9458900434F91 /* Login.xcassets in Resources */,
 				183826FC1F90B08C0076C8A5 /* LaunchScreen.storyboard in Resources */,
 				1804C9E41FA082D400FCC6F1 /* Common.xcassets in Resources */,
 				186FF2D41FD934A900F76DF4 /* refreshsound.caf in Resources */,
 				189B559C1FC829E6003031A9 /* News.xcassets in Resources */,
+				18E90D651FEB58A3004E1282 /* close-round.png in Resources */,
 				18E2C4051FBEC64600881A8A /* common_loading_wait.gif in Resources */,
 				18339AF51FCD0897001E50DD /* Map.xcassets in Resources */,
 				1881C05B1FCFFD51005E6AD6 /* MJRefresh.bundle in Resources */,
 				186FF2D21FD934A900F76DF4 /* msgsound.caf in Resources */,
 				183826F91F90B08C0076C8A5 /* Assets.xcassets in Resources */,
 				18FCCD751FA6CBE300424A0C /* App.xcassets in Resources */,
+				18E90D661FEB58A3004E1282 /* checkmark-round.png in Resources */,
 				180A90C41FB2EDEA00F7D213 /* Mine.xcassets in Resources */,
+				18E90D621FEB58A3004E1282 /* alert-round.png in Resources */,
 				1881C0281FCFEC23005E6AD6 /* Images.xcassets in Resources */,
 				183826F71F90B08C0076C8A5 /* Main.storyboard in Resources */,
+				18E90D611FEB58A3004E1282 /* .gitkeep in Resources */,
+				18E90D641FEB58A3004E1282 /* heart.png in Resources */,
 				18AC774C1FA8595100EB630B /* root-cert.der in Resources */,
+				18E90D671FEB58A3004E1282 /* star.png in Resources */,
 				186FF2D31FD934A900F76DF4 /* btnsound.caf in Resources */,
 				181608491F99A69900EC0FC3 /* TabBar.xcassets in Resources */,
 				180D723E1FE370AA00CAB4B9 /* Menu.xcassets in Resources */,
@@ -2039,6 +2096,7 @@
 				18E90D2E1FE7B89D004E1282 /* AuthHelper.m in Sources */,
 				183826FF1F90B08C0076C8A5 /* main.m in Sources */,
 				183D26FD1FC6659300C2A607 /* AppSearchViewCell.m in Sources */,
+				18E90D601FEB58A3004E1282 /* FCAlertView.m in Sources */,
 				1895A8281FB43E8700DB9AFC /* AppSubViewController.m in Sources */,
 				1806B1F31F9DF52500F000EB /* UIAlertController+Blocks.m in Sources */,
 				18AE73EE1F98547D00E357D1 /* AFHTTPSessionManager.m in Sources */,

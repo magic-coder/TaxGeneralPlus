@@ -364,7 +364,13 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
         [super.navigationController pushViewController:[[NSClassFromString(@"AccountViewController") class] new] animated:YES];
     }
     if(1 == tag){
-        [MBProgressHUD showHUDView:super.view text:@"签到成功" progressHUDMode:YZProgressHUDModeShow];
+        FCAlertView *alert = [[FCAlertView alloc] init];
+        [alert showAlertWithTitle:@"签到成功"
+                     withSubtitle:@"恭喜您，获得10积分奖励，明天继续来签到哦😉"
+                  withCustomImage:nil
+              withDoneButtonTitle:@"完成"
+                       andButtons:nil];
+        [alert makeAlertTypeSuccess];
     }
     if(2 == tag){
         BaseWebViewController *introduceVC = [[BaseWebViewController alloc] initWithURL:[NSString stringWithFormat:@"%@taxnews/public/introductionIOS.htm", SERVER_URL]];

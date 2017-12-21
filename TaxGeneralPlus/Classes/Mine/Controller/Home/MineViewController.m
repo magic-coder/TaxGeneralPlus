@@ -78,33 +78,31 @@
 
 #pragma mark - 头部视图按钮点击方法
 - (void)mineHeaderViewBtnDidSelected:(UIButton *)sender {
-    if(0 == sender.tag){
-        if(IS_LOGIN){
+    // 防止按钮重复点击
+    CLICK_LOCK
+    
+    if(IS_LOGIN){
+        if(0 == sender.tag){
             [self.navigationController pushViewController:[[NSClassFromString(@"AccountViewController") class] new] animated:YES];
-        }else{
-            SHOW_LOGIN_VIEW
         }
-    }
-    if(1 == sender.tag){
-        if(IS_LOGIN){
+        if(1 == sender.tag){
             DLog(@"详细升级规则");
-        }else{
-            SHOW_LOGIN_VIEW
         }
-    }
-    if(2 == sender.tag){
-        if(IS_LOGIN){
+        if(2 == sender.tag){
             DLog(@"钻石");
-        }else{
-            SHOW_LOGIN_VIEW
         }
-    }
-    if(3 == sender.tag){
-        if(IS_LOGIN){
+        if(3 == sender.tag){
             DLog(@"每日签到");
-        }else{
-            SHOW_LOGIN_VIEW
+            FCAlertView *alert = [[FCAlertView alloc] init];
+            [alert showAlertWithTitle:@"签到成功"
+                         withSubtitle:@"恭喜您，获得10积分奖励，明天继续来签到哦😉"
+                      withCustomImage:nil
+                  withDoneButtonTitle:@"完成"
+                           andButtons:nil];
+            [alert makeAlertTypeSuccess];
         }
+    }else{
+        SHOW_LOGIN_VIEW
     }
 }
 

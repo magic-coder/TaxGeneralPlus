@@ -46,6 +46,7 @@
 #pragma mark - 第三方库
 #import "YYModel.h"
 #import "Masonry.h"
+#import "FCAlertView.h"
 #import "UIImageView+WebCache.h"
 #import "UIAlertController+Blocks.h"
 #import "TTTAttributedLabel.h"
