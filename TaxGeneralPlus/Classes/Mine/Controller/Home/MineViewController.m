@@ -163,8 +163,8 @@
 #pragma mark 初始化雪花效果
 - (void)snowAnimation {
     
-    [self snowClean];
     [self snowTimerRelease];
+    [self snowClean];
     
     _snowImagesArray = [[NSMutableArray alloc] init];
     for (int i = 0; i < 20; ++ i) {
@@ -185,26 +185,34 @@ static int i = 0;
         UIImageView *imageView = [_snowImagesArray objectAtIndex:0];
         imageView.tag = i;
         [_snowImagesArray removeObjectAtIndex:0];
-        [self snowFall:imageView];
+        [self snowFall:imageView count:_snowImagesArray.count];
     }else{
         [self snowTimerRelease];
     }
 }
 #pragma mark 雪花下落效果
-- (void)snowFall:(UIImageView *)aImageView {
+- (void)snowFall:(UIImageView *)aImageView count:(NSInteger)count {
+    DLog(@"count = %ld", count);
     [UIView beginAnimations:[NSString stringWithFormat:@"%li",(long)aImageView.tag] context:nil];
     [UIView setAnimationDuration:6];
     [UIView setAnimationDelegate:self];
     aImageView.frame = CGRectMake(aImageView.frame.origin.x, HEIGHT_SCREEN, aImageView.frameWidth, aImageView.frameHeight);
     [UIView commitAnimations];
+    if(count == 0){
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self snowClean];
+        });
+    }
 }
 #pragma mark 结束雪花动画，释放对象
 - (void)snowClean {
     // 重新构建应用前先移除以前的
-    NSArray *subViews = [self.view subviews];
-    for(UIView *view in subViews){
-        if([view isKindOfClass:[UIImageView class]] && view.originY == -36){
-            [view removeFromSuperview];
+    if(![self.snowTimer isValid]){
+        NSArray *subViews = [self.view subviews];
+        for(UIView *view in subViews){
+            if([view isKindOfClass:[UIImageView class]] && (view.originY == -36 || view.originY == HEIGHT_SCREEN)){
+                [view removeFromSuperview];
+            }
         }
     }
 }
@@ -215,6 +223,7 @@ static int i = 0;
         [self.snowTimer invalidate];
         self.snowTimer = nil;
     }
+
 }
 
 @end
