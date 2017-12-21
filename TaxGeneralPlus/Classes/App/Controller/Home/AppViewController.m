@@ -95,14 +95,6 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     
     _adjustStatus = NO;
     
-    // 重新构建应用前先移除以前的
-    NSArray *subViews = [self.baseScrollView subviews];
-    for(UIView *view in subViews){
-        if([view isKindOfClass:[AppBorderView class]] || [view isKindOfClass:[AppView class]]){
-            [view removeFromSuperview];
-        }
-    }
-    
     if(IS_LOGIN){
         // 获取应用数据
         NSDictionary *appData = [[AppUtil sharedAppUtil] loadAppData];
@@ -146,6 +138,15 @@ typedef NS_ENUM(NSInteger, AppViewType) {
 
 #pragma mark - 开始处理加载数据
 - (void)initAppData:(NSDictionary *)data {
+    
+    // 重新构建应用前先移除以前的
+    NSArray *subViews = [self.baseScrollView subviews];
+    for(UIView *view in subViews){
+        if([view isKindOfClass:[AppBorderView class]] || [view isKindOfClass:[AppView class]]){
+            [view removeFromSuperview];
+        }
+    }
+
     _mineDataArray = [NSMutableArray array];
     _mineDataArray = [data objectForKey:@"mineData"];
     
