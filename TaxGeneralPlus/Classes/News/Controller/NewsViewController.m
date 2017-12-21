@@ -95,7 +95,7 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     // 判断是否登录
     if(IS_LOGIN){
         if(_isInit){
-            self.timer = [NSTimer scheduledTimerWithTimeInterval:0.5f target:self selector:@selector(timerCallBack) userInfo:nil repeats:YES];
+            self.timer = [NSTimer scheduledTimerWithTimeInterval:0.3f target:self selector:@selector(timerCallBack) userInfo:nil repeats:YES];
         }
     }else{
         SHOW_LOGIN_VIEW

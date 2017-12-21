@@ -68,7 +68,7 @@ static int const pageSize = 100;
     // 判断是否登录，若没登录则返回登录页面
     if(IS_LOGIN){
         if(_isInit){
-            self.timer = [NSTimer scheduledTimerWithTimeInterval:0.5f target:self selector:@selector(timerCallBack) userInfo:nil repeats:YES];
+            self.timer = [NSTimer scheduledTimerWithTimeInterval:0.3f target:self selector:@selector(timerCallBack) userInfo:nil repeats:YES];
         }else{
             // 判断角标
             UITabBarItem * item = [self.tabBarController.tabBar.items objectAtIndex:2];
