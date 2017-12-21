@@ -61,6 +61,9 @@
 
 #pragma mark - 视图即将显示
 - (void)viewWillAppear:(BOOL)animated {
+    
+    [self snowClean];
+    
     // 设置头视图数据
     if(IS_LOGIN){
         _headerView.nameText = [[[NSUserDefaults standardUserDefaults] objectForKey:LOGIN_SUCCESS] objectForKey:@"userName"];
@@ -159,6 +162,10 @@
 #pragma mark - 下雪动画效果
 #pragma mark 初始化雪花效果
 - (void)snowAnimation {
+    
+    [self snowClean];
+    [self snowTimerRelease];
+    
     _snowImagesArray = [[NSMutableArray alloc] init];
     for (int i = 0; i < 20; ++ i) {
         UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mine_snow"]];
@@ -180,11 +187,7 @@ static int i = 0;
         [_snowImagesArray removeObjectAtIndex:0];
         [self snowFall:imageView];
     }else{
-        // 释放定时器，销毁 timer
-        if([self.snowTimer isValid]){
-            [self.snowTimer invalidate];
-            self.snowTimer = nil;
-        }
+        [self snowTimerRelease];
     }
 }
 #pragma mark 雪花下落效果
@@ -194,6 +197,24 @@ static int i = 0;
     [UIView setAnimationDelegate:self];
     aImageView.frame = CGRectMake(aImageView.frame.origin.x, HEIGHT_SCREEN, aImageView.frameWidth, aImageView.frameHeight);
     [UIView commitAnimations];
+}
+#pragma mark 结束雪花动画，释放对象
+- (void)snowClean {
+    // 重新构建应用前先移除以前的
+    NSArray *subViews = [self.view subviews];
+    for(UIView *view in subViews){
+        if([view isKindOfClass:[UIImageView class]] && view.originY == -36){
+            [view removeFromSuperview];
+        }
+    }
+}
+#pragma mark 停止下雪特效的计时器
+- (void)snowTimerRelease {
+    // 释放定时器，销毁 timer
+    if([self.snowTimer isValid]){
+        [self.snowTimer invalidate];
+        self.snowTimer = nil;
+    }
 }
 
 @end
