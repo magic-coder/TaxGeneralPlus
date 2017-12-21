@@ -156,11 +156,12 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
         _data = [[NSMutableArray alloc] init];
         
         // 顶部轮播焦点图数据
-        //NSDictionary *loopDict = [dataDict objectForKey:@"loopResult"];
-        //NSArray *titles = [loopDict objectForKey:@"titles"];
-        //NSArray *images = [loopDict objectForKey:@"images"];
-        //NSArray *urls = [loopDict objectForKey:@"urls"];
-        
+        /*
+        NSDictionary *loopDict = [dataDict objectForKey:@"loopResult"];
+        NSArray *titles = [loopDict objectForKey:@"titles"];
+        NSArray *images = [loopDict objectForKey:@"images"];
+        NSArray *urls = [loopDict objectForKey:@"urls"];
+        */
         NSArray *titles = @[@"[学习十九大报告·一日一课]建设美丽中国", @"在新的历史方位上认识和推动国家治理体系和治理能力现代化", @"中央首次派宣讲团赴港宣讲十九大 这位正部领衔", @"多架轰6K等战机飞赴南海战斗巡航的背后"];
         NSArray *images = @[@"cycle_1", @"cycle_2", @"cycle_3", @"cycle_4"];
         NSArray *urls = @[@"https://www.qq.com", @"https://www.alibaba.com", @"https://www.baidu.com", @"https://www.jd.com"];
@@ -233,7 +234,7 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
 #pragma mark - <YZCycleScrollViewDelegate>顶部轮播图点击代理方法
 - (void)cycleScrollViewDidSelectedImage:(YZCycleScrollView *)cycleScrollView index:(int)index {
     BaseWebViewController *webVC = [[BaseWebViewController alloc] initWithURL:cycleScrollView.urls[index]];
-    webVC.title = @"详情";
+    webVC.title = cycleScrollView.titles[index];
     [self.navigationController pushViewController:webVC animated:YES];
 }
 
@@ -269,7 +270,7 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     NewsTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     
     BaseWebViewController *baseWebVC = [[BaseWebViewController alloc] initWithURL:cell.model.url];
-    baseWebVC.title = @"详情";
+    baseWebVC.title = cell.model.showTitle;
     [self.navigationController pushViewController:baseWebVC animated:YES];
     
     //[self.navigationController pushViewController:[NSClassFromString(@"TestViewController") new] animated:YES];

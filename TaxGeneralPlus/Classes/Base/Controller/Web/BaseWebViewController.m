@@ -148,14 +148,27 @@
 
 #pragma mark - UIWebViewDelegate 代理方法
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    //判断是不是https
-    NSString *scheme = [[request URL] scheme];
-    if ([scheme isEqualToString:@"https"]) {
-        if (!_authenticated) {
-            _authenticated = NO;
-            _connection = [[NSURLConnection alloc] initWithRequest:self.request delegate:self];
-            [_connection start];
-            return NO;
+    
+    DLog(@"%@", request.URL.absoluteString);
+    // 如果响应的地址是指定域名，则允许跳转
+    if ([request.URL.absoluteString rangeOfString:@"account/initLogin"].location != NSNotFound) {
+        // 进行token登录
+        [[LoginUtil sharedLoginUtil] loginWithTokenSuccess:^{
+            [self.webView loadRequest:self.request];
+        } failure:^(NSString *error) {
+        } invalid:^(NSString *msg) {
+            SHOW_RELOGIN_VIEW
+        }];
+    }else{
+        //判断是不是https
+        NSString *scheme = [[request URL] scheme];
+        if ([scheme isEqualToString:@"https"]) {
+            if (!_authenticated) {
+                _authenticated = NO;
+                _connection = [[NSURLConnection alloc] initWithRequest:self.request delegate:self];
+                [_connection start];
+                return NO;
+            }
         }
     }
     return YES;
@@ -204,19 +217,7 @@
         [self loadHTMLString:dataString baseURL:nil];
     }] resume];
      */
-    // 如果响应的地址是指定域名，则允许跳转
-    if ([response.URL.absoluteString rangeOfString:@"account/initLogin"].location != NSNotFound) {
-        // 进行token登录
-        [[LoginUtil sharedLoginUtil] loginWithTokenSuccess:^{
-            [self.webView loadRequest:self.request];
-        } failure:^(NSString *error) {
-            
-        } invalid:^(NSString *msg) {
-            SHOW_RELOGIN_VIEW
-        }];
-    }else{
-        [self.webView loadRequest:self.request];
-    }
+    [self.webView loadRequest:self.request];
     [_connection cancel];
 }
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {

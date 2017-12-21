@@ -22,6 +22,7 @@ typedef NS_ENUM(NSInteger, NewsModelStyle) {
 
 /************************ 属性 ************************/
 @property (nonatomic, strong) NSString *title;          // 标题
+@property (nonatomic, strong) NSString *showTitle;      // 显示标题
 @property (nonatomic, strong) NSArray *images;          // 图片（以数组的形式存放）
 @property (nonatomic, strong) NSString *source;         // 来源（如：来自地税、国税、其他等...）
 @property (nonatomic, strong) NSString *datetime;       // 发布时间

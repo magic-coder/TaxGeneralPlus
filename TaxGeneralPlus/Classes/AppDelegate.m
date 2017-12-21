@@ -378,15 +378,17 @@
 #pragma mark - <SangforSDKDelegate> VPN 代理方法
 - (void)onCallBack:(const VPN_RESULT_NO)vpnErrno authType:(const int)authType {
     
+    NSString *vpnMsg = nil;
+    
     switch (vpnErrno) {
         case RESULT_VPN_INIT_FAIL: {
-            DLog(@"VPN 初始化失败！");
+            vpnMsg = @"VPN 初始化失败！";
             break;
         }
         case RESULT_VPN_AUTH_FAIL: {
             [self.helper clearAuthParam:@SET_RND_CODE_STR];
             [self.helper vpnQueryStatus];
-            DLog(@"VPN 认证失败！");
+            vpnMsg = @"VPN 认证失败！";
             break;
         }
         case RESULT_VPN_INIT_SUCCESS: {
@@ -411,22 +413,35 @@
             break;
         }
         case RESULT_VPN_OTHER: {
-            DLog(@"VPN 返回其他状态！");
+            vpnMsg = @"VPN 返回其他状态！";
             break;
         }
         case RESULT_VPN_NONE: {
-            DLog(@"VPN 值无效！");
+            vpnMsg = @"VPN 值无效！";
             break;
         }
         case RESULT_VPN_L3VPN_FAIL: {
             [self.helper clearAuthParam:@SET_RND_CODE_STR];
-            DLog(@"L3VPN 启动失败！");
+            vpnMsg = @"L3VPN 启动失败！";
             break;
         }
         default: {
-            DLog(@"VPN 未知错误！");
+            vpnMsg = @"VPN 未知错误！";
             break;
         }
+    }
+    
+    if(vpnMsg){
+        FCAlertView *alert = [[FCAlertView alloc] init];
+        [alert showAlertWithTitle:@"VPN连接失败"
+                     withSubtitle:[NSString stringWithFormat:@"由于：\"%@\"，导致您无法正常使用，请稍后再试或联系管理员！", vpnMsg]
+                  withCustomImage:nil
+              withDoneButtonTitle:@"退出应用"
+                       andButtons:nil];
+        [alert makeAlertTypeWarning];
+        [alert doneActionBlock:^{
+            exit(0);
+        }];
     }
     
 }

@@ -63,6 +63,7 @@
 + (nullable NSDictionary<NSString *, id> *)modelCustomPropertyMapper{
     return @{
              @"title":@"TITLE",
+             @"showTitle":@"SHOWTITLE",
              @"images":@"IMAGES",
              //@"source":@"SOURCE",
              @"datetime":@"RELEASEDATE",

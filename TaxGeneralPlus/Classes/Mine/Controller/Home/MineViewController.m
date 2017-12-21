@@ -192,7 +192,6 @@ static int i = 0;
 }
 #pragma mark 雪花下落效果
 - (void)snowFall:(UIImageView *)aImageView count:(NSInteger)count {
-    DLog(@"count = %ld", count);
     [UIView beginAnimations:[NSString stringWithFormat:@"%li",(long)aImageView.tag] context:nil];
     [UIView setAnimationDuration:6];
     [UIView setAnimationDelegate:self];
