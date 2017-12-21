@@ -62,7 +62,7 @@ SingletonM(LoginUtil)
     } failure:^(NSURLSessionDataTask *task, NSString *error) {
         failure(error);
     }];
-    
+
 }
 
 #pragma mark - 通过token进行登录
@@ -105,6 +105,8 @@ SingletonM(LoginUtil)
             // 登录成功将信息保存到用户单例模式中
             [[NSUserDefaults standardUserDefaults] setObject:dict forKey:LOGIN_SUCCESS];
             [[NSUserDefaults standardUserDefaults] synchronize]; // 强制写入
+            
+            [self registerPush];// 推送设备绑定
             
             success();
         }else if([@"510" isEqualToString:[responseObject objectForKey:@"statusCode"]]){ // token 失效需重新登录
@@ -162,12 +164,36 @@ SingletonM(LoginUtil)
             NSFileManager * manager = [NSFileManager defaultManager];
             [manager removeItemAtPath:filePath error:nil];
             
+            [self registerPush];// 推送设备绑定
+            
             success();
         }else{
             failure([responseObject objectForKey:@"msg"]);
         }
     } failure:^(NSURLSessionDataTask *task, NSString *error) {
         failure(error);
+    }];
+}
+
+#pragma mark - 注册推送
+- (void)registerPush {
+    // 注册推送
+    NSString *errorCode = @"0";
+    NSString *appId = @"";
+    NSString *userId = @"";
+    NSString *channelId = @"";
+    NSString *phoneProduct = @"Apple";
+    NSNumber *deviceType = [NSNumber numberWithInt:4];
+    NSString *deviceToken = [[NSUserDefaults standardUserDefaults] objectForKey:DEVICE_TOKEN];
+    
+    NSDictionary *pushDict = [NSDictionary dictionaryWithObjectsAndKeys:errorCode, @"errorCode", appId, @"appId", userId, @"userId", channelId, @"channelId", phoneProduct, @"phoneProduct", deviceType, @"deviceType", deviceToken, @"deviceToken", nil];
+    
+    [YZNetworkingManager POST:@"push/registerPush" parameters:pushDict success:^(id responseObject) {
+        DLog(@"推送设备绑定成功！");
+    } failure:^(NSString *error) {
+        DLog(@"推送设备绑定失败：error = %@", error);
+    } invalid:^(NSString *msg) {
+        DLog(@"推送设备绑定失败：msg = %@", msg);
     }];
 }
 

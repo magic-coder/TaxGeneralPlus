@@ -49,6 +49,7 @@
 
 #pragma mark - 定义全局常用key值
 #define DEVICE_INFO         @"deviceInfo"
+#define DEVICE_TOKEN        @"deviceToken"
 #define LOGIN_SUCCESS       @"loginSuccess"
 #define LAST_LOGINCODE      @"lastLoginCode"
 #define GESTURES_PASSWORD   @"gesturesPassword"

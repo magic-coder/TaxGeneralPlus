@@ -176,7 +176,7 @@
             // 点击允许
             DLog(@"推送服务注册成功");
             [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
-                NSLog(@"%@", settings);
+                DLog(@"settings = %@", settings);
             }];
         } else {
             // 点击不允许
@@ -188,7 +188,12 @@
 }
 #pragma mark 注册推送获得Device Token成功
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    DLog(@"推送通知注册成功! Device Token: %@", deviceToken);
+    NSString *deviceTokenStr = [[[[deviceToken description] stringByReplacingOccurrencesOfString:@"<"withString:@""]
+                                 stringByReplacingOccurrencesOfString:@">" withString:@""]
+                                stringByReplacingOccurrencesOfString:@" " withString:@""];
+    DLog(@"推送通知注册成功! Device Token: %@", deviceTokenStr);
+    [[NSUserDefaults standardUserDefaults] setObject:deviceTokenStr forKey:DEVICE_TOKEN];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 #pragma mark 注册推送获得Device Token失败
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
