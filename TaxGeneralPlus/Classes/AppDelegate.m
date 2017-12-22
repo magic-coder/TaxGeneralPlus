@@ -357,8 +357,10 @@
     } completion:^(BOOL finished) {
         [_maskBackgroundView removeFromSuperview];
         
-        // 隐藏顶部状态栏设为NO
-        [UIApplication sharedApplication].statusBarHidden = NO;
+        if(IS_LOGIN){
+            // 隐藏顶部状态栏设为NO
+            [UIApplication sharedApplication].statusBarHidden = NO;
+        }
         // 设置顶部状态栏字体为白色
         [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
         

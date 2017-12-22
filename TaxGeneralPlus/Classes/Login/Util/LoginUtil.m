@@ -55,6 +55,8 @@ SingletonM(LoginUtil)
             [[NSUserDefaults standardUserDefaults] setObject:dict forKey:LOGIN_SUCCESS];
             [[NSUserDefaults standardUserDefaults] synchronize]; // 强制写入
             
+            [self registerPush];// 推送设备绑定
+            
             success();
         }else{
             failure([responseObject objectForKey:@"msg"]);
@@ -163,8 +165,6 @@ SingletonM(LoginUtil)
             NSString * filePath = [path stringByAppendingPathComponent:@"/Library/Cookies/Cookies.binarycookies"];
             NSFileManager * manager = [NSFileManager defaultManager];
             [manager removeItemAtPath:filePath error:nil];
-            
-            [self registerPush];// 推送设备绑定
             
             success();
         }else{

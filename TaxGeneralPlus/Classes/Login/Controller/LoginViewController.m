@@ -200,14 +200,16 @@ typedef NS_ENUM(NSInteger, LoginShowType) {
 }
 
 #pragma mark - 视图已经展示方法，隐藏顶部状态栏
-- (void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
     [UIApplication sharedApplication].statusBarHidden = YES;
 }
 
 #pragma mark - 视图已经销毁方法，显示顶部状态栏
-- (void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    
     [UIApplication sharedApplication].statusBarHidden = NO;
 }
 
