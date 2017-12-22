@@ -1,5 +1,12 @@
 # TaxGeneralPlus（税务通+）IOS移动端项目重构版
 
+[![Release](https://img.shields.io/badge/release-2.0.0-brightgreen.svg)](https://github.com/micyo202/TaxGeneralPlus)
+[![support](https://img.shields.io/badge/support-ios10+-yellow.svg)](https://github.com/micyo202/TaxGeneralPlus)
+[![Since](https://img.shields.io/badge/since-2017-blue.svg)](https://github.com/micyo202/TaxGeneralPlus)
+[![Device](https://img.shields.io/badge/device-iPhone&iPad-red.svg)](https://github.com/micyo202/TaxGeneralPlus)
+[![GitHub stars](https://img.shields.io/github/stars/micyo202/TaxGeneralPlus.svg?style=social&label=Stars)](https://github.com/micyo202/TaxGeneralPlus)
+[![GitHub forks](https://img.shields.io/github/forks/micyo202/TaxGeneralPlus.svg?style=social&label=Fork)](https://github.com/micyo202/TaxGeneralPlus)
+
 ### 一、简介
 
 项目Devices采用Universal，同时支持**iPhone & iPad**，技术重新选型，UI渲染更细腻，代码清晰简洁，兼容IOS11，适配iPhoneX，便于后期维护<br>
