@@ -24,6 +24,7 @@
 @property (nonatomic, assign) float headerBottomViewH;  // 头部视图下方功能按钮栏高度
 
 // 下雪效果
+@property (nonatomic, assign) int offsetY;
 @property (nonatomic, strong) NSMutableArray *snowImagesArray;
 @property (nonatomic, strong) NSTimer *snowTimer;
 
@@ -85,13 +86,15 @@
             make.top.equalTo(_headerView).with.offset(offset.y+HEIGHT_STATUS+10);
         }];
     }
+    if(offset.y == 0 && _offsetY < -160) {
+        _offsetY = 0;
+        [self snowAnimation];
+    }
 }
 #pragma mark - 拖拽结束事件（监控下雪事件）
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     CGPoint offset = scrollView.contentOffset;
-    if(offset.y < -160){
-        [self snowAnimation];
-    }
+    _offsetY = offset.y;
 }
 
 #pragma mark - 头部视图按钮点击方法
