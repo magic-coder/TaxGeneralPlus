@@ -52,7 +52,7 @@ TaxGeneralPlus -- 根目录
 
 名称 | 版本号 | 描述 | 网址
 --- | --- | --- | ---
-YZTouchID | 1.0.0 | 指纹、面部识别认证 | -
+YZTouchID | 1.0.0 | 指纹、面部识别认证 | [https://github.com/micyo202/YZAuthID](https://github.com/micyo202/YZAuthID)
 YZCycleScrollView | 1.0.0 | 循环轮播图 | [https://github.com/micyo202/YZCycleScrollView](https://github.com/micyo202/YZCycleScrollView)
 YZBottomSelectView | 1.0.1 | 底部选择框 | [https://github.com/micyo202/YZBottomSelectView](https://github.com/micyo202/YZBottomSelectView)
 
