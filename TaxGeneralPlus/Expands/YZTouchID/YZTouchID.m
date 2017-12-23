@@ -34,14 +34,16 @@
     
     LAContext *context = [[LAContext alloc]init];
     
-    // Yan -> 三次指纹错误不做提示
-    context.localizedFallbackTitle = @"";
+    // 指纹错误提示信息
+    context.localizedFallbackTitle = @"输入密码";
     
     NSError *error = nil;
     
-    if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error]) {
+    // LAPolicyDeviceOwnerAuthenticationWithBiometrics: 用TouchID/FaceID验证
+    // LAPolicyDeviceOwnerAuthentication: 用TouchID/FaceID或密码验证, 默认是错误两次或锁定后, 弹出输入密码界面（本案例使用）
+    if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthentication error:&error]) {
         
-        [context evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics localizedReason:desc == nil ? @"通过Home键验证已有指纹":desc reply:^(BOOL success, NSError * _Nullable error) {
+        [context evaluatePolicy:LAPolicyDeviceOwnerAuthentication localizedReason:desc == nil ? @"通过Home键验证已有指纹":desc reply:^(BOOL success, NSError * _Nullable error) {
             
             if (success) {
                 dispatch_async(dispatch_get_main_queue(), ^{
