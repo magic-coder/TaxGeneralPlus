@@ -65,6 +65,7 @@ Masonry | 1.1.0 | 自适应布局 | [https://github.com/SnapKit/Masonry](https:/
 YYModel | 1.0.4 | 模型转换 | [https://github.com/ibireme/YYModel](https://github.com/ibireme/YYModel)
 MJRefresh | 3.1.15 | 刷新组件 | [https://github.com/CoderMJLee/MJRefresh](https://github.com/CoderMJLee/MJRefresh)
 FCAlertView | 1.4.0 | 提示对话框 | [https://github.com/nimati/FCAlertView](https://github.com/nimati/FCAlertView)
+SAMKeychain | 1.5.2 | Keychain安全存储 | [https://github.com/soffes/SAMKeychain](https://github.com/soffes/SAMKeychain)
 SDWebImage | 4.2.2 | 网络图片加载 | [https://github.com/rs/SDWebImage](https://github.com/rs/SDWebImage)
 AFNetworking | 3.1.0 | 网络请求 | [https://github.com/AFNetworking/AFNetworking](https://github.com/AFNetworking/AFNetworking)
 YBPopupMenu | 1.1.0 | 气泡菜单 | [https://github.com/lyb5834/YBPopupMenu](https://github.com/lyb5834/YBPopupMenu)
