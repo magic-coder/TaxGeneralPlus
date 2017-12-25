@@ -16,7 +16,7 @@ SingletonM(Variable)
 
 - (NSString *)appName{
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-    // 当前应用名称
+    // 当前应用显示名称
     return [infoDictionary objectForKey:@"CFBundleDisplayName"];
 }
 
