@@ -79,11 +79,27 @@ SingletonM(BaseHandleUtil)
     return object;
 }
 
+#pragma mark - 将OC对象转换为NSData
+- (NSData *)dataWithObject:(id)object {
+    if(object) {
+        NSData *data= [NSJSONSerialization dataWithJSONObject:object options:NSJSONWritingPrettyPrinted error:nil];
+        return data;
+    }else{
+        DLog(@"object为空，无法转换，返回nil");
+        return nil;
+    }
+}
+
 #pragma mark - 将JSON转换为OC对象
 - (id)objectWithJSONData:(id)data {
-    // 将JSON数据转为NSArray或NSDictionary
-    id object = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-    return object;
+    if(data) {
+        // 将JSON数据转为NSArray或NSDictionary
+        id object = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+        return object;
+    }else{
+        DLog(@"data为空，无法转换，返回nil");
+        return nil;
+    }
 }
 
 #pragma mark - 将OC对象转换为JSON字符串

@@ -39,6 +39,15 @@ SingletonH(BaseHandleUtil)
 /**
  *  将JSON转换为OC对象
  *
+ *  @param  object    需要转换的OC对象（NSArray、NSDictionary）数据
+ *
+ *  @return NSData类型数据
+ */
+- (NSData *)dataWithObject:(id)object;
+
+/**
+ *  将JSON转换为OC对象
+ *
  *  @param  data    需要转换的JSONData数据
  *
  *  @return OC对象（NSArray、NSDictionary）
