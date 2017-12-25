@@ -176,7 +176,7 @@
         imageView.frame = CGRectMake(SNOW_IMAGE_X, -40, x, x);
         imageView.alpha = SNOW_IMAGE_ALPHA;
         //[self.view addSubview:imageView];
-        [[UIApplication sharedApplication].keyWindow addSubview:imageView];
+        [WINDOW addSubview:imageView];
         [_snowImagesArray addObject:imageView];
     }
     self.snowTimer = [NSTimer scheduledTimerWithTimeInterval:0.3f target:self selector:@selector(makeSnow) userInfo:nil repeats:YES];
@@ -212,7 +212,7 @@ static int i = 0;
     // 重新构建应用前先移除以前的
     if(![self.snowTimer isValid]){
         //NSArray *subViews = [self.view subviews];
-        NSArray *subViews = [[UIApplication sharedApplication].keyWindow subviews];
+        NSArray *subViews = [WINDOW subviews];
         for(UIView *view in subViews){
             if([view isKindOfClass:[UIImageView class]] && (view.originY == -40 || view.originY == HEIGHT_SCREEN)){
                 [view removeFromSuperview];
