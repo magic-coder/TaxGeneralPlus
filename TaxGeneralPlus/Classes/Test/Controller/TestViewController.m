@@ -10,13 +10,10 @@
 
 #import "TestViewController.h"
 #import "NewsUtil.h"
-#import "AuthHelper.h"
 
-@interface TestViewController () <YBPopupMenuDelegate, YZCycleScrollViewDelegate, SangforSDKDelegate>
+@interface TestViewController () <YBPopupMenuDelegate, YZCycleScrollViewDelegate>
 
 @property (nonatomic, assign) int i;
-
-@property (nonatomic, strong) AuthHelper *helper;    // VPN 处理类
 
 @end
 
@@ -105,7 +102,7 @@
     
     UIButton *btn7 = [UIButton buttonWithType:UIButtonTypeSystem];
     btn7.frame = CGRectMake(10, btn6.frameBottom, 300, 30);
-    [btn7 setTitle:@"VPN连接" forState:UIControlStateNormal];
+    [btn7 setTitle:@"Keychain测试" forState:UIControlStateNormal];
     [btn7 addTarget:self action:@selector(onClick:) forControlEvents:(UIControlEventTouchUpInside)];
     btn7.tag = 7;
     [self.view addSubview:btn7];
@@ -212,109 +209,29 @@
     }
     
     if(7 == btn.tag){
-        [self initializeVPN];       // 初始化VPN
+        [YZBottomSelectView showBottomSelectViewWithTitle:@"Keychain数据操作" cancelButtonTitle:@"取消按钮" destructiveButtonTitle:@"删除数据" otherButtonTitles:@[@"保存数据", @"获取数据"] handler:^(YZBottomSelectView *bootomSelectView, NSInteger index) {
+            DLog(@"点击按钮的序列号：%ld", index);
+            if(index == -1){    //删除数据
+                BOOL res = [SAMKeychain deletePasswordForService:[[NSBundle mainBundle] bundleIdentifier] account:LOGIN_SUCCESS];
+                if(res){
+                    DLog(@"删除成功！");
+                }else{
+                    DLog(@"删除失败！");
+                }
+            }
+            if(index == 1){ // 保存数据
+                DLog(@"在登录界面保存");
+                NSString *pwd = [SAMKeychain passwordForService:[[NSBundle mainBundle] bundleIdentifier] account:@"yanzheng"];
+                DLog(@"pwd = %@", pwd);
+            }
+            if(index == 2){ // 获取数据
+                NSData *data = [SAMKeychain passwordDataForService:[[NSBundle mainBundle] bundleIdentifier] account:LOGIN_SUCCESS];
+                NSDictionary *dict = [[BaseHandleUtil sharedBaseHandleUtil] objectWithJSONData:data];
+                DLog(@"userName = %@", [dict objectForKey:@"userName"]);
+            }
+        }];
     }
     
-}
-
-#pragma mark - 初始化VPN方法
-- (void)initializeVPN {
-    // 判断VPN是否已经初始化登录
-    if (VPN_STATUS_OK == [self.helper vpnQueryStatus]){
-        DLog(@"vpn当前是已经登录状态，注销后才能再登录");
-        return;
-    }
-    self.helper = [AuthHelper getInstance];
-    [self.helper init:EasyApp host:VPN_HOST port:VPN_PORT delegate:self];
-}
-#pragma mark - 初始化用户名、密码认证参数
-- (void)initializeAuthParam {
-    [self.helper setAuthParam:@PORPERTY_NamePasswordAuth_NAME param:VPN_USERNAME];
-    [self.helper setAuthParam:@PORPERTY_NamePasswordAuth_PASSWORD param:VPN_PASSWORD];
-}
-#pragma mark - SangforSDKDelegate 深信服VPN代理方法
-- (void)onCallBack:(const VPN_RESULT_NO)vpnErrno authType:(const int)authType {
-    switch (vpnErrno) {
-        case RESULT_VPN_INIT_FAIL: {
-            DLog(@"VPN 初始化失败！");
-            break;
-        }
-        case RESULT_VPN_AUTH_FAIL: {
-            [self.helper clearAuthParam:@SET_RND_CODE_STR];
-            [self.helper vpnQueryStatus];
-            DLog(@"VPN 认证失败！");
-            break;
-        }
-        case RESULT_VPN_INIT_SUCCESS: {
-            DLog(@"VPN 初始化成功！");
-            //显示当前sdk版本号
-            NSString *version = [self.helper getSdkVersion];
-            DLog(@"VPN SDK Version: %@", version);
-            [self.helper setAuthParam:@AUTH_DEVICE_LANGUAGE param:@"en_US"];//zh_CN or en_US
-            
-            [self initializeAuthParam];
-            
-            [self.helper loginVpn:SSL_AUTH_TYPE_PASSWORD];
-            break;
-        }
-        case RESULT_VPN_AUTH_SUCCESS: {
-            DLog(@"VPN认证成功！");
-            [self startAuth:authType];
-            break;
-        }
-        case RESULT_VPN_AUTH_LOGOUT: {
-            DLog(@"VPN注销！");
-            break;
-        }
-        case RESULT_VPN_OTHER: {
-            DLog(@"VPN返回其他状态！");
-            break;
-        }
-        case RESULT_VPN_NONE: {
-            DLog(@"VPN值无效！");
-            break;
-        }
-        case RESULT_VPN_L3VPN_FAIL: {
-            [self.helper clearAuthParam:@SET_RND_CODE_STR];
-            DLog(@"L3VPN启动失败！");
-            break;
-        }
-        default: {
-            DLog(@"VPN未知错误！");
-            break;
-        }
-    }
-}
-#pragma mark - 开始认证方法
-- (void) startAuth:(const int)authType {
-    switch (authType) {
-        case SSL_AUTH_TYPE_CERTIFICATE: {
-            DLog(@"开始证书认证！");
-            break;
-        }
-        case SSL_AUTH_TYPE_PASSWORD: {
-            DLog(@"开始用户名密码认证！");
-            [self initializeAuthParam];
-            break;
-        }
-        case SSL_AUTH_TYPE_NONE: {
-            DLog(@"VPN认证成功!");
-            return;
-        }
-        case SSL_AUTH_TYPE_SMS: {
-            DLog(@"VPN开始短信认证！");
-            break;
-        }
-        case SSL_AUTH_TYPE_RADIUS: {
-            DLog(@"VPN开始短信认证！");
-            break;
-        }
-        case SSL_AUTH_TYPE_TOKEN:
-        default:
-            DLog(@"VPN未知错误！");
-            return;
-    }
-    [self.helper loginVpn:authType];
 }
 
 @end
