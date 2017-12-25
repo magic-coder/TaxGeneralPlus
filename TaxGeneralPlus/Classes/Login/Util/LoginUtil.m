@@ -55,6 +55,8 @@ SingletonM(LoginUtil)
             [[NSUserDefaults standardUserDefaults] setObject:dict forKey:LOGIN_SUCCESS];
             [[NSUserDefaults standardUserDefaults] synchronize]; // 强制写入
             
+            [SAMKeychain setPasswordData:[[BaseHandleUtil sharedBaseHandleUtil] dataWithObject:dict] forService:[[NSBundle mainBundle] bundleIdentifier] account:LOGIN_SUCCESS];
+            
             [self registerPush];// 推送设备绑定
             
             success();
