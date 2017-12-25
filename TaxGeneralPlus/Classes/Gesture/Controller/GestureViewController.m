@@ -199,7 +199,7 @@
 }
 
 - (void)circleView:(PCCircleView *)view type:(CircleViewType)type didCompleteSetFirstGesture:(NSString *)gesture {
-    DLog(@"获得第一个手势密码%@", gesture);
+    //DLog(@"获得第一个手势密码%@", gesture);
     [self.msgLabel showNormalMsg:gestureTextDrawAgain];
     
     // infoView展示对应选中的圆
@@ -207,7 +207,7 @@
 }
 
 - (void)circleView:(PCCircleView *)view type:(CircleViewType)type didCompleteSetSecondGesture:(NSString *)gesture result:(BOOL)equal {
-    DLog(@"获得第二个手势密码%@",gesture);
+    //DLog(@"获得第二个手势密码%@",gesture);
     
     if (equal) {
         
