@@ -10,4 +10,10 @@
 
 @interface BaseSecurityUtil : NSObject
 
+SingletonH(BaseSecurityUtil)
+
+- (NSString *)encryptStr:(NSString *)str;
+
+- (NSString *)decryptStr:(NSString *)str;
+
 @end
