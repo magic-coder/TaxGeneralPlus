@@ -20,6 +20,7 @@
 
 #define APPDELEGETE             [[UIApplication sharedApplication] delegate]
 #define WINDOW                  [[UIApplication sharedApplication] keyWindow]
+#define BUNDLE_IDENTIFIER       [[NSBundle mainBundle] bundleIdentifier]
 #define PLACEHOLDER_IMAGE       [UIImage imageNamed:@"common_placeholder"]
 #define IS_LOGIN                (nil != [[NSUserDefaults standardUserDefaults] objectForKey:LOGIN_SUCCESS])
 #define SHOW_LOGIN_VIEW         [self presentViewController:[[NSClassFromString(@"LoginViewController") class] new] animated:YES completion:nil];

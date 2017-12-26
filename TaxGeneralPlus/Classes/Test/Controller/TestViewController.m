@@ -209,25 +209,17 @@
     }
     
     if(7 == btn.tag){
-        [YZBottomSelectView showBottomSelectViewWithTitle:@"Keychain数据操作" cancelButtonTitle:@"取消按钮" destructiveButtonTitle:@"删除数据" otherButtonTitles:@[@"保存数据", @"获取数据"] handler:^(YZBottomSelectView *bootomSelectView, NSInteger index) {
+        [YZBottomSelectView showBottomSelectViewWithTitle:@"AES数据操作" cancelButtonTitle:@"取消按钮" destructiveButtonTitle:@"加密操作" otherButtonTitles:@[@"解密操作"] handler:^(YZBottomSelectView *bootomSelectView, NSInteger index) {
             DLog(@"点击按钮的序列号：%ld", index);
-            if(index == -1){    //删除数据
-                BOOL res = [SAMKeychain deletePasswordForService:[[NSBundle mainBundle] bundleIdentifier] account:LOGIN_SUCCESS];
-                if(res){
-                    DLog(@"删除成功！");
-                }else{
-                    DLog(@"删除失败！");
-                }
+            if(index == -1){
+                NSString *encryptUsername = [[BaseSecurityUtil sharedBaseSecurityUtil] encryptStr:@"prient"];
+                NSString *encryptPassword = [[BaseSecurityUtil sharedBaseSecurityUtil] encryptStr:@"Xaprient12!@"];
+                DLog(@"加密成功：encryptUsername = %@, encryptPassword = %@", encryptUsername, encryptPassword);
             }
-            if(index == 1){ // 保存数据
-                DLog(@"在登录界面保存");
-                NSString *pwd = [SAMKeychain passwordForService:[[NSBundle mainBundle] bundleIdentifier] account:@"yanzheng"];
-                DLog(@"pwd = %@", pwd);
-            }
-            if(index == 2){ // 获取数据
-                NSData *data = [SAMKeychain passwordDataForService:[[NSBundle mainBundle] bundleIdentifier] account:LOGIN_SUCCESS];
-                NSDictionary *dict = [[BaseHandleUtil sharedBaseHandleUtil] objectWithJSONData:data];
-                DLog(@"userName = %@", [dict objectForKey:@"userName"]);
+            if(index == 1){
+                NSString *decryptUsername = [[BaseSecurityUtil sharedBaseSecurityUtil] decryptStr:@"0vmEZehnk8LFAGeItQaeKw=="];
+                NSString *decryptPassword = [[BaseSecurityUtil sharedBaseSecurityUtil] decryptStr:@"c1sYRrdabZRYvrkqRctX2g=="];
+                DLog(@"解密成功：decryptUsername = %@, decryptPassword = %@", decryptUsername, decryptPassword);
             }
         }];
     }
