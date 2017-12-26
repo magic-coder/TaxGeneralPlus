@@ -35,6 +35,7 @@
 #import "BaseHandleUtil.h"
 #import "BaseSandBoxUtil.h"
 #import "BaseSettingUtil.h"
+#import "BaseSecurityUtil.h"
 #import "LoginViewController.h"
 #import "BaseWebViewController.h"
 

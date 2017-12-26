@@ -33,7 +33,7 @@
 		181CDB001FCEB122006C6FBF /* MsgRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 181CDAFF1FCEB122006C6FBF /* MsgRefreshHeader.m */; };
 		1822C06B1FF0E84F00971164 /* SAMKeychainQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 1822C0671FF0E84E00971164 /* SAMKeychainQuery.m */; };
 		1822C06C1FF0E84F00971164 /* SAMKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 1822C06A1FF0E84E00971164 /* SAMKeychain.m */; };
-		1822C0701FF108CE00971164 /* BaseSecurityUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1822C06F1FF108CE00971164 /* BaseSecurityUtil.m */; };
+		1822C0791FF2070500971164 /* BaseKeychainUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1822C0771FF2070400971164 /* BaseKeychainUtil.m */; };
 		18339AF51FCD0897001E50DD /* Map.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18339AF41FCD0897001E50DD /* Map.xcassets */; };
 		1836FCBB1FA1E3D900ABDA10 /* NewsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1836FCBA1FA1E3D900ABDA10 /* NewsTableViewCell.m */; };
 		1836FCBE1FA1ED1400ABDA10 /* UIView+YZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 1836FCBD1FA1ED1400ABDA10 /* UIView+YZ.m */; };
@@ -59,6 +59,11 @@
 		186FF2D41FD934A900F76DF4 /* refreshsound.caf in Resources */ = {isa = PBXBuildFile; fileRef = 186FF2D11FD934A900F76DF4 /* refreshsound.caf */; };
 		187241181F99F8C70089EC02 /* MBProgressHUD+YZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 187241171F99F8C70089EC02 /* MBProgressHUD+YZ.m */; };
 		1874B7C01FBBE6B5001E94F0 /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1874B7BF1FBBE6B5001E94F0 /* AccountViewController.m */; };
+		18777E431FF223D000BBA0FD /* BaseSecurityUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18777E421FF223D000BBA0FD /* BaseSecurityUtil.m */; };
+		18777E501FF2264F00BBA0FD /* AES.m in Sources */ = {isa = PBXBuildFile; fileRef = 18777E481FF2264E00BBA0FD /* AES.m */; };
+		18777E511FF2264F00BBA0FD /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 18777E491FF2264E00BBA0FD /* NSString+Base64.m */; };
+		18777E521FF2264F00BBA0FD /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 18777E4E1FF2264E00BBA0FD /* NSData+CommonCrypto.m */; };
+		18777E531FF2264F00BBA0FD /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 18777E4F1FF2264E00BBA0FD /* NSData+Base64.m */; };
 		1881C0271FCFEC23005E6AD6 /* YALSunnyRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1881C0231FCFEC23005E6AD6 /* YALSunnyRefreshControl.m */; };
 		1881C0281FCFEC23005E6AD6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1881C0241FCFEC23005E6AD6 /* Images.xcassets */; };
 		1881C0291FCFEC23005E6AD6 /* YALSunnyRefreshControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1881C0261FCFEC23005E6AD6 /* YALSunnyRefreshControl.xib */; };
@@ -276,8 +281,8 @@
 		1822C0681FF0E84E00971164 /* SAMKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMKeychain.h; sourceTree = "<group>"; };
 		1822C0691FF0E84E00971164 /* SAMKeychainQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMKeychainQuery.h; sourceTree = "<group>"; };
 		1822C06A1FF0E84E00971164 /* SAMKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMKeychain.m; sourceTree = "<group>"; };
-		1822C06E1FF108CE00971164 /* BaseSecurityUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseSecurityUtil.h; sourceTree = "<group>"; };
-		1822C06F1FF108CE00971164 /* BaseSecurityUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseSecurityUtil.m; sourceTree = "<group>"; };
+		1822C0771FF2070400971164 /* BaseKeychainUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseKeychainUtil.m; sourceTree = "<group>"; };
+		1822C0781FF2070400971164 /* BaseKeychainUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseKeychainUtil.h; sourceTree = "<group>"; };
 		18339AF31FCD00AA001E50DD /* Codeing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Codeing.h; sourceTree = "<group>"; };
 		18339AF41FCD0897001E50DD /* Map.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Map.xcassets; sourceTree = "<group>"; };
 		1836FCB91FA1E3D900ABDA10 /* NewsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsTableViewCell.h; sourceTree = "<group>"; };
@@ -326,6 +331,16 @@
 		187241171F99F8C70089EC02 /* MBProgressHUD+YZ.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+YZ.m"; sourceTree = "<group>"; };
 		1874B7BE1FBBE6B5001E94F0 /* AccountViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountViewController.h; sourceTree = "<group>"; };
 		1874B7BF1FBBE6B5001E94F0 /* AccountViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccountViewController.m; sourceTree = "<group>"; };
+		18777E411FF223D000BBA0FD /* BaseSecurityUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseSecurityUtil.h; sourceTree = "<group>"; };
+		18777E421FF223D000BBA0FD /* BaseSecurityUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseSecurityUtil.m; sourceTree = "<group>"; };
+		18777E481FF2264E00BBA0FD /* AES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AES.m; sourceTree = "<group>"; };
+		18777E491FF2264E00BBA0FD /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
+		18777E4A1FF2264E00BBA0FD /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		18777E4B1FF2264E00BBA0FD /* NSData+CommonCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+CommonCrypto.h"; sourceTree = "<group>"; };
+		18777E4C1FF2264E00BBA0FD /* AES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AES.h; sourceTree = "<group>"; };
+		18777E4D1FF2264E00BBA0FD /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
+		18777E4E1FF2264E00BBA0FD /* NSData+CommonCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CommonCrypto.m"; sourceTree = "<group>"; };
+		18777E4F1FF2264E00BBA0FD /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		1881C0231FCFEC23005E6AD6 /* YALSunnyRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YALSunnyRefreshControl.m; sourceTree = "<group>"; };
 		1881C0241FCFEC23005E6AD6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1881C0251FCFEC23005E6AD6 /* YALSunnyRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YALSunnyRefreshControl.h; sourceTree = "<group>"; };
@@ -805,13 +820,13 @@
 			path = SAMKeychain;
 			sourceTree = "<group>";
 		};
-		1822C06D1FF108B400971164 /* Security */ = {
+		1822C0761FF2070400971164 /* Keychain */ = {
 			isa = PBXGroup;
 			children = (
-				1822C06E1FF108CE00971164 /* BaseSecurityUtil.h */,
-				1822C06F1FF108CE00971164 /* BaseSecurityUtil.m */,
+				1822C0781FF2070400971164 /* BaseKeychainUtil.h */,
+				1822C0771FF2070400971164 /* BaseKeychainUtil.m */,
 			);
-			path = Security;
+			path = Keychain;
 			sourceTree = "<group>";
 		};
 		183826E31F90B08C0076C8A5 = {
@@ -894,6 +909,7 @@
 		183827081F90B0D90076C8A5 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
+				18777E471FF2264E00BBA0FD /* AES */,
 				18E90D281FE7B89C004E1282 /* Sangfor */,
 				18FCCD871FA703D000424A0C /* Masonry */,
 				186E5ADB1FA1C0CF00228258 /* YYModel */,
@@ -1175,6 +1191,30 @@
 			path = Account;
 			sourceTree = "<group>";
 		};
+		18777E401FF223BB00BBA0FD /* Security */ = {
+			isa = PBXGroup;
+			children = (
+				18777E411FF223D000BBA0FD /* BaseSecurityUtil.h */,
+				18777E421FF223D000BBA0FD /* BaseSecurityUtil.m */,
+			);
+			path = Security;
+			sourceTree = "<group>";
+		};
+		18777E471FF2264E00BBA0FD /* AES */ = {
+			isa = PBXGroup;
+			children = (
+				18777E4C1FF2264E00BBA0FD /* AES.h */,
+				18777E481FF2264E00BBA0FD /* AES.m */,
+				18777E4A1FF2264E00BBA0FD /* NSData+Base64.h */,
+				18777E4F1FF2264E00BBA0FD /* NSData+Base64.m */,
+				18777E4D1FF2264E00BBA0FD /* NSString+Base64.h */,
+				18777E491FF2264E00BBA0FD /* NSString+Base64.m */,
+				18777E4B1FF2264E00BBA0FD /* NSData+CommonCrypto.h */,
+				18777E4E1FF2264E00BBA0FD /* NSData+CommonCrypto.m */,
+			);
+			path = AES;
+			sourceTree = "<group>";
+		};
 		1881C0221FCFEC23005E6AD6 /* YALSunnyRefreshControll */ = {
 			isa = PBXGroup;
 			children = (
@@ -1293,7 +1333,8 @@
 		188AE5681FA03006008F7D60 /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				1822C06D1FF108B400971164 /* Security */,
+				18777E401FF223BB00BBA0FD /* Security */,
+				1822C0761FF2070400971164 /* Keychain */,
 				183D26EF1FC65FEB00C2A607 /* Handle */,
 				183D26F01FC65FF200C2A607 /* SandBox */,
 				183D26F11FC65FF800C2A607 /* Setting */,
@@ -2149,7 +2190,6 @@
 				188AE5731FA054E0008F7D60 /* YZCycleScrollView.m in Sources */,
 				18C192401FCC1DB300A90B22 /* OneWayHTTPS.m in Sources */,
 				18DE15CE1FB9A21B00434F91 /* LoginUtil.m in Sources */,
-				1822C0701FF108CE00971164 /* BaseSecurityUtil.m in Sources */,
 				18FCCD731FA6C47400424A0C /* AppTopView.m in Sources */,
 				180A90B91FB2E07900F7D213 /* BaseTableViewCell.m in Sources */,
 				18E2C4251FC26B0D00881A8A /* PCCircleInfoView.m in Sources */,
@@ -2159,6 +2199,7 @@
 				187241181F99F8C70089EC02 /* MBProgressHUD+YZ.m in Sources */,
 				180A90D01FB307B100F7D213 /* AppFooterView.m in Sources */,
 				18A1FB0B1FBD2DB800AA07DC /* AboutFooterView.m in Sources */,
+				18777E431FF223D000BBA0FD /* BaseSecurityUtil.m in Sources */,
 				181608501F99DD5B00EC0FC3 /* UIImage+YZ.m in Sources */,
 				18C192341FCBB5C700A90B22 /* MsgListViewController.m in Sources */,
 				18A9A0811FA1AC0F0059C7BB /* BaseHandleUtil.m in Sources */,
@@ -2166,6 +2207,7 @@
 				18AE73F01F98547D00E357D1 /* AFURLRequestSerialization.m in Sources */,
 				180A90BC1FB2E0A000F7D213 /* BaseTableViewHeaderFooterView.m in Sources */,
 				18E2C4221FC26B0D00881A8A /* PCCircle.m in Sources */,
+				18777E501FF2264F00BBA0FD /* AES.m in Sources */,
 				1881C0661FCFFD51005E6AD6 /* MJRefreshStateHeader.m in Sources */,
 				18FCCDA31FA703D000424A0C /* ViewController+MASAdditions.m in Sources */,
 				180A90B61FB2DFFB00F7D213 /* BaseTableModel.m in Sources */,
@@ -2200,7 +2242,9 @@
 				1881C05F1FCFFD51005E6AD6 /* MJRefreshBackGifFooter.m in Sources */,
 				18E2C4261FC26B0D00881A8A /* PCLockLabel.m in Sources */,
 				1881C0651FCFFD51005E6AD6 /* MJRefreshNormalHeader.m in Sources */,
+				1822C0791FF2070500971164 /* BaseKeychainUtil.m in Sources */,
 				18AE74331F9854C700E357D1 /* SDWebImagePrefetcher.m in Sources */,
+				18777E521FF2264F00BBA0FD /* NSData+CommonCrypto.m in Sources */,
 				18AE74361F9854C700E357D1 /* SDWebImageDownloaderOperation.m in Sources */,
 				18E2C4111FC2691000881A8A /* CALayer+YZ.m in Sources */,
 				186E5AE81FA1C2FF00228258 /* NewsModel.m in Sources */,
@@ -2211,6 +2255,7 @@
 				1881C05E1FCFFD51005E6AD6 /* UIView+MJExtension.m in Sources */,
 				186E5AE11FA1C0CF00228258 /* NSObject+YYModel.m in Sources */,
 				18AE743C1F9854C700E357D1 /* UIView+WebCacheOperation.m in Sources */,
+				18777E531FF2264F00BBA0FD /* NSData+Base64.m in Sources */,
 				18AE74781F988EFB00E357D1 /* FLAnimatedImage.m in Sources */,
 				18AC774A1FA8580500EB630B /* YZNetworkingManager.m in Sources */,
 				181A59BE1FDA7AB50021421D /* MapListModel.m in Sources */,
@@ -2255,6 +2300,7 @@
 				18A909D11FE280B600104B0C /* MenuView.m in Sources */,
 				18C02E521FA71582009EBD36 /* AppModel.m in Sources */,
 				18AE742B1F9854C700E357D1 /* UIImageView+HighlightedWebCache.m in Sources */,
+				18777E511FF2264F00BBA0FD /* NSString+Base64.m in Sources */,
 				186E5AE21FA1C0CF00228258 /* YYClassInfo.m in Sources */,
 				18C1923B1FCBBDF500A90B22 /* MsgUtil.m in Sources */,
 				18A1FAF91FBD27E200AA07DC /* ScheduleViewController.m in Sources */,
