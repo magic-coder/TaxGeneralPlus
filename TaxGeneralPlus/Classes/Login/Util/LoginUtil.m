@@ -35,6 +35,9 @@ SingletonM(LoginUtil)
     // 登录方法使用封装好的单向 HTTPS 认证请求，不使用 YZNetworkingManager 因为要进行重复登录校验，否则会冲突
     [OneWayHTTPS POST:url parameters:param success:^(NSURLSessionDataTask *task, id responseObject) {
         if([@"00" isEqualToString:[responseObject objectForKey:@"statusCode"]]){    // 成功标志
+            // 移除安全性信息
+            [dict removeObjectForKey:@"password"];
+            [dict removeObjectForKey:@"verificationCode"];
             // 获取登录成功信息
             NSDictionary *businessData = [responseObject objectForKey:@"businessData"];
             [dict setObject:[businessData objectForKey:@"userName"] forKey:@"userName"];
@@ -51,11 +54,9 @@ SingletonM(LoginUtil)
             [dict setObject:loginDate forKey:@"loginDate"];
             
             // 将登录成功信息保存到用户单例模式中
-            [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"userCode"] forKey:LAST_LOGINCODE];// 记录最近一次登录用户名以便注销后展示
+            [[NSUserDefaults standardUserDefaults] setObject:[dict objectForKey:@"userCode"] forKey:LAST_LOGINCODE];    // 记录最近一次登录用户名以便注销后展示
             [[NSUserDefaults standardUserDefaults] setObject:dict forKey:LOGIN_SUCCESS];
-            [[NSUserDefaults standardUserDefaults] synchronize]; // 强制写入
-            
-            [SAMKeychain setPasswordData:[[BaseHandleUtil sharedBaseHandleUtil] dataWithObject:dict] forService:[[NSBundle mainBundle] bundleIdentifier] account:LOGIN_SUCCESS];
+            [[NSUserDefaults standardUserDefaults] synchronize]; // 强制写入（同步）
             
             [self registerPush];// 推送设备绑定
             

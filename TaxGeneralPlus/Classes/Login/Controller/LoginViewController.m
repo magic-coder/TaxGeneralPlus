@@ -126,7 +126,7 @@ typedef NS_ENUM(NSInteger, LoginShowType) {
     imgUser.image = [UIImage imageNamed:@"login_username"];
     [self.usernameTextField.leftView addSubview:imgUser];
     self.usernameTextField.keyboardType = UIKeyboardTypeASCIICapable;   // 设置键盘类型
-    self.usernameTextField.text = @"26111000006";
+    self.usernameTextField.text = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGINCODE];// 显示最后一次登录用户名
     [_smallView.contentView addSubview:self.usernameTextField];
     
     self.passwordTextField = [[UITextField alloc]initWithFrame:CGRectMake(CGRectGetMinX(self.usernameTextField.frame), CGRectGetMaxY(self.usernameTextField.frame)+10, CGRectGetWidth(self.usernameTextField.frame), CGRectGetHeight(self.usernameTextField.frame))];
@@ -143,7 +143,6 @@ typedef NS_ENUM(NSInteger, LoginShowType) {
     imgPwd.image = [UIImage imageNamed:@"login_password"];
     [self.passwordTextField.leftView addSubview:imgPwd];
     self.passwordTextField.keyboardType = UIKeyboardTypeASCIICapable;   // 设置键盘类型
-    self.passwordTextField.text = @"Aa111111";
     [_smallView.contentView addSubview:self.passwordTextField];
     
     
@@ -160,7 +159,6 @@ typedef NS_ENUM(NSInteger, LoginShowType) {
     imgAuth.image = [UIImage imageNamed:@"login_authcode"];
     [self.authCodeTextField.leftView addSubview:imgAuth];
     self.authCodeTextField.keyboardType = UIKeyboardTypeNumberPad;   // 设置键盘类型
-    self.authCodeTextField.text = @"876635";
     [_smallView.contentView addSubview:self.authCodeTextField];
     
     self.sendBtn = [[UIButton alloc]initWithFrame:CGRectMake(_smallView.frameWidth-120, CGRectGetMaxY(self.passwordTextField.frame)+10, 100, 40)];
