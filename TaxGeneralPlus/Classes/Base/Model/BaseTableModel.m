@@ -26,8 +26,8 @@
         
         self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         self.selectionStyle = UITableViewCellSelectionStyleDefault;
-        self.rightImageHeightOfCell = 0.72;
-        self.middleImageHeightOfCell = 0.35;
+        self.rightImageHeightOfCell = 0.72f;
+        self.middleImageHeightOfCell = 0.35f;
     }
     return self;
 }

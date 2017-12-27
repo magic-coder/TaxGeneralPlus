@@ -260,8 +260,8 @@
     
     if(DEVICE_SCREEN_INCH_IPAD){    // 适配iPad端
         defaultH = 50.0f;
-        buttonH = 60.0f;
-        subH = 100.0f;
+        buttonH = 58.0f;
+        subH = 92.0f;
     }
     
     if (item.type == BaseTableModelItemTypeButton) {
