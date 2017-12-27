@@ -14,7 +14,7 @@
 
 @interface AboutViewController ()
 
-@property (nonatomic, strong) NSArray *data;     // 数据列表
+@property (nonatomic, strong) NSArray *data;                // 数据列表
 
 @property (nonatomic, strong) AboutHeaderView *headerView;  // 顶部视图
 @property (nonatomic, strong) AboutFooterView *footerView;  // 底部视图
@@ -40,10 +40,10 @@ static NSString * const reuseIdentifier = @"aboutTableViewCell";
     _headerView = [[AboutHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, floorf(HEIGHT_SCREEN/3.0f))];
     self.tableView.tableHeaderView = _headerView;
     
-    
     float cellH = 43.0f;
     if(DEVICE_SCREEN_INCH_IPAD)
-        cellH = 68.8f;
+        cellH = 50.0f;
+    
     float footerH = HEIGHT_SCREEN-HEIGHT_STATUS-HEIGHT_NAVBAR-floorf(HEIGHT_SCREEN/3.0f)-(cellH*3)-34-20;
     _footerView = [[AboutFooterView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, footerH)];
     self.tableView.tableFooterView = _footerView;
@@ -68,9 +68,7 @@ static NSString * const reuseIdentifier = @"aboutTableViewCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    float textFontSize = 15.5f;
-    if(DEVICE_SCREEN_INCH_IPAD)
-        textFontSize = 24.8f;
+    float textFontSize = 17.0f;
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;   // 右侧小箭头
@@ -82,11 +80,10 @@ static NSString * const reuseIdentifier = @"aboutTableViewCell";
 
 #pragma mark 返回行高
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    float h = 43.0f;
+    float cellH = 43.0f;
     if(DEVICE_SCREEN_INCH_IPAD)
-        h = 68.8f;
-    
-    return h;
+        cellH = 50.0f;
+    return cellH;
 }
 
 #pragma mark - cell点击事件

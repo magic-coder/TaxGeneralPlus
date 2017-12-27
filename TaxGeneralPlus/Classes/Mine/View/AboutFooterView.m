@@ -24,9 +24,9 @@
         float taxFontSize = 13.0f;
         float labelHeight = 20.0f;
         if(DEVICE_SCREEN_INCH_IPAD){
-            techFontSize = 19.2f;
-            taxFontSize = 20.8f;
-            labelHeight = 32.0f;
+            techFontSize = 14.0f;
+            taxFontSize = 15.0f;
+            labelHeight = 22.0f;
         }
         
         // 逆序从下往上依次添加标签
@@ -99,7 +99,7 @@
     label.textAlignment = NSTextAlignmentCenter;
     //label.font = [UIFont fontWithName:@"Helvetica" size:13.0f];
     if(DEVICE_SCREEN_INCH_IPAD){
-        label.font = [UIFont systemFontOfSize:19.2f];
+        label.font = [UIFont systemFontOfSize:14.0f];
     }else{
         label.font = [UIFont systemFontOfSize:12.0f];
     }

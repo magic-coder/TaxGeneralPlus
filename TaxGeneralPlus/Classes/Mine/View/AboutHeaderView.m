@@ -18,9 +18,8 @@
         
         float imageTop = ceilf(frame.size.height*0.074f);
         CGSize imageSize = CGSizeMake(160.0f, 160.0f);
-        if(DEVICE_SCREEN_INCH_IPAD){
-            imageSize = CGSizeMake(256.0f, 256.0f);
-        }
+        if(DEVICE_SCREEN_INCH_IPAD)
+            imageSize = CGSizeMake(200.0f, 200.0f);
         UIImageView *imageView = [UIImageView new];
         imageView.image = [UIImage imageNamed:@"common_barcode"];
         //imageView.image = [UIImage imageNamed:@"about_logo" scaleToSize:imageView.size];
@@ -37,8 +36,8 @@
         float nameFontSize = 14.0f;
         float nameHeight = 20.0f;
         if(DEVICE_SCREEN_INCH_IPAD){
-            nameFontSize = 22.4f;
-            nameHeight = 32.0f;
+            nameFontSize = 16.0f;
+            nameHeight = 22.0f;
         }
             
         UILabel *nameLabel = [self initializeLabel];
@@ -54,8 +53,8 @@
         float versionFontSize = 12.0f;
         float versionHeight = 20.0f;
         if(DEVICE_SCREEN_INCH_IPAD){
-            versionFontSize = 19.2f;
-            versionHeight = 36.0f;
+            versionFontSize = 14.0f;
+            versionHeight = 22.0f;
         }
         
         UILabel *versionLabel = [self initializeLabel];

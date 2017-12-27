@@ -12,6 +12,8 @@
 
 @interface MineHeaderView ()
 
+@property (nonatomic, assign) float bottomH;
+
 @end
 
 @implementation MineHeaderView
@@ -20,6 +22,13 @@
     if(self = [super initWithFrame:frame]){
         
         self.backgroundColor = DEFAULT_BACKGROUND_COLOR;
+        
+        // 初始化底部通用菜单视图高度
+        if(DEVICE_SCREEN_INCH_IPAD){
+            _bottomH = floorf(self.frameHeight*0.2f);
+        }else{
+            _bottomH = 70.0f;
+        }
         
         // 初始化主视图（用户头像、姓名、部门等...）
         [self initializeMainView];
@@ -38,13 +47,11 @@
     _imageView.contentMode = UIViewContentModeScaleAspectFill;
     [self addSubview:_imageView];
     [_imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self).with.insets(UIEdgeInsetsMake(0, 0, floorf(self.frameHeight*0.25f), 0));
+        make.edges.equalTo(self).with.insets(UIEdgeInsetsMake(0, 0, _bottomH, 0));
     }];
     
     CGSize nightShiftSize = CGSizeMake(20, 20);
-    if(DEVICE_SCREEN_INCH_IPAD)
-        nightShiftSize = CGSizeMake(30, 30);
-        
+    
     _nightShiftBtn = [UIButton new];
     NSMutableDictionary *settingDict = [[BaseSettingUtil sharedBaseSettingUtil] loadSettingData];
     if([[settingDict objectForKey:@"nightShift"] boolValue]){
@@ -63,8 +70,6 @@
     }];
     
     CGSize accountImageSize = CGSizeMake(70, 70);
-    if(DEVICE_SCREEN_INCH_IPAD)
-        accountImageSize = CGSizeMake(112, 112);
     
     _accountImageView = [UIImageView new];
     [self addSubview:_accountImageView];
@@ -85,8 +90,6 @@
     }];
     
     CGSize levelSize = CGSizeMake(32, 12);
-    if(DEVICE_SCREEN_INCH_IPAD)
-        levelSize = CGSizeMake(51.2f, 19.2f);
     
     _levelLabel = [self initializeHeaderLabel];
     _levelLabel.backgroundColor = RgbColor(240, 180, 0, 1.f);
@@ -103,10 +106,6 @@
     
     float nameFontSize = 26.0f;
     float nameHeight = 30.0f;
-    if(DEVICE_SCREEN_INCH_IPAD){
-        nameFontSize = 41.6f;
-        nameHeight = 48.0f;
-    }
     
     _nameLabel = [self initializeHeaderLabel];
     _nameLabel.font = [UIFont boldSystemFontOfSize:nameFontSize];
@@ -120,10 +119,6 @@
     
     float orgNnameFontSize = 14.0f;
     float orgNameHeight = 20.0f;
-    if(DEVICE_SCREEN_INCH_IPAD){
-        orgNnameFontSize = 22.4f;
-        orgNameHeight = 32.0f;
-    }
     
     _orgNameLabel = [self initializeHeaderLabel];
     _orgNameLabel.font = [UIFont systemFontOfSize:orgNnameFontSize];
@@ -144,14 +139,12 @@
     [self addSubview:_bottomView];
     [_bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.bottom.width.equalTo(self);
-        make.height.mas_equalTo(floorf(self.frameHeight*0.25f));
+        make.height.mas_equalTo(_bottomH);
     }];
     
     CGFloat viewWidth = floorf((CGFloat)self.frameWidth/3);
     
     CGSize bottomImageSize = CGSizeMake(30, 30);
-    if(DEVICE_SCREEN_INCH_IPAD)
-        bottomImageSize = CGSizeMake(48, 48);
     
     _leftImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mine_rule"]];
     [_bottomView addSubview:_leftImageView];
@@ -277,11 +270,7 @@
 #pragma mark - 创建底部通用样式的Label
 - (UILabel *)initializeBottomLabel{
     UILabel *label = [UILabel new];
-    if(DEVICE_SCREEN_INCH_IPAD){
-        label.font = [UIFont systemFontOfSize:20.8f];
-    }else{
-        label.font = [UIFont systemFontOfSize:13.0f];
-    }
+    label.font = [UIFont systemFontOfSize:13.0f];
     label.textAlignment = NSTextAlignmentCenter;
     label.textColor = [UIColor grayColor];
     return label;

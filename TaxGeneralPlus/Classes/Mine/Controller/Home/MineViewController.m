@@ -35,9 +35,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // 为适配所有设备，按比例计算头部视图高度
-    _headerViewH = ceilf(HEIGHT_SCREEN*0.35f);
-    _headerBottomViewH = floorf(_headerViewH*0.25f);
+    // 为适配iPad设备，按比例计算头部视图高度
+    if(DEVICE_SCREEN_INCH_IPAD){
+        _headerViewH = ceilf(HEIGHT_SCREEN*0.32f);
+        _headerBottomViewH = floorf(_headerViewH*0.2f);
+    }else{
+        // 当设备为iPhone时进行固定值
+        _headerViewH = HEIGHT_STATUS+HEIGHT_NAVBAR+160;
+        _headerBottomViewH = 70;
+    }
     
     // 不进行自动调整（否则顶部会自动留出安全距离[空白]）
     if (@available(iOS 11.0, *)) {
