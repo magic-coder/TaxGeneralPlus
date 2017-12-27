@@ -102,7 +102,7 @@
     
     UIButton *btn7 = [UIButton buttonWithType:UIButtonTypeSystem];
     btn7.frame = CGRectMake(10, btn6.frameBottom, 300, 30);
-    [btn7 setTitle:@"Keychain测试" forState:UIControlStateNormal];
+    [btn7 setTitle:@"AES测试" forState:UIControlStateNormal];
     [btn7 addTarget:self action:@selector(onClick:) forControlEvents:(UIControlEventTouchUpInside)];
     btn7.tag = 7;
     [self.view addSubview:btn7];
@@ -211,16 +211,6 @@
     if(7 == btn.tag){
         [YZBottomSelectView showBottomSelectViewWithTitle:@"AES数据操作" cancelButtonTitle:@"取消按钮" destructiveButtonTitle:@"加密操作" otherButtonTitles:@[@"解密操作"] handler:^(YZBottomSelectView *bootomSelectView, NSInteger index) {
             DLog(@"点击按钮的序列号：%ld", index);
-            if(index == -1){
-                NSString *encryptUsername = [[BaseSecurityUtil sharedBaseSecurityUtil] encryptStr:@"prient"];
-                NSString *encryptPassword = [[BaseSecurityUtil sharedBaseSecurityUtil] encryptStr:@"Xaprient12!@"];
-                DLog(@"加密成功：encryptUsername = %@, encryptPassword = %@", encryptUsername, encryptPassword);
-            }
-            if(index == 1){
-                NSString *decryptUsername = [[BaseSecurityUtil sharedBaseSecurityUtil] decryptStr:@"0vmEZehnk8LFAGeItQaeKw=="];
-                NSString *decryptPassword = [[BaseSecurityUtil sharedBaseSecurityUtil] decryptStr:@"c1sYRrdabZRYvrkqRctX2g=="];
-                DLog(@"解密成功：decryptUsername = %@, decryptPassword = %@", decryptUsername, decryptPassword);
-            }
         }];
     }
     
