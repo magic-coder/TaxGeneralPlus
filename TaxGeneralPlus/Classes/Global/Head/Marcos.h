@@ -67,10 +67,10 @@
 #define BaiduMap_Key    @"LPwcWZdg1Yx4KDiWeLaKhReCgktKb265"
 
 #pragma mark - VPN基本信息
-#define VPN_HOST        @"202.100.37.174"
-#define VPN_PORT        443
-#define VPN_USERNAME    @"prient"
-#define VPN_PASSWORD    @"Xaprient12!@"
+#define VPN_HOST        @"IXt1s7ode+luSatfkzqPYw=="
+#define VPN_PORT        @"ZKIxHAsCD3ckVUIMAu8rjw=="
+#define VPN_USERNAME    @"0vmEZehnk8LFAGeItQaeKw=="
+#define VPN_PASSWORD    @"c1sYRrdabZRYvrkqRctX2g=="
 
 
 #endif /* Marcos_h */
