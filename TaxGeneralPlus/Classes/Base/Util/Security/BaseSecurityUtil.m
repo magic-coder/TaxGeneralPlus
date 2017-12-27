@@ -1,26 +1,30 @@
-//
-//  BaseSecurityUtil.m
-//  TaxGeneralPlus
-//
-//  Created by Apple on 2017/12/26.
-//  Copyright © 2017年 prient. All rights reserved.
-//
+/************************************************************
+ Class    : BaseSecurityUtil.h
+ Describe : 安全加密解密工具类
+ Company  : Prient
+ Author   : Yanzheng 严正
+ Date     : 2017-12-26
+ Version  : 1.0
+ Declare  : Copyright © 2017 Yanzheng. All rights reserved.
+ ************************************************************/
 
 #import "BaseSecurityUtil.h"
 #import "AES.h"
 
-#define Secret_Key  @"https://github.com/micyo202"
+#define SECRET_KEY  @"https://github.com/micyo202"
 
 @implementation BaseSecurityUtil
 
 SingletonM(BaseSecurityUtil)
 
+#pragma mark - AES加密
 - (NSString *)encryptStr:(NSString *)str {
-    return [AES encrypt:str password:Secret_Key];
+    return [AES encrypt:str password:SECRET_KEY];
 }
 
+#pragma mark - AES解密
 - (NSString *)decryptStr:(NSString *)str {
-    return [AES decrypt:str password:Secret_Key];
+    return [AES decrypt:str password:SECRET_KEY];
 }
 
 @end
