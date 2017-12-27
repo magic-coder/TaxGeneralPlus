@@ -259,9 +259,9 @@
     float defaultH = 43.0f, buttonH = 50.0f, subH = 86.0f;
     
     if(DEVICE_SCREEN_INCH_IPAD){    // 适配iPad端
-        defaultH = ceilf(43.0f*1.6f);
-        buttonH = ceilf(50.0f*1.6f);
-        subH = ceilf(86.0f*1.6f);
+        defaultH = 50.0f;
+        buttonH = 60.0f;
+        subH = 100.0f;
     }
     
     if (item.type == BaseTableModelItemTypeButton) {
@@ -277,11 +277,7 @@
 - (UILabel *) titleLabel{
     if (_titleLabel == nil) {
         _titleLabel = [[UILabel alloc] init];
-        if(DEVICE_SCREEN_INCH_IPAD){    // 适配iPad端
-            [_titleLabel setFont:[UIFont systemFontOfSize:27.2f]];
-        }else{
-            [_titleLabel setFont:[UIFont systemFontOfSize:17.0f]];
-        }
+        //[_titleLabel setFont:[UIFont systemFontOfSize:17.0f]];
     }
     return _titleLabel;
 }
@@ -289,12 +285,7 @@
 - (UILabel *) subTitleLabel{
     if (_subTitleLabel == nil) {
         _subTitleLabel = [[UILabel alloc] init];
-        [_subTitleLabel setTextColor:[UIColor grayColor]];
-        if(DEVICE_SCREEN_INCH_IPAD){    // 适配iPad端
-            [_titleLabel setFont:[UIFont systemFontOfSize:24.0f]];
-        }else{
-            [_subTitleLabel setFont:[UIFont systemFontOfSize:15.0f]];
-        }
+        //[_subTitleLabel setFont:[UIFont systemFontOfSize:15.0f]];
     }
     return _subTitleLabel;
 }
@@ -342,11 +333,7 @@
         [_cButton.layer setCornerRadius:4.0f];
         [_cButton.layer setBorderColor:DEFAULT_LINE_GRAY_COLOR.CGColor];
         [_cButton.layer setBorderWidth:0.5f];
-        if(DEVICE_SCREEN_INCH_IPAD){    // 适配iPad端
-            [_cButton.titleLabel setFont:[UIFont systemFontOfSize:25.6f]];
-        }else{
-            [_cButton.titleLabel setFont:[UIFont systemFontOfSize:16.0f]];
-        }
+        [_cButton.titleLabel setFont:[UIFont systemFontOfSize:16.0f]];
         
         // 注册按钮点击事件
         [self.cButton addTarget:self action:@selector(cButtonOnClick:) forControlEvents:UIControlEventTouchUpInside];

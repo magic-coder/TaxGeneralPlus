@@ -105,17 +105,11 @@ static NSString * const headerFooterViewReuseIdentifier = @"baseHeaderFooterView
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
     float h = 10.0f;
-    if(DEVICE_SCREEN_INCH_IPAD)
-        h = 16.0f;
     
     if (_data && _data.count > section) {
         BaseTableModelGroup *group = [_data objectAtIndex:section];
         if (group.headerTitle == nil) {
-            if(DEVICE_SCREEN_INCH_IPAD){
-                return section == 0 ? 24.0f : 16.0f;
-            }else{
-                return section == 0 ? 15.0f : 10.0f;
-            }
+            return section == 0 ? 20.0f : 10.0f;
         }
         return [BaseTableViewHeaderFooterView getHeightForText:group.headerTitle];
     }
@@ -126,17 +120,11 @@ static NSString * const headerFooterViewReuseIdentifier = @"baseHeaderFooterView
 - (CGFloat) tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     
     float h = 10.0f;
-    if(DEVICE_SCREEN_INCH_IPAD)
-        h = 16.0f;
     
     if (_data && _data.count > section) {
         BaseTableModelGroup *group = [_data objectAtIndex:section];
         if (group.footerTitle == nil) {
-            if(DEVICE_SCREEN_INCH_IPAD){
-                return section == _data.count - 1 ? 48.0f : 16.0f;
-            }else{
-                return section == _data.count - 1 ? 30.0f : 10.0f;
-            }
+            return section == _data.count - 1 ? 30.0f : 10.0f;
         }
         return [BaseTableViewHeaderFooterView getHeightForText:group.footerTitle];
     }
