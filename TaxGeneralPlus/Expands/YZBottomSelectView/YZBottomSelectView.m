@@ -40,12 +40,6 @@ static const NSTimeInterval kAnimateDuration = 0.5f;
     _kSeparatorHeight = 6.0f;
     _kTitleFontSize = 13.0f;
     _kButtonTitleFontSize = 16.0f;
-    if(DEVICE_SCREEN_INCH_IPAD){
-        _kRowHeight = 73.6f;
-        _kSeparatorHeight = 9.6f;
-        _kTitleFontSize = 20.8f;
-        _kButtonTitleFontSize = 25.6f;
-    }
     
     self = [super initWithFrame:CGRectZero];
     if (self) {
