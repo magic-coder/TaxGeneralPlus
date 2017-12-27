@@ -390,12 +390,12 @@
         return;
     }
     self.helper = [AuthHelper getInstance];
-    [self.helper init:EasyApp host:VPN_HOST port:VPN_PORT delegate:self];
+    [self.helper init:EasyApp host:[[BaseSecurityUtil sharedBaseSecurityUtil] decryptStr:VPN_HOST] port:[[[BaseSecurityUtil sharedBaseSecurityUtil] decryptStr:VPN_PORT] intValue] delegate:self];
 }
 #pragma mark - 初始化用户名、密码认证参数
 - (void)initializeAuthParam {
-    [self.helper setAuthParam:@PORPERTY_NamePasswordAuth_NAME param:VPN_USERNAME];
-    [self.helper setAuthParam:@PORPERTY_NamePasswordAuth_PASSWORD param:VPN_PASSWORD];
+    [self.helper setAuthParam:@PORPERTY_NamePasswordAuth_NAME param:[[BaseSecurityUtil sharedBaseSecurityUtil] decryptStr:VPN_USERNAME]];
+    [self.helper setAuthParam:@PORPERTY_NamePasswordAuth_PASSWORD param:[[BaseSecurityUtil sharedBaseSecurityUtil] decryptStr:VPN_PASSWORD]];
 }
 #pragma mark - <SangforSDKDelegate> VPN 代理方法
 - (void)onCallBack:(const VPN_RESULT_NO)vpnErrno authType:(const int)authType {
