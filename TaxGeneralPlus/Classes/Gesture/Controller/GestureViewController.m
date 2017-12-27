@@ -92,7 +92,7 @@
     
     float msgHeight = 14.0f;
     if(DEVICE_SCREEN_INCH_IPAD){
-        msgHeight = 22.4f;
+        msgHeight = 16.0f;
     }
     
     PCLockLabel *msgLabel = [[PCLockLabel alloc] init];

@@ -41,7 +41,7 @@
     
     float fontSize = 14.0f;
     if(DEVICE_SCREEN_INCH_IPAD)
-        fontSize = 22.4f;
+        fontSize = 16.0f;
     
     [self setFont:[UIFont systemFontOfSize:fontSize]];
     [self setTextAlignment:NSTextAlignmentCenter];
