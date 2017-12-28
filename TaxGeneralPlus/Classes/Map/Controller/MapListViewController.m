@@ -134,11 +134,7 @@ static NSString * const reuseIdentifier = @"reuseIdentifierGroup";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    float h = 50.0f;
-    if(DEVICE_SCREEN_INCH_IPAD){
-        h = 80.0f;
-    }
-    return h;
+    return 50.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{

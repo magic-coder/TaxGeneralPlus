@@ -29,15 +29,9 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         [self setBackgroundColor:[UIColor whiteColor]];
         
-        if(DEVICE_SCREEN_INCH_IPAD){
-            _space = 16.0f;
-            _imageWH = 32.0f;
-            _fontSize = 24.0f;
-        }else{
-            _space = 10.0f;
-            _imageWH = 20.0f;
-            _fontSize = 15.0f;
-        }
+        _space = 10.0f;
+        _imageWH = 20.0f;
+        _fontSize = 15.0f;
         
         [self addSubview:self.logoImageView];
         [self addSubview:self.nameLabel];
