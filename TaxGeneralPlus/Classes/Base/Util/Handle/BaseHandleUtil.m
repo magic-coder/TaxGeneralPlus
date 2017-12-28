@@ -9,9 +9,11 @@
  ************************************************************/
 
 #import "BaseHandleUtil.h"
-#import <EventKit/EventKit.h>
-#import <AudioToolbox/AudioToolbox.h>
 #import "MainTabBarController.h"
+
+#import <EventKit/EventKit.h>
+//#import <AVFoundation/AVFoundation.h>
+#import <AudioToolbox/AudioToolbox.h>
 
 @implementation BaseHandleUtil
 
@@ -239,19 +241,43 @@ NSMutableAttributedString *GetAttributedText(NSString *value) {//这里调整富
     
 }
 
-#pragma mark - 播放本地音频文件
+#pragma mark - 播放本地音频文件（老方法，不支持音量大小控制）
+ - (void)playSoundEffect:(NSString *)name
+ type:(NSString *)type {
+ // 1.得到音效文件的地址
+ NSString *soundFilePath =[[NSBundle mainBundle] pathForResource:name ofType:type];
+ // 2.将地址字符串转换成url
+ NSURL *soundURL = [NSURL fileURLWithPath:soundFilePath];
+ // 3.生成系统音效id
+ SystemSoundID soundFileObject;
+ AudioServicesCreateSystemSoundID((__bridge CFURLRef)soundURL, &soundFileObject);
+ // 4.播放系统音效
+ AudioServicesPlaySystemSound(soundFileObject);
+ }
+#pragma mark - 播放本地音频文件（新方法，支持音量控制）
+/*
 - (void)playSoundEffect:(NSString *)name
                    type:(NSString *)type {
-    //得到音效文件的地址
+    // 1.得到音效文件的地址
     NSString *soundFilePath =[[NSBundle mainBundle] pathForResource:name ofType:type];
-    //将地址字符串转换成url
+    // 2.将地址字符串转换成url
     NSURL *soundURL = [NSURL fileURLWithPath:soundFilePath];
-    //生成系统音效id
-    SystemSoundID soundFileObject;
-    AudioServicesCreateSystemSoundID((__bridge CFURLRef)soundURL, &soundFileObject);
-    //播放系统音效
-    AudioServicesPlaySystemSound(soundFileObject);
+    // 3.初始化音频播放器
+    AVAudioPlayer *avAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundURL error:nil];
+    // 4.设置循环播放
+    // 设置循环播放的次数
+    // 循环次数 = 0，声音会播放一次
+    // 循环次数 = 1，声音会播放2次
+    // 循环次数小于0，会无限循环播放，如：-1
+    avAudioPlayer.numberOfLoops = 0;
+    // 5.设置音量
+    avAudioPlayer.volume = 1;
+    // 6.准备播放
+    [avAudioPlayer prepareToPlay];
+    // 7.开始播放
+    [avAudioPlayer play];
 }
+ */
 
 #pragma mark - 设置未读消息条数角标提醒
 - (void)msgBadge:(int)badge {
