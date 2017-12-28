@@ -99,18 +99,22 @@
     // 顶部边线样式
     [_topLine setFrame:CGRectMake(_baseSpace, _baseSpace, self.frameWidth-0.5f-(_baseSpace*2), 0.5f)];
     [_topLine setBackgroundColor:DEFAULT_LINE_GRAY_COLOR];
+    _topLine.alpha = 0.6f;
     
     // 左侧边线样式
     [_leftLine setFrame:CGRectMake(_baseSpace, 0.5f+_baseSpace, 0.5f, self.frameHeight-0.5f-(_baseSpace*2))];
     [_leftLine setBackgroundColor:DEFAULT_LINE_GRAY_COLOR];
+    _leftLine.alpha = 0.6f;
     
     // 右侧边线样式
     [_rightLine setFrame:CGRectMake(self.frameWidth-0.5f-_baseSpace, _baseSpace, 0.5f, self.frameHeight-0.5f-(_baseSpace*2))];
     [_rightLine setBackgroundColor:DEFAULT_LINE_GRAY_COLOR];
+    _rightLine.alpha = 0.6f;
     
     // 底部边线样式
     [_bottomLine setFrame:CGRectMake(0.5f+_baseSpace, self.frameHeight-0.5f-_baseSpace, self.frameWidth-0.5f-(_baseSpace*2), 0.5f)];
     [_bottomLine setBackgroundColor:DEFAULT_LINE_GRAY_COLOR];
+    _bottomLine.alpha = 0.6f;
     
     [_editBtn setFrame:CGRectMake(self.frameWidth - (_editBtnWH+_baseSpace), _baseSpace, _editBtnWH, _editBtnWH)];
     [_editBtn setImageEdgeInsets:UIEdgeInsetsMake(8, 8, 8, 8)];// 设置按钮图片大小

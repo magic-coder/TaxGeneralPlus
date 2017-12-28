@@ -9,6 +9,7 @@
  ************************************************************/
 
 #import "AppTopView.h"
+#import "YZButton.h"
 
 @interface AppTopView ()
 
@@ -96,6 +97,8 @@
     
     CGFloat btnW = floorf((CGFloat)(self.frameWidth - (_baseSpace * 5))/4);
     
+    // 老方法iPad错乱问题，废除该方法
+    /*
     UIButton *btn_1 = [UIButton buttonWithType:UIButtonTypeCustom];
     btn_1.frame = CGRectMake(_baseSpace, self.frameHeight-_btnHeight-(_baseSpace/2), btnW, _btnHeight);
     [btn_1 setImage:[UIImage imageNamed:@"app_top_notification"] forState:UIControlStateNormal];
@@ -131,6 +134,7 @@
     [btn_3 setTitleColor:DEFAULT_LIGHT_BLUE_COLOR forState:UIControlStateHighlighted];
     btn_3.imageEdgeInsets = UIEdgeInsetsMake(- (btn_3.frameHeight - btn_3.titleLabel.frameHeight- btn_3.titleLabel.originY),(self.frameWidth - 50)/4/2 - btn_3.imageView.frameWidth/2, 0, 0);
     btn_3.titleEdgeInsets = UIEdgeInsetsMake(btn_3.frameHeight-btn_3.imageView.frameHeight-btn_3.imageView.originY+_baseSpace, -btn_3.imageView.frameWidth*0.9f, 0, 0);
+    btn_3.backgroundColor = [UIColor redColor];
     
     UIButton *btn_4 = [UIButton buttonWithType:UIButtonTypeCustom];
     btn_4.frame = CGRectMake(btn_3.frameRight+_baseSpace, self.frameHeight-_btnHeight-(_baseSpace/2), btnW, _btnHeight);
@@ -143,6 +147,60 @@
     [btn_4 setTitleColor:DEFAULT_LIGHT_BLUE_COLOR forState:UIControlStateHighlighted];
     btn_4.imageEdgeInsets = UIEdgeInsetsMake(- (btn_4.frameHeight - btn_4.titleLabel.frameHeight- btn_4.titleLabel.originY),(self.frameWidth - 50)/4/2 - btn_4.imageView.frameWidth/2, 0, 0);
     btn_4.titleEdgeInsets = UIEdgeInsetsMake(btn_4.frameHeight-btn_4.imageView.frameHeight-btn_4.imageView.originY+_baseSpace, -btn_4.imageView.frameWidth*0.9f, 0, 0);
+    */
+    
+    // 采用最新方法YZButton来进行生成自定义布局的按钮
+    YZButton *btn_1 = [YZButton buttonWithType:UIButtonTypeCustom];
+    btn_1.frame = CGRectMake(_baseSpace, self.frameHeight-_btnHeight-(_baseSpace/2), btnW, _btnHeight);
+    [btn_1 setImage:[UIImage imageNamed:@"app_top_notification"] forState:UIControlStateNormal];
+    [btn_1 setImage:[UIImage imageNamed:@"app_top_notificationHL"] forState:UIControlStateHighlighted];
+    [btn_1 setTitle:@"通知公告" forState:UIControlStateNormal];
+    btn_1.titleLabel.textAlignment = NSTextAlignmentCenter;
+    [btn_1.titleLabel setFont:_btnFont];
+    btn_1.tag = 21;
+    btn_1.imageRect = CGRectMake(btnW/2-20, 5, 40, 40);
+    btn_1.titleRect = CGRectMake(5, _btnHeight-25, btnW-10, 20);
+    [btn_1 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btn_1 setTitleColor:DEFAULT_LIGHT_BLUE_COLOR forState:UIControlStateHighlighted];
+    
+    YZButton *btn_2 = [YZButton buttonWithType:UIButtonTypeCustom];
+    btn_2.frame = CGRectMake(btn_1.frameRight+_baseSpace, self.frameHeight-_btnHeight-(_baseSpace/2), btnW, _btnHeight);
+    [btn_2 setImage:[UIImage imageNamed:@"app_top_contacts"] forState:UIControlStateNormal];
+    [btn_2 setImage:[UIImage imageNamed:@"app_top_contactsHL"] forState:UIControlStateHighlighted];
+    [btn_2 setTitle:@"通讯录" forState:UIControlStateNormal];
+    btn_2.titleLabel.textAlignment = NSTextAlignmentCenter;
+    [btn_2.titleLabel setFont:_btnFont];
+    btn_2.tag = 22;
+    btn_2.imageRect = CGRectMake(btnW/2-20, 5, 40, 40);
+    btn_2.titleRect = CGRectMake(5, _btnHeight-25, btnW-10, 20);
+    [btn_2 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btn_2 setTitleColor:DEFAULT_LIGHT_BLUE_COLOR forState:UIControlStateHighlighted];
+    
+    YZButton *btn_3 = [YZButton buttonWithType:UIButtonTypeCustom];
+    btn_3.frame = CGRectMake(btn_2.frameRight+_baseSpace, self.frameHeight-_btnHeight-(_baseSpace/2), btnW, _btnHeight);
+    [btn_3 setImage:[UIImage imageNamed:@"app_top_map"] forState:UIControlStateNormal];
+    [btn_3 setImage:[UIImage imageNamed:@"app_top_mapHL"] forState:UIControlStateHighlighted];
+    [btn_3 setTitle:@"税务地图" forState:UIControlStateNormal];
+    btn_3.titleLabel.textAlignment = NSTextAlignmentCenter;
+    [btn_3.titleLabel setFont:_btnFont];
+    btn_3.tag = 23;
+    btn_3.imageRect = CGRectMake(btnW/2-20, 5, 40, 40);
+    btn_3.titleRect = CGRectMake(5, _btnHeight-25, btnW-10, 20);
+    [btn_3 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btn_3 setTitleColor:DEFAULT_LIGHT_BLUE_COLOR forState:UIControlStateHighlighted];
+    
+    YZButton *btn_4 = [YZButton buttonWithType:UIButtonTypeCustom];
+    btn_4.frame = CGRectMake(btn_3.frameRight+_baseSpace, self.frameHeight-_btnHeight-(_baseSpace/2), btnW, _btnHeight);
+    [btn_4 setImage:[UIImage imageNamed:@"app_top_question"] forState:UIControlStateNormal];
+    [btn_4 setImage:[UIImage imageNamed:@"app_top_questionHL"] forState:UIControlStateHighlighted];
+    [btn_4 setTitle:@"常见问题" forState:UIControlStateNormal];
+    btn_4.titleLabel.textAlignment = NSTextAlignmentCenter;
+    [btn_4.titleLabel setFont:_btnFont];
+    btn_4.tag = 24;
+    btn_4.imageRect = CGRectMake(btnW/2-20, 5, 40, 40);
+    btn_4.titleRect = CGRectMake(5, _btnHeight-25, btnW-10, 20);
+    [btn_4 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btn_4 setTitleColor:DEFAULT_LIGHT_BLUE_COLOR forState:UIControlStateHighlighted];
     
     // 注册按钮点击事件
     [btn_edit addTarget:self action:@selector(appBtnOnClick:) forControlEvents:UIControlEventTouchUpInside];
