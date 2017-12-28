@@ -52,27 +52,15 @@
 #pragma mark - 初始化加载
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        if(DEVICE_SCREEN_INCH_IPAD){
-            _imgWH = 20.8f;
-            
-            _arrowImgWH = 48.0f;
-            
-            _labelW = 115.2f;
-            _labelH = 27.2f;
-            
-            _titleFont = [UIFont systemFontOfSize:27.2f];
-            _contentFont = [UIFont systemFontOfSize:22.4f];
-        }else{
-            _imgWH = 13.0f;
-            
-            _arrowImgWH = 30.0f;
-            
-            _labelW = 72.0f;
-            _labelH = 17.0f;
-            
-            _titleFont = [UIFont systemFontOfSize:17.0f];
-            _contentFont = [UIFont systemFontOfSize:14.0f];
-        }
+        _imgWH = 13.0f;
+        
+        _arrowImgWH = 30.0f;
+        
+        _labelW = 72.0f;
+        _labelH = 17.0f;
+        
+        _titleFont = [UIFont systemFontOfSize:17.0f];
+        _contentFont = [UIFont systemFontOfSize:14.0f];
         
         self.selectionStyle = UITableViewCellSelectionStyleNone;    // cell点击变色效果
         self.backgroundColor = [UIColor clearColor];
@@ -151,8 +139,6 @@
     
     // 通用间隙
     _baseSpace = 15.0f;
-    if(DEVICE_SCREEN_INCH_IPAD)
-        _baseSpace = 24.0f;
     // 通用宽度
     float frameWidth = self.frameWidth - (_baseSpace * 4);
     

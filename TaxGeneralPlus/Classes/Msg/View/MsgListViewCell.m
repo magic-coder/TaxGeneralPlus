@@ -54,8 +54,6 @@
     
     //self.leftFreeSpace = self.frameHeight * 0.18;
     self.leftFreeSpace = 12.0f;
-    if(DEVICE_SCREEN_INCH_IPAD)
-        self.leftFreeSpace = 19.2f;
     
     float imageWidth = floorf(self.frameHeight * 0.72f);
     float space = self.leftFreeSpace;
@@ -65,10 +63,6 @@
     float redMarkY = space;
     float redMarkW = 24.0f;
     float redMarkH = 24.0f;
-    if(DEVICE_SCREEN_INCH_IPAD){
-        redMarkW = 38.4f;
-        redMarkH = 38.4f;
-    }
     [self.redMarkView setFrame:CGRectMake(redMarkX - redMarkW/2, redMarkY - redMarkH/2, redMarkW, redMarkH)];
     
     float labelX = space * 2 + imageWidth;
@@ -77,8 +71,6 @@
     float labelWidth = self.frameWidth - labelX - space * 1.5f;
     
     float dateWidth = 120.0f;
-    if(DEVICE_SCREEN_INCH_IPAD)
-        dateWidth = 192.0f;
     float dateHeight = labelHeight * 0.75f;
     float dateX = self.frameWidth - space - dateWidth;
     [self.dateLabel setFrame:CGRectMake(dateX, labelY * 0.7f, dateWidth, dateHeight)];
@@ -174,11 +166,7 @@
 - (UILabel *) nameLabel{
     if (_nameLabel == nil) {
         _nameLabel = [[UILabel alloc] init];
-        if(DEVICE_SCREEN_INCH_IPAD){
-            [_nameLabel setFont:[UIFont systemFontOfSize:25.6f]];
-        }else{
-            [_nameLabel setFont:[UIFont systemFontOfSize:16.0f]];
-        }
+        [_nameLabel setFont:[UIFont systemFontOfSize:16.0f]];
     }
     return _nameLabel;
 }
@@ -189,11 +177,7 @@
         [_dateLabel setAlpha:0.8];
         [_dateLabel setTextAlignment:NSTextAlignmentRight];
         [_dateLabel setTextColor:[UIColor grayColor]];
-        if(DEVICE_SCREEN_INCH_IPAD){
-            [_dateLabel setFont:[UIFont systemFontOfSize:19.2f]];
-        }else{
-            [_dateLabel setFont:[UIFont systemFontOfSize:12.0f]];
-        }
+        [_dateLabel setFont:[UIFont systemFontOfSize:12.0f]];
     }
     return _dateLabel;
 }
@@ -202,11 +186,7 @@
     if (_msgLabel == nil) {
         _msgLabel = [[UILabel alloc] init];
         [_msgLabel setTextColor:[UIColor grayColor]];
-        if(DEVICE_SCREEN_INCH_IPAD){
-            [_msgLabel setFont:[UIFont systemFontOfSize:22.4f]];
-        }else{
-            [_msgLabel setFont:[UIFont systemFontOfSize:14.0f]];
-        }
+        [_msgLabel setFont:[UIFont systemFontOfSize:14.0f]];
     }
     return _msgLabel;
 }
@@ -229,13 +209,8 @@
         [_redMark setTextAlignment:NSTextAlignmentCenter];
         _redMark.layer.masksToBounds = YES;
         _redMark.layer.cornerRadius = 12.0f;
-        if(DEVICE_SCREEN_INCH_IPAD){
-            [_redMark setFrame:CGRectMake(0, 0, 38.4f, 38.4f)];
-            [_redMark setFont:[UIFont boldSystemFontOfSize:19.2f]];
-        }else{
-            [_redMark setFrame:CGRectMake(0, 0, 24.0f, 24.0f)];
-            [_redMark setFont:[UIFont boldSystemFontOfSize:12.0f]];
-        }
+        [_redMark setFrame:CGRectMake(0, 0, 24.0f, 24.0f)];
+        [_redMark setFont:[UIFont boldSystemFontOfSize:12.0f]];
     }
     return _redMark;
 }

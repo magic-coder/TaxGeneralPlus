@@ -76,9 +76,7 @@ static int const pageSize = 5;
 #pragma mark 返回头视图高度
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     float h = 36.0f;
-    if(DEVICE_SCREEN_INCH_IPAD)
-        h = 57.6f;
-        
+    
     if(section == 0){
         return h;
     }else{
@@ -88,9 +86,6 @@ static int const pageSize = 5;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     float h = 36.0f;
-    if(DEVICE_SCREEN_INCH_IPAD)
-        h = 57.6f;
-    
     return h;
 }
 

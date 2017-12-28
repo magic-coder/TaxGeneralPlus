@@ -200,14 +200,6 @@ static int const pageSize = 100;
         
         UIFont *labelFont = [UIFont systemFontOfSize:14.0f];
         CGSize labelSize = CGSizeMake(WIDTH_SCREEN, 20.0f);
-        if(DEVICE_SCREEN_INCH_IPAD){
-            space = 32.0f;
-            
-            imageSize = CGSizeMake(80.0f, 80.0f);
-            
-            labelFont = [UIFont systemFontOfSize:22.4f];
-            labelSize = CGSizeMake(WIDTH_SCREEN, 32.0f);
-        }
         
         [image mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(_emptyView);
@@ -301,10 +293,7 @@ static int const pageSize = 100;
 
 #pragma mark 返回行高
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    float h = 63.0f;
-    if(DEVICE_SCREEN_INCH_IPAD)
-        h = 100.8f;
-    return h;
+    return 63.0f;
 }
 
 #pragma mark 点击行触发点击事件
