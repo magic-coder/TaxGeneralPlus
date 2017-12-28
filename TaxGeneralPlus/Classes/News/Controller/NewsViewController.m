@@ -156,17 +156,19 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
         _data = [[NSMutableArray alloc] init];
         
         // 顶部轮播焦点图数据
-        /*
+
         NSDictionary *loopDict = [dataDict objectForKey:@"loopResult"];
         NSArray *titles = [loopDict objectForKey:@"titles"];
         NSArray *images = [loopDict objectForKey:@"images"];
         NSArray *urls = [loopDict objectForKey:@"urls"];
-        */
+
+        /*
         NSArray *titles = @[@"[学习十九大报告·一日一课]建设美丽中国", @"在新的历史方位上认识和推动国家治理体系和治理能力现代化", @"中央首次派宣讲团赴港宣讲十九大 这位正部领衔", @"多架轰6K等战机飞赴南海战斗巡航的背后"];
         NSArray *images = @[@"cycle_1", @"cycle_2", @"cycle_3", @"cycle_4"];
         NSArray *urls = @[@"https://www.qq.com", @"https://www.alibaba.com", @"https://www.baidu.com", @"https://www.jd.com"];
+        */
         
-        _cycleScrollView = [[YZCycleScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frameWidth, floorf((CGFloat)self.view.frameWidth/1.8)) titles:titles images:images urls:urls autoPlay:YES delay:2.7f];
+        _cycleScrollView = [[YZCycleScrollView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, floorf((CGFloat)WIDTH_SCREEN/1.8)) titles:titles images:images urls:urls autoPlay:YES delay:2.7f];
         _cycleScrollView.delegate = self;
         self.tableView.tableHeaderView = _cycleScrollView;
         

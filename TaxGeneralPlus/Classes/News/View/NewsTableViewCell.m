@@ -52,17 +52,15 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if(self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
+        _baseSpace = 10;
+        
         if(DEVICE_SCREEN_INCH_IPAD){
-            _baseSpace = 16;
+            _titleFont = [UIFont systemFontOfSize:24.0f];
+            _describeFont = [UIFont systemFontOfSize:16.0f];
             
-            _titleFont = [UIFont systemFontOfSize:28.8f];
-            _describeFont = [UIFont systemFontOfSize:19.2f];
-            
-            _describeWidth = 192.0f;// 底部描述标签的宽度
+            _describeWidth = 160.0f;// 底部描述标签的宽度
             _describeHeight = 16.0f;// 底部描述标签的高度
         }else{
-            _baseSpace = 10;
-            
             _titleFont = [UIFont systemFontOfSize:18.0f];
             _describeFont = [UIFont systemFontOfSize:12.0f];
             
