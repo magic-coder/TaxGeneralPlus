@@ -43,9 +43,7 @@
 
 #pragma mark - 进入前台方法
 - (void)appHasGoneInForeground:(NSNotificationCenter *)defaultCenter{
-    self.data = [[MineUtil sharedMineUtil] settingData];
-    
-    [self.tableView reloadData];
+    //self.data = [[MineUtil sharedMineUtil] settingData];
 }
 
 #pragma mark - 设置Cell的点击方法

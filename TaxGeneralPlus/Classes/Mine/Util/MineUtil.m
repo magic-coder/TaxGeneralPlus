@@ -164,23 +164,25 @@ SingletonM(MineUtil)
     NSMutableArray *items = [[NSMutableArray alloc] init];
     
     // 判断用户是否打开消息通知
-    _noticeSubTitle = @"未开启";
+    /*
     [[UNUserNotificationCenter currentNotificationCenter] getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
-        /*
-        if(settings.authorizationStatus == UNAuthorizationStatusNotDetermined){
+        if(settings.authorizationStatus == UNAuthorizationStatusNotDetermined)
             // 未选择，没有选择允许或者不允许，按不允许处理
-        }
-        if(settings.authorizationStatus == UNAuthorizationStatusDenied){
+            _noticeSubTitle = @"未开启";
+        if(settings.authorizationStatus == UNAuthorizationStatusDenied)
             // 未授权，不允许推送
-        }
-        if(settings.authorizationStatus == UNAuthorizationStatusAuthorized){
-            // 已授权，允许推送
-        }
-         */
+            _noticeSubTitle = @"已关闭";
         if(settings.authorizationStatus == UNAuthorizationStatusAuthorized)
+            // 已授权，允许推送
             _noticeSubTitle = @"已开启";
-        
     }];
+    */
+    UIUserNotificationSettings *setting = [[UIApplication sharedApplication] currentUserNotificationSettings];
+    if (UIUserNotificationTypeNone != setting.types) {
+        _noticeSubTitle = @"已开启";
+    }else{
+        _noticeSubTitle = @"已关闭";
+    }
     
     NSString *appName = [[Variable sharedVariable] appName];
     

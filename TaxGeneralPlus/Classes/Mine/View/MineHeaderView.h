@@ -45,6 +45,9 @@
 @property (nonatomic, strong) UIView *firstLineView;            // 第一条竖线
 @property (nonatomic, strong) UIView *secondLineView;           // 第二条竖线
 
+@property (nonatomic, strong) UIView *topLineView;              // 底部视图最上方横线
+@property (nonatomic, strong) UIView *bottomLineView;           // 底部视图最下方横线
+
 @property (nonatomic, strong) NSString *nameText;               // 名字
 
 @property (nonatomic, weak) id<MineHeaderViewDelegate> delegate;

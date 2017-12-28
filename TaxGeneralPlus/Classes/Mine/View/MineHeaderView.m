@@ -142,6 +142,14 @@
         make.height.mas_equalTo(_bottomH);
     }];
     
+    _topLineView = [UIView new];
+    _topLineView.backgroundColor = DEFAULT_LINE_GRAY_COLOR;
+    [_bottomView addSubview:_topLineView];
+    [_topLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.equalTo(_bottomView);
+        make.height.mas_equalTo(0.5f);
+    }];
+    
     CGFloat viewWidth = floorf((CGFloat)self.frameWidth/3);
     
     CGSize bottomImageSize = CGSizeMake(30, 30);
@@ -249,6 +257,15 @@
         make.left.equalTo(_rightTitleLabel);
         make.bottom.mas_equalTo(-5);
         make.width.mas_equalTo(viewWidth-20);
+    }];
+    
+    // 生成底部横线
+    _bottomLineView = [UIView new];
+    _bottomLineView.backgroundColor = DEFAULT_LINE_GRAY_COLOR;
+    [_bottomView addSubview:_bottomLineView];
+    [_bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(_bottomView);
+        make.height.mas_equalTo(0.5f);
     }];
     
 }
