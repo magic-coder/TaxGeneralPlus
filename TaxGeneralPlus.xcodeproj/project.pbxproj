@@ -57,6 +57,7 @@
 		186FF2D21FD934A900F76DF4 /* msgsound.caf in Resources */ = {isa = PBXBuildFile; fileRef = 186FF2CF1FD934A900F76DF4 /* msgsound.caf */; };
 		186FF2D31FD934A900F76DF4 /* btnsound.caf in Resources */ = {isa = PBXBuildFile; fileRef = 186FF2D01FD934A900F76DF4 /* btnsound.caf */; };
 		186FF2D41FD934A900F76DF4 /* refreshsound.caf in Resources */ = {isa = PBXBuildFile; fileRef = 186FF2D11FD934A900F76DF4 /* refreshsound.caf */; };
+		187030431FF4DC9B00D5B0AE /* YZButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 187030421FF4DC9B00D5B0AE /* YZButton.m */; };
 		187241181F99F8C70089EC02 /* MBProgressHUD+YZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 187241171F99F8C70089EC02 /* MBProgressHUD+YZ.m */; };
 		1874B7C01FBBE6B5001E94F0 /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1874B7BF1FBBE6B5001E94F0 /* AccountViewController.m */; };
 		18777E431FF223D000BBA0FD /* BaseSecurityUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18777E421FF223D000BBA0FD /* BaseSecurityUtil.m */; };
@@ -327,6 +328,8 @@
 		186FF2CF1FD934A900F76DF4 /* msgsound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = msgsound.caf; sourceTree = "<group>"; };
 		186FF2D01FD934A900F76DF4 /* btnsound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = btnsound.caf; sourceTree = "<group>"; };
 		186FF2D11FD934A900F76DF4 /* refreshsound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = refreshsound.caf; sourceTree = "<group>"; };
+		187030411FF4DC9B00D5B0AE /* YZButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YZButton.h; sourceTree = "<group>"; };
+		187030421FF4DC9B00D5B0AE /* YZButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YZButton.m; sourceTree = "<group>"; };
 		187241161F99F8C70089EC02 /* MBProgressHUD+YZ.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+YZ.h"; sourceTree = "<group>"; };
 		187241171F99F8C70089EC02 /* MBProgressHUD+YZ.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+YZ.m"; sourceTree = "<group>"; };
 		1874B7BE1FBBE6B5001E94F0 /* AccountViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountViewController.h; sourceTree = "<group>"; };
@@ -931,6 +934,7 @@
 		183827091F90B0ED0076C8A5 /* Expands */ = {
 			isa = PBXGroup;
 			children = (
+				187030401FF4DC6100D5B0AE /* YZButton */,
 				18E2C4061FBEE10E00881A8A /* YZTouchID */,
 				188AE5701FA0546D008F7D60 /* YZCycleScrollView */,
 				18E4ED921F9ED33000CAB201 /* YZBottomSelectView */,
@@ -1180,6 +1184,15 @@
 				186FF2D11FD934A900F76DF4 /* refreshsound.caf */,
 			);
 			path = Sounds;
+			sourceTree = "<group>";
+		};
+		187030401FF4DC6100D5B0AE /* YZButton */ = {
+			isa = PBXGroup;
+			children = (
+				187030411FF4DC9B00D5B0AE /* YZButton.h */,
+				187030421FF4DC9B00D5B0AE /* YZButton.m */,
+			);
+			path = YZButton;
 			sourceTree = "<group>";
 		};
 		1874B7BC1FBBE620001E94F0 /* Account */ = {
@@ -2248,6 +2261,7 @@
 				18AE74361F9854C700E357D1 /* SDWebImageDownloaderOperation.m in Sources */,
 				18E2C4111FC2691000881A8A /* CALayer+YZ.m in Sources */,
 				186E5AE81FA1C2FF00228258 /* NewsModel.m in Sources */,
+				187030431FF4DC9B00D5B0AE /* YZButton.m in Sources */,
 				1881C0271FCFEC23005E6AD6 /* YALSunnyRefreshControl.m in Sources */,
 				1881C05D1FCFFD51005E6AD6 /* NSBundle+MJRefresh.m in Sources */,
 				18DE15C01FB93E7A00434F91 /* LoginViewController.m in Sources */,
