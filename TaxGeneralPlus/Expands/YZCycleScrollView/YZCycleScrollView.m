@@ -38,8 +38,8 @@
     if (self = [super initWithFrame:frame]) {
 
         if(DEVICE_SCREEN_INCH_IPAD){
-            _pageHeight = 32.0f;
-            _titleFontSize = 28.8f;
+            _pageHeight = 24.0f;
+            _titleFontSize = 22.0f;
         }else{
             _pageHeight = 20.0f;
             _titleFontSize = 18.0f;
