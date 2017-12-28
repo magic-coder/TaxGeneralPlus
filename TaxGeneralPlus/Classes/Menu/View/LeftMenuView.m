@@ -40,7 +40,6 @@
 
     self.backgroundColor = DEFAULT_BACKGROUND_COLOR;
     
-    float space = 20.0f;
     float headerH = 120.0f;
     float avatarWH = 60.0f;
     float labelH = 20.0f;
@@ -52,16 +51,13 @@
     _cellFontSize = 15.0f;
     
     if(DEVICE_SCREEN_INCH_IPAD){
-        space = 32.0f;
-        headerH = 190.0f;
-        avatarWH = 90.0;
-        labelH = 32.0f;
+        headerH = 160.0f;
         
-        nameFontSize = 28.2f;
-        orgFontSize = 22.4f;
-        versionFontSize = 18.0f;
+        nameFontSize = 20.0f;
+        orgFontSize = 16.0f;
+        versionFontSize = 14.0f;
         
-        _cellFontSize = 24.0f;
+        _cellFontSize = 17.0f;
     }
     
     //添加头部
@@ -69,17 +65,17 @@
     _headerView.frame = CGRectMake(0, 0, self.frameWidth, HEIGHT_STATUS+headerH);
     [self addSubview:_headerView];
     
-    _avatarView = [[UIImageView alloc] initWithFrame:CGRectMake(space, HEIGHT_STATUS+(avatarWH/2), avatarWH, avatarWH)];
+    _avatarView = [[UIImageView alloc] initWithFrame:CGRectMake(ceilf((CGFloat)self.frameWidth/8)-avatarWH/2, HEIGHT_STATUS+(headerH/4), avatarWH, avatarWH)];
     [_avatarView setImage:[UIImage imageNamed:@"mine_account_header_color"]];
     [_headerView addSubview:_avatarView];
     
-    _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_avatarView.frameRight+space, _avatarView.originY+10, self.frameWidth-_avatarView.frameWidth-(space*3), labelH)];
+    _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_avatarView.frameRight+5, _avatarView.originY+5, self.frameWidth-_avatarView.frameRight-10, labelH)];
     _nameLabel.textAlignment = NSTextAlignmentCenter;
     _nameLabel.textColor = [UIColor whiteColor];
     _nameLabel.font = [UIFont boldSystemFontOfSize:nameFontSize];
     [_headerView addSubview:_nameLabel];
     
-    _orgLabel = [[UILabel alloc] initWithFrame:CGRectMake(_avatarView.frameRight+space, _avatarView.frameBottom-labelH, self.frameWidth-_avatarView.frameWidth-(space*3), labelH)];
+    _orgLabel = [[UILabel alloc] initWithFrame:CGRectMake(_nameLabel.originX, _avatarView.frameBottom-labelH-5, _nameLabel.frameWidth, labelH)];
     _orgLabel.textAlignment = NSTextAlignmentCenter;
     _orgLabel.textColor = [UIColor whiteColor];
     _orgLabel.font = [UIFont systemFontOfSize:orgFontSize];
@@ -120,7 +116,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     float h = 46.0f;
     if(DEVICE_SCREEN_INCH_IPAD)
-        h = 72.0f;
+        h = 60.0f;
     return h;
 }
 
