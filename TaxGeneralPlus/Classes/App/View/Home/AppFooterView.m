@@ -54,7 +54,7 @@
         _msgLabel.textColor = DEFAULT_LINE_GRAY_COLOR;
         _msgLabel.textAlignment = NSTextAlignmentCenter;
         if(DEVICE_SCREEN_INCH_IPAD){
-            _msgLabel.font = [UIFont systemFontOfSize:19.2f];
+            _msgLabel.font = [UIFont systemFontOfSize:14.0f];
         }else{
             _msgLabel.font = [UIFont systemFontOfSize:12.0f];
         }

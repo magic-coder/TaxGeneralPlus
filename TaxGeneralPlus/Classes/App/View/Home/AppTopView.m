@@ -26,15 +26,9 @@
     if(self = [super initWithFrame:frame]){
         self.backgroundColor = DEFAULT_BLUE_COLOR;
         
-        if(DEVICE_SCREEN_INCH_IPAD){
-            _baseSpace = 16.0f;
-            _btnHeight = 128.0f;
-            _btnFont = [UIFont systemFontOfSize:22.4f];
-        }else{
-            _baseSpace = 10.0f;
-            _btnHeight = 80.0f;
-            _btnFont = [UIFont systemFontOfSize:14.0f];
-        }
+        _baseSpace = 10.0f;
+        _btnHeight = 80.0f;
+        _btnFont = [UIFont systemFontOfSize:14.0f];
         
         // 设置视图阴影效果（父类调用时，需要将视图层级关系调整到前面）
         self.layer.shadowOpacity = 0.5;// 设置阴影的透明度 0~1.0

@@ -49,12 +49,12 @@
     
     if(DEVICE_SCREEN_INCH_IPAD){
         _baseSpace = 8.0f;
-        _imgWH = 44.0f;
-        _editBtnWH = 48.0f;
-        _titleH = 32.0f;
-        _titleFont = [UIFont systemFontOfSize:20.8f];
+        _imgWH = 32.0f;
+        _editBtnWH = 34.0f;
+        _titleH = 24.0f;
+        _titleFont = [UIFont systemFontOfSize:16.0f];
         
-        _newImageWH = 44.8f;
+        _newImageWH = 32.0f;
     }else{
         _baseSpace = 5.0f;
         _imgWH = 27.0f;

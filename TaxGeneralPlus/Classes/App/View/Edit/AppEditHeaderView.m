@@ -33,7 +33,7 @@
     self.backgroundColor = [UIColor whiteColor];
     
     if(DEVICE_SCREEN_INCH_IPAD){
-        _titleFont = [UIFont systemFontOfSize:22.4f];
+        _titleFont = [UIFont systemFontOfSize:16.0f];
     }else{
         _titleFont = [UIFont systemFontOfSize:14.0f];
     }
@@ -53,8 +53,6 @@
         float w = self.frameWidth * 0.89;
         float h = [[BaseHandleUtil sharedBaseHandleUtil] calculateHeightWithText:self.title width:w font:_titleFont];
         float x = 16.0f;
-        if(DEVICE_SCREEN_INCH_IPAD)
-            x = 25.6f;
         [_titleLabel setFrame:CGRectMake(x, self.frameHeight/2-h/2, w, h)];
         // 居中布局
         //[_titleLabel setFrame:CGRectMake(self.frameWidth/2-size.width/2, self.frameHeight/2-size.height/2, w, size.height)];
@@ -64,11 +62,7 @@
 #pragma mark - 重写Getter用于组件初始化方法
 - (UIView *)colorView {
     if(!_colorView){
-        if(DEVICE_SCREEN_INCH_IPAD){
-            _colorView = [[UIView alloc] initWithFrame:CGRectMake(12.8f, 16.0f, 8.0f, 19.2f)];
-        }else{
-            _colorView = [[UIView alloc] initWithFrame:CGRectMake(8.0f, 10.0f, 5.0f, 12.0f)];
-        }
+        _colorView = [[UIView alloc] initWithFrame:CGRectMake(8.0f, 10.0f, 5.0f, 12.0f)];
         _colorView.backgroundColor = DEFAULT_BLUE_COLOR;
     }
     return _colorView;

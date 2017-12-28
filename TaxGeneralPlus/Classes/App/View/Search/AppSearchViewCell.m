@@ -33,15 +33,9 @@
         _topLineStyle = AppSearchViewCellLineStyleNone;
         _bottomLineStyle = AppSearchViewCellLineStyleDefault;
         
-        if(DEVICE_SCREEN_INCH_IPAD){
-            self.leftFreeSpace = 19.2f;
-            self.imageWH = 67.0f;
-            self.titleFont = [UIFont systemFontOfSize:24.8f];
-        }else{
-            self.leftFreeSpace = 12.0f;
-            self.imageWH = 42.0f;
-            self.titleFont = [UIFont systemFontOfSize:15.5f];
-        }
+        self.leftFreeSpace = 12.0f;
+        self.imageWH = 42.0f;
+        self.titleFont = [UIFont systemFontOfSize:17.0f];
         
         self.backgroundColor = [UIColor whiteColor];
         [self addSubview:self.logoView];

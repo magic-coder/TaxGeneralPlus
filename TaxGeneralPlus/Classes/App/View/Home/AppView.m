@@ -29,9 +29,9 @@
     if(self = [super initWithFrame:frame]){
         
         if(DEVICE_SCREEN_INCH_IPAD){
-            _imgWH = 44.0f;
-            _titleHeight = 32.0f;
-            _titleFont = [UIFont systemFontOfSize:20.8f];
+            _imgWH = 32.0f;
+            _titleHeight = 24.0f;
+            _titleFont = [UIFont systemFontOfSize:16.0f];
         }else{
             _imgWH = 27.0f;
             _titleHeight = 20.0f;

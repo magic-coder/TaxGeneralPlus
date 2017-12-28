@@ -74,10 +74,7 @@ static NSString * const reuseIdentifier = @"appSubCell";
 }
 #pragma mark 返回行高
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    float h = 63.0f;
-    if(DEVICE_SCREEN_INCH_IPAD)
-        h = 100.8f;
-    return h;
+    return 63.0f;
 }
 
 #pragma mark 点击行触发点击事件

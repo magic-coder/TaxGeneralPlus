@@ -45,11 +45,8 @@ static NSString * const reuseIdentifier = @"appSubCell";
     self.navigationController.interactivePopGestureRecognizer.delegate = self;
     self.view.backgroundColor = [UIColor whiteColor];
     
-    if(DEVICE_SCREEN_INCH_IPAD){
-        _hintFont = [UIFont systemFontOfSize:22.4f];
-    }else{
-        _hintFont = [UIFont systemFontOfSize:14.0f];
-    }
+    _hintFont = [UIFont systemFontOfSize:14.0f];
+    
     _tableView = [[AppSearchTableView alloc] initWithFrame:CGRectMake(0, HEIGHT_STATUS + HEIGHT_NAVBAR - 0.5f, WIDTH_SCREEN, HEIGHT_SCREEN - HEIGHT_NAVBAR - HEIGHT_STATUS + 0.5f) style:UITableViewStylePlain];
     _tableView.touchDelegate = self;
     _tableView.backgroundColor = DEFAULT_BACKGROUND_COLOR;
@@ -116,8 +113,6 @@ static NSString * const reuseIdentifier = @"appSubCell";
             textStr = [NSString stringWithFormat:@"找不到任何与“%@”相匹配的应用", keyWords];
         float textHeight = [[BaseHandleUtil sharedBaseHandleUtil] calculateHeightWithText:textStr width:WIDTH_SCREEN-20 font:_hintFont];
         float hintLabelY = 120.0f;
-        if(DEVICE_SCREEN_INCH_IPAD)
-            hintLabelY = 192.0f;
         self.hintLabel.frame = CGRectMake(10, hintLabelY, WIDTH_SCREEN-20, textHeight);
         if([textStr rangeOfString:@"找不到任何与"].location != NSNotFound && [textStr rangeOfString:@"相匹配的应用"].location != NSNotFound){
             [self.hintLabel setText:textStr afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
@@ -173,10 +168,7 @@ static NSString * const reuseIdentifier = @"appSubCell";
 
 #pragma mark 返回行高
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    float h = 63.0f;
-    if(DEVICE_SCREEN_INCH_IPAD)
-        h = 100.8f;
-    return h;
+    return 63.0f;
 }
 
 #pragma mark 点击行触发点击事件
@@ -241,10 +233,6 @@ static NSString * const reuseIdentifier = @"appSubCell";
         
         float top = 40.0f;
         CGSize size = CGSizeMake(50, 50);
-        if(DEVICE_SCREEN_INCH_IPAD){
-            top = 64.0f;
-            size = CGSizeMake(80, 80);
-        }
         
         [searchImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(_emptyView);

@@ -311,7 +311,7 @@ typedef NS_ENUM(NSInteger, AppViewType) {
 #pragma mark 顶部视图
 - (AppTopView *)appTopView {
     if(!_appTopView){
-        _appTopView = [[AppTopView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, ceilf(HEIGHT_SCREEN*0.22f))];
+        _appTopView = [[AppTopView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, 160)];
         _appTopView.delegate = self;
     }
     return _appTopView;
@@ -339,10 +339,7 @@ typedef NS_ENUM(NSInteger, AppViewType) {
 #pragma mark 我的应用分组头视图
 - (AppHeaderView *)mineHeaderView {
     if(!_mineHeaderView){
-        float h = 30.0f;
-        if(DEVICE_SCREEN_INCH_IPAD)
-            h = 48.0f;
-        _mineHeaderView = [[AppHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, h)];
+        _mineHeaderView = [[AppHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, 30.0f)];
         _mineHeaderView.title = @"我的应用";
     }
     return _mineHeaderView;
@@ -359,10 +356,7 @@ typedef NS_ENUM(NSInteger, AppViewType) {
 #pragma mark 其他应用分组头视图
 - (AppHeaderView *)otherHeaderView {
     if(!_otherHeaderView){
-        float h = 30.0f;
-        if(DEVICE_SCREEN_INCH_IPAD)
-            h = 48.0f;
-        _otherHeaderView = [[AppHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, h)];
+        _otherHeaderView = [[AppHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, 30.0f)];
         _otherHeaderView.title = @"更多应用";
     }
     _otherHeaderView.originY = self.mineFooterView.frameBottom;
