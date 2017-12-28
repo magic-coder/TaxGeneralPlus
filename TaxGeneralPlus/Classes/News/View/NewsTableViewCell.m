@@ -94,8 +94,8 @@
         [_describeLabel setFont:_describeFont];
         [self addSubview:_describeLabel];
         _bottomLine = [UIView new];
-        [_bottomLine setBackgroundColor:[UIColor lightGrayColor]];
-        [_bottomLine setAlpha:0.4];
+        [_bottomLine setBackgroundColor:DEFAULT_LINE_GRAY_COLOR];
+        //[_bottomLine setAlpha:0.4];
         [self addSubview:_bottomLine];
     }
     
