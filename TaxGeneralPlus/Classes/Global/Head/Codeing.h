@@ -26,15 +26,22 @@
 #define SHOW_LOGIN_VIEW         [self presentViewController:[[NSClassFromString(@"LoginViewController") class] new] animated:YES completion:nil];
 #define SHOW_RELOGIN_VIEW \
 \
-[UIAlertController showAlertInViewController:self withTitle:@"提示" message:msg cancelButtonTitle:@"重新登录" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) { \
-[MBProgressHUD showHUDView:self.view text:@"注销中..." progressHUDMode:YZProgressHUDModeLock]; \
-[[LoginUtil sharedLoginUtil] logout:^{ \
-[MBProgressHUD hiddenHUDView:self.view]; \
-SHOW_LOGIN_VIEW \
-} failure:^(NSString *error) { \
-[MBProgressHUD hiddenHUDView:self.view]; \
-[MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow]; \
-}]; \
+FCAlertView *alert = [[FCAlertView alloc] init]; \
+[alert showAlertWithTitle:@"登录失效" \
+             withSubtitle:msg \
+          withCustomImage:[UIImage imageNamed:@"alert_login"] \
+      withDoneButtonTitle:@"重新登录" \
+               andButtons:nil]; \
+alert.colorScheme = alert.flatRed; \
+[alert doneActionBlock:^{ \
+    [MBProgressHUD showHUDView:self.view text:@"注销中..." progressHUDMode:YZProgressHUDModeLock]; \
+    [[LoginUtil sharedLoginUtil] logout:^{ \
+        [MBProgressHUD hiddenHUDView:self.view]; \
+        SHOW_LOGIN_VIEW \
+    } failure:^(NSString *error) { \
+        [MBProgressHUD hiddenHUDView:self.view]; \
+        [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow]; \
+    }]; \
 }]; \
 
 #pragma mark - 防止重复点击（间隔1秒）
