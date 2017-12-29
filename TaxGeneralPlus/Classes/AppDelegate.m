@@ -162,10 +162,10 @@
                 FCAlertView *alert = [[FCAlertView alloc] init];
                 [alert showAlertWithTitle:@"没有网络"
                              withSubtitle:@"无法连接网络，请检查网络设置是否正常！"
-                          withCustomImage:nil
+                          withCustomImage:[UIImage imageNamed:@"alert_network"]
                       withDoneButtonTitle:@"我知道了"
                                andButtons:nil];
-                [alert makeAlertTypeWarning];
+                alert.colorScheme = alert.flatGray;
                 return;
             }
             case AFNetworkReachabilityStatusReachableViaWWAN: // 蜂窝移动数据
@@ -456,11 +456,11 @@
     if(vpnMsg){
         FCAlertView *alert = [[FCAlertView alloc] init];
         [alert showAlertWithTitle:@"VPN连接失败"
-                     withSubtitle:[NSString stringWithFormat:@"由于：\"%@\"，导致您无法正常使用，请稍后再试或联系管理员！", vpnMsg]
-                  withCustomImage:nil
+                     withSubtitle:[NSString stringWithFormat:@"由于：\"%@\"，导致您无法正常使用，请稍后再试或联系管理员。", vpnMsg]
+                  withCustomImage:[UIImage imageNamed:@"alert_vpn"]
               withDoneButtonTitle:@"退出应用"
                        andButtons:nil];
-        [alert makeAlertTypeWarning];
+        alert.colorScheme = alert.flatRed;
         [alert doneActionBlock:^{
             exit(0);
         }];
