@@ -147,12 +147,18 @@
         }
     }
     if([item.title isEqualToString:@"我的日程"]){
-        //[self.navigationController pushViewController:[[NSClassFromString(@"ScheduleViewController") class] new] animated:YES];
-        [UIAlertController showAlertInViewController:self withTitle:nil message:[NSString stringWithFormat:@"\"%@\"想要打开\"日历\"", [[Variable sharedVariable] appName]] cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"打开"] tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
-            if(0 == (buttonIndex - controller.firstOtherButtonIndex)){
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"calshow:"] options:@{} completionHandler:nil];
-            }
+        
+        FCAlertView *alert = [[FCAlertView alloc] init];
+        [alert showAlertWithTitle:@"操作提示"
+                     withSubtitle:[NSString stringWithFormat:@"\"%@\"想要打开\"日历\"，是否允许？", [[Variable sharedVariable] appName]]
+                  withCustomImage:[UIImage imageNamed:@"alert-calendar"]
+              withDoneButtonTitle:@"允许"
+                       andButtons:@[@"取消"]];
+        alert.colorScheme = alert.flatBlue;
+        [alert doneActionBlock:^{
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"calshow:"] options:@{} completionHandler:nil];
         }];
+        
     }
     if([item.title isEqualToString:@"我的客服"]){
         [self.navigationController pushViewController:[[NSClassFromString(@"ServiceViewController") class] new] animated:YES];

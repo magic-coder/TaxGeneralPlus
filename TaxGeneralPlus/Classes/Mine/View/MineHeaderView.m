@@ -150,74 +150,57 @@
         make.height.mas_equalTo(0.5f);
     }];
     
-    CGFloat viewWidth = floorf((CGFloat)self.frameWidth/3);
+    CGFloat btnW = floorf((CGFloat)self.frameWidth/3)-20.0f;
+    CGFloat btnH = _bottomH-10.0f;
     
-    CGSize bottomImageSize = CGSizeMake(30, 30);
-    
-    _leftImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mine_rule"]];
-    [_bottomView addSubview:_leftImageView];
-    [_leftImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.mas_equalTo(-floorf((CGFloat)self.frameWidth/3));
-        make.centerY.equalTo(_bottomView).with.offset(-10);
-        make.size.mas_equalTo(bottomImageSize);
-    }];
-    
-    _leftTitleLabel = [self initializeBottomLabel];
-    _leftTitleLabel.text = @"升级详细规则";
-    [_bottomView addSubview:_leftTitleLabel];
-    [_leftTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_bottomView).with.offset(10);
-        make.bottom.equalTo(_bottomView).with.offset(-5);
-        make.size.mas_equalTo(CGSizeMake(viewWidth-20, 20));
-    }];
-    
-    _leftBtn = [UIButton new];
+    _leftBtn = [YZButton buttonWithType:UIButtonTypeCustom];
+    [_leftBtn setImage:[UIImage imageNamed:@"mine_rule"] forState:UIControlStateNormal];
+    [_leftBtn setImage:[UIImage imageNamed:@"mine_rule"] forState:UIControlStateHighlighted];
+    [_leftBtn setTitle:@"升级详细规则" forState:UIControlStateNormal];
+    _leftBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+    [_leftBtn.titleLabel setFont:[UIFont systemFontOfSize:15.0f]];
+    _leftBtn.imageRect = CGRectMake(btnW/2-16, 0, 32, 32);
+    _leftBtn.titleRect = CGRectMake(0, btnH-16, btnW, 16);
+    [_leftBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [_leftBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
     [_leftBtn addTarget:self action:@selector(btnDidSelected:) forControlEvents:UIControlEventTouchUpInside];
     _leftBtn.tag = 1;
     [_bottomView addSubview:_leftBtn];
     [_leftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_leftTitleLabel);
-        make.top.equalTo(_leftImageView);
-        make.bottom.equalTo(_leftTitleLabel);
-        make.width.mas_equalTo(viewWidth-20);
+        make.centerX.mas_equalTo(-floorf((CGFloat)self.frameWidth/3));
+        make.centerY.equalTo(_bottomView);
+        make.width.mas_equalTo(btnW);
+        make.height.mas_equalTo(btnH);
     }];
     
     _firstLineView = [UIView new];
     _firstLineView.backgroundColor = DEFAULT_LINE_GRAY_COLOR;
     [_bottomView addSubview:_firstLineView];
     [_firstLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(_bottomView).with.offset(-floorf((CGFloat)self.frameWidth/6));
         make.top.equalTo(_bottomView).with.offset(10);
         make.bottom.equalTo(_bottomView).with.offset(-10);
         make.width.mas_equalTo(0.5f);
-        make.centerX.equalTo(_bottomView).with.offset(-floorf((CGFloat)self.frameWidth/6));
     }];
     
-    _middleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mine_level"]];
-    [_bottomView addSubview:_middleImageView];
-    [_middleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(_bottomView);
-        make.centerY.equalTo(_bottomView).with.offset(-10);
-        make.size.mas_equalTo(bottomImageSize);
-    }];
-    
-    _middleTitleLabel = [self initializeBottomLabel];
-    _middleTitleLabel.text = @"黄金等级";
-    [_bottomView addSubview:_middleTitleLabel];
-    [_middleTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_firstLineView.mas_right).with.offset(10);
-        make.bottom.equalTo(_bottomView).with.offset(-5);
-        make.size.mas_equalTo(CGSizeMake(viewWidth-20, 20));
-    }];
-    
-    _middleBtn = [UIButton new];
+    _middleBtn = [YZButton buttonWithType:UIButtonTypeCustom];
+    [_middleBtn setImage:[UIImage imageNamed:@"mine_level"] forState:UIControlStateNormal];
+    [_middleBtn setImage:[UIImage imageNamed:@"mine_level"] forState:UIControlStateHighlighted];
+    [_middleBtn setTitle:@"钻石等级" forState:UIControlStateNormal];
+    _middleBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+    [_middleBtn.titleLabel setFont:[UIFont systemFontOfSize:15.0f]];
+    _middleBtn.imageRect = CGRectMake(btnW/2-16, 0, 32, 32);
+    _middleBtn.titleRect = CGRectMake(0, btnH-16, btnW, 16);
+    [_middleBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [_middleBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
     [_middleBtn addTarget:self action:@selector(btnDidSelected:) forControlEvents:UIControlEventTouchUpInside];
     _middleBtn.tag = 2;
     [_bottomView addSubview:_middleBtn];
     [_middleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_middleImageView);
-        make.left.equalTo(_middleTitleLabel);
-        make.bottom.equalTo(_middleTitleLabel);
-        make.width.mas_equalTo(viewWidth-20);
+        make.centerX.equalTo(_bottomView);
+        make.centerY.equalTo(_bottomView);
+        make.width.mas_equalTo(btnW);
+        make.height.mas_equalTo(btnH);
     }];
     
     _secondLineView = [UIView new];
@@ -230,33 +213,24 @@
         make.width.mas_equalTo(0.5f);
     }];
     
-    _rightImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mine_sign"]];
-    [_bottomView addSubview:_rightImageView];
-    [_rightImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(_bottomView).with.offset(floorf((CGFloat)self.frameWidth/3));
-        make.centerY.equalTo(_bottomView).with.offset(-10);
-        make.size.mas_equalTo(bottomImageSize);
-    }];
-    
-    _rightTitleLabel = [self initializeBottomLabel];
-    _rightTitleLabel.text = @"每日签到";
-    [_bottomView addSubview:_rightTitleLabel];
-    [_rightTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(_bottomView).with.offset(-10);
-        make.bottom.equalTo(_bottomView).with.offset(-5);
-        make.width.mas_equalTo(viewWidth-20);
-    }];
-    
-    _rightBtn = [UIButton new];
+    _rightBtn = [YZButton buttonWithType:UIButtonTypeCustom];
+    [_rightBtn setImage:[UIImage imageNamed:@"mine_sign"] forState:UIControlStateNormal];
+    [_rightBtn setImage:[UIImage imageNamed:@"mine_sign"] forState:UIControlStateHighlighted];
+    [_rightBtn setTitle:@"每日签到" forState:UIControlStateNormal];
+    _rightBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+    [_rightBtn.titleLabel setFont:[UIFont systemFontOfSize:15.0f]];
+    _rightBtn.imageRect = CGRectMake(btnW/2-16, 0, 32, 32);
+    _rightBtn.titleRect = CGRectMake(0, btnH-16, btnW, 16);
+    [_rightBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [_rightBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
     [_rightBtn addTarget:self action:@selector(btnDidSelected:) forControlEvents:UIControlEventTouchUpInside];
-    _rightBtn.frame = CGRectMake(_rightTitleLabel.originX, 10, viewWidth-20, 50);
     _rightBtn.tag = 3;
     [_bottomView addSubview:_rightBtn];
     [_rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_rightImageView);
-        make.left.equalTo(_rightTitleLabel);
-        make.bottom.mas_equalTo(-5);
-        make.width.mas_equalTo(viewWidth-20);
+        make.centerX.mas_equalTo(floorf((CGFloat)self.frameWidth/3));
+        make.centerY.equalTo(_bottomView);
+        make.width.mas_equalTo(btnW);
+        make.height.mas_equalTo(btnH);
     }];
     
     // 生成底部横线
@@ -281,15 +255,6 @@
     //字体自适应
     label.adjustsFontSizeToFitWidth = YES;
     
-    return label;
-}
-
-#pragma mark - 创建底部通用样式的Label
-- (UILabel *)initializeBottomLabel{
-    UILabel *label = [UILabel new];
-    label.font = [UIFont systemFontOfSize:13.0f];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = [UIColor grayColor];
     return label;
 }
 

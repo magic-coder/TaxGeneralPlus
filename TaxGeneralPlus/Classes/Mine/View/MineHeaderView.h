@@ -9,6 +9,7 @@
  ************************************************************/
 
 #import <UIKit/UIKit.h>
+#import "YZButton.h"
 
 // 设置accountHeaderView点击的代理方法
 @protocol MineHeaderViewDelegate <NSObject>
@@ -30,17 +31,9 @@
 
 @property (nonatomic, strong) UIView *bottomView;               // 底部操作视图
 
-@property (nonatomic, strong) UIImageView *leftImageView;       // 左边图标视图
-@property (nonatomic, strong) UIImageView *middleImageView;     // 中间图标视图
-@property (nonatomic, strong) UIImageView *rightImageView;      // 右边图标视图
-
-@property (nonatomic, strong) UILabel *leftTitleLabel;          // 左侧标签
-@property (nonatomic, strong) UILabel *middleTitleLabel;        // 中间标签
-@property (nonatomic, strong) UILabel *rightTitleLabel;         // 右侧标签
-
-@property (nonatomic, strong) UIButton *leftBtn;                // 左边按钮
-@property (nonatomic, strong) UIButton *middleBtn;              // 中间按钮
-@property (nonatomic, strong) UIButton *rightBtn;               // 右边按钮
+@property (nonatomic, strong) YZButton *leftBtn;                // 左边按钮
+@property (nonatomic, strong) YZButton *middleBtn;              // 中间按钮
+@property (nonatomic, strong) YZButton *rightBtn;               // 右边按钮
 
 @property (nonatomic, strong) UIView *firstLineView;            // 第一条竖线
 @property (nonatomic, strong) UIView *secondLineView;           // 第二条竖线

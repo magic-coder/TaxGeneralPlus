@@ -89,19 +89,18 @@
     
     [touchID td_showTouchIDWithDescribe:nil BlockState:^(YZTouchIDState state, NSError *error) {
         
-        if (state == YZTouchIDStateNotSupport) {    //不支持TouchID
+        if (state == YZTouchIDStateNotSupport) {    // 不支持TouchID
             
-            [UIAlertController showAlertInViewController:self withTitle:@"提示" message:@"对不起，当前设备不支持指纹" cancelButtonTitle:@"确定" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
-            }];
+            FCAlertView *alert = [[FCAlertView alloc] init];
+            [alert showAlertWithTitle:@"不支持指纹"
+                         withSubtitle:@"对不起，当前设备不支持指纹，建议使用手势密码。"
+                      withCustomImage:[UIImage imageNamed:@"alert_touch"]
+                  withDoneButtonTitle:@"我知道了"
+                           andButtons:nil];
+            alert.colorScheme = alert.flatRed;
             
             sender.on = !sender.isOn;
-        } else if(state == YZTouchIDStateTouchIDLockout){ // 多次指纹错误被锁定
-            
-            [UIAlertController showAlertInViewController:self withTitle:@"异常操作" message:@"多次错误，指纹已被锁定，请到手机解锁界面输入密码！" cancelButtonTitle:@"确定" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
-            }];
-            sender.on = !sender.isOn;
-            
-        } else if (state == YZTouchIDStateSuccess) {    //TouchID验证成功
+        } else if (state == YZTouchIDStateSuccess) {    // TouchID验证成功
             sender.on = sender.isOn;
         }else{
             sender.on = !sender.isOn;
