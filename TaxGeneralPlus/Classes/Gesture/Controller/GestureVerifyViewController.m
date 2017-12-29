@@ -97,8 +97,15 @@
             DLog(@"密码错误，你还可以输入%d次", _num);
             if(_num <= 0){
                 [self.msgLabel showWarnMsgAndShake:@"手势密码输入错误次数过多，需注销后重新登录！"];
-                [UIAlertController showAlertInViewController:self withTitle:@"异常操作" message:@"手势密码输入错误次数过多，需注销后重新登录！" cancelButtonTitle:@"注销账户" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
-                    
+                
+                FCAlertView *alert = [[FCAlertView alloc] init];
+                [alert showAlertWithTitle:@"异常操作"
+                             withSubtitle:@"手势密码输入错误次数过多，请注销后重新登录。"
+                          withCustomImage:nil
+                      withDoneButtonTitle:@"注销账户"
+                               andButtons:nil];
+                [alert makeAlertTypeWarning];
+                [alert doneActionBlock:^{
                     [MBProgressHUD showHUDView:self.view text:@"注销中..." progressHUDMode:YZProgressHUDModeLock];
                     [[LoginUtil sharedLoginUtil] logout:^{
                         [MBProgressHUD hiddenHUDView:self.view];
@@ -108,6 +115,7 @@
                         [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow];
                     }];
                 }];
+                
             }else{
                 [self.msgLabel showWarnMsgAndShake:gestureTextGestureVerifyError(_num)];
             }
