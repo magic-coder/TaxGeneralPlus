@@ -331,8 +331,13 @@
         delete []temppoints;
         [self mapViewFitPolyLine:polyLine];
     }else{
-        [UIAlertController showAlertInViewController:self withTitle:@"没有对应驾乘线路" message:@"建议使用其他方式前往" cancelButtonTitle:@"确定" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
-        }];
+        FCAlertView *alert = [[FCAlertView alloc] init];
+        [alert showAlertWithTitle:@"没有线路"
+                     withSubtitle:@"没有对应\"驾乘\"线路，建议使用其他方式前往。"
+                  withCustomImage:[UIImage imageNamed:@"alert_route"]
+              withDoneButtonTitle:@"确定"
+                       andButtons:nil];
+        alert.colorScheme = alert.flatOrange;
     }
 }
 #pragma mark 公交路线
@@ -421,8 +426,13 @@
         delete []temppoints;
         [self mapViewFitPolyLine:polyLine];
     }else{
-        [UIAlertController showAlertInViewController:self withTitle:@"没有对应公交线路" message:@"建议使用其他方式前往" cancelButtonTitle:@"确定" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
-        }];
+        FCAlertView *alert = [[FCAlertView alloc] init];
+        [alert showAlertWithTitle:@"没有线路"
+                     withSubtitle:@"没有对应\"公交\"线路，建议使用其他方式前往。"
+                  withCustomImage:[UIImage imageNamed:@"alert_route"]
+              withDoneButtonTitle:@"确定"
+                       andButtons:nil];
+        alert.colorScheme = alert.flatOrange;
     }
 }
 #pragma mark 步行路线
@@ -482,8 +492,13 @@
         delete []temppoints;
         [self mapViewFitPolyLine:polyLine];
     }else{
-        [UIAlertController showAlertInViewController:self withTitle:@"没有对应步行线路" message:@"建议使用其他方式前往" cancelButtonTitle:@"确定" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
-        }];
+        FCAlertView *alert = [[FCAlertView alloc] init];
+        [alert showAlertWithTitle:@"没有线路"
+                     withSubtitle:@"没有对应\"步行\"线路，建议使用其他方式前往。"
+                  withCustomImage:[UIImage imageNamed:@"alert_route"]
+              withDoneButtonTitle:@"确定"
+                       andButtons:nil];
+        alert.colorScheme = alert.flatOrange;
     }
 }
 
@@ -531,8 +546,13 @@
 - (void)moreAction:(UIButton *)sender{
     
     if(![self isOpenLocation]){
-        [UIAlertController showAlertInViewController:self withTitle:@"无法使用定位" message:@"请在iPhone的\"设置-隐私-定位服务\"中开启定位。" cancelButtonTitle:@"确定" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
-        }];
+        FCAlertView *alert = [[FCAlertView alloc] init];
+        [alert showAlertWithTitle:@"无法使用定位"
+                     withSubtitle:@"请在iPhone的\"设置-隐私-定位服务\"中开启定位。"
+                  withCustomImage:[UIImage imageNamed:@"alert_location"]
+              withDoneButtonTitle:@"确定"
+                       andButtons:nil];
+        alert.colorScheme = alert.flatOrange;
         return;
     }
     
@@ -610,8 +630,13 @@
 #pragma mark 底部定位按钮定位方法
 -(void)locationAction:(UIButton *)sender{
     if(![self isOpenLocation]){
-        [UIAlertController showAlertInViewController:self withTitle:@"无法使用定位" message:@"请在iPhone的\"设置-隐私-定位服务\"中开启定位。" cancelButtonTitle:@"确定" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
-        }];
+        FCAlertView *alert = [[FCAlertView alloc] init];
+        [alert showAlertWithTitle:@"无法使用定位"
+                     withSubtitle:@"请在iPhone的\"设置-隐私-定位服务\"中开启定位。"
+                  withCustomImage:[UIImage imageNamed:@"alert_location"]
+              withDoneButtonTitle:@"确定"
+                       andButtons:nil];
+        alert.colorScheme = alert.flatOrange;
         return;
     }
     _mapView.centerCoordinate = _mineCoordinate;
@@ -646,8 +671,13 @@
 -(void)gpsAction:(UIButton *)sender{
     
     if(![self isOpenLocation]){
-        [UIAlertController showAlertInViewController:self withTitle:@"无法使用定位" message:@"请在iPhone的\"设置-隐私-定位服务\"中开启定位。" cancelButtonTitle:@"确定" destructiveButtonTitle:nil otherButtonTitles:nil tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
-        }];
+        FCAlertView *alert = [[FCAlertView alloc] init];
+        [alert showAlertWithTitle:@"无法使用定位"
+                     withSubtitle:@"请在iPhone的\"设置-隐私-定位服务\"中开启定位。"
+                  withCustomImage:[UIImage imageNamed:@"alert_location"]
+              withDoneButtonTitle:@"确定"
+                       andButtons:nil];
+        alert.colorScheme = alert.flatOrange;
         return;
     }
     
