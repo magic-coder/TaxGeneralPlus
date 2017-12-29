@@ -127,8 +127,14 @@ static int const pageSize = 5;
         
         [[BaseHandleUtil sharedBaseHandleUtil] createEventCalendarTitle:model.title location:model.content startDate:startDate endDate:endDate notes:(NSString *)notes allDay:NO alarmArray:@[alarmStr] block:^(NSString *msg) {
             if([msg isEqualToString:@"success"]){
-                [UIAlertController showAlertInViewController:self withTitle:@"提醒添加成功！" message:@"是否打开\"日历\"查看、编辑提醒事件？" cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"打开"] tapBlock:^(UIAlertController * _Nonnull controller, UIAlertAction * _Nonnull action, NSInteger buttonIndex) {
-                    DLog(@"buttonIndex = %ld", buttonIndex);
+                FCAlertView *alert = [[FCAlertView alloc] init];
+                [alert showAlertWithTitle:@"提醒添加成功"
+                             withSubtitle:@"是否打开\"日历\"查看、编辑提醒事件？"
+                          withCustomImage:nil
+                      withDoneButtonTitle:@"打开"
+                               andButtons:@[@"取消"]];
+                [alert makeAlertTypeSuccess];
+                [alert doneActionBlock:^{
                     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"calshow:"] options:@{} completionHandler:nil];
                 }];
             }else{
