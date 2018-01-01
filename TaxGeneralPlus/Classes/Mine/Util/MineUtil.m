@@ -40,7 +40,7 @@ SingletonM(MineUtil)
     BaseTableModelGroup *group2 = [[BaseTableModelGroup alloc] initWithHeaderTitle:nil footerTitle:nil settingItems:setting, nil];
     [items addObject:group2];
     
-    BaseTableModelItem *opinion = [BaseTableModelItem createWithImageName:@"mine_opinion" title:@"意见与反馈"];
+    BaseTableModelItem *opinion = [BaseTableModelItem createWithImageName:@"mine_opinion" title:@"系统评价"];
     BaseTableModelItem *about = [BaseTableModelItem createWithImageName:@"mine_about" title:@"关于"];
     
     BaseTableModelGroup *group3 = [[BaseTableModelGroup alloc] initWithHeaderTitle:nil footerTitle:nil settingItems:opinion, about, nil];

@@ -166,6 +166,12 @@
     if([item.title isEqualToString:@"设置"]){
         [self.navigationController pushViewController:[[NSClassFromString(@"SettingViewController") class] new] animated:YES];
     }
+    if([item.title isEqualToString:@"系统评价"]){
+        NSString *urlStr = [NSString stringWithFormat:@"%@app/evaluation/index", SERVER_URL];
+        BaseWebViewController *evaluationVC = [[BaseWebViewController alloc] initWithURL:urlStr];
+        evaluationVC.title = @"系统评价";
+        [self.navigationController pushViewController:evaluationVC animated:YES];
+    }
     if([item.title isEqualToString:@"关于"]){
         [self.navigationController pushViewController:[[NSClassFromString(@"AboutViewController") class] new] animated:YES];
     }
