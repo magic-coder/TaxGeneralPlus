@@ -10,7 +10,7 @@
 
 #import "BaseWebViewController.h"
 
-@interface BaseWebViewController () <UIWebViewDelegate, NSURLConnectionDataDelegate, UIGestureRecognizerDelegate>
+@interface BaseWebViewController () <UIWebViewDelegate, NSURLConnectionDataDelegate, UIGestureRecognizerDelegate, YBPopupMenuDelegate>
 
 @property (nonatomic, strong) UIView *imagesViewBG;         // 等待界面视图
 @property (nonatomic, strong) UIWebView *webViewBG;         // 加载等待GIF图
@@ -23,6 +23,7 @@
 
 @property (nonatomic, strong) UIBarButtonItem *backItem;    // 导航栏左侧 返回按钮
 @property (nonatomic, strong) UIBarButtonItem *closeItem;   // 导航栏左侧 关闭按钮
+@property (nonatomic, strong) UIBarButtonItem *moreItem;   // 导航栏右侧 更多按钮
 
 // 加载时长计时器
 @property (nonatomic, strong) NSTimer *loadTimer;
@@ -47,7 +48,10 @@
     self.navigationController.interactivePopGestureRecognizer.delegate = self;  // 滑动手势返回方法
     
     self.view.backgroundColor = DEFAULT_BACKGROUND_COLOR;
-    self.navigationItem.leftBarButtonItem = self.backItem;  // 自定义导航栏按钮
+    self.navigationItem.leftBarButtonItem = self.backItem;  // 自定义导航栏左侧按钮
+    // 自定义导航栏右侧按钮
+    UIBarButtonItem *moreButtonItem  = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"navigation_more"] style:UIBarButtonItemStylePlain target:self action:@selector(moreAction:)];
+    self.navigationItem.rightBarButtonItem = moreButtonItem;
     
     [self.view addSubview:self.webView];
     [self.webView loadRequest:self.request];
@@ -93,7 +97,7 @@
     }
     return _request;
 }
-#pragma mark 导航栏返回按钮
+#pragma mark 导航栏左侧返回按钮
 - (UIBarButtonItem *)backItem{
     if (!_backItem) {
         _backItem = [[UIBarButtonItem alloc] init];
@@ -119,13 +123,27 @@
     }
     return _backItem;
 }
-#pragma mark 导航栏关闭按钮
+#pragma mark 导航栏左侧关闭按钮
 - (UIBarButtonItem *)closeItem{
     if (!_closeItem) {
         _closeItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(closeNative)];
         _closeItem.tintColor = [UIColor whiteColor];
     }
     return _closeItem;
+}
+#pragma mark 导航栏右侧更多按钮
+- (void)moreAction:(UIBarButtonItem *)sender {
+    [YBPopupMenu showPopupMenuWithTitles:@[@"刷新", @"系统评价"] icons:@[@"common_web_refresh", @"common_web_evaluate"] delegate:self];
+}
+
+#pragma mark - 更多按钮气泡菜单点击代理方法
+- (void)ybPopupMenuDidSelectedAtIndex:(NSInteger)index ybPopupMenu:(YBPopupMenu *)ybPopupMenu {
+    if(index == 0){
+        [self.webView reload];
+    }
+    if(index == 1){
+        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@app/evaluation/index", SERVER_URL]]]];
+    }
 }
 
 #pragma mark - 自定义组件方法
@@ -275,7 +293,7 @@
     _imagesViewBG.backgroundColor = DEFAULT_BACKGROUND_COLOR;
     
     // 加载失败图片
-    UIImageView *imagesView = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frameWidth/2-40, 100, 80, 80)];
+    UIImageView *imagesView = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frameWidth/2-30, 100, 60, 60)];
     imagesView.image = [UIImage imageNamed:@"common_loading_failed"];
     [_imagesViewBG addSubview:imagesView];
     
