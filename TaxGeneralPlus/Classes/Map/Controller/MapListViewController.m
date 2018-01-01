@@ -40,8 +40,8 @@ static NSString * const reuseIdentifier = @"reuseIdentifierGroup";
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];// Table分组头视图不显示
     
     // 添加导航栏右侧按钮
-    UIBarButtonItem *saveButtonItem  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refreshAction:)];
-    self.navigationItem.rightBarButtonItem = saveButtonItem;
+    UIBarButtonItem *refreshButtonItem  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refreshAction:)];
+    self.navigationItem.rightBarButtonItem = refreshButtonItem;
     
     // 初始化数据
     [self initData];
