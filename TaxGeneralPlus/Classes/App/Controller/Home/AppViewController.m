@@ -66,6 +66,13 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     [self.view addSubview:self.appTopView]; // 添加App最顶部头视图
     [self.view addSubview:self.baseScrollView];
     
+    // 防止UIScrollView顶部空隙
+    if (@available(iOS 11.0, *)) {
+        self.baseScrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    } else {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
+    
     [self.baseScrollView addSubview:self.pullHiddenView];
     [self.baseScrollView addSubview:self.mineHeaderView];
     

@@ -57,6 +57,13 @@ static NSString * const reuseIdentifier = @"appSubCell";
     [_tableView registerClass:[AppSearchViewCell class] forCellReuseIdentifier:reuseIdentifier];
     [_tableView setSeparatorStyle: UITableViewCellSeparatorStyleNone];
     
+    // 防止UITableView顶部空隙
+    if (@available(iOS 11.0, *)) {
+        _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    } else {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
+    
     _searchTextField = [[UITextField alloc] initWithFrame:CGRectMake(15, HEIGHT_STATUS+8, WIDTH_SCREEN - 15 - 60, 28)];
     _searchTextField.layer.cornerRadius = 5;
     _searchTextField.layer.borderWidth = .5;
