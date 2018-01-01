@@ -58,6 +58,7 @@
 		186FF2D31FD934A900F76DF4 /* btnsound.caf in Resources */ = {isa = PBXBuildFile; fileRef = 186FF2D01FD934A900F76DF4 /* btnsound.caf */; };
 		186FF2D41FD934A900F76DF4 /* refreshsound.caf in Resources */ = {isa = PBXBuildFile; fileRef = 186FF2D11FD934A900F76DF4 /* refreshsound.caf */; };
 		187030431FF4DC9B00D5B0AE /* YZButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 187030421FF4DC9B00D5B0AE /* YZButton.m */; };
+		187030451FF5E08800D5B0AE /* Alert.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 187030441FF5E08800D5B0AE /* Alert.xcassets */; };
 		187241181F99F8C70089EC02 /* MBProgressHUD+YZ.m in Sources */ = {isa = PBXBuildFile; fileRef = 187241171F99F8C70089EC02 /* MBProgressHUD+YZ.m */; };
 		1874B7C01FBBE6B5001E94F0 /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1874B7BF1FBBE6B5001E94F0 /* AccountViewController.m */; };
 		18777E431FF223D000BBA0FD /* BaseSecurityUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18777E421FF223D000BBA0FD /* BaseSecurityUtil.m */; };
@@ -330,6 +331,7 @@
 		186FF2D11FD934A900F76DF4 /* refreshsound.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = refreshsound.caf; sourceTree = "<group>"; };
 		187030411FF4DC9B00D5B0AE /* YZButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YZButton.h; sourceTree = "<group>"; };
 		187030421FF4DC9B00D5B0AE /* YZButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YZButton.m; sourceTree = "<group>"; };
+		187030441FF5E08800D5B0AE /* Alert.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Alert.xcassets; sourceTree = "<group>"; };
 		187241161F99F8C70089EC02 /* MBProgressHUD+YZ.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+YZ.h"; sourceTree = "<group>"; };
 		187241171F99F8C70089EC02 /* MBProgressHUD+YZ.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+YZ.m"; sourceTree = "<group>"; };
 		1874B7BE1FBBE6B5001E94F0 /* AccountViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountViewController.h; sourceTree = "<group>"; };
@@ -716,12 +718,13 @@
 				181608481F99A69900EC0FC3 /* TabBar.xcassets */,
 				1804C9E31FA082D400FCC6F1 /* Common.xcassets */,
 				18DE15C21FB9458900434F91 /* Login.xcassets */,
-				18FCCD741FA6CBE300424A0C /* App.xcassets */,
-				180A90C31FB2EDEA00F7D213 /* Mine.xcassets */,
-				189B559B1FC829E6003031A9 /* News.xcassets */,
-				18C1923C1FCBFB8100A90B22 /* Msg.xcassets */,
+				187030441FF5E08800D5B0AE /* Alert.xcassets */,
 				18339AF41FCD0897001E50DD /* Map.xcassets */,
 				180D723D1FE370AA00CAB4B9 /* Menu.xcassets */,
+				189B559B1FC829E6003031A9 /* News.xcassets */,
+				18FCCD741FA6CBE300424A0C /* App.xcassets */,
+				18C1923C1FCBFB8100A90B22 /* Msg.xcassets */,
+				180A90C31FB2EDEA00F7D213 /* Mine.xcassets */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -2119,6 +2122,7 @@
 				1881C0281FCFEC23005E6AD6 /* Images.xcassets in Resources */,
 				183826F71F90B08C0076C8A5 /* Main.storyboard in Resources */,
 				18E90D611FEB58A3004E1282 /* .gitkeep in Resources */,
+				187030451FF5E08800D5B0AE /* Alert.xcassets in Resources */,
 				18E90D641FEB58A3004E1282 /* heart.png in Resources */,
 				18AC774C1FA8595100EB630B /* root-cert.der in Resources */,
 				18E90D671FEB58A3004E1282 /* star.png in Resources */,
