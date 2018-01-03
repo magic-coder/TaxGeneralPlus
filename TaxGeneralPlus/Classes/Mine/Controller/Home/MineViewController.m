@@ -12,21 +12,12 @@
 #import "MineHeaderView.h"
 #import "MineUtil.h"
 
-#define SNOW_IMAGE_X                arc4random()%(int)WIDTH_SCREEN
-#define SNOW_IMAGE_ALPHA            ((float)(arc4random()%10))/10 + 0.5f
-#define SNOW_IMAGE_WIDTH            arc4random()%20 + 20
-
 @interface MineViewController () <MineHeaderViewDelegate>
 
 @property (nonatomic, strong) MineHeaderView *headerView;
 
 @property (nonatomic, assign) float headerViewH;        // 头部视图高度
 @property (nonatomic, assign) float headerBottomViewH;  // 头部视图下方功能按钮栏高度
-
-// 下雪效果
-@property (nonatomic, assign) int offsetY;
-@property (nonatomic, strong) NSMutableArray *snowImagesArray;
-@property (nonatomic, strong) NSTimer *snowTimer;
 
 @end
 
@@ -68,9 +59,6 @@
 
 #pragma mark - 视图即将显示
 - (void)viewWillAppear:(BOOL)animated {
-    
-    [self snowClean];
-    
     // 设置头视图数据
     if(IS_LOGIN){
         _headerView.nameText = [[[NSUserDefaults standardUserDefaults] objectForKey:LOGIN_SUCCESS] objectForKey:@"userName"];
@@ -92,15 +80,6 @@
             make.top.equalTo(_headerView).with.offset(offset.y+HEIGHT_STATUS+10);
         }];
     }
-    if(offset.y == 0 && _offsetY < -160) {
-        _offsetY = 0;
-        [self snowAnimation];
-    }
-}
-#pragma mark - 拖拽结束事件（监控下雪事件）
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    CGPoint offset = scrollView.contentOffset;
-    _offsetY = offset.y;
 }
 
 #pragma mark - 头部视图按钮点击方法
@@ -178,74 +157,6 @@
     if([item.title isEqualToString:@"测试"]){
         [self.navigationController pushViewController:[[NSClassFromString(@"TestViewController") class] new] animated:YES];
     }
-}
-
-#pragma mark - 下雪动画效果
-#pragma mark 初始化雪花效果
-- (void)snowAnimation {
-    
-    [self snowTimerRelease];
-    [self snowClean];
-    
-    _snowImagesArray = [[NSMutableArray alloc] init];
-    for (int i = 0; i < 20; ++ i) {
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mine_snow"]];
-        float x = SNOW_IMAGE_WIDTH;
-        imageView.frame = CGRectMake(SNOW_IMAGE_X, -40, x, x);
-        imageView.alpha = SNOW_IMAGE_ALPHA;
-        //[self.view addSubview:imageView];
-        [WINDOW addSubview:imageView];
-        [_snowImagesArray addObject:imageView];
-    }
-    self.snowTimer = [NSTimer scheduledTimerWithTimeInterval:0.3f target:self selector:@selector(makeSnow) userInfo:nil repeats:YES];
-}
-#pragma mark 制作雪花
-static int i = 0;
-- (void)makeSnow {
-    i = i + 1;
-    if ([_snowImagesArray count] > 0) {
-        UIImageView *imageView = [_snowImagesArray objectAtIndex:0];
-        imageView.tag = i;
-        [_snowImagesArray removeObjectAtIndex:0];
-        [self snowFall:imageView count:_snowImagesArray.count];
-    }else{
-        [self snowTimerRelease];
-    }
-}
-#pragma mark 雪花下落效果
-- (void)snowFall:(UIImageView *)aImageView count:(NSInteger)count {
-    [UIView beginAnimations:[NSString stringWithFormat:@"%li",(long)aImageView.tag] context:nil];
-    [UIView setAnimationDuration:6];
-    [UIView setAnimationDelegate:self];
-    aImageView.frame = CGRectMake(aImageView.frame.origin.x, HEIGHT_SCREEN, aImageView.frameWidth, aImageView.frameHeight);
-    [UIView commitAnimations];
-    if(count == 0){
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self snowClean];
-        });
-    }
-}
-#pragma mark 结束雪花动画，释放对象
-- (void)snowClean {
-    // 重新构建应用前先移除以前的
-    if(![self.snowTimer isValid]){
-        //NSArray *subViews = [self.view subviews];
-        NSArray *subViews = [WINDOW subviews];
-        for(UIView *view in subViews){
-            if([view isKindOfClass:[UIImageView class]] && (view.originY == -40 || view.originY == HEIGHT_SCREEN)){
-                [view removeFromSuperview];
-            }
-        }
-    }
-}
-#pragma mark 停止下雪特效的计时器
-- (void)snowTimerRelease {
-    // 释放定时器，销毁 timer
-    if([self.snowTimer isValid]){
-        [self.snowTimer invalidate];
-        self.snowTimer = nil;
-    }
-
 }
 
 @end
