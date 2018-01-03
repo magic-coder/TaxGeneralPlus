@@ -40,7 +40,6 @@ static int const pageSize = 5;
     [self.tableView registerClass:[MsgDetailViewCell class] forCellReuseIdentifier:reuseIdentifier];
     [self.tableView setSeparatorStyle: UITableViewCellSeparatorStyleNone];
     
-    [self loadListData];// 重新加载第一级，列表数据
     [self loadData];    // 加载消息明细信息
 }
 
@@ -184,14 +183,6 @@ static int const pageSize = 5;
             }
         }];
     }
-}
-
-#pragma mark - 加载第一级列表数据，主要重置未读提醒角标
-- (void)loadListData {
-    [[MsgUtil sharedMsgUtil] loadMsgListPageNo:_pageNo pageSize:pageSize success:^(NSDictionary *dataDict) {
-    } failure:^(NSString *error) {
-    } invalid:^(NSString *msg) {
-    }];
 }
 
 #pragma mark - 加载数据

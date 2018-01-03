@@ -304,9 +304,40 @@ static int const pageSize = 100;
     // 获取当前点击的cell
     MsgListViewCell *cell = (MsgListViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
     
-    MsgDetailViewController *msgDetailVC = [[MsgDetailViewController alloc] init];
-    msgDetailVC.title = cell.model.name; // 设置详细视图标题
+    // 重置提醒角标
+    if([cell.model.unReadCount intValue] > 0){
+        NSDictionary *dataDict = [[MsgUtil sharedMsgUtil] loadMsgFile];
+        
+        NSArray *results = [dataDict objectForKey:@"results"];
+        NSMutableArray *mutableResults = [[NSMutableArray alloc] init];
+        
+        for(NSDictionary *dict in results){
+            NSString *sourceCode = [dict objectForKey:@"sourcecode"];
+            NSString *pushOrgCode = [dict objectForKey:@"swjgdm"];
+            if(pushOrgCode == nil){
+                pushOrgCode = @"";
+            }
+            if(cell.model.pushOrgCode == nil){
+                cell.model.pushOrgCode = @"";
+            }
+            
+            if([sourceCode isEqualToString:cell.model.sourceCode] && [pushOrgCode isEqualToString:cell.model.pushOrgCode]){
+                NSMutableDictionary *mutableDict = [NSMutableDictionary dictionaryWithDictionary:dict];
+                [mutableDict setObject:@"0" forKey:@"unreadcount"];
+                [mutableResults addObject:mutableDict];
+            }else{
+                [mutableResults addObject:dict];
+            }
+        }
+        
+        NSDictionary *resDict = [NSDictionary dictionaryWithObjectsAndKeys: mutableResults, @"results", nil];
+        // 写入本地缓存（SandBox）
+        [[BaseSandBoxUtil sharedBaseSandBoxUtil] writeData:resDict fileName:MSG_FILE];
+        
+    }
     
+    MsgDetailViewController *msgDetailVC = [MsgDetailViewController new];
+    msgDetailVC.title = cell.model.name; // 设置详细视图标题
     msgDetailVC.sourceCode = cell.model.sourceCode;
     msgDetailVC.pushOrgCode = cell.model.pushOrgCode;
     [self.navigationController pushViewController:msgDetailVC animated:YES];
