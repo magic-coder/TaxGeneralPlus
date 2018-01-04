@@ -83,6 +83,8 @@
     if ([deviceModel isEqualToString:@"iPad6,4"])      return @"iPad Pro 9.7";
     if ([deviceModel isEqualToString:@"iPad6,7"])      return @"iPad Pro 12.9";
     if ([deviceModel isEqualToString:@"iPad6,8"])      return @"iPad Pro 12.9";
+    if ([deviceModel isEqualToString:@"iPad6,8"])      return @"iPad Pro 12.9";
+    if ([deviceModel isEqualToString:@"iPad6,11"])     return @"The New iPad 9.7";
     
     if ([deviceModel isEqualToString:@"AppleTV2,1"])      return @"Apple TV 2";
     if ([deviceModel isEqualToString:@"AppleTV3,1"])      return @"Apple TV 3";
