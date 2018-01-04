@@ -133,7 +133,11 @@
 }
 #pragma mark 导航栏右侧更多按钮
 - (void)moreAction:(UIBarButtonItem *)sender {
-    [YBPopupMenu showPopupMenuWithTitles:@[@"刷新", @"系统评价"] icons:@[@"common_web_refresh", @"common_web_evaluate"] delegate:self];
+    if ([self.webView.request.URL.absoluteString rangeOfString:@"app/evaluation/index"].location != NSNotFound) {
+        [YBPopupMenu showPopupMenuWithTitles:@[@"刷新"] icons:@[@"common_web_refresh"] delegate:self];
+    }else{
+        [YBPopupMenu showPopupMenuWithTitles:@[@"刷新", @"系统评价"] icons:@[@"common_web_refresh", @"common_web_evaluate"] delegate:self];
+    }
 }
 
 #pragma mark - 更多按钮气泡菜单点击代理方法
@@ -142,7 +146,8 @@
         [self.webView reload];
     }
     if(index == 1){
-        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@app/evaluation/index", SERVER_URL]]]];
+        self.request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@app/evaluation/index", SERVER_URL]]];
+        [self.webView loadRequest:self.request];
     }
 }
 
@@ -246,7 +251,6 @@
 #pragma mark 加载计时器开始
 - (void)loadTimerCallback{
     _loadTimeCount++;
-    DLog(@"进入LoadTimer -> 次数:%d", _loadTimeCount);
     if(_loadTimeCount == 100){
         [self showLoadingFailedView];// 显示错误页面
     }

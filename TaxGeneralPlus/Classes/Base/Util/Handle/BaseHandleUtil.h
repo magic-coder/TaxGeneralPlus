@@ -131,6 +131,11 @@ SingletonH(BaseHandleUtil)
                    type:(NSString *)type;
 
 /**
+ * 节日动画下落效果（下雪、红包、福袋...）
+ */
+- (void)snowAnimation;
+
+/**
  * 设置未读消息条数角标提醒
  *
  * @param badge 未读消息条数
