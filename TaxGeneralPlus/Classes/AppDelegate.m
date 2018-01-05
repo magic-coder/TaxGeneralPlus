@@ -12,7 +12,8 @@
 #import "MainTabBarController.h"
 #import "GestureViewController.h"
 #import "MsgListViewController.h"
-#import "AFNetworkReachabilityManager.h"
+#import "MsgUtil.h"
+#import "AFNetworkReachabilityManager.h"        // 监测网络状态
 
 #import <BaiduMapAPI_Base/BMKBaseComponent.h>   // BaiduMap引入base相关所有的头文件
 #import <UserNotifications/UserNotifications.h> // 推送服务
@@ -29,7 +30,7 @@
 
 @property (nonatomic, strong) UIVisualEffectView *blurView; // 多任务后台毛玻璃遮挡效果视图
 
-@property (nonatomic, strong) AuthHelper *helper;    // VPN 处理类
+@property (nonatomic, strong) AuthHelper *helper;           // VPN 处理类
 
 // 启动动画遮挡
 @property (nonatomic, strong) CALayer *maskLayer;
@@ -38,6 +39,8 @@
 // 记录使用时间
 @property (nonatomic, assign) double beginTimestamp;
 @property (nonatomic, assign) double endTimestamp;
+
+@property (nonatomic, assign) int networkChange;            // 网络环境切换次数（控制首次不进行网络提示）
 
 @end
 
@@ -52,7 +55,7 @@
     _window.backgroundColor = DEFAULT_BLUE_COLOR;
     
     // 设置root视图控制器
-    _rootVC = [[MainTabBarController alloc] init];
+    _rootVC = [MainTabBarController sharedMainTabBarController];
     _window.rootViewController = _rootVC;
     [_window makeKeyAndVisible];
     
@@ -151,29 +154,47 @@
     AFNetworkReachabilityManager *manager = [AFNetworkReachabilityManager sharedManager];
     // 2.设置网络状态改变后的处理
     [manager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        _networkChange++;
         // 当网络状态改变了, 就会调用这个block
         switch (status) {
             case AFNetworkReachabilityStatusUnknown: // 未知网络
-                DLog(@"未知网络");
+            {
+                if(_networkChange > 1)
+                    [JDStatusBarNotification showWithStatus:@"未知网络" dismissAfter:1.6f styleName:JDStatusBarStyleDark];
                 break;
+            }
             case AFNetworkReachabilityStatusNotReachable: // 没有网络(断网)
             {
                 DLog(@"没有网络");
-                FCAlertView *alert = [[FCAlertView alloc] init];
-                [alert showAlertWithTitle:@"没有网络"
-                             withSubtitle:@"无法连接网络，请检查网络设置是否正常！"
-                          withCustomImage:[UIImage imageNamed:@"alert_network"]
-                      withDoneButtonTitle:@"我知道了"
-                               andButtons:nil];
-                alert.colorScheme = alert.flatGray;
+                if(_networkChange > 1){
+                    [JDStatusBarNotification showWithStatus:@"没有网络，请检查网络设置是否正常！" styleName:JDStatusBarStyleError];
+                }else{
+                    _networkChange = 0;
+                    FCAlertView *alert = [[FCAlertView alloc] init];
+                    [alert showAlertWithTitle:@"没有网络"
+                                 withSubtitle:@"无法连接网络，请检查网络设置是否正常！"
+                              withCustomImage:[UIImage imageNamed:@"alert_network"]
+                          withDoneButtonTitle:@"我知道了"
+                                   andButtons:nil];
+                    alert.colorScheme = alert.flatGray;
+                }
+                    
                 return;
             }
             case AFNetworkReachabilityStatusReachableViaWWAN: // 蜂窝移动数据
+            {
                 DLog(@"蜂窝移动网络");
+                if(_networkChange > 1)
+                    [JDStatusBarNotification showWithStatus:@"蜂窝移动网络" dismissAfter:1.6f styleName:JDStatusBarStyleDark];
                 break;
+            }
             case AFNetworkReachabilityStatusReachableViaWiFi: // WIFI
+            {
                 DLog(@"WIFI网络");
+                if(_networkChange > 1)
+                    [JDStatusBarNotification showWithStatus:@"WIFI网络" dismissAfter:1.6f styleName:JDStatusBarStyleDark];
                 break;
+            }
         }
         [self initializeVPN];       // 网络正常，开始初始化、认证VPN
     }];
@@ -296,16 +317,15 @@
 }
 #pragma mark 毛玻璃遮挡视图效果
 - (UIVisualEffectView *)blurView{
-    if (!_blurView) {
-        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
-        //  毛玻璃view 视图
-        _blurView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-        _blurView.frame = [[UIApplication sharedApplication] keyWindow].bounds;
-        _blurView.alpha = 0;
-    }
-    return _blurView;
+     if (!_blurView) {
+     UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+     //  毛玻璃view 视图
+     _blurView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+     _blurView.frame = [[UIApplication sharedApplication] keyWindow].bounds;
+     _blurView.alpha = 0;
+     }
+     return _blurView;
 }
-
 #pragma mark - 监测截屏操作，截屏给予提示
 - (void)monitoringScreenShot {
     // 检测截屏操作 ------>开始<------
@@ -375,6 +395,13 @@
         if(IS_LOGIN){
             // 隐藏顶部状态栏设为NO
             [UIApplication sharedApplication].statusBarHidden = NO;
+            // 节日动画下落效果（下雪、红包、福袋...）
+            [[BaseHandleUtil sharedBaseHandleUtil] snowAnimation];
+            // 获取未读消息条数
+            [[MsgUtil sharedMsgUtil] msgUnReadCountSuccess:^(int unReadCount) {
+                [Variable sharedVariable].unReadCount = unReadCount;
+                [[BaseHandleUtil sharedBaseHandleUtil] msgBadge:unReadCount];   // 设置未读消息角标提示
+            }];
         }
         // 设置顶部状态栏字体为白色
         [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
