@@ -182,6 +182,10 @@
 		18CB640F1FDE69EC006B01E6 /* YZLocationConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CB640D1FDE69EB006B01E6 /* YZLocationConverter.m */; };
 		18CB64121FDE74C5006B01E6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18CB64111FDE74C5006B01E6 /* MapKit.framework */; };
 		18CD9E2E1FCE9391005F8186 /* MsgDetailViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CD9E2D1FCE9391005F8186 /* MsgDetailViewCell.m */; };
+		18DB52901FFC7966008ACE78 /* JDStatusBarNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DB52881FFC7966008ACE78 /* JDStatusBarNotification.m */; };
+		18DB52911FFC7966008ACE78 /* JDStatusBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DB528A1FFC7966008ACE78 /* JDStatusBarView.m */; };
+		18DB52921FFC7966008ACE78 /* JDStatusBarLayoutMarginHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DB528B1FFC7966008ACE78 /* JDStatusBarLayoutMarginHelper.m */; };
+		18DB52931FFC7966008ACE78 /* JDStatusBarStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DB528E1FFC7966008ACE78 /* JDStatusBarStyle.m */; };
 		18DE15C01FB93E7A00434F91 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE15BF1FB93E7A00434F91 /* LoginViewController.m */; };
 		18DE15C31FB9458900434F91 /* Login.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18DE15C21FB9458900434F91 /* Login.xcassets */; };
 		18DE15CE1FB9A21B00434F91 /* LoginUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DE15CD1FB9A21B00434F91 /* LoginUtil.m */; };
@@ -557,6 +561,14 @@
 		18CB64111FDE74C5006B01E6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		18CD9E2C1FCE9391005F8186 /* MsgDetailViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MsgDetailViewCell.h; sourceTree = "<group>"; };
 		18CD9E2D1FCE9391005F8186 /* MsgDetailViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MsgDetailViewCell.m; sourceTree = "<group>"; };
+		18DB52881FFC7966008ACE78 /* JDStatusBarNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDStatusBarNotification.m; sourceTree = "<group>"; };
+		18DB52891FFC7966008ACE78 /* JDStatusBarStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDStatusBarStyle.h; sourceTree = "<group>"; };
+		18DB528A1FFC7966008ACE78 /* JDStatusBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDStatusBarView.m; sourceTree = "<group>"; };
+		18DB528B1FFC7966008ACE78 /* JDStatusBarLayoutMarginHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDStatusBarLayoutMarginHelper.m; sourceTree = "<group>"; };
+		18DB528C1FFC7966008ACE78 /* JDStatusBarNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDStatusBarNotification.h; sourceTree = "<group>"; };
+		18DB528D1FFC7966008ACE78 /* JDStatusBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDStatusBarView.h; sourceTree = "<group>"; };
+		18DB528E1FFC7966008ACE78 /* JDStatusBarStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDStatusBarStyle.m; sourceTree = "<group>"; };
+		18DB528F1FFC7966008ACE78 /* JDStatusBarLayoutMarginHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDStatusBarLayoutMarginHelper.h; sourceTree = "<group>"; };
 		18DE15BE1FB93E7A00434F91 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		18DE15BF1FB93E7A00434F91 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		18DE15C21FB9458900434F91 /* Login.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Login.xcassets; sourceTree = "<group>"; };
@@ -929,6 +941,7 @@
 				18E2C4151FC26B0D00881A8A /* PCGestureUnlock */,
 				183D27011FC6A8EE00C2A607 /* TTTAttributedLabel */,
 				1806B1ED1F9DF33600F000EB /* UIAlertControllerBlocks */,
+				18DB52871FFC7966008ACE78 /* JDStatusBarNotification */,
 				1881C0221FCFEC23005E6AD6 /* YALSunnyRefreshControll */,
 			);
 			path = Plugins;
@@ -1839,6 +1852,21 @@
 			path = Category;
 			sourceTree = "<group>";
 		};
+		18DB52871FFC7966008ACE78 /* JDStatusBarNotification */ = {
+			isa = PBXGroup;
+			children = (
+				18DB52881FFC7966008ACE78 /* JDStatusBarNotification.m */,
+				18DB52891FFC7966008ACE78 /* JDStatusBarStyle.h */,
+				18DB528A1FFC7966008ACE78 /* JDStatusBarView.m */,
+				18DB528B1FFC7966008ACE78 /* JDStatusBarLayoutMarginHelper.m */,
+				18DB528C1FFC7966008ACE78 /* JDStatusBarNotification.h */,
+				18DB528D1FFC7966008ACE78 /* JDStatusBarView.h */,
+				18DB528E1FFC7966008ACE78 /* JDStatusBarStyle.m */,
+				18DB528F1FFC7966008ACE78 /* JDStatusBarLayoutMarginHelper.h */,
+			);
+			path = JDStatusBarNotification;
+			sourceTree = "<group>";
+		};
 		18DE15CB1FB9A20100434F91 /* Util */ = {
 			isa = PBXGroup;
 			children = (
@@ -2194,6 +2222,7 @@
 				18AE743B1F9854C700E357D1 /* SDImageCacheConfig.m in Sources */,
 				18E2C42E1FC26E5500881A8A /* GestureViewController.m in Sources */,
 				18AE73EF1F98547D00E357D1 /* AFURLSessionManager.m in Sources */,
+				18DB52901FFC7966008ACE78 /* JDStatusBarNotification.m in Sources */,
 				18AE742D1F9854C700E357D1 /* SDWebImageCodersManager.m in Sources */,
 				180A90CA1FB2F09400F7D213 /* BaseSettingUtil.m in Sources */,
 				18FCCDA51FA703D000424A0C /* MASConstraintMaker.m in Sources */,
@@ -2214,6 +2243,7 @@
 				18E4EDB81F9F213900CAB201 /* YBPopupMenu.m in Sources */,
 				18AE744B1F985A1000E357D1 /* MainNavigationController.m in Sources */,
 				187241181F99F8C70089EC02 /* MBProgressHUD+YZ.m in Sources */,
+				18DB52911FFC7966008ACE78 /* JDStatusBarView.m in Sources */,
 				180A90D01FB307B100F7D213 /* AppFooterView.m in Sources */,
 				18A1FB0B1FBD2DB800AA07DC /* AboutFooterView.m in Sources */,
 				18777E431FF223D000BBA0FD /* BaseSecurityUtil.m in Sources */,
@@ -2272,6 +2302,7 @@
 				18FCCDA21FA703D000424A0C /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				1881C05E1FCFFD51005E6AD6 /* UIView+MJExtension.m in Sources */,
 				186E5AE11FA1C0CF00228258 /* NSObject+YYModel.m in Sources */,
+				18DB52931FFC7966008ACE78 /* JDStatusBarStyle.m in Sources */,
 				18AE743C1F9854C700E357D1 /* UIView+WebCacheOperation.m in Sources */,
 				18777E531FF2264F00BBA0FD /* NSData+Base64.m in Sources */,
 				18AE74781F988EFB00E357D1 /* FLAnimatedImage.m in Sources */,
@@ -2313,6 +2344,7 @@
 				18146AB91FA9699D000A3654 /* AppEditHeaderView.m in Sources */,
 				183826F11F90B08C0076C8A5 /* AppDelegate.m in Sources */,
 				18C02E4F1FA71549009EBD36 /* AppView.m in Sources */,
+				18DB52921FFC7966008ACE78 /* JDStatusBarLayoutMarginHelper.m in Sources */,
 				1881C05A1FCFFD51005E6AD6 /* MJRefreshConst.m in Sources */,
 				18E4EDB61F9F213900CAB201 /* YBRectConst.m in Sources */,
 				18A909D11FE280B600104B0C /* MenuView.m in Sources */,
