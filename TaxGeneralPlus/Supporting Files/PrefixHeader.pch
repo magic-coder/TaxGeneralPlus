@@ -49,9 +49,11 @@
 #import "Masonry.h"
 #import "SAMKeychain.h"
 #import "FCAlertView.h"
-#import "UIImageView+WebCache.h"
-#import "UIAlertController+Blocks.h"
 #import "TTTAttributedLabel.h"
+#import "UIImageView+WebCache.h"
+#import "JDStatusBarNotification.h"
+#import "UIAlertController+Blocks.h"
+
 
 
 #endif /* PrefixHeader_pch */
