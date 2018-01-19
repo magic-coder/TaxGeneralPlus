@@ -367,13 +367,39 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
         [super.navigationController pushViewController:[[NSClassFromString(@"AccountViewController") class] new] animated:YES];
     }
     if(1 == tag){
-        FCAlertView *alert = [[FCAlertView alloc] init];
-        [alert showAlertWithTitle:@"签到成功"
-                     withSubtitle:@"恭喜您，获得10积分奖励，明天继续来签到哦😉"
-                  withCustomImage:nil
-              withDoneButtonTitle:@"完成"
-                       andButtons:nil];
-        [alert makeAlertTypeSuccess];
+        [MBProgressHUD showHUDView:self.view text:nil progressHUDMode:YZProgressHUDModeLock];
+        [YZNetworkingManager POST:@"level/obtion" parameters:@{@"scoreType" : @"1"} success:^(id responseObject) {
+            [MBProgressHUD hiddenHUDView:self.view];
+            if([responseObject objectForKey:@"msg"]){
+                FCAlertView *alert = [[FCAlertView alloc] init];
+                [alert showAlertWithTitle:@"已经签到"
+                             withSubtitle:[responseObject objectForKey:@"msg"]
+                          withCustomImage:nil
+                      withDoneButtonTitle:@"好的"
+                               andButtons:nil];
+                [alert makeAlertTypeCaution];
+            }else{
+                FCAlertView *alert = [[FCAlertView alloc] init];
+                [alert showAlertWithTitle:@"签到成功"
+                             withSubtitle:@"恭喜您，获得10积分奖励，明天继续来签到哦😉"
+                          withCustomImage:nil
+                      withDoneButtonTitle:@"完成"
+                               andButtons:nil];
+                [alert makeAlertTypeSuccess];
+            }
+        } failure:^(NSString *error) {
+            [MBProgressHUD hiddenHUDView:self.view];
+            FCAlertView *alert = [[FCAlertView alloc] init];
+            [alert showAlertWithTitle:@"签到失败"
+                         withSubtitle:error
+                      withCustomImage:nil
+                  withDoneButtonTitle:@"确定"
+                           andButtons:nil];
+            [alert makeAlertTypeWarning];
+        } invalid:^(NSString *msg) {
+            [MBProgressHUD hiddenHUDView:self.view];
+            SHOW_RELOGIN_VIEW
+        }];
     }
     if(2 == tag){
         BaseWebViewController *introduceVC = [[BaseWebViewController alloc] initWithURL:[NSString stringWithFormat:@"%@taxnews/public/introductionIOS.htm", SERVER_URL]];
