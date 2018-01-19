@@ -101,6 +101,10 @@
     if(IS_LOGIN && duration > 10){
         // 开始调用统计在线时长接口，记录使用时间
         DLog(@"本次使用时长为：duration = %d", duration);
+        [YZNetworkingManager POST:@"level/obtion" parameters:@{@"scoreType" : @"0", @"duration" : [NSString stringWithFormat:@"%d", duration]} success:^(id responseObject) {
+        } failure:^(NSString *error) {
+        } invalid:^(NSString *msg) {
+        }];
     }
 }
 
