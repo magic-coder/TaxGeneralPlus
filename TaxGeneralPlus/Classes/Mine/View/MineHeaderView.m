@@ -156,7 +156,7 @@
     _leftBtn = [YZButton buttonWithType:UIButtonTypeCustom];
     [_leftBtn setImage:[UIImage imageNamed:@"mine_rule"] forState:UIControlStateNormal];
     [_leftBtn setImage:[UIImage imageNamed:@"mine_rule"] forState:UIControlStateHighlighted];
-    [_leftBtn setTitle:@"升级详细规则" forState:UIControlStateNormal];
+    [_leftBtn setTitle:@"升级规则" forState:UIControlStateNormal];
     _leftBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
     [_leftBtn.titleLabel setFont:[UIFont systemFontOfSize:15.0f]];
     _leftBtn.imageRect = CGRectMake(btnW/2-16, 0, 32, 32);
@@ -186,7 +186,7 @@
     _middleBtn = [YZButton buttonWithType:UIButtonTypeCustom];
     [_middleBtn setImage:[UIImage imageNamed:@"mine_level"] forState:UIControlStateNormal];
     [_middleBtn setImage:[UIImage imageNamed:@"mine_level"] forState:UIControlStateHighlighted];
-    [_middleBtn setTitle:@"钻石等级" forState:UIControlStateNormal];
+    [_middleBtn setTitle:@"白金用户" forState:UIControlStateNormal];
     _middleBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
     [_middleBtn.titleLabel setFont:[UIFont systemFontOfSize:15.0f]];
     _middleBtn.imageRect = CGRectMake(btnW/2-16, 0, 32, 32);

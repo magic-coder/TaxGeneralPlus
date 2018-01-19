@@ -92,20 +92,52 @@
             [self.navigationController pushViewController:[[NSClassFromString(@"AccountViewController") class] new] animated:YES];
         }
         if(1 == sender.tag){
-            DLog(@"详细升级规则");
+            DLog(@"升级规则");
+            BaseWebViewController *webVC = [[BaseWebViewController alloc] initWithURL:[NSString stringWithFormat:@"%@level/rule", SERVER_URL]];
+            webVC.title = @"升级规则";
+            [self.navigationController pushViewController:webVC animated:YES];
         }
         if(2 == sender.tag){
-            DLog(@"钻石");
+            DLog(@"积分情况统计");
+            BaseWebViewController *webVC = [[BaseWebViewController alloc] initWithURL:[NSString stringWithFormat:@"%@level/index", SERVER_URL]];
+            webVC.title = @"积分情况统计";
+            [self.navigationController pushViewController:webVC animated:YES];
         }
         if(3 == sender.tag){
             DLog(@"每日签到");
-            FCAlertView *alert = [[FCAlertView alloc] init];
-            [alert showAlertWithTitle:@"签到成功"
-                         withSubtitle:@"恭喜您，获得10积分奖励，明天继续来签到哦😉"
-                      withCustomImage:nil
-                  withDoneButtonTitle:@"完成"
-                           andButtons:nil];
-            [alert makeAlertTypeSuccess];
+            [MBProgressHUD showHUDView:self.view text:nil progressHUDMode:YZProgressHUDModeLock];
+            [YZNetworkingManager POST:@"level/obtion" parameters:@{@"scoreType" : @"1"} success:^(id responseObject) {
+                [MBProgressHUD hiddenHUDView:self.view];
+                if([responseObject objectForKey:@"msg"]){
+                    FCAlertView *alert = [[FCAlertView alloc] init];
+                    [alert showAlertWithTitle:@"已经签到"
+                                 withSubtitle:[responseObject objectForKey:@"msg"]
+                              withCustomImage:nil
+                          withDoneButtonTitle:@"我知道了"
+                                   andButtons:nil];
+                    [alert makeAlertTypeCaution];
+                }else{
+                    FCAlertView *alert = [[FCAlertView alloc] init];
+                    [alert showAlertWithTitle:@"签到成功"
+                                 withSubtitle:@"恭喜您，获得10积分奖励，明天继续来签到哦😉"
+                              withCustomImage:nil
+                          withDoneButtonTitle:@"完成"
+                                   andButtons:nil];
+                    [alert makeAlertTypeSuccess];
+                }
+            } failure:^(NSString *error) {
+                [MBProgressHUD hiddenHUDView:self.view];
+                FCAlertView *alert = [[FCAlertView alloc] init];
+                [alert showAlertWithTitle:@"签到失败"
+                             withSubtitle:error
+                          withCustomImage:nil
+                      withDoneButtonTitle:@"确定"
+                               andButtons:nil];
+                [alert makeAlertTypeWarning];
+            } invalid:^(NSString *msg) {
+                [MBProgressHUD hiddenHUDView:self.view];
+                SHOW_RELOGIN_VIEW
+            }];
         }
     }else{
         SHOW_LOGIN_VIEW
