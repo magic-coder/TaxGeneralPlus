@@ -131,7 +131,6 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];// 设置导航栏itemBar字体颜色
     self.navigationController.navigationBar.titleTextAttributes = @{ NSForegroundColorAttributeName : [UIColor whiteColor] };// 设置导航栏title标题字体颜色
-    [self.navigationController.navigationBar setBarTintColor:DEFAULT_BLUE_COLOR];
 }
 
 #pragma mark - 视图即将销毁调用的方法
@@ -390,6 +389,7 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     }
     if(sender.tag == 2){
         viewController = [[NSClassFromString(@"AppEditViewController") class] new];
+        viewController.jz_navigationBarTintColor = [UIColor whiteColor];
     }
     if(sender.tag == 21){   // 通知公告
         url = [NSString stringWithFormat:@"%@public/notice/10/1", SERVER_URL];
@@ -399,6 +399,7 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     }
     if(sender.tag == 23){   // 税务地图
         viewController = [[NSClassFromString(@"MapListViewController") class] new];
+        viewController.jz_navigationBarTintColor = DEFAULT_BLUE_COLOR;
     }
     if(sender.tag == 24){   // 常见问题
         url = [NSString stringWithFormat:@"%@taxnews/public/comProblemIOS.htm", SERVER_URL];
@@ -406,6 +407,7 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     
     if(viewController == nil && url != nil){
         viewController = [[BaseWebViewController alloc] initWithURL:url];
+        viewController.jz_navigationBarTintColor = DEFAULT_BLUE_COLOR;
         viewController.title = sender.titleLabel.text;
     }
     
