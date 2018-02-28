@@ -14,8 +14,9 @@
 #import "MapListModel.h"
 #import "MapListUtil.h"
 
-@interface MapListViewController ()
+@interface MapListViewController () <UITableViewDelegate, UITableViewDataSource>
 
+@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *data;     // 传递过来已经组织好的数据（全量数据）
 @property (nonatomic, strong) NSMutableArray *tempData; // 用于存储数据源（部分数据）
 
@@ -28,16 +29,22 @@ static NSString * const reuseIdentifier = @"reuseIdentifierGroup";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self.view setBackgroundColor:DEFAULT_BACKGROUND_COLOR];
+    
     self.title = @"税务地图";
     
-    // 注册cell
-    [self.view setBackgroundColor:DEFAULT_BACKGROUND_COLOR];
-    [self.tableView setBackgroundColor:[UIColor whiteColor]];
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    [self.tableView setBackgroundColor:[UIColor whiteColor]];
     //self.tableView.showsVerticalScrollIndicator = NO;   // 去掉右侧滚动条
+    // 注册cell
     [self.tableView registerClass:[MapListViewCell class] forCellReuseIdentifier:reuseIdentifier];
     [self.tableView setSeparatorStyle: UITableViewCellSeparatorStyleSingleLine];
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];// Table分组头视图不显示
+    
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    
+    [self.view addSubview:self.tableView];
     
     // 添加导航栏右侧按钮
     UIBarButtonItem *refreshButtonItem  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refreshAction:)];

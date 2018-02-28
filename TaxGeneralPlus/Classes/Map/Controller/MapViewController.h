@@ -11,7 +11,7 @@
 #import <UIKit/UIKit.h>
 @class MapListModel;
 
-@interface MapViewController : UIViewController
+@interface MapViewController : BaseViewController
 
 @property(nonatomic, strong) MapListModel *model;
 
