@@ -8,7 +8,7 @@
  Declare  : Copyright © 2017 Yanzheng. All rights reserved.
  ************************************************************/
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
 typedef enum{
     GestureViewControllerTypeSetting = 1,
@@ -22,7 +22,7 @@ typedef enum{
     
 }buttonTag;
 
-@interface GestureViewController : UIViewController
+@interface GestureViewController : BaseViewController
 
 /**
  *  控制器来源类型

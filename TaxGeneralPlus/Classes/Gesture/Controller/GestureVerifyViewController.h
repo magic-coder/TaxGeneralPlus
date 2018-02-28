@@ -8,9 +8,9 @@
  Declare  : Copyright © 2017 Yanzheng. All rights reserved.
  ************************************************************/
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface GestureVerifyViewController : UIViewController
+@interface GestureVerifyViewController : BaseViewController
 
 @property (nonatomic, assign) BOOL isToSetNewGesture;
 
