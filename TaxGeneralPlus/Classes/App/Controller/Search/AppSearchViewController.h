@@ -8,8 +8,8 @@
  Declare  : Copyright © 2017 Yanzheng. All rights reserved.
  ************************************************************/
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface AppSearchViewController : UIViewController
+@interface AppSearchViewController : BaseViewController
 
 @end

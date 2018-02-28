@@ -193,7 +193,7 @@ static NSString * const reuseIdentifier = @"appSubCell";
     }else{
         viewController = [[BaseWebViewController alloc] initWithURL:url];
     }
-    
+    viewController.jz_navigationBarTintColor = DEFAULT_BLUE_COLOR;
     viewController.title = cell.item.title; // 设置标题
     [self.navigationController pushViewController:viewController animated:YES];
     
