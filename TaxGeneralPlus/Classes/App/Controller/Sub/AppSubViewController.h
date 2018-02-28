@@ -8,9 +8,9 @@
  Declare  : Copyright © 2017 Yanzheng. All rights reserved.
  ************************************************************/
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface AppSubViewController : UITableViewController
+@interface AppSubViewController : BaseViewController
 
 - (instancetype)initWithPno:(NSString *)pno level:(NSString *)level;
 

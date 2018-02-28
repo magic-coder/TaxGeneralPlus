@@ -13,8 +13,9 @@
 #import "AppModel.h"
 #import "AppUtil.h"
 
-@interface AppSubViewController ()
+@interface AppSubViewController () <UITableViewDelegate, UITableViewDataSource>
 
+@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *data;
 
 @property (nonatomic, strong) NSString *pno;
@@ -40,11 +41,17 @@ static NSString * const reuseIdentifier = @"appSubCell";
     _data = [[NSMutableArray alloc] init];
     
     self.view.backgroundColor = DEFAULT_BACKGROUND_COLOR;
+    
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.tableView.backgroundColor = DEFAULT_BACKGROUND_COLOR;
-    //self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     
     [self.tableView registerClass:[AppSubViewCell class] forCellReuseIdentifier:reuseIdentifier];
     [self.tableView setSeparatorStyle: UITableViewCellSeparatorStyleNone];
+    
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    
+    [self.view addSubview:self.tableView];
     
     _data = [[AppUtil sharedAppUtil] loadSubDataWithPno:_pno level:_level];
 }
