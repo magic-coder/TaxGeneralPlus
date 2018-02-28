@@ -53,8 +53,9 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     
     self.title = @"首页";
     
-    [self.navigationController.navigationBar yz_setBackgroundColor:[UIColor clearColor]];
+    //[self.navigationController.navigationBar yz_setBackgroundColor:[UIColor clearColor]];
     self.view.backgroundColor = DEFAULT_BACKGROUND_COLOR;
+    self.jz_navigationBarBackgroundAlpha = 0.0f;
     
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.tiggerBtn];
@@ -107,7 +108,7 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
-    [self.navigationController.navigationBar yz_reset];
+    //[self.navigationController.navigationBar yz_reset];
 }
 #pragma mark - 滚动屏幕渐进渐出顶部导航栏
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -117,11 +118,13 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
         CGFloat alpha = MIN(1, 1 - ((NAVBAR_CHANGE_POINT + HEIGHT_STATUS + HEIGHT_NAVBAR - offsetY) / (HEIGHT_STATUS + HEIGHT_NAVBAR)));
         if(alpha > 0.95)
             alpha = 0.95;
-        [self.navigationController.navigationBar yz_setBackgroundColor:[color colorWithAlphaComponent:alpha]];
+        //[self.navigationController.navigationBar yz_setBackgroundColor:[color colorWithAlphaComponent:alpha]];
+        self.jz_navigationBarBackgroundAlpha = alpha;
         if(alpha > 0.6)
             self.navigationItem.title = @"首页";
     } else {
-        [self.navigationController.navigationBar yz_setBackgroundColor:[color colorWithAlphaComponent:0]];
+        //[self.navigationController.navigationBar yz_setBackgroundColor:[color colorWithAlphaComponent:0]];
+        self.jz_navigationBarBackgroundAlpha = 0.0f;
         CGFloat alpha = MIN(1, 1 - ((NAVBAR_CHANGE_POINT + HEIGHT_STATUS + HEIGHT_NAVBAR - offsetY) / (HEIGHT_STATUS + HEIGHT_NAVBAR)));
         if(alpha < 0.6)
             self.navigationItem.title = nil;
@@ -273,6 +276,7 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     
     BaseWebViewController *baseWebVC = [[BaseWebViewController alloc] initWithURL:cell.model.url];
     baseWebVC.title = cell.model.showTitle;
+    baseWebVC.jz_navigationBarBackgroundAlpha = 1.0f;
     [self.navigationController pushViewController:baseWebVC animated:YES];
     
     //[self.navigationController pushViewController:[NSClassFromString(@"TestViewController") new] animated:YES];
@@ -364,7 +368,9 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
         UIBarButtonItem *backItem=[[UIBarButtonItem alloc] init];
         backItem.title=@"首页";
         super.navigationItem.backBarButtonItem = backItem;
-        [super.navigationController pushViewController:[[NSClassFromString(@"AccountViewController") class] new] animated:YES];
+        UIViewController *vc = [[NSClassFromString(@"AccountViewController") class] new];
+        vc.jz_navigationBarBackgroundAlpha = 1.0f;
+        [super.navigationController pushViewController:vc animated:YES];
     }
     if(1 == tag){
         [MBProgressHUD showHUDView:self.view text:nil progressHUDMode:YZProgressHUDModeLock];
@@ -403,11 +409,13 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     }
     if(2 == tag){
         BaseWebViewController *introduceVC = [[BaseWebViewController alloc] initWithURL:[NSString stringWithFormat:@"%@taxnews/public/introductionIOS.htm", SERVER_URL]];
+        introduceVC.jz_navigationBarBackgroundAlpha = 1.0f;
         introduceVC.title =  @"功能介绍";
         [super.navigationController pushViewController:introduceVC animated:YES];
     }
     if(3 == tag){
         BaseWebViewController *questionVC = [[BaseWebViewController alloc] initWithURL:[NSString stringWithFormat:@"%@taxnews/public/comProblemIOS.htm", SERVER_URL]];
+        questionVC.jz_navigationBarBackgroundAlpha = 1.0f;
         questionVC.title =  @"常见问题";
         [super.navigationController pushViewController:questionVC animated:YES];
     }
@@ -418,7 +426,9 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
         UIBarButtonItem *backItem=[[UIBarButtonItem alloc] init];
         backItem.title=@"首页";
         super.navigationItem.backBarButtonItem = backItem;
-        [super.navigationController pushViewController:[[NSClassFromString(@"SettingViewController") class] new] animated:YES];
+        UIViewController *vc = [[NSClassFromString(@"SettingViewController") class] new];
+        vc.jz_navigationBarBackgroundAlpha = 1.0f;
+        [super.navigationController pushViewController:vc animated:YES];
     }
 }
 
