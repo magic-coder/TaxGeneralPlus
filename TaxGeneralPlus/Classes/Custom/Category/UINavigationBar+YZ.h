@@ -7,7 +7,7 @@
  Version  : 1.0
  Declare  : Copyright © 2017 Yanzheng. All rights reserved.
  ************************************************************/
-
+/*
 #import <UIKit/UIKit.h>
 
 @interface UINavigationBar (YZ)
@@ -18,3 +18,4 @@
 - (void)yz_reset;
 
 @end
+*/
