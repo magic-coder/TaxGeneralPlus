@@ -8,9 +8,9 @@
  Declare  : Copyright © 2017 Yanzheng. All rights reserved.
  ************************************************************/
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface MsgDetailViewController : UITableViewController
+@interface MsgDetailViewController : BaseViewController
 
 @property (nonatomic, strong) NSString *sourceCode;     // 来源代码
 @property (nonatomic, strong) NSString *pushOrgCode;   // 推送机构代码

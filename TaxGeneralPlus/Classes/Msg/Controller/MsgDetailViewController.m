@@ -14,7 +14,9 @@
 #import "MsgDetailModel.h"
 #import "MsgUtil.h"
 
-@interface MsgDetailViewController () <MsgDetailViewCellDelegate>
+@interface MsgDetailViewController () <UITableViewDelegate, UITableViewDataSource, MsgDetailViewCellDelegate>
+
+@property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, strong) NSMutableArray *data;     // 消息数据内容列表
 @property (nonatomic, assign) int pageNo;               // 页码值
@@ -33,12 +35,18 @@ static int const pageSize = 5;
     _data = [[NSMutableArray alloc] init];
     
     [self.view setBackgroundColor:DEFAULT_BACKGROUND_COLOR];
-    [self.tableView setBackgroundColor:DEFAULT_BACKGROUND_COLOR];
+    
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    [self.tableView setBackgroundColor:DEFAULT_BACKGROUND_COLOR];
     //self.tableView.showsVerticalScrollIndicator = NO;   // 去掉右侧滚动条
     
     [self.tableView registerClass:[MsgDetailViewCell class] forCellReuseIdentifier:reuseIdentifier];
     [self.tableView setSeparatorStyle: UITableViewCellSeparatorStyleNone];
+    
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    
+    [self.view addSubview:self.tableView];
     
     [self loadData];    // 加载消息明细信息
 }
