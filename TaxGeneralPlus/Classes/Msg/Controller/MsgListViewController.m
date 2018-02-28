@@ -14,7 +14,9 @@
 #import "MsgListModel.h"
 #import "MsgUtil.h"
 
-@interface MsgListViewController ()
+@interface MsgListViewController () <UITableViewDelegate, UITableViewDataSource>
+
+@property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, strong) NSMutableArray *data;             // 消息列表数据
 @property (nonatomic, assign) int pageNo;                       // 页码值
@@ -42,12 +44,18 @@ static int const pageSize = 100;
     _data = [[NSMutableArray alloc] init];
     
     [self.view setBackgroundColor:DEFAULT_BACKGROUND_COLOR];
-    [self.tableView setBackgroundColor:[UIColor whiteColor]];
+    
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    [self.tableView setBackgroundColor:DEFAULT_BACKGROUND_COLOR];
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];// Table分组头视图不显示
     
     [self.tableView registerClass:[MsgListViewCell class] forCellReuseIdentifier:reuseIdentifier];
     [self.tableView setSeparatorStyle: UITableViewCellSeparatorStyleNone];
+    
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    
+    [self.view addSubview:self.tableView];
     
     self.title = @"消息";
     
