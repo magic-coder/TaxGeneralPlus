@@ -12,7 +12,9 @@
 #import "AboutHeaderView.h"
 #import "AboutFooterView.h"
 
-@interface AboutViewController ()
+@interface AboutViewController () <UITableViewDelegate, UITableViewDataSource>
+
+@property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, strong) NSArray *data;                // 数据列表
 
@@ -33,9 +35,10 @@ static NSString * const reuseIdentifier = @"aboutTableViewCell";
     _data = @[@"功能介绍", @"版权信息", @"去App Store评分"];
     
     [self.view setBackgroundColor:DEFAULT_BACKGROUND_COLOR];
-    [self.tableView setBackgroundColor:[UIColor whiteColor]];
-    self.tableView.showsVerticalScrollIndicator = NO;// 隐藏纵向滚动条
+    
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    [self.tableView setBackgroundColor:DEFAULT_BACKGROUND_COLOR];
+    self.tableView.showsVerticalScrollIndicator = NO;// 隐藏纵向滚动条
     
     _headerView = [[AboutHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, floorf(HEIGHT_SCREEN/3.0f))];
     self.tableView.tableHeaderView = _headerView;
@@ -47,8 +50,13 @@ static NSString * const reuseIdentifier = @"aboutTableViewCell";
     float footerH = HEIGHT_SCREEN-HEIGHT_STATUS-HEIGHT_NAVBAR-floorf(HEIGHT_SCREEN/3.0f)-(cellH*3)-34-20;
     _footerView = [[AboutFooterView alloc] initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, footerH)];
     self.tableView.tableFooterView = _footerView;
-    
+    // 注册cell
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:reuseIdentifier];
+    
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    
+    [self.view addSubview:self.tableView];
 }
 
 - (void)didReceiveMemoryWarning {
