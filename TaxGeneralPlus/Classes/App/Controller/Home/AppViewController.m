@@ -81,11 +81,13 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     [self.view sendSubviewToBack:self.baseScrollView];// 设置视图层级为最底下
     
     // 初始化最新数据
-    [[AppUtil sharedAppUtil] initAppDataSuccess:^(NSMutableDictionary *dataDict) {
-        [self initAppData:dataDict];
-    } failure:^(NSString *error) {
-    } invalid:^(NSString *msg) {
-    }];
+    if(IS_LOGIN){
+        [[AppUtil sharedAppUtil] initAppDataSuccess:^(NSMutableDictionary *dataDict) {
+            [self initAppData:dataDict];
+        } failure:^(NSString *error) {
+        } invalid:^(NSString *msg) {
+        }];
+    }
     
 }
 
