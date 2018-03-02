@@ -50,6 +50,7 @@
     
     // 初始化数据
     self.data = [[MineUtil sharedMineUtil] mineData];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -59,6 +60,7 @@
 
 #pragma mark - 视图即将显示
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     // 设置头视图数据
     if(IS_LOGIN){
         _headerView.nameText = [[[NSUserDefaults standardUserDefaults] objectForKey:LOGIN_SUCCESS] objectForKey:@"userName"];
@@ -158,37 +160,49 @@
         }
     }
     if([item.title isEqualToString:@"我的日程"]){
-        
-        FCAlertView *alert = [[FCAlertView alloc] init];
-        [alert showAlertWithTitle:@"操作提示"
-                     withSubtitle:[NSString stringWithFormat:@"\"%@\"想要打开\"日历\"，是否允许？", [[Variable sharedVariable] appName]]
-                  withCustomImage:[UIImage imageNamed:@"alert-calendar"]
-              withDoneButtonTitle:@"允许"
-                       andButtons:@[@"取消"]];
-        alert.colorScheme = alert.flatBlue;
-        [alert doneActionBlock:^{
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"calshow:"] options:@{} completionHandler:nil];
-        }];
-        
+        if(IS_LOGIN){
+            FCAlertView *alert = [[FCAlertView alloc] init];
+            [alert showAlertWithTitle:@"操作提示"
+                         withSubtitle:[NSString stringWithFormat:@"\"%@\"想要打开\"日历\"，是否允许？", [[Variable sharedVariable] appName]]
+                      withCustomImage:[UIImage imageNamed:@"alert-calendar"]
+                  withDoneButtonTitle:@"允许"
+                           andButtons:@[@"取消"]];
+            alert.colorScheme = alert.flatBlue;
+            [alert doneActionBlock:^{
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"calshow:"] options:@{} completionHandler:nil];
+            }];
+        }else{
+            SHOW_LOGIN_VIEW
+        }
     }
     if([item.title isEqualToString:@"我的客服"]){
         [self.navigationController pushViewController:[[NSClassFromString(@"ServiceViewController") class] new] animated:YES];
     }
     if([item.title isEqualToString:@"设置"]){
-        [self.navigationController pushViewController:[[NSClassFromString(@"SettingViewController") class] new] animated:YES];
+        if(IS_LOGIN){
+            [self.navigationController pushViewController:[[NSClassFromString(@"SettingViewController") class] new] animated:YES];
+        }else{
+            SHOW_LOGIN_VIEW
+        }
     }
     if([item.title isEqualToString:@"系统评价"]){
-        NSString *urlStr = [NSString stringWithFormat:@"%@app/evaluation/index", SERVER_URL];
-        BaseWebViewController *evaluationVC = [[BaseWebViewController alloc] initWithURL:urlStr];
-        evaluationVC.title = @"系统评价";
-        [self.navigationController pushViewController:evaluationVC animated:YES];
+        if(IS_LOGIN){
+            NSString *urlStr = [NSString stringWithFormat:@"%@app/evaluation/index", SERVER_URL];
+            BaseWebViewController *evaluationVC = [[BaseWebViewController alloc] initWithURL:urlStr];
+            evaluationVC.title = @"系统评价";
+            [self.navigationController pushViewController:evaluationVC animated:YES];
+        }else{
+            SHOW_LOGIN_VIEW
+        }
     }
     if([item.title isEqualToString:@"关于"]){
         [self.navigationController pushViewController:[[NSClassFromString(@"AboutViewController") class] new] animated:YES];
     }
+    /*
     if([item.title isEqualToString:@"测试"]){
         [self.navigationController pushViewController:[[NSClassFromString(@"TestViewController") class] new] animated:YES];
     }
+     */
 }
 
 @end
