@@ -249,15 +249,10 @@
                       withDoneButtonTitle:@"注销账户"
                                andButtons:nil];
                 [alert makeAlertTypeWarning];
+
                 [alert doneActionBlock:^{
-                    [MBProgressHUD showHUDView:self.view text:@"注销中..." progressHUDMode:YZProgressHUDModeLock];
-                    [[LoginUtil sharedLoginUtil] logout:^{
-                        [MBProgressHUD hiddenHUDView:self.view];
-                        [self dismissViewControllerAnimated:YES completion:nil];
-                    } failure:^(NSString *error) {
-                        [MBProgressHUD hiddenHUDView:self.view];
-                        [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow];
-                    }];
+                    [[LoginUtil sharedLoginUtil] logout];
+                    [self dismissViewControllerAnimated:YES completion:nil];
                 }];
                 
             }else{
