@@ -97,14 +97,8 @@
                                andButtons:nil];
                 [alert makeAlertTypeWarning];
                 [alert doneActionBlock:^{
-                    [MBProgressHUD showHUDView:self.view text:@"注销中..." progressHUDMode:YZProgressHUDModeLock];
-                    [[LoginUtil sharedLoginUtil] logout:^{
-                        [MBProgressHUD hiddenHUDView:self.view];
-                        [self.navigationController popToViewController:self.navigationController.viewControllers[0] animated:YES];
-                    } failure:^(NSString *error) {
-                        [MBProgressHUD hiddenHUDView:self.view];
-                        [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow];
-                    }];
+                    [[LoginUtil sharedLoginUtil] logout];
+                    [self.navigationController popToViewController:self.navigationController.viewControllers[0] animated:YES];
                 }];
                 
             }else{
