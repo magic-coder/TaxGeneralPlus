@@ -8,9 +8,9 @@
  Declare  : Copyright © 2017 Yanzheng. All rights reserved.
  ************************************************************/
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface BaseWebViewController : UIViewController
+@interface BaseWebViewController : BaseViewController
 
 - (instancetype)initWithURL:(NSString *)url;
 
