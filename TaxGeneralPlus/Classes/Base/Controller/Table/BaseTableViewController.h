@@ -8,7 +8,7 @@
  Declare  : Copyright © 2017 Yanzheng. All rights reserved.
  ************************************************************/
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 #import "BaseTableModel.h"
 
 @protocol BaseTableViewControllerDelegate <NSObject>
@@ -19,7 +19,9 @@
 
 @end
 
-@interface BaseTableViewController : UITableViewController
+@interface BaseTableViewController : BaseViewController
+
+@property (nonatomic, strong) UITableView *tableView;
 
 @property (nonatomic, strong) NSMutableArray *data;
 

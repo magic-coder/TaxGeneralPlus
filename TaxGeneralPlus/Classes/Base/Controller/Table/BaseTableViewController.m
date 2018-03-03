@@ -12,7 +12,7 @@
 #import "BaseTableViewCell.h"
 #import "BaseTableViewHeaderFooterView.h"
 
-@interface BaseTableViewController ()<BaseTableViewCellDelegate>
+@interface BaseTableViewController ()<UITableViewDelegate, UITableViewDataSource, BaseTableViewCellDelegate>
 
 @end
 
@@ -24,17 +24,9 @@ static NSString * const headerFooterViewReuseIdentifier = @"baseHeaderFooterView
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.tableView setTableFooterView:[UIView new]];
     [self.view setBackgroundColor:DEFAULT_BACKGROUND_COLOR];
-    [self.tableView setBackgroundColor:DEFAULT_BACKGROUND_COLOR];
     
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-    [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 20)]];
-    
-    [self.tableView registerClass:[BaseTableViewCell class] forCellReuseIdentifier:reuseIdentifier];// 注册cell视图
-    [self.tableView registerClass:[BaseTableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:headerFooterViewReuseIdentifier];// 注册Header、Footer的cell
-    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];// 隐藏TableView的分割线
-    
+    [self.view addSubview:self.tableView];
 }
 
 #pragma mark - <UITableViewDataSource>数据源方法
@@ -139,6 +131,29 @@ static NSString * const headerFooterViewReuseIdentifier = @"baseHeaderFooterView
     if([_delegate respondsToSelector:@selector(baseTableViewControllerSwitchChanged:)]){
         [_delegate baseTableViewControllerSwitchChanged:sender]; // 通知执行协议方法
     }
+}
+
+- (UITableView *)tableView {
+    if(nil == _tableView){
+        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+        [_tableView setBackgroundColor:DEFAULT_BACKGROUND_COLOR];
+        [_tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 20)]];
+        // 隐藏UITableViewStyleGrouped上边多余的间隔
+        _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
+        
+        [_tableView registerClass:[BaseTableViewCell class] forCellReuseIdentifier:reuseIdentifier];// 注册cell视图
+        [_tableView registerClass:[BaseTableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:headerFooterViewReuseIdentifier];// 注册Header、Footer的cell
+        [_tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];// 隐藏TableView的分割线
+        
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+    }
+    return _tableView;
+}
+
+- (void)setData:(NSMutableArray *)data{
+    _data = data;
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
