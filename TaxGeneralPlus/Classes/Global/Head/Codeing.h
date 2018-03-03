@@ -34,14 +34,8 @@ FCAlertView *alert = [[FCAlertView alloc] init]; \
                andButtons:nil]; \
 alert.colorScheme = alert.flatRed; \
 [alert doneActionBlock:^{ \
-    [MBProgressHUD showHUDView:self.view text:@"注销中..." progressHUDMode:YZProgressHUDModeLock]; \
-    [[LoginUtil sharedLoginUtil] logout:^{ \
-        [MBProgressHUD hiddenHUDView:self.view]; \
-        SHOW_LOGIN_VIEW \
-    } failure:^(NSString *error) { \
-        [MBProgressHUD hiddenHUDView:self.view]; \
-        [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow]; \
-    }]; \
+    [[LoginUtil sharedLoginUtil] logout]; \
+    SHOW_LOGIN_VIEW \
 }]; \
 
 #pragma mark - 防止重复点击（间隔1秒）
