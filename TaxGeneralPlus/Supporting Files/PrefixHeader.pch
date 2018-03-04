@@ -27,7 +27,7 @@
 #import "UIDevice+YZ.h"
 #import "YBPopupMenu+YZ.h"
 #import "MBProgressHUD+YZ.h"
-#import "UINavigationBar+YZ.h"
+//#import "UINavigationBar+YZ.h"
 
 #pragma mark - 自己封装的方法类
 #import "LoginUtil.h"
@@ -51,9 +51,9 @@
 #import "FCAlertView.h"
 #import "TTTAttributedLabel.h"
 #import "UIImageView+WebCache.h"
+#import "JZNavigationExtension.h"
 #import "JDStatusBarNotification.h"
 #import "UIAlertController+Blocks.h"
-
 
 
 #endif /* PrefixHeader_pch */
