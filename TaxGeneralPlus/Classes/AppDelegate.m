@@ -244,19 +244,42 @@
     
     NSDictionary *userInfo = notification.request.content.userInfo;
     
-    // 读取系统设置文件内容(声音/震动)
-    NSDictionary *settingDict = [[BaseSettingUtil sharedBaseSettingUtil] loadSettingData];
-    BOOL voiceOn = [[settingDict objectForKey:@"voice"] boolValue];
-    BOOL shakeOn = [[settingDict objectForKey:@"shake"] boolValue];
+    if([userInfo[@"sourceCode"] isEqualToString:@"99"] && IS_LOGIN){    // 下线通知
+        [[LoginUtil sharedLoginUtil] logout];
+        
+        FCAlertView *alert = [[FCAlertView alloc] init];
+        [alert showAlertWithTitle:@"安全提醒"
+                     withSubtitle:@"该账号已在其他设备登录，请重新登录。"
+                  withCustomImage:nil
+              withDoneButtonTitle:@"我知道了"
+                       andButtons:nil];
+        [alert makeAlertTypeCaution];
+        
+        UIViewController *vc = [[BaseHandleUtil sharedBaseHandleUtil] topViewController];
+        NSInteger vcCount = vc.navigationController.viewControllers.count;
+        DLog(@"%ld", vcCount);
+        if(vcCount > 1){
+            [vc.navigationController popToRootViewControllerAnimated:NO];// pop掉全部的视图控制器
+        }else{
+            [vc presentViewController:[[NSClassFromString(@"LoginViewController") class] new] animated:YES completion:nil];// 跳转到登录界面
+        }
+    }
     
-    if(voiceOn){ // 调用声音代码
-        //AudioServicesPlaySystemSound(1007); //其中1007是系统声音的编号，其他的可用编号：
-        [[BaseHandleUtil sharedBaseHandleUtil] playSoundEffect:@"msgsound" type:@"caf"];
-    }
-    if(shakeOn){ // 调用震动代码
-        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-    }
     if([userInfo[@"sourceCode"] isEqualToString:@"01"]){    // 用户推送
+        
+        // 读取系统设置文件内容(声音/震动)
+        NSDictionary *settingDict = [[BaseSettingUtil sharedBaseSettingUtil] loadSettingData];
+        BOOL voiceOn = [[settingDict objectForKey:@"voice"] boolValue];
+        BOOL shakeOn = [[settingDict objectForKey:@"shake"] boolValue];
+        
+        if(voiceOn){ // 调用声音代码
+            //AudioServicesPlaySystemSound(1007); //其中1007是系统声音的编号，其他的可用编号：
+            [[BaseHandleUtil sharedBaseHandleUtil] playSoundEffect:@"msgsound" type:@"caf"];
+        }
+        if(shakeOn){ // 调用震动代码
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        }
+        
         if(_rootVC.selectedIndex == 2){
             MsgListViewController *msgListVC = (MsgListViewController *)[[BaseHandleUtil sharedBaseHandleUtil] topViewController];
             [msgListVC loadData];
@@ -265,12 +288,31 @@
             // 设置tabBar消息角标
             [_rootVC.tabBar.items objectAtIndex:2].badgeValue = [NSString stringWithFormat:@"%d", badge];
         }
+        
+        completionHandler(UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionAlert);// 需要执行这个方法，选择是否提醒用户，有Badge、Sound、Alert三种类型可以设置
+        
     }
-    completionHandler(UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionAlert);// 需要执行这个方法，选择是否提醒用户，有Badge、Sound、Alert三种类型可以设置
 }
 #pragma mark 推送通知交互方法，如：用户直接点开通知打开App、用户点击通知的按钮或者进行输入文本框的文本
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
     NSDictionary *userInfo = response.notification.request.content.userInfo;
+    
+    if([userInfo[@"sourceCode"] isEqualToString:@"99"] && IS_LOGIN){    // 下线通知
+        _rootVC.selectedIndex = 3;
+        [[LoginUtil sharedLoginUtil] logout];
+        
+        FCAlertView *alert = [[FCAlertView alloc] init];
+        [alert showAlertWithTitle:@"安全提醒"
+                     withSubtitle:@"该账号已在其他设备登录，请重新登录。"
+                  withCustomImage:nil
+              withDoneButtonTitle:@"我知道了"
+                       andButtons:nil];
+        [alert makeAlertTypeCaution];
+        
+        UIViewController *vc = [[BaseHandleUtil sharedBaseHandleUtil] topViewController];
+        [vc presentViewController:[[NSClassFromString(@"LoginViewController") class] new] animated:YES completion:nil];// 跳转到登录界面
+    }
+    
     if([userInfo[@"sourceCode"] isEqualToString:@"01"]){    // 用户推送
         _rootVC.selectedIndex = 2;
         if([Variable sharedVariable].vpnSuccess){
