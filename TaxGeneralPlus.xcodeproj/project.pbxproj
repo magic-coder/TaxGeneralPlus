@@ -92,6 +92,11 @@
 		188AE5731FA054E0008F7D60 /* YZCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 188AE5721FA054DF008F7D60 /* YZCycleScrollView.m */; };
 		1895A8251FB4387200DB9AFC /* AppSubViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1895A8241FB4387200DB9AFC /* AppSubViewCell.m */; };
 		1895A8281FB43E8700DB9AFC /* AppSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1895A8271FB43E8700DB9AFC /* AppSubViewController.m */; };
+		189B537F2044023C00F61FCF /* UINavigationController+JZExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 189B53762044023C00F61FCF /* UINavigationController+JZExtension.m */; };
+		189B53802044023C00F61FCF /* UIViewController+JZExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 189B53772044023C00F61FCF /* UIViewController+JZExtension.m */; };
+		189B53812044023C00F61FCF /* _JZNavigationDelegating.m in Sources */ = {isa = PBXBuildFile; fileRef = 189B53792044023C00F61FCF /* _JZNavigationDelegating.m */; };
+		189B53822044023C00F61FCF /* _JZ-objc-internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 189B537C2044023C00F61FCF /* _JZ-objc-internal.m */; };
+		189B53892045020000F61FCF /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189B53882045020000F61FCF /* BaseViewController.m */; };
 		189B55971FC822DF003031A9 /* MsgListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 189B55961FC822DF003031A9 /* MsgListModel.m */; };
 		189B559A1FC8231B003031A9 /* MsgDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 189B55991FC8231B003031A9 /* MsgDetailModel.m */; };
 		189B559C1FC829E6003031A9 /* News.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 189B559B1FC829E6003031A9 /* News.xcassets */; };
@@ -401,6 +406,17 @@
 		1895A8241FB4387200DB9AFC /* AppSubViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppSubViewCell.m; sourceTree = "<group>"; };
 		1895A8261FB43E8700DB9AFC /* AppSubViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppSubViewController.h; sourceTree = "<group>"; };
 		1895A8271FB43E8700DB9AFC /* AppSubViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppSubViewController.m; sourceTree = "<group>"; };
+		189B53752044023C00F61FCF /* UIViewController+JZExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+JZExtension.h"; sourceTree = "<group>"; };
+		189B53762044023C00F61FCF /* UINavigationController+JZExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+JZExtension.m"; sourceTree = "<group>"; };
+		189B53772044023C00F61FCF /* UIViewController+JZExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+JZExtension.m"; sourceTree = "<group>"; };
+		189B53792044023C00F61FCF /* _JZNavigationDelegating.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _JZNavigationDelegating.m; sourceTree = "<group>"; };
+		189B537A2044023C00F61FCF /* _JZ-objc-internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "_JZ-objc-internal.h"; sourceTree = "<group>"; };
+		189B537B2044023C00F61FCF /* _JZNavigationDelegating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _JZNavigationDelegating.h; sourceTree = "<group>"; };
+		189B537C2044023C00F61FCF /* _JZ-objc-internal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "_JZ-objc-internal.m"; sourceTree = "<group>"; };
+		189B537D2044023C00F61FCF /* UINavigationController+JZExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+JZExtension.h"; sourceTree = "<group>"; };
+		189B537E2044023C00F61FCF /* JZNavigationExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JZNavigationExtension.h; sourceTree = "<group>"; };
+		189B53872045020000F61FCF /* BaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		189B53882045020000F61FCF /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		189B55951FC822DF003031A9 /* MsgListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MsgListModel.h; sourceTree = "<group>"; };
 		189B55961FC822DF003031A9 /* MsgListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MsgListModel.m; sourceTree = "<group>"; };
 		189B55981FC8231B003031A9 /* MsgDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MsgDetailModel.h; sourceTree = "<group>"; };
@@ -940,6 +956,7 @@
 				18AE74411F9854E900E357D1 /* MBProgressHUD */,
 				18E2C4151FC26B0D00881A8A /* PCGestureUnlock */,
 				183D27011FC6A8EE00C2A607 /* TTTAttributedLabel */,
+				189B53742044023C00F61FCF /* JZNavigationExtension */,
 				1806B1ED1F9DF33600F000EB /* UIAlertControllerBlocks */,
 				18DB52871FFC7966008ACE78 /* JDStatusBarNotification */,
 				1881C0221FCFEC23005E6AD6 /* YALSunnyRefreshControll */,
@@ -1353,6 +1370,7 @@
 		188AE5661FA02FA5008F7D60 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				189B53862044F6E700F61FCF /* View */,
 				183D26EC1FC65FBD00C2A607 /* Table */,
 				183D26EB1FC65FB600C2A607 /* Web */,
 			);
@@ -1378,6 +1396,39 @@
 				188AE5721FA054DF008F7D60 /* YZCycleScrollView.m */,
 			);
 			path = YZCycleScrollView;
+			sourceTree = "<group>";
+		};
+		189B53742044023C00F61FCF /* JZNavigationExtension */ = {
+			isa = PBXGroup;
+			children = (
+				189B53752044023C00F61FCF /* UIViewController+JZExtension.h */,
+				189B53762044023C00F61FCF /* UINavigationController+JZExtension.m */,
+				189B53772044023C00F61FCF /* UIViewController+JZExtension.m */,
+				189B53782044023C00F61FCF /* Private */,
+				189B537D2044023C00F61FCF /* UINavigationController+JZExtension.h */,
+				189B537E2044023C00F61FCF /* JZNavigationExtension.h */,
+			);
+			path = JZNavigationExtension;
+			sourceTree = "<group>";
+		};
+		189B53782044023C00F61FCF /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				189B53792044023C00F61FCF /* _JZNavigationDelegating.m */,
+				189B537A2044023C00F61FCF /* _JZ-objc-internal.h */,
+				189B537B2044023C00F61FCF /* _JZNavigationDelegating.h */,
+				189B537C2044023C00F61FCF /* _JZ-objc-internal.m */,
+			);
+			path = Private;
+			sourceTree = "<group>";
+		};
+		189B53862044F6E700F61FCF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				189B53872045020000F61FCF /* BaseViewController.h */,
+				189B53882045020000F61FCF /* BaseViewController.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		18A1FAEE1FBC3B8400AA07DC /* Safe */ = {
@@ -2192,6 +2243,7 @@
 				18FCCDA41FA703D000424A0C /* MASCompositeConstraint.m in Sources */,
 				180A90C21FB2E3C900F7D213 /* MineViewController.m in Sources */,
 				18AE74291F9854C700E357D1 /* MKAnnotationView+WebCache.m in Sources */,
+				189B53892045020000F61FCF /* BaseViewController.m in Sources */,
 				180A90C71FB2EF0200F7D213 /* MineHeaderView.m in Sources */,
 				18E2C4031FBE8EA800881A8A /* BaseWebViewController.m in Sources */,
 				18C192311FCBB0A800A90B22 /* MsgListViewCell.m in Sources */,
@@ -2253,12 +2305,14 @@
 				1881C05C1FCFFD51005E6AD6 /* UIScrollView+MJExtension.m in Sources */,
 				18AE73F01F98547D00E357D1 /* AFURLRequestSerialization.m in Sources */,
 				180A90BC1FB2E0A000F7D213 /* BaseTableViewHeaderFooterView.m in Sources */,
+				189B53822044023C00F61FCF /* _JZ-objc-internal.m in Sources */,
 				18E2C4221FC26B0D00881A8A /* PCCircle.m in Sources */,
 				18777E501FF2264F00BBA0FD /* AES.m in Sources */,
 				1881C0661FCFFD51005E6AD6 /* MJRefreshStateHeader.m in Sources */,
 				18FCCDA31FA703D000424A0C /* ViewController+MASAdditions.m in Sources */,
 				180A90B61FB2DFFB00F7D213 /* BaseTableModel.m in Sources */,
 				189B559A1FC8231B003031A9 /* MsgDetailModel.m in Sources */,
+				189B537F2044023C00F61FCF /* UINavigationController+JZExtension.m in Sources */,
 				18A909D41FE280D600104B0C /* LeftMenuView.m in Sources */,
 				1836FCC41FA1F6AB00ABDA10 /* NewsUtil.m in Sources */,
 				18FCCDA81FA703D000424A0C /* View+MASAdditions.m in Sources */,
@@ -2276,6 +2330,7 @@
 				1881C06C1FCFFD51005E6AD6 /* MJRefreshComponent.m in Sources */,
 				18A9A07E1FA1ABF90059C7BB /* BaseSandBoxUtil.m in Sources */,
 				18AE74381F9854C700E357D1 /* UIImageView+WebCache.m in Sources */,
+				189B53812044023C00F61FCF /* _JZNavigationDelegating.m in Sources */,
 				18A1FAF41FBC449500AA07DC /* Variable.m in Sources */,
 				18CD9E2E1FCE9391005F8186 /* MsgDetailViewCell.m in Sources */,
 				18AE74341F9854C700E357D1 /* SDWebImageCoder.m in Sources */,
@@ -2346,6 +2401,7 @@
 				18C02E4F1FA71549009EBD36 /* AppView.m in Sources */,
 				18DB52921FFC7966008ACE78 /* JDStatusBarLayoutMarginHelper.m in Sources */,
 				1881C05A1FCFFD51005E6AD6 /* MJRefreshConst.m in Sources */,
+				189B53802044023C00F61FCF /* UIViewController+JZExtension.m in Sources */,
 				18E4EDB61F9F213900CAB201 /* YBRectConst.m in Sources */,
 				18A909D11FE280B600104B0C /* MenuView.m in Sources */,
 				18C02E521FA71582009EBD36 /* AppModel.m in Sources */,
