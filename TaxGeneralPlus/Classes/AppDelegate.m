@@ -442,7 +442,7 @@
             // 隐藏顶部状态栏设为NO
             [UIApplication sharedApplication].statusBarHidden = NO;
             // 节日动画下落效果（下雪、红包、福袋...）
-            [[BaseHandleUtil sharedBaseHandleUtil] snowAnimation];
+            // [[BaseHandleUtil sharedBaseHandleUtil] snowAnimation];
             // 获取未读消息条数
             [[MsgUtil sharedMsgUtil] msgUnReadCountSuccess:^(int unReadCount) {
                 [Variable sharedVariable].unReadCount = unReadCount;
