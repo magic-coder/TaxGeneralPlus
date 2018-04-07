@@ -60,6 +60,7 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.tiggerBtn];
     
+    // 视图层级迭代样式
     [self.view sendSubviewToBack:self.tableView];// 设置视图层级为最下层
     [self.view bringSubviewToFront:self.tiggerBtn];// 设置视图层级为最上层
     [self initializeSlideMenu];// 初始化左侧滑动菜单
@@ -112,7 +113,7 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
 }
 #pragma mark - 滚动屏幕渐进渐出顶部导航栏
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    UIColor * color = DEFAULT_BLUE_COLOR;
+    //UIColor * color = DEFAULT_BLUE_COLOR;
     CGFloat offsetY = scrollView.contentOffset.y;
     if (offsetY > NAVBAR_CHANGE_POINT) {
         CGFloat alpha = MIN(1, 1 - ((NAVBAR_CHANGE_POINT + HEIGHT_STATUS + HEIGHT_NAVBAR - offsetY) / (HEIGHT_STATUS + HEIGHT_NAVBAR)));
