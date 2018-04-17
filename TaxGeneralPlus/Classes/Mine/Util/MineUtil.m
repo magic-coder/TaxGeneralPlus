@@ -51,7 +51,7 @@ SingletonM(MineUtil)
     
     BaseTableModelGroup *group4 = [[BaseTableModelGroup alloc] initWithHeaderTitle:nil footerTitle:nil settingItems:test, nil];
     [items addObject:group4];
-     */
+    */
     
     return items;
     
