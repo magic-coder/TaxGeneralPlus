@@ -198,11 +198,15 @@
     if([item.title isEqualToString:@"关于"]){
         [self.navigationController pushViewController:[[NSClassFromString(@"AboutViewController") class] new] animated:YES];
     }
-    /*
+    
     if([item.title isEqualToString:@"测试"]){
-        [self.navigationController pushViewController:[[NSClassFromString(@"TestViewController") class] new] animated:YES];
+        //[self.navigationController pushViewController:[[NSClassFromString(@"TestViewController") class] new] animated:YES];
+        NSString *urlStr = @"https://bot-pre.dingtax.cn/bot/m/home?auth_vendor=zfb&appId=610000&campaignId=sxds&from=groupmessage&isappinstalled=0";
+        BaseWebViewController *testVC = [[BaseWebViewController alloc] initWithURL:urlStr];
+        testVC.title = @"税小蜜";
+        [self.navigationController pushViewController:testVC animated:YES];
     }
-     */
+    
 }
 
 @end
