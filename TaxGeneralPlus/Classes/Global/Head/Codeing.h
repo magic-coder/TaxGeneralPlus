@@ -13,7 +13,7 @@
 
 #ifdef  DEBUG
 // 在控制台输出Log日志
-#define DLog(FORMAT, ...) NSLog((@"Yan输出[Debug Log]%s [Line %d] " FORMAT), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+#define DLog(FORMAT, ...) NSLog((@"Yan -> [Debug Log]%s [Line %d] " FORMAT), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 #else
 #define DLog(...)
 #endif
