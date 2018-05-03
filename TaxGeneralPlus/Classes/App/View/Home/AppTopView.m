@@ -32,10 +32,12 @@
         _btnFont = [UIFont systemFontOfSize:14.0f];
         
         // 设置视图阴影效果（父类调用时，需要将视图层级关系调整到前面）
+        /*
         self.layer.shadowOpacity = 0.5;// 设置阴影的透明度 0~1.0
         self.layer.shadowColor = [UIColor blackColor].CGColor;// 阴影的颜色
         self.layer.shadowOffset = CGSizeMake(0, 3);// 阴影的位移
         self.layer.shadowRadius = 10;// 阴影的模糊程度
+        */
         
         [self addSubview:self.backgroundImageView];
         [self addSearchBar];
