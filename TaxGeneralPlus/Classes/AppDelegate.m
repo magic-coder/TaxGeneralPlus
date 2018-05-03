@@ -33,8 +33,9 @@
 @property (nonatomic, strong) AuthHelper *helper;           // VPN 处理类
 
 // 启动动画遮挡
-@property (nonatomic, strong) CALayer *maskLayer;
-@property (nonatomic, strong) UIView *maskBackgroundView;
+//@property (nonatomic, strong) CALayer *maskLayer;
+//@property (nonatomic, strong) UIView *maskBackgroundView;
+@property (nonatomic, strong) UIImageView *maskBackgroundView;
 
 // 记录使用时间
 @property (nonatomic, assign) double beginTimestamp;
@@ -400,37 +401,31 @@
 
 #pragma mark - 启动欢迎动画加载方法
 #pragma mark 启动欢迎动画遮挡
+/*
+ - (void)welcomeAnimationMask {
+ //logo mask
+ _maskLayer = [CALayer layer];
+ _maskLayer.contents = (id)[UIImage imageNamed:@"common_launch"].CGImage;
+ _maskLayer.position = _rootVC.view.center;
+ _maskLayer.bounds = CGRectMake(0, 0, 60, 60);
+ _rootVC.view.layer.mask = _maskLayer;
+ 
+ //logo mask background view
+ _maskBackgroundView = [[UIView alloc]initWithFrame:_rootVC.view.bounds];
+ _maskBackgroundView.backgroundColor = [UIColor whiteColor];
+ [_rootVC.view addSubview:_maskBackgroundView];
+ [_rootVC.view bringSubviewToFront:_maskBackgroundView];
+ }
+*/
 - (void)welcomeAnimationMask {
-    //logo mask
-    _maskLayer = [CALayer layer];
-    _maskLayer.contents = (id)[UIImage imageNamed:@"common_launch"].CGImage;
-    _maskLayer.position = _rootVC.view.center;
-    _maskLayer.bounds = CGRectMake(0, 0, 60, 60);
-    _rootVC.view.layer.mask = _maskLayer;
-    
     //logo mask background view
-    _maskBackgroundView = [[UIView alloc]initWithFrame:_rootVC.view.bounds];
-    _maskBackgroundView.backgroundColor = [UIColor whiteColor];
+    _maskBackgroundView = [[UIImageView alloc] initWithFrame:_rootVC.view.bounds];
+    _maskBackgroundView.image = [UIImage imageNamed:@"common_launch"];
     [_rootVC.view addSubview:_maskBackgroundView];
     [_rootVC.view bringSubviewToFront:_maskBackgroundView];
 }
 #pragma mark 启动欢迎动画移除
 - (void)welcomeAnimationFade {
-    
-    //logo mask animation
-    CAKeyframeAnimation *logoMaskAnimaiton = [CAKeyframeAnimation animationWithKeyPath:@"bounds"];
-    logoMaskAnimaiton.duration = 1.0f;
-    logoMaskAnimaiton.beginTime = CACurrentMediaTime() + 1.0f;//延迟1秒
-    
-    CGRect initalBounds = _maskLayer.bounds;
-    CGRect secondBounds = CGRectMake(0, 0, 50, 50);
-    CGRect finalBounds  = CGRectMake(0, 0, 5000, 5000);
-    logoMaskAnimaiton.values = @[[NSValue valueWithCGRect:initalBounds],[NSValue valueWithCGRect:secondBounds],[NSValue valueWithCGRect:finalBounds]];
-    logoMaskAnimaiton.keyTimes = @[@(0),@(0.5),@(1)];
-    logoMaskAnimaiton.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut],[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
-    logoMaskAnimaiton.removedOnCompletion = NO;
-    logoMaskAnimaiton.fillMode = kCAFillModeForwards;
-    [_rootVC.view.layer.mask addAnimation:logoMaskAnimaiton forKey:@"logoMaskAnimaiton"];
     
     //maskBackgroundView fade animation
     [UIView animateWithDuration:0.1f delay:1.35f options:UIViewAnimationOptionCurveEaseIn animations:^{
