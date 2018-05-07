@@ -183,11 +183,13 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
             [_data addObject:model];
         }
         
+        [self.sunnyRefreshControl endRefreshing];   // 结束头部刷新动画
+        
         _totalPage = [[dataDict objectForKey:@"totalPage"] intValue];
-        if(_totalPage > 1)
+        if(_totalPage > 1 && !self.tableView.mj_footer)
             self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];    // 设置上拉加载
         
-        [self.sunnyRefreshControl endRefreshing];   // 结束头部刷新动画
+        //[self.sunnyRefreshControl endRefreshing];   // 结束头部刷新动画
         
         [self.tableView reloadData];    // 重新加载数据
         
@@ -215,22 +217,23 @@ static NSString * const reuseIdentifier = @"newsTableViewCell";
     _pageNo++;
     
     [[NewsUtil sharedNewsUtil] moreDataWithPageNo:_pageNo pageSize:10 success:^(NSArray *dataArray) {
+        [self.tableView.mj_footer endRefreshing];// 结束底部刷新
         
         for(NSDictionary *dataDict in dataArray){
             NewsModel *model = [NewsModel createWithDictionary:dataDict];
             [_data addObject:model];
         }
+        
         [self.tableView reloadData];
-        [self.tableView.mj_footer endRefreshing];// 结束底部刷新
         
     } failure:^(NSString *error) {
-        _pageNo--;
         [self.tableView.mj_footer endRefreshing];   // 结束底部刷新
+        _pageNo--;
         
         [MBProgressHUD showHUDView:self.view text:error progressHUDMode:YZProgressHUDModeShow];// 错误提示
     } invalid:^(NSString *msg) {
-        _pageNo--;
         [self.tableView.mj_footer endRefreshing];   // 结束底部刷新
+        _pageNo--;
 
         SHOW_RELOGIN_VIEW
     }];
