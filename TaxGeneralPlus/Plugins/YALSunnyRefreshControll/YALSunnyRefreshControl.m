@@ -130,7 +130,7 @@ static const CGFloat DefaultScreenWidth = 320.f;
 
 -(void)beginRefreshing {
     
-    //[self.scrollView setContentInset:UIEdgeInsetsMake(DefaultHeight+HEIGHT_STATUS, 0.f, 0.f, 0.f)];
+//    [self.scrollView setContentInset:UIEdgeInsetsMake(DefaultHeight+HEIGHT_STATUS, 0.f, 0.f, 0.f)];
     [self.scrollView setContentOffset:CGPointMake(0.f, -DefaultHeight-HEIGHT_STATUS) animated:YES];
     self.sunTopConstraint.constant = 11 + HEIGHT_STATUS;
     self.forbidContentInsetChanges = YES;
@@ -155,9 +155,11 @@ static const CGFloat DefaultScreenWidth = 320.f;
           initialSpringVelocity:AnimationVelosity
                         options:UIViewAnimationOptionCurveLinear
                      animations:^{
-                         //[self.scrollView setContentInset:UIEdgeInsetsMake(0, 0.f, 0.f, 0.f)];
+//                         [self.scrollView setContentInset:UIEdgeInsetsMake(0, 0.f, 0.f, 0.f)];
                          self.scrollView.contentOffset = CGPointZero;
+
                      } completion:nil];
+
     self.forbidSunSet = NO;
     [self stopSunRotating];
 }
