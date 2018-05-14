@@ -106,7 +106,6 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;// 设置顶部状态栏字体为白色
     
     if(IS_LOGIN){
-        DLog(@"------self.isReload ------ %@",self.isReload?@"YES":@"NO");
         if(self.isReload)
             [[BaseSandBoxUtil sharedBaseSandBoxUtil] removeFileName:APP_FILE];
         // 获取应用数据
