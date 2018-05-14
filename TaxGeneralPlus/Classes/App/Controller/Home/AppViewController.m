@@ -82,6 +82,8 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     
     // 初始化最新数据
     if(IS_LOGIN){
+        [[BaseSandBoxUtil sharedBaseSandBoxUtil] removeFileName:APP_FILE];
+        
         [[AppUtil sharedAppUtil] initAppDataSuccess:^(NSMutableDictionary *dataDict) {
             [self initAppData:dataDict];
         } failure:^(NSString *error) {
@@ -103,7 +105,7 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;// 设置顶部状态栏字体为白色
     
     if(IS_LOGIN){
-        [[BaseSandBoxUtil sharedBaseSandBoxUtil] removeFileName:APP_FILE];
+        //[[BaseSandBoxUtil sharedBaseSandBoxUtil] removeFileName:APP_FILE];
         // 获取应用数据
         NSDictionary *appData = [[AppUtil sharedAppUtil] loadAppData];
         if(appData){
