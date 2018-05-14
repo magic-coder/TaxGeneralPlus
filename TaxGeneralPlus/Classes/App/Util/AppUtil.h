@@ -26,4 +26,14 @@ SingletonH(AppUtil)
 
 - (NSMutableArray *)loadSearchData;
 
+/// 对数据进行分组排序
+- (NSMutableArray *)groupWithArray:(NSArray *)array;
+
+/// 向服务器保存自定义app排序
+- (void)saveCustomData:(NSArray *)customData
+               success:(void (^)(id responseObject))success
+               failure:(void (^)(NSString *error))failure
+               invalid:(void (^)(NSString *msg))invalid;
+
+
 @end
