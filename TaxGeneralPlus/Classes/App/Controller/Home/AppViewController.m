@@ -46,6 +46,7 @@ typedef NS_ENUM(NSInteger, AppViewType) {
 @property (nonatomic, assign) float mineAppViewHeight;
 @property (nonatomic, assign) float otherAppViewHeight;
 @property (nonatomic, assign) BOOL adjustStatus;                    // 是否进行了重新排序操作
+@property (nonatomic, assign, getter=isReload) BOOL reload;         // 是否从新加载数据
 
 @property (nonatomic, strong) NSMutableArray *mineDataArray;        // 我的应用数据
 @property (nonatomic, strong) NSMutableArray *mineBorderViewArray;  // 我的应用底层虚线视图
@@ -105,7 +106,9 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;// 设置顶部状态栏字体为白色
     
     if(IS_LOGIN){
-        //[[BaseSandBoxUtil sharedBaseSandBoxUtil] removeFileName:APP_FILE];
+        DLog(@"------self.isReload ------ %@",self.isReload?@"YES":@"NO");
+        if(self.isReload)
+            [[BaseSandBoxUtil sharedBaseSandBoxUtil] removeFileName:APP_FILE];
         // 获取应用数据
         NSDictionary *appData = [[AppUtil sharedAppUtil] loadAppData];
         if(appData){
@@ -131,6 +134,8 @@ typedef NS_ENUM(NSInteger, AppViewType) {
 #pragma mark - 视图已经显示调用的方法
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    self.reload = NO;
     
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];// 设置导航栏itemBar字体颜色
     self.navigationController.navigationBar.titleTextAttributes = @{ NSForegroundColorAttributeName : [UIColor whiteColor] };// 设置导航栏title标题字体颜色
@@ -408,6 +413,7 @@ typedef NS_ENUM(NSInteger, AppViewType) {
         viewController = [[NSClassFromString(@"AppSearchViewController") class] new];
     }
     if(sender.tag == 2){
+        self.reload = YES;
         viewController = [[NSClassFromString(@"AppEditViewController") class] new];
     }
     if(sender.tag == 21){   // 通知公告
