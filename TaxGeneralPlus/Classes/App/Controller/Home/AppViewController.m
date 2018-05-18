@@ -52,7 +52,7 @@ typedef NS_ENUM(NSInteger, AppViewType) {
 @property (nonatomic, strong) NSMutableArray *mineBorderViewArray;  // 我的应用底层虚线视图
 @property (nonatomic, strong) NSMutableArray *mineAppViewArray;     // 我是应用视图
 
-@property (nonatomic, strong) NSMutableArray *otherDataArray;        // 其他/更多应用数据
+@property (nonatomic, strong) NSMutableArray *allDataArray;        // 其他/更多应用数据
 
 @end
 
@@ -84,7 +84,6 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     // 初始化最新数据
     if(IS_LOGIN){
         [[BaseSandBoxUtil sharedBaseSandBoxUtil] removeFileName:APP_FILE];
-        
         [[AppUtil sharedAppUtil] initAppDataSuccess:^(NSMutableDictionary *dataDict) {
             [self initAppData:dataDict];
         } failure:^(NSString *error) {
@@ -135,7 +134,6 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     [super viewDidAppear:animated];
     
     self.reload = NO;
-    
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];// 设置导航栏itemBar字体颜色
     self.navigationController.navigationBar.titleTextAttributes = @{ NSForegroundColorAttributeName : [UIColor whiteColor] };// 设置导航栏title标题字体颜色
 }
@@ -163,10 +161,10 @@ typedef NS_ENUM(NSInteger, AppViewType) {
     _mineDataArray = [NSMutableArray array];
     _mineDataArray = [data objectForKey:@"mineData"];
     
-    _otherDataArray = [NSMutableArray array];
-    _otherDataArray = [data objectForKey:@"otherGroupData"];
+    _allDataArray = [NSMutableArray array];
+    _allDataArray = [data objectForKey:@"allGroupData"];
     [self initMineAppBorderView];
-    [self initAppViewData:_otherDataArray type:AppViewTypeOther];
+    [self initAppViewData:_allDataArray type:AppViewTypeOther];
     [self.baseScrollView setContentSize:CGSizeMake(WIDTH_SCREEN, _otherAppViewHeight + HEIGHT_STATUS + 15)];
 }
 

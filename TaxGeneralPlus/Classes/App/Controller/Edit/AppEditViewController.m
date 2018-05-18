@@ -105,9 +105,8 @@ static NSString * const reuseHeaderIdentifier = @"reuseHeaderIdentifier";
 #pragma mark - 处理数据
 - (void)handleData:(NSMutableDictionary *)data{
     NSArray *mineAppData = [data objectForKey:@"mineData"];
-    NSArray *allAppData = [data objectForKey:@"allData"];
+    NSMutableArray *allGroupData = [data objectForKey:@"allGroupData"];
     // 对其他应用进行分组排序
-    NSMutableArray *allGroupData = [[AppUtil sharedAppUtil] groupWithArray:allAppData];
 
     _data = [NSMutableArray array];
 

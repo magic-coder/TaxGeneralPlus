@@ -65,13 +65,13 @@ SingletonM(AppUtil)
         [self sortWithArray:mineData key:@"userappsort" ascending:YES];
         
         // 对其他应用进行分组排序
-        NSMutableArray *otherGroupData = [self groupWithArray:otherData];
+        NSMutableArray *allGroupData = [self groupWithArray:allData];
         
         // 对子应用进行排序
         [self sortWithArray:subData key:@"appsort" ascending:YES];
         
         // 最终数据（写入SandBox的数据）[第一级主应用]
-        NSMutableDictionary *dataDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:mineData, @"mineData", otherData, @"otherData", otherGroupData, @"otherGroupData", allData, @"allData", nil];
+        NSMutableDictionary *dataDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:mineData, @"mineData", otherData, @"otherData", allGroupData, @"allGroupData", allData, @"allData", nil];
         [self writeAppData:dataDict];
         
         // 最终数据（写入SandBox的数据）[子类应用]
